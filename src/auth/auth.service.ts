@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { LoginDto } from './dto/login-user.dto';
 import { RegisterDto } from './dto/register-user.dto';
 import * as bcrypt from 'bcryptjs';
@@ -17,6 +17,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private prisma: PrismaService,
   ) {}
+
+  async getTokens(id: string): Promise<Partial<any>> {
+    try {
+      const accessToken = await this.jwtService.signAsync(
+        { id },
+        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '15m' },
+      );
+      const refreshToken = await this.jwtService.signAsync(
+        { id },
+        { secret: process.env.JWT_REFRESH_SECRET!, expiresIn: '7d' },
+      );
+      return { accessToken, refreshToken };
+    } catch (e) {
+      console.log(e);
+    }
+    return {};
+  }
 
   async registerUser(dto: RegisterDto): Promise<any> {
     if (dto.password !== dto.confirmPassword)
@@ -34,21 +51,23 @@ export class AuthService {
           email: dto.email,
         },
       });
-      const { id } = user;
-      const accessToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '15m' },
-      );
-      const refreshToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_REFRESH_SECRET!, expiresIn: '7d' },
-      );
+
+      const { accessToken, refreshToken } = await this.getTokens(user.id);
+
+      const userToken = await this.prisma.jwtToken.create({
+        data: {
+          userId: user.id,
+          refreshToken: refreshToken,
+        },
+      });
       console.log({ user, accessToken, refreshToken });
+      console.log(userToken);
       return { user, accessToken, refreshToken };
     } catch (e) {
       console.log(e);
     }
   }
+
   async loginUser(dto: LoginDto): Promise<any> {
     try {
       const user = await this.prisma.user.findUnique({
@@ -61,15 +80,8 @@ export class AuthService {
       if (!rightPassword) {
         throw new UnauthorizedException('Wrong password!');
       }
-      const { id } = user;
-      const accessToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '15s' },
-      );
-      const refreshToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_REFRESH_SECRET!, expiresIn: '7d' },
-      );
+      const { accessToken, refreshToken } = await this.getTokens(user.id);
+
       return { user, accessToken, refreshToken };
     } catch (e) {
       console.log(e);
