@@ -146,6 +146,17 @@ exports.Prisma.JwtTokenScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.SteamUserScalarFieldEnum = {
+  id: 'id',
+  personalName: 'personalName',
+  profileUrl: 'profileUrl',
+  avatar: 'avatar',
+  realname: 'realname',
+  timeCreated: 'timeCreated',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -171,7 +182,8 @@ exports.UserRole = exports.$Enums.UserRole = {
 exports.Prisma.ModelName = {
   User: 'User',
   Comment: 'Comment',
-  JwtToken: 'JwtToken'
+  JwtToken: 'JwtToken',
+  SteamUser: 'SteamUser'
 };
 
 /**

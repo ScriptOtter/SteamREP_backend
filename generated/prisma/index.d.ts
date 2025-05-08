@@ -28,6 +28,11 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type JwtToken = $Result.DefaultSelection<Prisma.$JwtTokenPayload>
+/**
+ * Model SteamUser
+ * 
+ */
+export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
 
 /**
  * Enums
@@ -203,6 +208,16 @@ export class PrismaClient<
     * ```
     */
   get jwtToken(): Prisma.JwtTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.steamUser`: Exposes CRUD operations for the **SteamUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SteamUsers
+    * const steamUsers = await prisma.steamUser.findMany()
+    * ```
+    */
+  get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -645,7 +660,8 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Comment: 'Comment',
-    JwtToken: 'JwtToken'
+    JwtToken: 'JwtToken',
+    SteamUser: 'SteamUser'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -664,7 +680,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "comment" | "jwtToken"
+      modelProps: "user" | "comment" | "jwtToken" | "steamUser"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -890,6 +906,80 @@ export namespace Prisma {
           }
         }
       }
+      SteamUser: {
+        payload: Prisma.$SteamUserPayload<ExtArgs>
+        fields: Prisma.SteamUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SteamUserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SteamUserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          findFirst: {
+            args: Prisma.SteamUserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SteamUserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          findMany: {
+            args: Prisma.SteamUserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          create: {
+            args: Prisma.SteamUserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          createMany: {
+            args: Prisma.SteamUserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SteamUserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          delete: {
+            args: Prisma.SteamUserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          update: {
+            args: Prisma.SteamUserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.SteamUserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SteamUserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SteamUserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          upsert: {
+            args: Prisma.SteamUserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          aggregate: {
+            args: Prisma.SteamUserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSteamUser>
+          }
+          groupBy: {
+            args: Prisma.SteamUserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SteamUserCountArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -977,6 +1067,7 @@ export namespace Prisma {
     user?: UserOmit
     comment?: CommentOmit
     jwtToken?: JwtTokenOmit
+    steamUser?: SteamUserOmit
   }
 
   /* Types for Logging */
@@ -4396,6 +4487,1040 @@ export namespace Prisma {
 
 
   /**
+   * Model SteamUser
+   */
+
+  export type AggregateSteamUser = {
+    _count: SteamUserCountAggregateOutputType | null
+    _min: SteamUserMinAggregateOutputType | null
+    _max: SteamUserMaxAggregateOutputType | null
+  }
+
+  export type SteamUserMinAggregateOutputType = {
+    id: string | null
+    personalName: string | null
+    profileUrl: string | null
+    avatar: string | null
+    realname: string | null
+    timeCreated: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SteamUserMaxAggregateOutputType = {
+    id: string | null
+    personalName: string | null
+    profileUrl: string | null
+    avatar: string | null
+    realname: string | null
+    timeCreated: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SteamUserCountAggregateOutputType = {
+    id: number
+    personalName: number
+    profileUrl: number
+    avatar: number
+    realname: number
+    timeCreated: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SteamUserMinAggregateInputType = {
+    id?: true
+    personalName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SteamUserMaxAggregateInputType = {
+    id?: true
+    personalName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SteamUserCountAggregateInputType = {
+    id?: true
+    personalName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SteamUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUser to aggregate.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SteamUsers
+    **/
+    _count?: true | SteamUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SteamUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SteamUserMaxAggregateInputType
+  }
+
+  export type GetSteamUserAggregateType<T extends SteamUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateSteamUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSteamUser[P]>
+      : GetScalarType<T[P], AggregateSteamUser[P]>
+  }
+
+
+
+
+  export type SteamUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SteamUserWhereInput
+    orderBy?: SteamUserOrderByWithAggregationInput | SteamUserOrderByWithAggregationInput[]
+    by: SteamUserScalarFieldEnum[] | SteamUserScalarFieldEnum
+    having?: SteamUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SteamUserCountAggregateInputType | true
+    _min?: SteamUserMinAggregateInputType
+    _max?: SteamUserMaxAggregateInputType
+  }
+
+  export type SteamUserGroupByOutputType = {
+    id: string
+    personalName: string
+    profileUrl: string
+    avatar: string
+    realname: string
+    timeCreated: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SteamUserCountAggregateOutputType | null
+    _min: SteamUserMinAggregateOutputType | null
+    _max: SteamUserMaxAggregateOutputType | null
+  }
+
+  type GetSteamUserGroupByPayload<T extends SteamUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SteamUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SteamUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
+            : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SteamUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personalName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personalName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personalName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectScalar = {
+    id?: boolean
+    personalName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personalName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+
+  export type $SteamUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SteamUser"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      personalName: string
+      profileUrl: string
+      avatar: string
+      realname: string
+      timeCreated: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["steamUser"]>
+    composites: {}
+  }
+
+  type SteamUserGetPayload<S extends boolean | null | undefined | SteamUserDefaultArgs> = $Result.GetResult<Prisma.$SteamUserPayload, S>
+
+  type SteamUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SteamUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SteamUserCountAggregateInputType | true
+    }
+
+  export interface SteamUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SteamUser'], meta: { name: 'SteamUser' } }
+    /**
+     * Find zero or one SteamUser that matches the filter.
+     * @param {SteamUserFindUniqueArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SteamUserFindUniqueArgs>(args: SelectSubset<T, SteamUserFindUniqueArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SteamUser that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SteamUserFindUniqueOrThrowArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SteamUserFindUniqueOrThrowArgs>(args: SelectSubset<T, SteamUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindFirstArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SteamUserFindFirstArgs>(args?: SelectSubset<T, SteamUserFindFirstArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindFirstOrThrowArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SteamUserFindFirstOrThrowArgs>(args?: SelectSubset<T, SteamUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SteamUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SteamUsers
+     * const steamUsers = await prisma.steamUser.findMany()
+     * 
+     * // Get first 10 SteamUsers
+     * const steamUsers = await prisma.steamUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SteamUserFindManyArgs>(args?: SelectSubset<T, SteamUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SteamUser.
+     * @param {SteamUserCreateArgs} args - Arguments to create a SteamUser.
+     * @example
+     * // Create one SteamUser
+     * const SteamUser = await prisma.steamUser.create({
+     *   data: {
+     *     // ... data to create a SteamUser
+     *   }
+     * })
+     * 
+     */
+    create<T extends SteamUserCreateArgs>(args: SelectSubset<T, SteamUserCreateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SteamUsers.
+     * @param {SteamUserCreateManyArgs} args - Arguments to create many SteamUsers.
+     * @example
+     * // Create many SteamUsers
+     * const steamUser = await prisma.steamUser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SteamUserCreateManyArgs>(args?: SelectSubset<T, SteamUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SteamUsers and returns the data saved in the database.
+     * @param {SteamUserCreateManyAndReturnArgs} args - Arguments to create many SteamUsers.
+     * @example
+     * // Create many SteamUsers
+     * const steamUser = await prisma.steamUser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SteamUsers and only return the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SteamUserCreateManyAndReturnArgs>(args?: SelectSubset<T, SteamUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SteamUser.
+     * @param {SteamUserDeleteArgs} args - Arguments to delete one SteamUser.
+     * @example
+     * // Delete one SteamUser
+     * const SteamUser = await prisma.steamUser.delete({
+     *   where: {
+     *     // ... filter to delete one SteamUser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SteamUserDeleteArgs>(args: SelectSubset<T, SteamUserDeleteArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SteamUser.
+     * @param {SteamUserUpdateArgs} args - Arguments to update one SteamUser.
+     * @example
+     * // Update one SteamUser
+     * const steamUser = await prisma.steamUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SteamUserUpdateArgs>(args: SelectSubset<T, SteamUserUpdateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SteamUsers.
+     * @param {SteamUserDeleteManyArgs} args - Arguments to filter SteamUsers to delete.
+     * @example
+     * // Delete a few SteamUsers
+     * const { count } = await prisma.steamUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SteamUserDeleteManyArgs>(args?: SelectSubset<T, SteamUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SteamUsers
+     * const steamUser = await prisma.steamUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SteamUserUpdateManyArgs>(args: SelectSubset<T, SteamUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUsers and returns the data updated in the database.
+     * @param {SteamUserUpdateManyAndReturnArgs} args - Arguments to update many SteamUsers.
+     * @example
+     * // Update many SteamUsers
+     * const steamUser = await prisma.steamUser.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SteamUsers and only return the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SteamUserUpdateManyAndReturnArgs>(args: SelectSubset<T, SteamUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SteamUser.
+     * @param {SteamUserUpsertArgs} args - Arguments to update or create a SteamUser.
+     * @example
+     * // Update or create a SteamUser
+     * const steamUser = await prisma.steamUser.upsert({
+     *   create: {
+     *     // ... data to create a SteamUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SteamUser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SteamUserUpsertArgs>(args: SelectSubset<T, SteamUserUpsertArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SteamUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserCountArgs} args - Arguments to filter SteamUsers to count.
+     * @example
+     * // Count the number of SteamUsers
+     * const count = await prisma.steamUser.count({
+     *   where: {
+     *     // ... the filter for the SteamUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SteamUserCountArgs>(
+      args?: Subset<T, SteamUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SteamUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SteamUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SteamUserAggregateArgs>(args: Subset<T, SteamUserAggregateArgs>): Prisma.PrismaPromise<GetSteamUserAggregateType<T>>
+
+    /**
+     * Group by SteamUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SteamUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SteamUserGroupByArgs['orderBy'] }
+        : { orderBy?: SteamUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SteamUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSteamUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SteamUser model
+   */
+  readonly fields: SteamUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SteamUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SteamUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SteamUser model
+   */
+  interface SteamUserFieldRefs {
+    readonly id: FieldRef<"SteamUser", 'String'>
+    readonly personalName: FieldRef<"SteamUser", 'String'>
+    readonly profileUrl: FieldRef<"SteamUser", 'String'>
+    readonly avatar: FieldRef<"SteamUser", 'String'>
+    readonly realname: FieldRef<"SteamUser", 'String'>
+    readonly timeCreated: FieldRef<"SteamUser", 'String'>
+    readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
+    readonly updatedAt: FieldRef<"SteamUser", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SteamUser findUnique
+   */
+  export type SteamUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser findUniqueOrThrow
+   */
+  export type SteamUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser findFirst
+   */
+  export type SteamUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUsers.
+     */
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser findFirstOrThrow
+   */
+  export type SteamUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUsers.
+     */
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser findMany
+   */
+  export type SteamUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamUsers to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser create
+   */
+  export type SteamUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SteamUser.
+     */
+    data: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
+  }
+
+  /**
+   * SteamUser createMany
+   */
+  export type SteamUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SteamUsers.
+     */
+    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamUser createManyAndReturn
+   */
+  export type SteamUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data used to create many SteamUsers.
+     */
+    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamUser update
+   */
+  export type SteamUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SteamUser.
+     */
+    data: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
+    /**
+     * Choose, which SteamUser to update.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser updateMany
+   */
+  export type SteamUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SteamUsers.
+     */
+    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUsers to update
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUser updateManyAndReturn
+   */
+  export type SteamUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data used to update SteamUsers.
+     */
+    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUsers to update
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUser upsert
+   */
+  export type SteamUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SteamUser to update in case it exists.
+     */
+    where: SteamUserWhereUniqueInput
+    /**
+     * In case the SteamUser found by the `where` argument doesn't exist, create a new SteamUser with this data.
+     */
+    create: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
+    /**
+     * In case the SteamUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
+  }
+
+  /**
+   * SteamUser delete
+   */
+  export type SteamUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Filter which SteamUser to delete.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser deleteMany
+   */
+  export type SteamUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUsers to delete
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUser without action
+   */
+  export type SteamUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4442,6 +5567,20 @@ export namespace Prisma {
   };
 
   export type JwtTokenScalarFieldEnum = (typeof JwtTokenScalarFieldEnum)[keyof typeof JwtTokenScalarFieldEnum]
+
+
+  export const SteamUserScalarFieldEnum: {
+    id: 'id',
+    personalName: 'personalName',
+    profileUrl: 'profileUrl',
+    avatar: 'avatar',
+    realname: 'realname',
+    timeCreated: 'timeCreated',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4717,6 +5856,73 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"JwtToken"> | string
   }
 
+  export type SteamUserWhereInput = {
+    AND?: SteamUserWhereInput | SteamUserWhereInput[]
+    OR?: SteamUserWhereInput[]
+    NOT?: SteamUserWhereInput | SteamUserWhereInput[]
+    id?: StringFilter<"SteamUser"> | string
+    personalName?: StringFilter<"SteamUser"> | string
+    profileUrl?: StringFilter<"SteamUser"> | string
+    avatar?: StringFilter<"SteamUser"> | string
+    realname?: StringFilter<"SteamUser"> | string
+    timeCreated?: StringFilter<"SteamUser"> | string
+    createdAt?: DateTimeFilter<"SteamUser"> | Date | string
+    updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
+  }
+
+  export type SteamUserOrderByWithRelationInput = {
+    id?: SortOrder
+    personalName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SteamUserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SteamUserWhereInput | SteamUserWhereInput[]
+    OR?: SteamUserWhereInput[]
+    NOT?: SteamUserWhereInput | SteamUserWhereInput[]
+    personalName?: StringFilter<"SteamUser"> | string
+    profileUrl?: StringFilter<"SteamUser"> | string
+    avatar?: StringFilter<"SteamUser"> | string
+    realname?: StringFilter<"SteamUser"> | string
+    timeCreated?: StringFilter<"SteamUser"> | string
+    createdAt?: DateTimeFilter<"SteamUser"> | Date | string
+    updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
+  }, "id">
+
+  export type SteamUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    personalName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SteamUserCountOrderByAggregateInput
+    _max?: SteamUserMaxOrderByAggregateInput
+    _min?: SteamUserMinOrderByAggregateInput
+  }
+
+  export type SteamUserScalarWhereWithAggregatesInput = {
+    AND?: SteamUserScalarWhereWithAggregatesInput | SteamUserScalarWhereWithAggregatesInput[]
+    OR?: SteamUserScalarWhereWithAggregatesInput[]
+    NOT?: SteamUserScalarWhereWithAggregatesInput | SteamUserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SteamUser"> | string
+    personalName?: StringWithAggregatesFilter<"SteamUser"> | string
+    profileUrl?: StringWithAggregatesFilter<"SteamUser"> | string
+    avatar?: StringWithAggregatesFilter<"SteamUser"> | string
+    realname?: StringWithAggregatesFilter<"SteamUser"> | string
+    timeCreated?: StringWithAggregatesFilter<"SteamUser"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     createdAt?: Date | string
@@ -4906,6 +6112,83 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SteamUserCreateInput = {
+    id: string
+    personalName: string
+    profileUrl: string
+    avatar: string
+    realname: string
+    timeCreated: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SteamUserUncheckedCreateInput = {
+    id: string
+    personalName: string
+    profileUrl: string
+    avatar: string
+    realname: string
+    timeCreated: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SteamUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: StringFieldUpdateOperationsInput | string
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SteamUserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: StringFieldUpdateOperationsInput | string
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SteamUserCreateManyInput = {
+    id: string
+    personalName: string
+    profileUrl: string
+    avatar: string
+    realname: string
+    timeCreated: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SteamUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: StringFieldUpdateOperationsInput | string
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SteamUserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: StringFieldUpdateOperationsInput | string
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -5127,6 +6410,39 @@ export namespace Prisma {
     id?: SortOrder
     refreshToken?: SortOrder
     userId?: SortOrder
+  }
+
+  export type SteamUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    personalName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SteamUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    personalName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SteamUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    personalName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CommentCreateNestedManyWithoutAuthorInput = {
