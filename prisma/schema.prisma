@@ -56,7 +56,7 @@ model SteamUser {
   personaName String @map("persona_name")
   profileUrl String @map("profile_url")
   avatar String
-  realname String
+  realname String?
   timeCreated String @map("time_created")
 
   createdAt   DateTime @default(now()) @map("created_at")
