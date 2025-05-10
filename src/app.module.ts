@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
@@ -10,6 +10,7 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { CommentModule } from './comment/comment.module';
 import { SteamModule } from './steam/steam.module';
+import { CookieMiddleware } from './middleware/cookie.middleware';
 
 @Module({
   imports: [
@@ -24,4 +25,8 @@ import { SteamModule } from './steam/steam.module';
   controllers: [AppController, AuthController, UserController],
   providers: [AppService, AuthService, UserService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CookieMiddleware).forRoutes('comment');
+  }
+}

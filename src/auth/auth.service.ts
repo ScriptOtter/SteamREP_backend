@@ -10,6 +10,8 @@ import { RegisterDto } from './dto/register-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TokensDto } from './dto/tokens.dto';
+import { Request, Response } from 'express';
+import { ref } from 'process';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +19,29 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private prisma: PrismaService,
   ) {}
+
+  private sendTokens(
+    res: Response,
+    user: LoginDto,
+    accessToken: string,
+    refreshToken: string,
+  ): Boolean {
+    try {
+      res.cookie('SteamREP_accessToken', accessToken, {
+        httpOnly: true,
+        secure: false,
+      });
+      res.cookie('SteamREP_refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+      });
+      res.json(user);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
 
   async getTokens(id: string): Promise<Partial<any>> {
     try {
@@ -28,6 +53,7 @@ export class AuthService {
         { id },
         { secret: process.env.JWT_REFRESH_SECRET!, expiresIn: '7d' },
       );
+
       return { accessToken, refreshToken };
     } catch (e) {
       console.log(e);
@@ -35,7 +61,7 @@ export class AuthService {
     return {};
   }
 
-  async registerUser(dto: RegisterDto): Promise<any> {
+  async registerUser(dto: RegisterDto, res: Response): Promise<any> {
     if (dto.password !== dto.confirmPassword)
       throw new BadRequestException('Password do not match!');
 
@@ -60,15 +86,15 @@ export class AuthService {
           refreshToken: refreshToken,
         },
       });
-      console.log({ user, accessToken, refreshToken });
-      console.log(userToken);
-      return { user, accessToken, refreshToken };
+      if (!this.sendTokens(res, user, accessToken, refreshToken)) {
+        return;
+      }
     } catch (e) {
       console.log(e);
     }
   }
 
-  async loginUser(dto: LoginDto): Promise<any> {
+  async loginUser(dto: LoginDto, res: Response): Promise<any> {
     try {
       const user = await this.prisma.user.findUnique({
         where: { username: dto.username },
@@ -82,7 +108,15 @@ export class AuthService {
       }
       const { accessToken, refreshToken } = await this.getTokens(user.id);
 
-      return { user, accessToken, refreshToken };
+      const userToken = await this.prisma.jwtToken.create({
+        data: {
+          userId: user.id,
+          refreshToken: refreshToken,
+        },
+      });
+      if (!this.sendTokens(res, user, accessToken, refreshToken)) {
+        return;
+      }
     } catch (e) {
       console.log(e);
     }

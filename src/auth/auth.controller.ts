@@ -1,9 +1,16 @@
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  HttpCode,
+  HttpStatus,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { TokensDto } from './dto/tokens.dto';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -11,14 +18,14 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
-  signUp(@Body() dto: RegisterDto) {
-    return this.authService.registerUser(dto);
+  signUp(@Body() dto: RegisterDto, @Res() res: Response) {
+    return this.authService.registerUser(dto, res);
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('signin')
-  signIn(@Body() dto: LoginDto) {
-    return this.authService.loginUser(dto);
+  signIn(@Body() dto: LoginDto, @Res() res: Response) {
+    return this.authService.loginUser(dto, res);
   }
 
   @HttpCode(HttpStatus.OK)
