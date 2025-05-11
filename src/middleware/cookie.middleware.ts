@@ -26,7 +26,6 @@ export class Prisma {
 
 export class CookieMiddleware extends Prisma implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
-    // Используем cookieParser как промис
     cookieParser()(req, res, async (err) => {
       if (err) {
         return next(err);
@@ -35,7 +34,6 @@ export class CookieMiddleware extends Prisma implements NestMiddleware {
       console.log(req.cookies.SteamREP_refreshToken);
 
       try {
-        // Используем await для асинхронной функции
         const user = await this.searchUser(req.cookies.SteamREP_refreshToken);
 
         console.log(user);

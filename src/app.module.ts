@@ -11,6 +11,8 @@ import { UserService } from './user/user.service';
 import { CommentModule } from './comment/comment.module';
 import { SteamModule } from './steam/steam.module';
 import { CookieMiddleware } from './middleware/cookie.middleware';
+import { ProtectedController } from './protected.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,12 +23,18 @@ import { CookieMiddleware } from './middleware/cookie.middleware';
     UserModule,
     CommentModule,
     SteamModule,
+    AuthModule,
   ],
-  controllers: [AppController, AuthController, UserController],
+  controllers: [
+    AppController,
+    AuthController,
+    UserController,
+    ProtectedController,
+  ],
   providers: [AppService, AuthService, UserService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CookieMiddleware).forRoutes('comment');
+    consumer.apply(CookieMiddleware).forRoutes('asdas');
   }
 }

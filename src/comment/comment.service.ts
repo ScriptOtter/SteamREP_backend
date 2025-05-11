@@ -8,7 +8,7 @@ export class CommentService {
 
   async createComment(dto: CreateCommentDto): Promise<any> {
     const { content, author_id, recipient_id } = dto;
-    console.log(content, author_id, recipient_id);
+    //console.log(content, author_id, recipient_id);
 
     try {
       const comment = await this.prisma.comment.create({

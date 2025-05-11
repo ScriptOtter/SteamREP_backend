@@ -5,12 +5,15 @@ import {
   HttpCode,
   HttpStatus,
   Res,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
 import { TokensDto } from './dto/tokens.dto';
-import { Response } from 'express';
+import { Response, Request } from 'express';
+import { JwtAuthGuard } from 'src/guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,8 +32,15 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('verify')
-  verify(@Body() dto: TokensDto) {
-    return this.authService.verifyToken(dto);
+  @Post('refresh')
+  refreshAccessToken(@Req() req: Request, @Res() res: Response) {
+    return this.authService.refreshAccessToken(req, res);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  logout(@Req() req: Request, @Res() res: Response) {
+    return this.authService.logout(req, res);
   }
 }

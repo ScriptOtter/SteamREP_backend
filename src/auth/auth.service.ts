@@ -11,7 +11,6 @@ import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TokensDto } from './dto/tokens.dto';
 import { Request, Response } from 'express';
-import { ref } from 'process';
 
 @Injectable()
 export class AuthService {
@@ -47,7 +46,7 @@ export class AuthService {
     try {
       const accessToken = await this.jwtService.signAsync(
         { id },
-        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '15m' },
+        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '1s' },
       );
       const refreshToken = await this.jwtService.signAsync(
         { id },
@@ -122,7 +121,56 @@ export class AuthService {
     }
   }
 
-  async verifyToken(dto: TokensDto) {
-    return;
+  async refreshAccessToken(req: Request, res: Response) {
+    if (!(req.cookies.SteamREP_refreshToken == '')) {
+      try {
+        const user = await this.prisma.jwtToken.findFirst({
+          where: { refreshToken: req.cookies.SteamREP_refreshToken },
+        });
+        if (!user) {
+          throw new UnauthorizedException();
+        }
+        const { accessToken, refreshToken } = await this.getTokens(user.id);
+        res.cookie('SteamREP_refreshToken', refreshToken);
+        res.cookie('SteamREP_accessToken', accessToken);
+        const token = await this.prisma.jwtToken.update({
+          where: { id: user.id },
+          data: { refreshToken: refreshToken },
+        });
+        if (!token) {
+          throw new UnauthorizedException();
+        }
+
+        res.json('logout');
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+
+  async logout(req: Request, res: Response) {
+    const refreshToken = req.cookies.SteamREP_refreshToken;
+    console.log(refreshToken);
+    if (!(refreshToken == '')) {
+      try {
+        const tokenToDelete = await this.prisma.jwtToken.findFirst({
+          where: { refreshToken: refreshToken },
+        });
+        if (!tokenToDelete) {
+          throw new UnauthorizedException();
+        }
+        const token = await this.prisma.jwtToken.delete({
+          where: { id: tokenToDelete.id },
+        });
+        if (!token) {
+          throw new UnauthorizedException();
+        }
+        res.cookie('SteamREP_refreshToken', '');
+        res.cookie('SteamREP_accessToken', '');
+        res.json('logout');
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 }
