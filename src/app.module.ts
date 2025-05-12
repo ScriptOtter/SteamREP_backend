@@ -13,6 +13,7 @@ import { SteamModule } from './steam/steam.module';
 import { CookieMiddleware } from './middleware/cookie.middleware';
 import { ProtectedController } from './protected.controller';
 import { AuthModule } from './auth/auth.module';
+import { TokenService } from './auth/tokens/tokens.service';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
     UserController,
     ProtectedController,
   ],
-  providers: [AppService, AuthService, UserService],
+  providers: [AppService, AuthService, TokenService, UserService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

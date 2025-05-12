@@ -4,19 +4,40 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from '../auth.service';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtAccessStrategy extends PassportStrategy(
+  Strategy,
+  'jwt_access',
+) {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req) => {
-          return req?.cookies?.SteamREP_accessToken; // Извлечение токена из куки
+          return req?.cookies?.SteamREP_accessToken;
         },
       ]),
       secretOrKey: process.env.JWT_ACCESS_SECRET!,
     });
-    console.log(ExtractJwt.fromAuthHeaderAsBearerToken());
   }
 
+  async validate(payload: any) {
+    return true;
+  }
+}
+
+export class JwtRefreshStrategy extends PassportStrategy(
+  Strategy,
+  'jwt_refresh',
+) {
+  constructor(private readonly authService: AuthService) {
+    super({
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req) => {
+          return req?.cookies?.SteamREP_refreshToken;
+        },
+      ]),
+      secretOrKey: process.env.JWT_REFRESH_SECRET!,
+    });
+  }
   async validate(payload: any) {
     return true;
   }

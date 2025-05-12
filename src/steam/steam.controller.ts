@@ -5,11 +5,13 @@ import {
   HttpStatus,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { SteamService } from './steam.service';
 import { SteamUrlDto } from './dto/steamUrl.dto';
 import { Steam64IdDto } from './dto/steamId.dto';
 import { SteamPrismaService } from './steam-prisma.service';
+import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 
 @Controller()
 export class SteamController {
@@ -19,14 +21,9 @@ export class SteamController {
   ) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post('steam64id')
-  getSteam64Id(@Body() dto: SteamUrlDto) {
-    return this.steamService.getSteam64Id(dto);
-  }
-
-  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAccessGuard)
   @Post(':steamid')
-  createUser(@Param('steamid') dto: Steam64IdDto) {
+  createSteamUser(@Param('steamid') dto: string) {
     return this.steamPrisma.createSteamUser(dto);
   }
 }

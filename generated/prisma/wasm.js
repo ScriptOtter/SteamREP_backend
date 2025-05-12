@@ -122,37 +122,40 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   email: 'email',
   username: 'username',
   password: 'password',
   avatar: 'avatar',
-  role: 'role'
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SteamUserScalarFieldEnum = {
+  id: 'id',
+  personaName: 'personaName',
+  profileUrl: 'profileUrl',
+  avatar: 'avatar',
+  realname: 'realname',
+  timeCreated: 'timeCreated',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   content: 'content',
   authorId: 'authorId',
-  recipientId: 'recipientId'
+  recipientId: 'recipientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.JwtTokenScalarFieldEnum = {
   id: 'id',
   refreshToken: 'refreshToken',
-  userId: 'userId'
-};
-
-exports.Prisma.SteamUserScalarFieldEnum = {
-  id: 'id',
-  personalName: 'personalName',
-  profileUrl: 'profileUrl',
-  avatar: 'avatar',
-  realname: 'realname',
-  timeCreated: 'timeCreated',
+  userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -176,14 +179,15 @@ exports.UserRole = exports.$Enums.UserRole = {
   VERIFIED_EMAIL: 'VERIFIED_EMAIL',
   VERIFIED_STEAM: 'VERIFIED_STEAM',
   MODERATOR: 'MODERATOR',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  CREATOR: 'CREATOR'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
+  SteamUser: 'SteamUser',
   Comment: 'Comment',
-  JwtToken: 'JwtToken',
-  SteamUser: 'SteamUser'
+  JwtToken: 'JwtToken'
 };
 
 /**

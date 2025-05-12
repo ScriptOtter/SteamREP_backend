@@ -1,64 +1,22 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { LoginDto } from './dto/login-user.dto';
 import { RegisterDto } from './dto/register-user.dto';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { TokensDto } from './dto/tokens.dto';
+
 import { Request, Response } from 'express';
+import { TokenService } from './tokens/tokens.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly jwtService: JwtService,
+    private tokens: TokenService,
     private prisma: PrismaService,
   ) {}
-
-  private sendTokens(
-    res: Response,
-    user: LoginDto,
-    accessToken: string,
-    refreshToken: string,
-  ): Boolean {
-    try {
-      res.cookie('SteamREP_accessToken', accessToken, {
-        httpOnly: true,
-        secure: false,
-      });
-      res.cookie('SteamREP_refreshToken', refreshToken, {
-        httpOnly: true,
-        secure: false,
-      });
-      res.json(user);
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
-  }
-
-  async getTokens(id: string): Promise<Partial<any>> {
-    try {
-      const accessToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '1s' },
-      );
-      const refreshToken = await this.jwtService.signAsync(
-        { id },
-        { secret: process.env.JWT_REFRESH_SECRET!, expiresIn: '7d' },
-      );
-
-      return { accessToken, refreshToken };
-    } catch (e) {
-      console.log(e);
-    }
-    return {};
-  }
 
   async registerUser(dto: RegisterDto, res: Response): Promise<any> {
     if (dto.password !== dto.confirmPassword)
@@ -77,7 +35,9 @@ export class AuthService {
         },
       });
 
-      const { accessToken, refreshToken } = await this.getTokens(user.id);
+      const { accessToken, refreshToken } = await this.tokens.getTokens(
+        user.id,
+      );
 
       const userToken = await this.prisma.jwtToken.create({
         data: {
@@ -85,7 +45,10 @@ export class AuthService {
           refreshToken: refreshToken,
         },
       });
-      if (!this.sendTokens(res, user, accessToken, refreshToken)) {
+      if (!userToken) {
+        throw new BadRequestException();
+      }
+      if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
         return;
       }
     } catch (e) {
@@ -105,7 +68,9 @@ export class AuthService {
       if (!rightPassword) {
         throw new UnauthorizedException('Wrong password!');
       }
-      const { accessToken, refreshToken } = await this.getTokens(user.id);
+      const { accessToken, refreshToken } = await this.tokens.getTokens(
+        user.id,
+      );
 
       const userToken = await this.prisma.jwtToken.create({
         data: {
@@ -113,7 +78,7 @@ export class AuthService {
           refreshToken: refreshToken,
         },
       });
-      if (!this.sendTokens(res, user, accessToken, refreshToken)) {
+      if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
         return;
       }
     } catch (e) {
@@ -130,7 +95,9 @@ export class AuthService {
         if (!user) {
           throw new UnauthorizedException();
         }
-        const { accessToken, refreshToken } = await this.getTokens(user.id);
+        const { accessToken, refreshToken } = await this.tokens.getTokens(
+          user.id,
+        );
         res.cookie('SteamREP_refreshToken', refreshToken);
         res.cookie('SteamREP_accessToken', accessToken);
         const token = await this.prisma.jwtToken.update({

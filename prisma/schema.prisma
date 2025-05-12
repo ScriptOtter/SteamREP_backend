@@ -10,45 +10,20 @@ datasource db {
 
 model User {
   id String @unique @id @default(cuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
   email String @unique
   username String @unique
   password String
   avatar String? 
 
   role                UserRole   @default(REGISTERED) 
-  commentsAsAuthor     Comment[] @relation("CommentAuthor")
-  commentsAsRecipient   Comment[] @relation("CommentRecipient")
-
+  steamUser SteamUser? @relation
+  commentsAsAuthor     Comment[] @relation()
   jwtTokens           JwtToken[]
 
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   @@map("user")
-}
-
-model Comment {
-  id          String   @unique @id @default(cuid())
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  content     String
-  author      User     @relation("CommentAuthor", fields: [authorId], references: [id])
-  authorId    String  @map("author_id")
-  recipient   User     @relation("CommentRecipient", fields: [recipientId], references: [id])
-  recipientId String  @map("recipient_id")
-
-  @@unique([authorId, recipientId]) // Ограничение на уникальность комментария от автора к получателю
-  @@map("comment")
-}
-
-model JwtToken {
-  id          String   @unique @id @default(cuid())
-  refreshToken    String @map("refresh_token")
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-
-  @@map("jwt_token")
 }
 
 model SteamUser {
@@ -59,10 +34,41 @@ model SteamUser {
   realname String?
   timeCreated String @map("time_created")
 
+  user User? @relation(fields: [userId], references: [id])
+  userId String? @unique @map("user_id")
+  commentsAsRecipient   Comment[] @relation()
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("steam_user")
+}
+
+model Comment {
+  id          String   @unique @id @default(cuid())
+  content     String
+
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String  @map("author_id")
+  recipient   SteamUser @relation(fields: [recipientId], references: [id])
+  recipientId String  @map("recipient_id")
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@unique([authorId, recipientId]) // Ограничение на уникальность комментария от автора к получателю
+  @@map("comment")
+}
+
+model JwtToken {
+  id          String   @unique @id @default(cuid())
+  refreshToken    String @map("refresh_token")
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("jwt_token")
 }
 
 enum UserRole {
@@ -71,6 +77,7 @@ enum UserRole {
   VERIFIED_STEAM // Верифицированный пользователь по Steam
   MODERATOR      // Модератор
   ADMIN          // Администратор
+  CREATOR
 
   @@map("user_role")
 }

@@ -13,7 +13,7 @@ import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
 import { TokensDto } from './dto/tokens.dto';
 import { Response, Request } from 'express';
-import { JwtAuthGuard } from 'src/guards/jwt.guard';
+import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -38,7 +38,7 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Post('logout')
   logout(@Req() req: Request, @Res() res: Response) {
     return this.authService.logout(req, res);

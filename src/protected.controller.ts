@@ -1,10 +1,10 @@
 // protected.controller.ts
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from './guards/jwt.guard';
+import { JwtAccessGuard } from './guards/jwt_access.guard';
 
 @Controller('protected')
 export class ProtectedController {
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Get()
   getProtectedResource() {
     return { message: 'This is a protected resource' };

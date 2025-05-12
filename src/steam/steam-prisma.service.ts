@@ -37,7 +37,7 @@ export class SteamPrismaService {
     return month + ' ' + day + ' ' + year;
   }
 
-  async createSteamUser(dto: Steam64IdDto): Promise<void> {
+  async createSteamUser(dto: string): Promise<void> {
     try {
       const res = await this.steamService.getSteamUser(dto);
       if (!res) {
@@ -56,7 +56,7 @@ export class SteamPrismaService {
       const user = await this.prisma.steamUser.create({
         data: {
           id: id,
-          personalName: personaname,
+          personaName: personaname,
           profileUrl: profileurl,
           avatar: avatar,
           realname: realname,

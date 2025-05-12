@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model SteamUser
+ * 
+ */
+export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
+/**
  * Model Comment
  * 
  */
@@ -28,11 +33,6 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type JwtToken = $Result.DefaultSelection<Prisma.$JwtTokenPayload>
-/**
- * Model SteamUser
- * 
- */
-export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
 
 /**
  * Enums
@@ -43,7 +43,8 @@ export namespace $Enums {
   VERIFIED_EMAIL: 'VERIFIED_EMAIL',
   VERIFIED_STEAM: 'VERIFIED_STEAM',
   MODERATOR: 'MODERATOR',
-  ADMIN: 'ADMIN'
+  ADMIN: 'ADMIN',
+  CREATOR: 'CREATOR'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
@@ -190,6 +191,16 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.steamUser`: Exposes CRUD operations for the **SteamUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SteamUsers
+    * const steamUsers = await prisma.steamUser.findMany()
+    * ```
+    */
+  get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
     * Example usage:
     * ```ts
@@ -208,16 +219,6 @@ export class PrismaClient<
     * ```
     */
   get jwtToken(): Prisma.JwtTokenDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.steamUser`: Exposes CRUD operations for the **SteamUser** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more SteamUsers
-    * const steamUsers = await prisma.steamUser.findMany()
-    * ```
-    */
-  get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -659,9 +660,9 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    SteamUser: 'SteamUser',
     Comment: 'Comment',
-    JwtToken: 'JwtToken',
-    SteamUser: 'SteamUser'
+    JwtToken: 'JwtToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -680,7 +681,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "comment" | "jwtToken" | "steamUser"
+      modelProps: "user" | "steamUser" | "comment" | "jwtToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -755,6 +756,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      SteamUser: {
+        payload: Prisma.$SteamUserPayload<ExtArgs>
+        fields: Prisma.SteamUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SteamUserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SteamUserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          findFirst: {
+            args: Prisma.SteamUserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SteamUserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          findMany: {
+            args: Prisma.SteamUserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          create: {
+            args: Prisma.SteamUserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          createMany: {
+            args: Prisma.SteamUserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SteamUserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          delete: {
+            args: Prisma.SteamUserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          update: {
+            args: Prisma.SteamUserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.SteamUserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SteamUserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SteamUserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
+          }
+          upsert: {
+            args: Prisma.SteamUserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
+          }
+          aggregate: {
+            args: Prisma.SteamUserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSteamUser>
+          }
+          groupBy: {
+            args: Prisma.SteamUserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SteamUserCountArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
           }
         }
       }
@@ -906,80 +981,6 @@ export namespace Prisma {
           }
         }
       }
-      SteamUser: {
-        payload: Prisma.$SteamUserPayload<ExtArgs>
-        fields: Prisma.SteamUserFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SteamUserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SteamUserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          findFirst: {
-            args: Prisma.SteamUserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SteamUserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          findMany: {
-            args: Prisma.SteamUserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
-          }
-          create: {
-            args: Prisma.SteamUserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          createMany: {
-            args: Prisma.SteamUserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SteamUserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
-          }
-          delete: {
-            args: Prisma.SteamUserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          update: {
-            args: Prisma.SteamUserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          deleteMany: {
-            args: Prisma.SteamUserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SteamUserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.SteamUserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>[]
-          }
-          upsert: {
-            args: Prisma.SteamUserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SteamUserPayload>
-          }
-          aggregate: {
-            args: Prisma.SteamUserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSteamUser>
-          }
-          groupBy: {
-            args: Prisma.SteamUserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SteamUserGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SteamUserCountArgs<ExtArgs>
-            result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1065,9 +1066,9 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    steamUser?: SteamUserOmit
     comment?: CommentOmit
     jwtToken?: JwtTokenOmit
-    steamUser?: SteamUserOmit
   }
 
   /* Types for Logging */
@@ -1163,13 +1164,11 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     commentsAsAuthor: number
-    commentsAsRecipient: number
     jwtTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     commentsAsAuthor?: boolean | UserCountOutputTypeCountCommentsAsAuthorArgs
-    commentsAsRecipient?: boolean | UserCountOutputTypeCountCommentsAsRecipientArgs
     jwtTokens?: boolean | UserCountOutputTypeCountJwtTokensArgs
   }
 
@@ -1194,15 +1193,39 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountCommentsAsRecipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CommentWhereInput
+  export type UserCountOutputTypeCountJwtTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JwtTokenWhereInput
+  }
+
+
+  /**
+   * Count Type SteamUserCountOutputType
+   */
+
+  export type SteamUserCountOutputType = {
+    commentsAsRecipient: number
+  }
+
+  export type SteamUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    commentsAsRecipient?: boolean | SteamUserCountOutputTypeCountCommentsAsRecipientArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SteamUserCountOutputType without action
+   */
+  export type SteamUserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserCountOutputType
+     */
+    select?: SteamUserCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * UserCountOutputType without action
+   * SteamUserCountOutputType without action
    */
-  export type UserCountOutputTypeCountJwtTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: JwtTokenWhereInput
+  export type SteamUserCountOutputTypeCountCommentsAsRecipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -1222,70 +1245,70 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
     email: string | null
     username: string | null
     password: string | null
     avatar: string | null
     role: $Enums.UserRole | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
     email: string | null
     username: string | null
     password: string | null
     avatar: string | null
     role: $Enums.UserRole | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    createdAt: number
-    updatedAt: number
     email: number
     username: number
     password: number
     avatar: number
     role: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type UserMinAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     email?: true
     username?: true
     password?: true
     avatar?: true
     role?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     email?: true
     username?: true
     password?: true
     avatar?: true
     role?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     email?: true
     username?: true
     password?: true
     avatar?: true
     role?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1363,13 +1386,13 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    createdAt: Date
-    updatedAt: Date
     email: string
     username: string
     password: string
     avatar: string | null
     role: $Enums.UserRole
+    createdAt: Date
+    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1391,56 +1414,56 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     email?: boolean
     username?: boolean
     password?: boolean
     avatar?: boolean
     role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
-    commentsAsRecipient?: boolean | User$commentsAsRecipientArgs<ExtArgs>
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     email?: boolean
     username?: boolean
     password?: boolean
     avatar?: boolean
     role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     email?: boolean
     username?: boolean
     password?: boolean
     avatar?: boolean
     role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     email?: boolean
     username?: boolean
     password?: boolean
     avatar?: boolean
     role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "email" | "username" | "password" | "avatar" | "role", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "avatar" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
-    commentsAsRecipient?: boolean | User$commentsAsRecipientArgs<ExtArgs>
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1450,19 +1473,19 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      steamUser: Prisma.$SteamUserPayload<ExtArgs> | null
       commentsAsAuthor: Prisma.$CommentPayload<ExtArgs>[]
-      commentsAsRecipient: Prisma.$CommentPayload<ExtArgs>[]
       jwtTokens: Prisma.$JwtTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      createdAt: Date
-      updatedAt: Date
       email: string
       username: string
       password: string
       avatar: string | null
       role: $Enums.UserRole
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1857,8 +1880,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    steamUser<T extends User$steamUserArgs<ExtArgs> = {}>(args?: Subset<T, User$steamUserArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     commentsAsAuthor<T extends User$commentsAsAuthorArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsAsAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    commentsAsRecipient<T extends User$commentsAsRecipientArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsAsRecipientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     jwtTokens<T extends User$jwtTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$jwtTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JwtTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1890,13 +1913,13 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly email: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2285,33 +2308,28 @@ export namespace Prisma {
   }
 
   /**
-   * User.commentsAsAuthor
+   * User.steamUser
    */
-  export type User$commentsAsAuthorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$steamUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Comment
+     * Select specific fields to fetch from the SteamUser
      */
-    select?: CommentSelect<ExtArgs> | null
+    select?: SteamUserSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Comment
+     * Omit specific fields from the SteamUser
      */
-    omit?: CommentOmit<ExtArgs> | null
+    omit?: SteamUserOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CommentInclude<ExtArgs> | null
-    where?: CommentWhereInput
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    cursor?: CommentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+    include?: SteamUserInclude<ExtArgs> | null
+    where?: SteamUserWhereInput
   }
 
   /**
-   * User.commentsAsRecipient
+   * User.commentsAsAuthor
    */
-  export type User$commentsAsRecipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$commentsAsAuthorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Comment
      */
@@ -2376,6 +2394,1165 @@ export namespace Prisma {
 
 
   /**
+   * Model SteamUser
+   */
+
+  export type AggregateSteamUser = {
+    _count: SteamUserCountAggregateOutputType | null
+    _min: SteamUserMinAggregateOutputType | null
+    _max: SteamUserMaxAggregateOutputType | null
+  }
+
+  export type SteamUserMinAggregateOutputType = {
+    id: string | null
+    personaName: string | null
+    profileUrl: string | null
+    avatar: string | null
+    realname: string | null
+    timeCreated: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SteamUserMaxAggregateOutputType = {
+    id: string | null
+    personaName: string | null
+    profileUrl: string | null
+    avatar: string | null
+    realname: string | null
+    timeCreated: string | null
+    userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SteamUserCountAggregateOutputType = {
+    id: number
+    personaName: number
+    profileUrl: number
+    avatar: number
+    realname: number
+    timeCreated: number
+    userId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SteamUserMinAggregateInputType = {
+    id?: true
+    personaName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SteamUserMaxAggregateInputType = {
+    id?: true
+    personaName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SteamUserCountAggregateInputType = {
+    id?: true
+    personaName?: true
+    profileUrl?: true
+    avatar?: true
+    realname?: true
+    timeCreated?: true
+    userId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SteamUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUser to aggregate.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SteamUsers
+    **/
+    _count?: true | SteamUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SteamUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SteamUserMaxAggregateInputType
+  }
+
+  export type GetSteamUserAggregateType<T extends SteamUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateSteamUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSteamUser[P]>
+      : GetScalarType<T[P], AggregateSteamUser[P]>
+  }
+
+
+
+
+  export type SteamUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SteamUserWhereInput
+    orderBy?: SteamUserOrderByWithAggregationInput | SteamUserOrderByWithAggregationInput[]
+    by: SteamUserScalarFieldEnum[] | SteamUserScalarFieldEnum
+    having?: SteamUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SteamUserCountAggregateInputType | true
+    _min?: SteamUserMinAggregateInputType
+    _max?: SteamUserMaxAggregateInputType
+  }
+
+  export type SteamUserGroupByOutputType = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname: string | null
+    timeCreated: string
+    userId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SteamUserCountAggregateOutputType | null
+    _min: SteamUserMinAggregateOutputType | null
+    _max: SteamUserMaxAggregateOutputType | null
+  }
+
+  type GetSteamUserGroupByPayload<T extends SteamUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SteamUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SteamUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
+            : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SteamUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personaName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+    commentsAsRecipient?: boolean | SteamUser$commentsAsRecipientArgs<ExtArgs>
+    _count?: boolean | SteamUserCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personaName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    personaName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUser"]>
+
+  export type SteamUserSelectScalar = {
+    id?: boolean
+    personaName?: boolean
+    profileUrl?: boolean
+    avatar?: boolean
+    realname?: boolean
+    timeCreated?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+  export type SteamUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+    commentsAsRecipient?: boolean | SteamUser$commentsAsRecipientArgs<ExtArgs>
+    _count?: boolean | SteamUserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SteamUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+  }
+  export type SteamUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | SteamUser$userArgs<ExtArgs>
+  }
+
+  export type $SteamUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SteamUser"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      commentsAsRecipient: Prisma.$CommentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      personaName: string
+      profileUrl: string
+      avatar: string
+      realname: string | null
+      timeCreated: string
+      userId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["steamUser"]>
+    composites: {}
+  }
+
+  type SteamUserGetPayload<S extends boolean | null | undefined | SteamUserDefaultArgs> = $Result.GetResult<Prisma.$SteamUserPayload, S>
+
+  type SteamUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SteamUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SteamUserCountAggregateInputType | true
+    }
+
+  export interface SteamUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SteamUser'], meta: { name: 'SteamUser' } }
+    /**
+     * Find zero or one SteamUser that matches the filter.
+     * @param {SteamUserFindUniqueArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SteamUserFindUniqueArgs>(args: SelectSubset<T, SteamUserFindUniqueArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SteamUser that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SteamUserFindUniqueOrThrowArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SteamUserFindUniqueOrThrowArgs>(args: SelectSubset<T, SteamUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindFirstArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SteamUserFindFirstArgs>(args?: SelectSubset<T, SteamUserFindFirstArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindFirstOrThrowArgs} args - Arguments to find a SteamUser
+     * @example
+     * // Get one SteamUser
+     * const steamUser = await prisma.steamUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SteamUserFindFirstOrThrowArgs>(args?: SelectSubset<T, SteamUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SteamUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SteamUsers
+     * const steamUsers = await prisma.steamUser.findMany()
+     * 
+     * // Get first 10 SteamUsers
+     * const steamUsers = await prisma.steamUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SteamUserFindManyArgs>(args?: SelectSubset<T, SteamUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SteamUser.
+     * @param {SteamUserCreateArgs} args - Arguments to create a SteamUser.
+     * @example
+     * // Create one SteamUser
+     * const SteamUser = await prisma.steamUser.create({
+     *   data: {
+     *     // ... data to create a SteamUser
+     *   }
+     * })
+     * 
+     */
+    create<T extends SteamUserCreateArgs>(args: SelectSubset<T, SteamUserCreateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SteamUsers.
+     * @param {SteamUserCreateManyArgs} args - Arguments to create many SteamUsers.
+     * @example
+     * // Create many SteamUsers
+     * const steamUser = await prisma.steamUser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SteamUserCreateManyArgs>(args?: SelectSubset<T, SteamUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SteamUsers and returns the data saved in the database.
+     * @param {SteamUserCreateManyAndReturnArgs} args - Arguments to create many SteamUsers.
+     * @example
+     * // Create many SteamUsers
+     * const steamUser = await prisma.steamUser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SteamUsers and only return the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SteamUserCreateManyAndReturnArgs>(args?: SelectSubset<T, SteamUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SteamUser.
+     * @param {SteamUserDeleteArgs} args - Arguments to delete one SteamUser.
+     * @example
+     * // Delete one SteamUser
+     * const SteamUser = await prisma.steamUser.delete({
+     *   where: {
+     *     // ... filter to delete one SteamUser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SteamUserDeleteArgs>(args: SelectSubset<T, SteamUserDeleteArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SteamUser.
+     * @param {SteamUserUpdateArgs} args - Arguments to update one SteamUser.
+     * @example
+     * // Update one SteamUser
+     * const steamUser = await prisma.steamUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SteamUserUpdateArgs>(args: SelectSubset<T, SteamUserUpdateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SteamUsers.
+     * @param {SteamUserDeleteManyArgs} args - Arguments to filter SteamUsers to delete.
+     * @example
+     * // Delete a few SteamUsers
+     * const { count } = await prisma.steamUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SteamUserDeleteManyArgs>(args?: SelectSubset<T, SteamUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SteamUsers
+     * const steamUser = await prisma.steamUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SteamUserUpdateManyArgs>(args: SelectSubset<T, SteamUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUsers and returns the data updated in the database.
+     * @param {SteamUserUpdateManyAndReturnArgs} args - Arguments to update many SteamUsers.
+     * @example
+     * // Update many SteamUsers
+     * const steamUser = await prisma.steamUser.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SteamUsers and only return the `id`
+     * const steamUserWithIdOnly = await prisma.steamUser.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SteamUserUpdateManyAndReturnArgs>(args: SelectSubset<T, SteamUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SteamUser.
+     * @param {SteamUserUpsertArgs} args - Arguments to update or create a SteamUser.
+     * @example
+     * // Update or create a SteamUser
+     * const steamUser = await prisma.steamUser.upsert({
+     *   create: {
+     *     // ... data to create a SteamUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SteamUser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SteamUserUpsertArgs>(args: SelectSubset<T, SteamUserUpsertArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SteamUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserCountArgs} args - Arguments to filter SteamUsers to count.
+     * @example
+     * // Count the number of SteamUsers
+     * const count = await prisma.steamUser.count({
+     *   where: {
+     *     // ... the filter for the SteamUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SteamUserCountArgs>(
+      args?: Subset<T, SteamUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SteamUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SteamUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SteamUserAggregateArgs>(args: Subset<T, SteamUserAggregateArgs>): Prisma.PrismaPromise<GetSteamUserAggregateType<T>>
+
+    /**
+     * Group by SteamUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SteamUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SteamUserGroupByArgs['orderBy'] }
+        : { orderBy?: SteamUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SteamUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSteamUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SteamUser model
+   */
+  readonly fields: SteamUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SteamUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SteamUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends SteamUser$userArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    commentsAsRecipient<T extends SteamUser$commentsAsRecipientArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$commentsAsRecipientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SteamUser model
+   */
+  interface SteamUserFieldRefs {
+    readonly id: FieldRef<"SteamUser", 'String'>
+    readonly personaName: FieldRef<"SteamUser", 'String'>
+    readonly profileUrl: FieldRef<"SteamUser", 'String'>
+    readonly avatar: FieldRef<"SteamUser", 'String'>
+    readonly realname: FieldRef<"SteamUser", 'String'>
+    readonly timeCreated: FieldRef<"SteamUser", 'String'>
+    readonly userId: FieldRef<"SteamUser", 'String'>
+    readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
+    readonly updatedAt: FieldRef<"SteamUser", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SteamUser findUnique
+   */
+  export type SteamUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser findUniqueOrThrow
+   */
+  export type SteamUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser findFirst
+   */
+  export type SteamUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUsers.
+     */
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser findFirstOrThrow
+   */
+  export type SteamUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUser to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUsers.
+     */
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser findMany
+   */
+  export type SteamUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUsers to fetch.
+     */
+    where?: SteamUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUsers to fetch.
+     */
+    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SteamUsers.
+     */
+    cursor?: SteamUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUsers.
+     */
+    skip?: number
+    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser create
+   */
+  export type SteamUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SteamUser.
+     */
+    data: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
+  }
+
+  /**
+   * SteamUser createMany
+   */
+  export type SteamUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SteamUsers.
+     */
+    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamUser createManyAndReturn
+   */
+  export type SteamUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data used to create many SteamUsers.
+     */
+    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SteamUser update
+   */
+  export type SteamUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SteamUser.
+     */
+    data: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
+    /**
+     * Choose, which SteamUser to update.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser updateMany
+   */
+  export type SteamUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SteamUsers.
+     */
+    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUsers to update
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUser updateManyAndReturn
+   */
+  export type SteamUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * The data used to update SteamUsers.
+     */
+    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUsers to update
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SteamUser upsert
+   */
+  export type SteamUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SteamUser to update in case it exists.
+     */
+    where: SteamUserWhereUniqueInput
+    /**
+     * In case the SteamUser found by the `where` argument doesn't exist, create a new SteamUser with this data.
+     */
+    create: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
+    /**
+     * In case the SteamUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
+  }
+
+  /**
+   * SteamUser delete
+   */
+  export type SteamUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+    /**
+     * Filter which SteamUser to delete.
+     */
+    where: SteamUserWhereUniqueInput
+  }
+
+  /**
+   * SteamUser deleteMany
+   */
+  export type SteamUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUsers to delete
+     */
+    where?: SteamUserWhereInput
+    /**
+     * Limit how many SteamUsers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUser.user
+   */
+  export type SteamUser$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * SteamUser.commentsAsRecipient
+   */
+  export type SteamUser$commentsAsRecipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUser without action
+   */
+  export type SteamUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUser
+     */
+    select?: SteamUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUser
+     */
+    omit?: SteamUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Comment
    */
 
@@ -2387,58 +3564,58 @@ export namespace Prisma {
 
   export type CommentMinAggregateOutputType = {
     id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
     content: string | null
     authorId: string | null
     recipientId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type CommentMaxAggregateOutputType = {
     id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
     content: string | null
     authorId: string | null
     recipientId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type CommentCountAggregateOutputType = {
     id: number
-    createdAt: number
-    updatedAt: number
     content: number
     authorId: number
     recipientId: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
   export type CommentMinAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     content?: true
     authorId?: true
     recipientId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type CommentMaxAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     content?: true
     authorId?: true
     recipientId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type CommentCountAggregateInputType = {
     id?: true
-    createdAt?: true
-    updatedAt?: true
     content?: true
     authorId?: true
     recipientId?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -2516,11 +3693,11 @@ export namespace Prisma {
 
   export type CommentGroupByOutputType = {
     id: string
-    createdAt: Date
-    updatedAt: Date
     content: string
     authorId: string
     recipientId: string
+    createdAt: Date
+    updatedAt: Date
     _count: CommentCountAggregateOutputType | null
     _min: CommentMinAggregateOutputType | null
     _max: CommentMaxAggregateOutputType | null
@@ -2542,73 +3719,73 @@ export namespace Prisma {
 
   export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     content?: boolean
     authorId?: boolean
     recipientId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     content?: boolean
     authorId?: boolean
     recipientId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     content?: boolean
     authorId?: boolean
     recipientId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectScalar = {
     id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     content?: boolean
     authorId?: boolean
     recipientId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "content" | "authorId" | "recipientId", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "authorId" | "recipientId" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }
   export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
-    recipient?: boolean | UserDefaultArgs<ExtArgs>
+    recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
   }
 
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
       author: Prisma.$UserPayload<ExtArgs>
-      recipient: Prisma.$UserPayload<ExtArgs>
+      recipient: Prisma.$SteamUserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      createdAt: Date
-      updatedAt: Date
       content: string
       authorId: string
       recipientId: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["comment"]>
     composites: {}
   }
@@ -3004,7 +4181,7 @@ export namespace Prisma {
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    recipient<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recipient<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3035,11 +4212,11 @@ export namespace Prisma {
    */
   interface CommentFieldRefs {
     readonly id: FieldRef<"Comment", 'String'>
-    readonly createdAt: FieldRef<"Comment", 'DateTime'>
-    readonly updatedAt: FieldRef<"Comment", 'DateTime'>
     readonly content: FieldRef<"Comment", 'String'>
     readonly authorId: FieldRef<"Comment", 'String'>
     readonly recipientId: FieldRef<"Comment", 'String'>
+    readonly createdAt: FieldRef<"Comment", 'DateTime'>
+    readonly updatedAt: FieldRef<"Comment", 'DateTime'>
   }
     
 
@@ -3468,18 +4645,24 @@ export namespace Prisma {
     id: string | null
     refreshToken: string | null
     userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type JwtTokenMaxAggregateOutputType = {
     id: string | null
     refreshToken: string | null
     userId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type JwtTokenCountAggregateOutputType = {
     id: number
     refreshToken: number
     userId: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -3488,18 +4671,24 @@ export namespace Prisma {
     id?: true
     refreshToken?: true
     userId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type JwtTokenMaxAggregateInputType = {
     id?: true
     refreshToken?: true
     userId?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type JwtTokenCountAggregateInputType = {
     id?: true
     refreshToken?: true
     userId?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -3579,6 +4768,8 @@ export namespace Prisma {
     id: string
     refreshToken: string
     userId: string
+    createdAt: Date
+    updatedAt: Date
     _count: JwtTokenCountAggregateOutputType | null
     _min: JwtTokenMinAggregateOutputType | null
     _max: JwtTokenMaxAggregateOutputType | null
@@ -3602,6 +4793,8 @@ export namespace Prisma {
     id?: boolean
     refreshToken?: boolean
     userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jwtToken"]>
 
@@ -3609,6 +4802,8 @@ export namespace Prisma {
     id?: boolean
     refreshToken?: boolean
     userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jwtToken"]>
 
@@ -3616,6 +4811,8 @@ export namespace Prisma {
     id?: boolean
     refreshToken?: boolean
     userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["jwtToken"]>
 
@@ -3623,9 +4820,11 @@ export namespace Prisma {
     id?: boolean
     refreshToken?: boolean
     userId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type JwtTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "refreshToken" | "userId", ExtArgs["result"]["jwtToken"]>
+  export type JwtTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "refreshToken" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["jwtToken"]>
   export type JwtTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -3645,6 +4844,8 @@ export namespace Prisma {
       id: string
       refreshToken: string
       userId: string
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["jwtToken"]>
     composites: {}
   }
@@ -4072,6 +5273,8 @@ export namespace Prisma {
     readonly id: FieldRef<"JwtToken", 'String'>
     readonly refreshToken: FieldRef<"JwtToken", 'String'>
     readonly userId: FieldRef<"JwtToken", 'String'>
+    readonly createdAt: FieldRef<"JwtToken", 'DateTime'>
+    readonly updatedAt: FieldRef<"JwtToken", 'DateTime'>
   }
     
 
@@ -4487,1040 +5690,6 @@ export namespace Prisma {
 
 
   /**
-   * Model SteamUser
-   */
-
-  export type AggregateSteamUser = {
-    _count: SteamUserCountAggregateOutputType | null
-    _min: SteamUserMinAggregateOutputType | null
-    _max: SteamUserMaxAggregateOutputType | null
-  }
-
-  export type SteamUserMinAggregateOutputType = {
-    id: string | null
-    personalName: string | null
-    profileUrl: string | null
-    avatar: string | null
-    realname: string | null
-    timeCreated: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SteamUserMaxAggregateOutputType = {
-    id: string | null
-    personalName: string | null
-    profileUrl: string | null
-    avatar: string | null
-    realname: string | null
-    timeCreated: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type SteamUserCountAggregateOutputType = {
-    id: number
-    personalName: number
-    profileUrl: number
-    avatar: number
-    realname: number
-    timeCreated: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type SteamUserMinAggregateInputType = {
-    id?: true
-    personalName?: true
-    profileUrl?: true
-    avatar?: true
-    realname?: true
-    timeCreated?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SteamUserMaxAggregateInputType = {
-    id?: true
-    personalName?: true
-    profileUrl?: true
-    avatar?: true
-    realname?: true
-    timeCreated?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type SteamUserCountAggregateInputType = {
-    id?: true
-    personalName?: true
-    profileUrl?: true
-    avatar?: true
-    realname?: true
-    timeCreated?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type SteamUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which SteamUser to aggregate.
-     */
-    where?: SteamUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SteamUsers to fetch.
-     */
-    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SteamUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SteamUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SteamUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned SteamUsers
-    **/
-    _count?: true | SteamUserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SteamUserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SteamUserMaxAggregateInputType
-  }
-
-  export type GetSteamUserAggregateType<T extends SteamUserAggregateArgs> = {
-        [P in keyof T & keyof AggregateSteamUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSteamUser[P]>
-      : GetScalarType<T[P], AggregateSteamUser[P]>
-  }
-
-
-
-
-  export type SteamUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SteamUserWhereInput
-    orderBy?: SteamUserOrderByWithAggregationInput | SteamUserOrderByWithAggregationInput[]
-    by: SteamUserScalarFieldEnum[] | SteamUserScalarFieldEnum
-    having?: SteamUserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SteamUserCountAggregateInputType | true
-    _min?: SteamUserMinAggregateInputType
-    _max?: SteamUserMaxAggregateInputType
-  }
-
-  export type SteamUserGroupByOutputType = {
-    id: string
-    personalName: string
-    profileUrl: string
-    avatar: string
-    realname: string
-    timeCreated: string
-    createdAt: Date
-    updatedAt: Date
-    _count: SteamUserCountAggregateOutputType | null
-    _min: SteamUserMinAggregateOutputType | null
-    _max: SteamUserMaxAggregateOutputType | null
-  }
-
-  type GetSteamUserGroupByPayload<T extends SteamUserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SteamUserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SteamUserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
-            : GetScalarType<T[P], SteamUserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SteamUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    personalName?: boolean
-    profileUrl?: boolean
-    avatar?: boolean
-    realname?: boolean
-    timeCreated?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["steamUser"]>
-
-  export type SteamUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    personalName?: boolean
-    profileUrl?: boolean
-    avatar?: boolean
-    realname?: boolean
-    timeCreated?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["steamUser"]>
-
-  export type SteamUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    personalName?: boolean
-    profileUrl?: boolean
-    avatar?: boolean
-    realname?: boolean
-    timeCreated?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["steamUser"]>
-
-  export type SteamUserSelectScalar = {
-    id?: boolean
-    personalName?: boolean
-    profileUrl?: boolean
-    avatar?: boolean
-    realname?: boolean
-    timeCreated?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personalName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
-
-  export type $SteamUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "SteamUser"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      personalName: string
-      profileUrl: string
-      avatar: string
-      realname: string
-      timeCreated: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["steamUser"]>
-    composites: {}
-  }
-
-  type SteamUserGetPayload<S extends boolean | null | undefined | SteamUserDefaultArgs> = $Result.GetResult<Prisma.$SteamUserPayload, S>
-
-  type SteamUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SteamUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SteamUserCountAggregateInputType | true
-    }
-
-  export interface SteamUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SteamUser'], meta: { name: 'SteamUser' } }
-    /**
-     * Find zero or one SteamUser that matches the filter.
-     * @param {SteamUserFindUniqueArgs} args - Arguments to find a SteamUser
-     * @example
-     * // Get one SteamUser
-     * const steamUser = await prisma.steamUser.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SteamUserFindUniqueArgs>(args: SelectSubset<T, SteamUserFindUniqueArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one SteamUser that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SteamUserFindUniqueOrThrowArgs} args - Arguments to find a SteamUser
-     * @example
-     * // Get one SteamUser
-     * const steamUser = await prisma.steamUser.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SteamUserFindUniqueOrThrowArgs>(args: SelectSubset<T, SteamUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first SteamUser that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserFindFirstArgs} args - Arguments to find a SteamUser
-     * @example
-     * // Get one SteamUser
-     * const steamUser = await prisma.steamUser.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SteamUserFindFirstArgs>(args?: SelectSubset<T, SteamUserFindFirstArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first SteamUser that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserFindFirstOrThrowArgs} args - Arguments to find a SteamUser
-     * @example
-     * // Get one SteamUser
-     * const steamUser = await prisma.steamUser.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SteamUserFindFirstOrThrowArgs>(args?: SelectSubset<T, SteamUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more SteamUsers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all SteamUsers
-     * const steamUsers = await prisma.steamUser.findMany()
-     * 
-     * // Get first 10 SteamUsers
-     * const steamUsers = await prisma.steamUser.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const steamUserWithIdOnly = await prisma.steamUser.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SteamUserFindManyArgs>(args?: SelectSubset<T, SteamUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a SteamUser.
-     * @param {SteamUserCreateArgs} args - Arguments to create a SteamUser.
-     * @example
-     * // Create one SteamUser
-     * const SteamUser = await prisma.steamUser.create({
-     *   data: {
-     *     // ... data to create a SteamUser
-     *   }
-     * })
-     * 
-     */
-    create<T extends SteamUserCreateArgs>(args: SelectSubset<T, SteamUserCreateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many SteamUsers.
-     * @param {SteamUserCreateManyArgs} args - Arguments to create many SteamUsers.
-     * @example
-     * // Create many SteamUsers
-     * const steamUser = await prisma.steamUser.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SteamUserCreateManyArgs>(args?: SelectSubset<T, SteamUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many SteamUsers and returns the data saved in the database.
-     * @param {SteamUserCreateManyAndReturnArgs} args - Arguments to create many SteamUsers.
-     * @example
-     * // Create many SteamUsers
-     * const steamUser = await prisma.steamUser.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many SteamUsers and only return the `id`
-     * const steamUserWithIdOnly = await prisma.steamUser.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SteamUserCreateManyAndReturnArgs>(args?: SelectSubset<T, SteamUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a SteamUser.
-     * @param {SteamUserDeleteArgs} args - Arguments to delete one SteamUser.
-     * @example
-     * // Delete one SteamUser
-     * const SteamUser = await prisma.steamUser.delete({
-     *   where: {
-     *     // ... filter to delete one SteamUser
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SteamUserDeleteArgs>(args: SelectSubset<T, SteamUserDeleteArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one SteamUser.
-     * @param {SteamUserUpdateArgs} args - Arguments to update one SteamUser.
-     * @example
-     * // Update one SteamUser
-     * const steamUser = await prisma.steamUser.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SteamUserUpdateArgs>(args: SelectSubset<T, SteamUserUpdateArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more SteamUsers.
-     * @param {SteamUserDeleteManyArgs} args - Arguments to filter SteamUsers to delete.
-     * @example
-     * // Delete a few SteamUsers
-     * const { count } = await prisma.steamUser.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SteamUserDeleteManyArgs>(args?: SelectSubset<T, SteamUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more SteamUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many SteamUsers
-     * const steamUser = await prisma.steamUser.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SteamUserUpdateManyArgs>(args: SelectSubset<T, SteamUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more SteamUsers and returns the data updated in the database.
-     * @param {SteamUserUpdateManyAndReturnArgs} args - Arguments to update many SteamUsers.
-     * @example
-     * // Update many SteamUsers
-     * const steamUser = await prisma.steamUser.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more SteamUsers and only return the `id`
-     * const steamUserWithIdOnly = await prisma.steamUser.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends SteamUserUpdateManyAndReturnArgs>(args: SelectSubset<T, SteamUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one SteamUser.
-     * @param {SteamUserUpsertArgs} args - Arguments to update or create a SteamUser.
-     * @example
-     * // Update or create a SteamUser
-     * const steamUser = await prisma.steamUser.upsert({
-     *   create: {
-     *     // ... data to create a SteamUser
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the SteamUser we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SteamUserUpsertArgs>(args: SelectSubset<T, SteamUserUpsertArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of SteamUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserCountArgs} args - Arguments to filter SteamUsers to count.
-     * @example
-     * // Count the number of SteamUsers
-     * const count = await prisma.steamUser.count({
-     *   where: {
-     *     // ... the filter for the SteamUsers we want to count
-     *   }
-     * })
-    **/
-    count<T extends SteamUserCountArgs>(
-      args?: Subset<T, SteamUserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SteamUserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a SteamUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SteamUserAggregateArgs>(args: Subset<T, SteamUserAggregateArgs>): Prisma.PrismaPromise<GetSteamUserAggregateType<T>>
-
-    /**
-     * Group by SteamUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SteamUserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SteamUserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SteamUserGroupByArgs['orderBy'] }
-        : { orderBy?: SteamUserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SteamUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSteamUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the SteamUser model
-   */
-  readonly fields: SteamUserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for SteamUser.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SteamUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the SteamUser model
-   */
-  interface SteamUserFieldRefs {
-    readonly id: FieldRef<"SteamUser", 'String'>
-    readonly personalName: FieldRef<"SteamUser", 'String'>
-    readonly profileUrl: FieldRef<"SteamUser", 'String'>
-    readonly avatar: FieldRef<"SteamUser", 'String'>
-    readonly realname: FieldRef<"SteamUser", 'String'>
-    readonly timeCreated: FieldRef<"SteamUser", 'String'>
-    readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
-    readonly updatedAt: FieldRef<"SteamUser", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * SteamUser findUnique
-   */
-  export type SteamUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter, which SteamUser to fetch.
-     */
-    where: SteamUserWhereUniqueInput
-  }
-
-  /**
-   * SteamUser findUniqueOrThrow
-   */
-  export type SteamUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter, which SteamUser to fetch.
-     */
-    where: SteamUserWhereUniqueInput
-  }
-
-  /**
-   * SteamUser findFirst
-   */
-  export type SteamUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter, which SteamUser to fetch.
-     */
-    where?: SteamUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SteamUsers to fetch.
-     */
-    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for SteamUsers.
-     */
-    cursor?: SteamUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SteamUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SteamUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SteamUsers.
-     */
-    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
-  }
-
-  /**
-   * SteamUser findFirstOrThrow
-   */
-  export type SteamUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter, which SteamUser to fetch.
-     */
-    where?: SteamUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SteamUsers to fetch.
-     */
-    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for SteamUsers.
-     */
-    cursor?: SteamUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SteamUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SteamUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of SteamUsers.
-     */
-    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
-  }
-
-  /**
-   * SteamUser findMany
-   */
-  export type SteamUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter, which SteamUsers to fetch.
-     */
-    where?: SteamUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of SteamUsers to fetch.
-     */
-    orderBy?: SteamUserOrderByWithRelationInput | SteamUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing SteamUsers.
-     */
-    cursor?: SteamUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` SteamUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` SteamUsers.
-     */
-    skip?: number
-    distinct?: SteamUserScalarFieldEnum | SteamUserScalarFieldEnum[]
-  }
-
-  /**
-   * SteamUser create
-   */
-  export type SteamUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * The data needed to create a SteamUser.
-     */
-    data: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
-  }
-
-  /**
-   * SteamUser createMany
-   */
-  export type SteamUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many SteamUsers.
-     */
-    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * SteamUser createManyAndReturn
-   */
-  export type SteamUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * The data used to create many SteamUsers.
-     */
-    data: SteamUserCreateManyInput | SteamUserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * SteamUser update
-   */
-  export type SteamUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * The data needed to update a SteamUser.
-     */
-    data: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
-    /**
-     * Choose, which SteamUser to update.
-     */
-    where: SteamUserWhereUniqueInput
-  }
-
-  /**
-   * SteamUser updateMany
-   */
-  export type SteamUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update SteamUsers.
-     */
-    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
-    /**
-     * Filter which SteamUsers to update
-     */
-    where?: SteamUserWhereInput
-    /**
-     * Limit how many SteamUsers to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * SteamUser updateManyAndReturn
-   */
-  export type SteamUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * The data used to update SteamUsers.
-     */
-    data: XOR<SteamUserUpdateManyMutationInput, SteamUserUncheckedUpdateManyInput>
-    /**
-     * Filter which SteamUsers to update
-     */
-    where?: SteamUserWhereInput
-    /**
-     * Limit how many SteamUsers to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * SteamUser upsert
-   */
-  export type SteamUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * The filter to search for the SteamUser to update in case it exists.
-     */
-    where: SteamUserWhereUniqueInput
-    /**
-     * In case the SteamUser found by the `where` argument doesn't exist, create a new SteamUser with this data.
-     */
-    create: XOR<SteamUserCreateInput, SteamUserUncheckedCreateInput>
-    /**
-     * In case the SteamUser was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SteamUserUpdateInput, SteamUserUncheckedUpdateInput>
-  }
-
-  /**
-   * SteamUser delete
-   */
-  export type SteamUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-    /**
-     * Filter which SteamUser to delete.
-     */
-    where: SteamUserWhereUniqueInput
-  }
-
-  /**
-   * SteamUser deleteMany
-   */
-  export type SteamUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which SteamUsers to delete
-     */
-    where?: SteamUserWhereInput
-    /**
-     * Limit how many SteamUsers to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * SteamUser without action
-   */
-  export type SteamUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SteamUser
-     */
-    select?: SteamUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SteamUser
-     */
-    omit?: SteamUserOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -5536,25 +5705,40 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
     email: 'email',
     username: 'username',
     password: 'password',
     avatar: 'avatar',
-    role: 'role'
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const SteamUserScalarFieldEnum: {
+    id: 'id',
+    personaName: 'personaName',
+    profileUrl: 'profileUrl',
+    avatar: 'avatar',
+    realname: 'realname',
+    timeCreated: 'timeCreated',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
+
+
   export const CommentScalarFieldEnum: {
     id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
     content: 'content',
     authorId: 'authorId',
-    recipientId: 'recipientId'
+    recipientId: 'recipientId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
@@ -5563,24 +5747,12 @@ export namespace Prisma {
   export const JwtTokenScalarFieldEnum: {
     id: 'id',
     refreshToken: 'refreshToken',
-    userId: 'userId'
-  };
-
-  export type JwtTokenScalarFieldEnum = (typeof JwtTokenScalarFieldEnum)[keyof typeof JwtTokenScalarFieldEnum]
-
-
-  export const SteamUserScalarFieldEnum: {
-    id: 'id',
-    personalName: 'personalName',
-    profileUrl: 'profileUrl',
-    avatar: 'avatar',
-    realname: 'realname',
-    timeCreated: 'timeCreated',
+    userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
+  export type JwtTokenScalarFieldEnum = (typeof JwtTokenScalarFieldEnum)[keyof typeof JwtTokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5627,20 +5799,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'UserRole'
    */
   export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -5651,6 +5809,20 @@ export namespace Prisma {
    * Reference to a field of type 'UserRole[]'
    */
   export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -5676,29 +5848,29 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
     email?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
-    commentsAsRecipient?: CommentListRelationFilter
     jwtTokens?: JwtTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    steamUser?: SteamUserOrderByWithRelationInput
     commentsAsAuthor?: CommentOrderByRelationAggregateInput
-    commentsAsRecipient?: CommentOrderByRelationAggregateInput
     jwtTokens?: JwtTokenOrderByRelationAggregateInput
   }
 
@@ -5709,25 +5881,25 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
-    commentsAsRecipient?: CommentListRelationFilter
     jwtTokens?: JwtTokenListRelationFilter
   }, "id" | "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -5738,122 +5910,13 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     email?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
-  }
-
-  export type CommentWhereInput = {
-    AND?: CommentWhereInput | CommentWhereInput[]
-    OR?: CommentWhereInput[]
-    NOT?: CommentWhereInput | CommentWhereInput[]
-    id?: StringFilter<"Comment"> | string
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
-    content?: StringFilter<"Comment"> | string
-    authorId?: StringFilter<"Comment"> | string
-    recipientId?: StringFilter<"Comment"> | string
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
-    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type CommentOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
-    recipientId?: SortOrder
-    author?: UserOrderByWithRelationInput
-    recipient?: UserOrderByWithRelationInput
-  }
-
-  export type CommentWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    authorId_recipientId?: CommentAuthorIdRecipientIdCompoundUniqueInput
-    AND?: CommentWhereInput | CommentWhereInput[]
-    OR?: CommentWhereInput[]
-    NOT?: CommentWhereInput | CommentWhereInput[]
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
-    content?: StringFilter<"Comment"> | string
-    authorId?: StringFilter<"Comment"> | string
-    recipientId?: StringFilter<"Comment"> | string
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
-    recipient?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "id" | "authorId_recipientId">
-
-  export type CommentOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    content?: SortOrder
-    authorId?: SortOrder
-    recipientId?: SortOrder
-    _count?: CommentCountOrderByAggregateInput
-    _max?: CommentMaxOrderByAggregateInput
-    _min?: CommentMinOrderByAggregateInput
-  }
-
-  export type CommentScalarWhereWithAggregatesInput = {
-    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
-    OR?: CommentScalarWhereWithAggregatesInput[]
-    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Comment"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
-    content?: StringWithAggregatesFilter<"Comment"> | string
-    authorId?: StringWithAggregatesFilter<"Comment"> | string
-    recipientId?: StringWithAggregatesFilter<"Comment"> | string
-  }
-
-  export type JwtTokenWhereInput = {
-    AND?: JwtTokenWhereInput | JwtTokenWhereInput[]
-    OR?: JwtTokenWhereInput[]
-    NOT?: JwtTokenWhereInput | JwtTokenWhereInput[]
-    id?: StringFilter<"JwtToken"> | string
-    refreshToken?: StringFilter<"JwtToken"> | string
-    userId?: StringFilter<"JwtToken"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type JwtTokenOrderByWithRelationInput = {
-    id?: SortOrder
-    refreshToken?: SortOrder
-    userId?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type JwtTokenWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: JwtTokenWhereInput | JwtTokenWhereInput[]
-    OR?: JwtTokenWhereInput[]
-    NOT?: JwtTokenWhereInput | JwtTokenWhereInput[]
-    refreshToken?: StringFilter<"JwtToken"> | string
-    userId?: StringFilter<"JwtToken"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "id">
-
-  export type JwtTokenOrderByWithAggregationInput = {
-    id?: SortOrder
-    refreshToken?: SortOrder
-    userId?: SortOrder
-    _count?: JwtTokenCountOrderByAggregateInput
-    _max?: JwtTokenMaxOrderByAggregateInput
-    _min?: JwtTokenMinOrderByAggregateInput
-  }
-
-  export type JwtTokenScalarWhereWithAggregatesInput = {
-    AND?: JwtTokenScalarWhereWithAggregatesInput | JwtTokenScalarWhereWithAggregatesInput[]
-    OR?: JwtTokenScalarWhereWithAggregatesInput[]
-    NOT?: JwtTokenScalarWhereWithAggregatesInput | JwtTokenScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"JwtToken"> | string
-    refreshToken?: StringWithAggregatesFilter<"JwtToken"> | string
-    userId?: StringWithAggregatesFilter<"JwtToken"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type SteamUserWhereInput = {
@@ -5861,47 +5924,57 @@ export namespace Prisma {
     OR?: SteamUserWhereInput[]
     NOT?: SteamUserWhereInput | SteamUserWhereInput[]
     id?: StringFilter<"SteamUser"> | string
-    personalName?: StringFilter<"SteamUser"> | string
+    personaName?: StringFilter<"SteamUser"> | string
     profileUrl?: StringFilter<"SteamUser"> | string
     avatar?: StringFilter<"SteamUser"> | string
-    realname?: StringFilter<"SteamUser"> | string
+    realname?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
+    userId?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    commentsAsRecipient?: CommentListRelationFilter
   }
 
   export type SteamUserOrderByWithRelationInput = {
     id?: SortOrder
-    personalName?: SortOrder
+    personaName?: SortOrder
     profileUrl?: SortOrder
     avatar?: SortOrder
-    realname?: SortOrder
+    realname?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
+    userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    commentsAsRecipient?: CommentOrderByRelationAggregateInput
   }
 
   export type SteamUserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    userId?: string
     AND?: SteamUserWhereInput | SteamUserWhereInput[]
     OR?: SteamUserWhereInput[]
     NOT?: SteamUserWhereInput | SteamUserWhereInput[]
-    personalName?: StringFilter<"SteamUser"> | string
+    personaName?: StringFilter<"SteamUser"> | string
     profileUrl?: StringFilter<"SteamUser"> | string
     avatar?: StringFilter<"SteamUser"> | string
-    realname?: StringFilter<"SteamUser"> | string
+    realname?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
-  }, "id">
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    commentsAsRecipient?: CommentListRelationFilter
+  }, "id" | "userId">
 
   export type SteamUserOrderByWithAggregationInput = {
     id?: SortOrder
-    personalName?: SortOrder
+    personaName?: SortOrder
     profileUrl?: SortOrder
     avatar?: SortOrder
-    realname?: SortOrder
+    realname?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
+    userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SteamUserCountOrderByAggregateInput
@@ -5914,267 +5987,294 @@ export namespace Prisma {
     OR?: SteamUserScalarWhereWithAggregatesInput[]
     NOT?: SteamUserScalarWhereWithAggregatesInput | SteamUserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SteamUser"> | string
-    personalName?: StringWithAggregatesFilter<"SteamUser"> | string
+    personaName?: StringWithAggregatesFilter<"SteamUser"> | string
     profileUrl?: StringWithAggregatesFilter<"SteamUser"> | string
     avatar?: StringWithAggregatesFilter<"SteamUser"> | string
-    realname?: StringWithAggregatesFilter<"SteamUser"> | string
+    realname?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     timeCreated?: StringWithAggregatesFilter<"SteamUser"> | string
+    userId?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
   }
 
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    id?: StringFilter<"Comment"> | string
+    content?: StringFilter<"Comment"> | string
+    authorId?: StringFilter<"Comment"> | string
+    recipientId?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+  }
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    authorId?: SortOrder
+    recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    author?: UserOrderByWithRelationInput
+    recipient?: SteamUserOrderByWithRelationInput
+  }
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    authorId_recipientId?: CommentAuthorIdRecipientIdCompoundUniqueInput
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    content?: StringFilter<"Comment"> | string
+    authorId?: StringFilter<"Comment"> | string
+    recipientId?: StringFilter<"Comment"> | string
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+  }, "id" | "id" | "authorId_recipientId">
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    authorId?: SortOrder
+    recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommentCountOrderByAggregateInput
+    _max?: CommentMaxOrderByAggregateInput
+    _min?: CommentMinOrderByAggregateInput
+  }
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    OR?: CommentScalarWhereWithAggregatesInput[]
+    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Comment"> | string
+    content?: StringWithAggregatesFilter<"Comment"> | string
+    authorId?: StringWithAggregatesFilter<"Comment"> | string
+    recipientId?: StringWithAggregatesFilter<"Comment"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+  }
+
+  export type JwtTokenWhereInput = {
+    AND?: JwtTokenWhereInput | JwtTokenWhereInput[]
+    OR?: JwtTokenWhereInput[]
+    NOT?: JwtTokenWhereInput | JwtTokenWhereInput[]
+    id?: StringFilter<"JwtToken"> | string
+    refreshToken?: StringFilter<"JwtToken"> | string
+    userId?: StringFilter<"JwtToken"> | string
+    createdAt?: DateTimeFilter<"JwtToken"> | Date | string
+    updatedAt?: DateTimeFilter<"JwtToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type JwtTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    refreshToken?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type JwtTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: JwtTokenWhereInput | JwtTokenWhereInput[]
+    OR?: JwtTokenWhereInput[]
+    NOT?: JwtTokenWhereInput | JwtTokenWhereInput[]
+    refreshToken?: StringFilter<"JwtToken"> | string
+    userId?: StringFilter<"JwtToken"> | string
+    createdAt?: DateTimeFilter<"JwtToken"> | Date | string
+    updatedAt?: DateTimeFilter<"JwtToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type JwtTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    refreshToken?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: JwtTokenCountOrderByAggregateInput
+    _max?: JwtTokenMaxOrderByAggregateInput
+    _min?: JwtTokenMinOrderByAggregateInput
+  }
+
+  export type JwtTokenScalarWhereWithAggregatesInput = {
+    AND?: JwtTokenScalarWhereWithAggregatesInput | JwtTokenScalarWhereWithAggregatesInput[]
+    OR?: JwtTokenScalarWhereWithAggregatesInput[]
+    NOT?: JwtTokenScalarWhereWithAggregatesInput | JwtTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JwtToken"> | string
+    refreshToken?: StringWithAggregatesFilter<"JwtToken"> | string
+    userId?: StringWithAggregatesFilter<"JwtToken"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"JwtToken"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"JwtToken"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
-    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
-    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
-    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
-    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  }
-
-  export type CommentCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    content: string
-    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
-    recipient: UserCreateNestedOneWithoutCommentsAsRecipientInput
-  }
-
-  export type CommentUncheckedCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    content: string
-    authorId: string
-    recipientId: string
-  }
-
-  export type CommentUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
-    recipient?: UserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
-  }
-
-  export type CommentUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
-    recipientId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type CommentCreateManyInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    content: string
-    authorId: string
-    recipientId: string
-  }
-
-  export type CommentUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type CommentUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
-    recipientId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type JwtTokenCreateInput = {
-    id?: string
-    refreshToken: string
-    user: UserCreateNestedOneWithoutJwtTokensInput
-  }
-
-  export type JwtTokenUncheckedCreateInput = {
-    id?: string
-    refreshToken: string
-    userId: string
-  }
-
-  export type JwtTokenUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refreshToken?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutJwtTokensNestedInput
-  }
-
-  export type JwtTokenUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refreshToken?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type JwtTokenCreateManyInput = {
-    id?: string
-    refreshToken: string
-    userId: string
-  }
-
-  export type JwtTokenUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refreshToken?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type JwtTokenUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refreshToken?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SteamUserCreateInput = {
     id: string
-    personalName: string
+    personaName: string
     profileUrl: string
     avatar: string
-    realname: string
+    realname?: string | null
     timeCreated: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutSteamUserInput
+    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
   }
 
   export type SteamUserUncheckedCreateInput = {
     id: string
-    personalName: string
+    personaName: string
     profileUrl: string
     avatar: string
-    realname: string
+    realname?: string | null
     timeCreated: string
+    userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type SteamUserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalName?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
-    realname?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutSteamUserNestedInput
+    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
   }
 
   export type SteamUserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalName?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
-    realname?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type SteamUserCreateManyInput = {
     id: string
-    personalName: string
+    personaName: string
     profileUrl: string
     avatar: string
-    realname: string
+    realname?: string | null
     timeCreated: string
+    userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SteamUserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalName?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
-    realname?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6182,11 +6282,128 @@ export namespace Prisma {
 
   export type SteamUserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    personalName?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
-    realname?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
+    recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+  }
+
+  export type CommentUncheckedCreateInput = {
+    id?: string
+    content: string
+    authorId: string
+    recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
+    recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+  }
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyInput = {
+    id?: string
+    content: string
+    authorId: string
+    recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JwtTokenCreateInput = {
+    id?: string
+    refreshToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutJwtTokensInput
+  }
+
+  export type JwtTokenUncheckedCreateInput = {
+    id?: string
+    refreshToken: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JwtTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutJwtTokensNestedInput
+  }
+
+  export type JwtTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JwtTokenCreateManyInput = {
+    id?: string
+    refreshToken: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type JwtTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type JwtTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refreshToken?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6204,17 +6421,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -6237,6 +6443,22 @@ export namespace Prisma {
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SteamUserNullableScalarRelationFilter = {
+    is?: SteamUserWhereInput | null
+    isNot?: SteamUserWhereInput | null
   }
 
   export type CommentListRelationFilter = {
@@ -6266,35 +6488,35 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     email?: SortOrder
     username?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6313,20 +6535,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6357,9 +6565,69 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type SteamUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    personaName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SteamUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    personaName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SteamUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    personaName?: SortOrder
+    profileUrl?: SortOrder
+    avatar?: SortOrder
+    realname?: SortOrder
+    timeCreated?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type SteamUserScalarRelationFilter = {
+    is?: SteamUserWhereInput
+    isNot?: SteamUserWhereInput
   }
 
   export type CommentAuthorIdRecipientIdCompoundUniqueInput = {
@@ -6369,93 +6637,65 @@ export namespace Prisma {
 
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CommentMaxOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type CommentMinOrderByAggregateInput = {
     id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     content?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type JwtTokenCountOrderByAggregateInput = {
     id?: SortOrder
     refreshToken?: SortOrder
     userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type JwtTokenMaxOrderByAggregateInput = {
     id?: SortOrder
     refreshToken?: SortOrder
     userId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type JwtTokenMinOrderByAggregateInput = {
     id?: SortOrder
     refreshToken?: SortOrder
     userId?: SortOrder
-  }
-
-  export type SteamUserCountOrderByAggregateInput = {
-    id?: SortOrder
-    personalName?: SortOrder
-    profileUrl?: SortOrder
-    avatar?: SortOrder
-    realname?: SortOrder
-    timeCreated?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type SteamUserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    personalName?: SortOrder
-    profileUrl?: SortOrder
-    avatar?: SortOrder
-    realname?: SortOrder
-    timeCreated?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type SteamUserMinOrderByAggregateInput = {
-    id?: SortOrder
-    personalName?: SortOrder
-    profileUrl?: SortOrder
-    avatar?: SortOrder
-    realname?: SortOrder
-    timeCreated?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+  export type SteamUserCreateNestedOneWithoutUserInput = {
+    create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
+    connect?: SteamUserWhereUniqueInput
   }
 
   export type CommentCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
     createMany?: CommentCreateManyAuthorInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type CommentCreateNestedManyWithoutRecipientInput = {
-    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
-    createMany?: CommentCreateManyRecipientInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
@@ -6466,17 +6706,16 @@ export namespace Prisma {
     connect?: JwtTokenWhereUniqueInput | JwtTokenWhereUniqueInput[]
   }
 
+  export type SteamUserUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
+    connect?: SteamUserWhereUniqueInput
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
     createMany?: CommentCreateManyAuthorInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type CommentUncheckedCreateNestedManyWithoutRecipientInput = {
-    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
-    createMany?: CommentCreateManyRecipientInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
@@ -6491,16 +6730,26 @@ export namespace Prisma {
     set?: string
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type SteamUserUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
+    upsert?: SteamUserUpsertWithoutUserInput
+    disconnect?: SteamUserWhereInput | boolean
+    delete?: SteamUserWhereInput | boolean
+    connect?: SteamUserWhereUniqueInput
+    update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutUserInput, SteamUserUpdateWithoutUserInput>, SteamUserUncheckedUpdateWithoutUserInput>
   }
 
   export type CommentUpdateManyWithoutAuthorNestedInput = {
@@ -6514,20 +6763,6 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
     update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
-  }
-
-  export type CommentUpdateManyWithoutRecipientNestedInput = {
-    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutRecipientInput | CommentUpsertWithWhereUniqueWithoutRecipientInput[]
-    createMany?: CommentCreateManyRecipientInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutRecipientInput | CommentUpdateWithWhereUniqueWithoutRecipientInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutRecipientInput | CommentUpdateManyWithWhereWithoutRecipientInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
@@ -6545,6 +6780,16 @@ export namespace Prisma {
     deleteMany?: JwtTokenScalarWhereInput | JwtTokenScalarWhereInput[]
   }
 
+  export type SteamUserUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
+    upsert?: SteamUserUpsertWithoutUserInput
+    disconnect?: SteamUserWhereInput | boolean
+    delete?: SteamUserWhereInput | boolean
+    connect?: SteamUserWhereUniqueInput
+    update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutUserInput, SteamUserUpdateWithoutUserInput>, SteamUserUncheckedUpdateWithoutUserInput>
+  }
+
   export type CommentUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<CommentCreateWithoutAuthorInput, CommentUncheckedCreateWithoutAuthorInput> | CommentCreateWithoutAuthorInput[] | CommentUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutAuthorInput | CommentCreateOrConnectWithoutAuthorInput[]
@@ -6556,20 +6801,6 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
     update?: CommentUpdateWithWhereUniqueWithoutAuthorInput | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutAuthorInput | CommentUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
-  }
-
-  export type CommentUncheckedUpdateManyWithoutRecipientNestedInput = {
-    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutRecipientInput | CommentUpsertWithWhereUniqueWithoutRecipientInput[]
-    createMany?: CommentCreateManyRecipientInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutRecipientInput | CommentUpdateWithWhereUniqueWithoutRecipientInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutRecipientInput | CommentUpdateManyWithWhereWithoutRecipientInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
@@ -6587,16 +6818,74 @@ export namespace Prisma {
     deleteMany?: JwtTokenScalarWhereInput | JwtTokenScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutSteamUserInput = {
+    create?: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSteamUserInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommentCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
+    createMany?: CommentCreateManyRecipientInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutRecipientInput = {
+    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
+    createMany?: CommentCreateManyRecipientInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneWithoutSteamUserNestedInput = {
+    create?: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSteamUserInput
+    upsert?: UserUpsertWithoutSteamUserInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSteamUserInput, UserUpdateWithoutSteamUserInput>, UserUncheckedUpdateWithoutSteamUserInput>
+  }
+
+  export type CommentUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutRecipientInput | CommentUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: CommentCreateManyRecipientInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutRecipientInput | CommentUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutRecipientInput | CommentUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutRecipientNestedInput = {
+    create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutRecipientInput | CommentUpsertWithWhereUniqueWithoutRecipientInput[]
+    createMany?: CommentCreateManyRecipientInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutRecipientInput | CommentUpdateWithWhereUniqueWithoutRecipientInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutRecipientInput | CommentUpdateManyWithWhereWithoutRecipientInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutCommentsAsAuthorInput = {
     create?: XOR<UserCreateWithoutCommentsAsAuthorInput, UserUncheckedCreateWithoutCommentsAsAuthorInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommentsAsAuthorInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutCommentsAsRecipientInput = {
-    create?: XOR<UserCreateWithoutCommentsAsRecipientInput, UserUncheckedCreateWithoutCommentsAsRecipientInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCommentsAsRecipientInput
-    connect?: UserWhereUniqueInput
+  export type SteamUserCreateNestedOneWithoutCommentsAsRecipientInput = {
+    create?: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutCommentsAsRecipientInput
+    connect?: SteamUserWhereUniqueInput
   }
 
   export type UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput = {
@@ -6607,12 +6896,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsAsAuthorInput, UserUpdateWithoutCommentsAsAuthorInput>, UserUncheckedUpdateWithoutCommentsAsAuthorInput>
   }
 
-  export type UserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput = {
-    create?: XOR<UserCreateWithoutCommentsAsRecipientInput, UserUncheckedCreateWithoutCommentsAsRecipientInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCommentsAsRecipientInput
-    upsert?: UserUpsertWithoutCommentsAsRecipientInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsAsRecipientInput, UserUpdateWithoutCommentsAsRecipientInput>, UserUncheckedUpdateWithoutCommentsAsRecipientInput>
+  export type SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput = {
+    create?: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutCommentsAsRecipientInput
+    upsert?: SteamUserUpsertWithoutCommentsAsRecipientInput
+    connect?: SteamUserWhereUniqueInput
+    update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutCommentsAsRecipientInput, SteamUserUpdateWithoutCommentsAsRecipientInput>, SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput>
   }
 
   export type UserCreateNestedOneWithoutJwtTokensInput = {
@@ -6643,17 +6932,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -6673,6 +6951,17 @@ export namespace Prisma {
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6701,20 +6990,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6755,20 +7030,63 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
-  export type CommentCreateWithoutAuthorInput = {
-    id?: string
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SteamUserCreateWithoutUserInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
+  }
+
+  export type SteamUserUncheckedCreateWithoutUserInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type SteamUserCreateOrConnectWithoutUserInput = {
+    where: SteamUserWhereUniqueInput
+    create: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentCreateWithoutAuthorInput = {
+    id?: string
     content: string
-    recipient: UserCreateNestedOneWithoutCommentsAsRecipientInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
   }
 
   export type CommentUncheckedCreateWithoutAuthorInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     content: string
     recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CommentCreateOrConnectWithoutAuthorInput = {
@@ -6781,40 +7099,18 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type CommentCreateWithoutRecipientInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    content: string
-    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
-  }
-
-  export type CommentUncheckedCreateWithoutRecipientInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    content: string
-    authorId: string
-  }
-
-  export type CommentCreateOrConnectWithoutRecipientInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput>
-  }
-
-  export type CommentCreateManyRecipientInputEnvelope = {
-    data: CommentCreateManyRecipientInput | CommentCreateManyRecipientInput[]
-    skipDuplicates?: boolean
-  }
-
   export type JwtTokenCreateWithoutUserInput = {
     id?: string
     refreshToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type JwtTokenUncheckedCreateWithoutUserInput = {
     id?: string
     refreshToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type JwtTokenCreateOrConnectWithoutUserInput = {
@@ -6825,6 +7121,41 @@ export namespace Prisma {
   export type JwtTokenCreateManyUserInputEnvelope = {
     data: JwtTokenCreateManyUserInput | JwtTokenCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type SteamUserUpsertWithoutUserInput = {
+    update: XOR<SteamUserUpdateWithoutUserInput, SteamUserUncheckedUpdateWithoutUserInput>
+    create: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
+    where?: SteamUserWhereInput
+  }
+
+  export type SteamUserUpdateToOneWithWhereWithoutUserInput = {
+    where?: SteamUserWhereInput
+    data: XOR<SteamUserUpdateWithoutUserInput, SteamUserUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SteamUserUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type SteamUserUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type CommentUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -6848,27 +7179,11 @@ export namespace Prisma {
     OR?: CommentScalarWhereInput[]
     NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
     id?: StringFilter<"Comment"> | string
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
     content?: StringFilter<"Comment"> | string
     authorId?: StringFilter<"Comment"> | string
     recipientId?: StringFilter<"Comment"> | string
-  }
-
-  export type CommentUpsertWithWhereUniqueWithoutRecipientInput = {
-    where: CommentWhereUniqueInput
-    update: XOR<CommentUpdateWithoutRecipientInput, CommentUncheckedUpdateWithoutRecipientInput>
-    create: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput>
-  }
-
-  export type CommentUpdateWithWhereUniqueWithoutRecipientInput = {
-    where: CommentWhereUniqueInput
-    data: XOR<CommentUpdateWithoutRecipientInput, CommentUncheckedUpdateWithoutRecipientInput>
-  }
-
-  export type CommentUpdateManyWithWhereWithoutRecipientInput = {
-    where: CommentScalarWhereInput
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutRecipientInput>
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    updatedAt?: DateTimeFilter<"Comment"> | Date | string
   }
 
   export type JwtTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -6894,31 +7209,143 @@ export namespace Prisma {
     id?: StringFilter<"JwtToken"> | string
     refreshToken?: StringFilter<"JwtToken"> | string
     userId?: StringFilter<"JwtToken"> | string
+    createdAt?: DateTimeFilter<"JwtToken"> | Date | string
+    updatedAt?: DateTimeFilter<"JwtToken"> | Date | string
   }
 
-  export type UserCreateWithoutCommentsAsAuthorInput = {
+  export type UserCreateWithoutSteamUserInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSteamUserInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSteamUserInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
+  }
+
+  export type CommentCreateWithoutRecipientInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
+  }
+
+  export type CommentUncheckedCreateWithoutRecipientInput = {
+    id?: string
+    content: string
+    authorId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentCreateOrConnectWithoutRecipientInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type CommentCreateManyRecipientInputEnvelope = {
+    data: CommentCreateManyRecipientInput | CommentCreateManyRecipientInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutSteamUserInput = {
+    update: XOR<UserUpdateWithoutSteamUserInput, UserUncheckedUpdateWithoutSteamUserInput>
+    create: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSteamUserInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSteamUserInput, UserUncheckedUpdateWithoutSteamUserInput>
+  }
+
+  export type UserUpdateWithoutSteamUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSteamUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutRecipientInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutRecipientInput, CommentUncheckedUpdateWithoutRecipientInput>
+    create: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutRecipientInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutRecipientInput, CommentUncheckedUpdateWithoutRecipientInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutRecipientInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutRecipientInput>
+  }
+
+  export type UserCreateWithoutCommentsAsAuthorInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsAsAuthorInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -6927,35 +7354,33 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCommentsAsAuthorInput, UserUncheckedCreateWithoutCommentsAsAuthorInput>
   }
 
-  export type UserCreateWithoutCommentsAsRecipientInput = {
-    id?: string
+  export type SteamUserCreateWithoutCommentsAsRecipientInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    email: string
-    username: string
-    password: string
-    avatar?: string | null
-    role?: $Enums.UserRole
-    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
-    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+    user?: UserCreateNestedOneWithoutSteamUserInput
   }
 
-  export type UserUncheckedCreateWithoutCommentsAsRecipientInput = {
-    id?: string
+  export type SteamUserUncheckedCreateWithoutCommentsAsRecipientInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
+    userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    email: string
-    username: string
-    password: string
-    avatar?: string | null
-    role?: $Enums.UserRole
-    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
-    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutCommentsAsRecipientInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutCommentsAsRecipientInput, UserUncheckedCreateWithoutCommentsAsRecipientInput>
+  export type SteamUserCreateOrConnectWithoutCommentsAsRecipientInput = {
+    where: SteamUserWhereUniqueInput
+    create: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
   }
 
   export type UserUpsertWithoutCommentsAsAuthorInput = {
@@ -6971,91 +7396,89 @@ export namespace Prisma {
 
   export type UserUpdateWithoutCommentsAsAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsAsAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUpsertWithoutCommentsAsRecipientInput = {
-    update: XOR<UserUpdateWithoutCommentsAsRecipientInput, UserUncheckedUpdateWithoutCommentsAsRecipientInput>
-    create: XOR<UserCreateWithoutCommentsAsRecipientInput, UserUncheckedCreateWithoutCommentsAsRecipientInput>
-    where?: UserWhereInput
+  export type SteamUserUpsertWithoutCommentsAsRecipientInput = {
+    update: XOR<SteamUserUpdateWithoutCommentsAsRecipientInput, SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput>
+    create: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
+    where?: SteamUserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutCommentsAsRecipientInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCommentsAsRecipientInput, UserUncheckedUpdateWithoutCommentsAsRecipientInput>
+  export type SteamUserUpdateToOneWithWhereWithoutCommentsAsRecipientInput = {
+    where?: SteamUserWhereInput
+    data: XOR<SteamUserUpdateWithoutCommentsAsRecipientInput, SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput>
   }
 
-  export type UserUpdateWithoutCommentsAsRecipientInput = {
+  export type SteamUserUpdateWithoutCommentsAsRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
-    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+    user?: UserUpdateOneWithoutSteamUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutCommentsAsRecipientInput = {
+  export type SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    avatar?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
-    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutJwtTokensInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
-    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
   }
 
   export type UserUncheckedCreateWithoutJwtTokensInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     email: string
     username: string
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
-    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
   }
 
   export type UserCreateOrConnectWithoutJwtTokensInput = {
@@ -7076,112 +7499,120 @@ export namespace Prisma {
 
   export type UserUpdateWithoutJwtTokensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
-    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJwtTokensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     email?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
-    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
   export type CommentCreateManyAuthorInput = {
     id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     content: string
     recipientId: string
-  }
-
-  export type CommentCreateManyRecipientInput = {
-    id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    content: string
-    authorId: string
   }
 
   export type JwtTokenCreateManyUserInput = {
     id?: string
     refreshToken: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CommentUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    recipient?: UserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+    recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     content?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type CommentUpdateWithoutRecipientInput = {
-    id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutRecipientInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type CommentUncheckedUpdateManyWithoutRecipientInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type JwtTokenUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JwtTokenUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type JwtTokenUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     refreshToken?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyRecipientInput = {
+    id?: string
+    content: string
+    authorId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
