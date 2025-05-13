@@ -2,8 +2,8 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
+  getHello(): Partial<any> {
     console.log('hello');
-    return 'Hello World!';
+    return { message: 'Hello World!' };
   }
 }
