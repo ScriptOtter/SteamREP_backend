@@ -15,7 +15,7 @@
   ],
   "build": {
     "commands": {
-      "build": "tsc"
+      "build": "npx prisma generate"
     }
   }
 }
