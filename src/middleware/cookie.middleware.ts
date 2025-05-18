@@ -38,10 +38,10 @@ export class CookieMiddleware extends Prisma implements NestMiddleware {
 
         console.log(user);
       } catch (error) {
-        return next(error); // Обработка ошибок при поиске пользователя
+        return next(error);
       }
 
-      next(); // Продолжаем обработку запроса
+      next();
     });
   }
 }

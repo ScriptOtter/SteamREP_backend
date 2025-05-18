@@ -27,7 +27,7 @@ model User {
 }
 
 model SteamUser {
-  id          String  @unique
+  id          String  @id @unique
   personaName String  @map("persona_name")
   profileUrl  String  @map("profile_url")
   avatar      String

@@ -6,23 +6,27 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { UserSteamDto } from './dto/user-steam.dto';
+import { Request } from 'express';
+import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 
 @Controller()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Get('profiles/:id')
-  getProfile(@Param('id') id: string) {
-    return this.userService.getUser(id);
+  @UseGuards(JwtAccessGuard)
+  @Get('profile/me')
+  getMyProfile(@Req() req: Request) {
+    return this.userService.getMyProfile(req);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('verifySteam')
-  verifySteam(@Body() dto: UserSteamDto) {
-    return this.userService.changeUserId(dto);
+  @Get('profile/:id')
+  getProfile(@Param('id') id: string) {
+    return this.userService.getUserProfile(id);
   }
 }

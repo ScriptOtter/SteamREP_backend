@@ -1,18 +1,22 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UserSteamDto } from './dto/user-steam.dto';
+import { TokenService } from 'src/auth/tokens/tokens.service';
+import { Request } from 'express';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly tokenService: TokenService,
+  ) {}
 
-  async getUser(id: string): Promise<any> {
+  public async getUserProfile(id: string): Promise<any> {
     try {
-      console.log(id);
       const user = await this.prisma.user.findUnique({
         where: { id },
         select: {
@@ -29,46 +33,39 @@ export class UserService {
       return user;
     } catch (e) {
       console.log(e);
+      return e;
     }
   }
 
-  async changeUserId(dto: UserSteamDto): Promise<any> {
-    const steamId = '12345678900';
-    const { id } = dto;
+  public async getMyProfile(req: Request): Promise<Partial<any>> {
+    const userId = await this.tokenService.getIdFromToken(req);
     try {
-      console.log(dto.id, steamId);
-
-      const updateUserId = await this.prisma.user.update({
-        where: { id },
-        data: { id: steamId },
+      const user = await this.prisma.user.findUnique({
+        where: { id: userId },
         select: {
           id: true,
+          createdAt: true,
           username: true,
+          avatar: true,
           role: true,
         },
       });
-      const updateAuthorIdComments = await this.prisma.comment.updateMany({
-        where: { authorId: id },
-        data: { authorId: steamId },
-      });
-      const updateRecipientIdComments = await this.prisma.comment.updateMany({
-        where: { recipientId: id },
-        data: { recipientId: steamId },
-      });
-      const updateUserJwtId = await this.prisma.jwtToken.updateMany({
-        where: { userId: id },
-        data: { userId: steamId },
-      });
-      if (
-        !updateUserId ||
-        !updateUserJwtId ||
-        !updateAuthorIdComments ||
-        !updateRecipientIdComments
-      ) {
-        throw new NotFoundException('User not found');
+      if (!user) {
+        throw new BadRequestException();
       }
-
-      return updateUserId;
+      return user;
+    } catch (e) {
+      return e;
+    }
+  }
+  public async getUserRole(id: string): Promise<any> {
+    try {
+      return await this.prisma.user.findUnique({
+        where: { id: id },
+        select: {
+          role: true,
+        },
+      });
     } catch (e) {
       console.log(e);
     }

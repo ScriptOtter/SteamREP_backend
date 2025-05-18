@@ -5965,7 +5965,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     commentsAsRecipient?: CommentListRelationFilter
-  }, "id" | "userId">
+  }, "id" | "id" | "userId">
 
   export type SteamUserOrderByWithAggregationInput = {
     id?: SortOrder

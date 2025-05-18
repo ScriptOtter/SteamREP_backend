@@ -49,16 +49,20 @@ export class SteamService {
 
   public async getSteamUser(steamParam: string): Promise<Partial<any>> {
     async function fetchSteamUser(steam64Id: string) {
-      const url =
-        'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' +
-        process.env.STEAM_API! +
-        '&steamids=' +
-        steam64Id;
-      const res = await axios.get(url);
-      if (!res) {
-        throw new BadRequestException('Try later!');
+      try {
+        const url =
+          'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' +
+          process.env.STEAM_API +
+          '&steamids=' +
+          steam64Id;
+        const res = await axios.get(url);
+        if (!res) {
+          throw new BadRequestException('Try later!');
+        }
+        return res.data.response.players;
+      } catch (e) {
+        return e;
       }
-      return res.data.response.players;
     }
 
     const isSteam64Id = this.checkIsSteam64Id(steamParam);

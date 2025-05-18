@@ -11,7 +11,6 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
-import { TokensDto } from './dto/tokens.dto';
 import { Response, Request } from 'express';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 

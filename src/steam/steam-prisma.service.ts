@@ -1,18 +1,20 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Steam64IdDto } from './dto/steamId.dto';
 import { SteamService } from './steam.service';
-import { SteamUserDto } from './dto/steam-user.dto';
+import { TokenService } from 'src/auth/tokens/tokens.service';
+import { Request } from 'express';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class SteamPrismaService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly steamService: SteamService,
+    private readonly tokenSerive: TokenService,
+    private readonly userService: UserService,
   ) {}
 
   formatTimestampToDateString(timestamp: number) {
-    // Создаем объект даты из метки времени
     const date = new Date(timestamp * 1000);
 
     const months = [
@@ -37,36 +39,88 @@ export class SteamPrismaService {
     return month + ' ' + day + ' ' + year;
   }
 
-  async createSteamUser(dto: string): Promise<void> {
+  public async createSteamUser(dto: string): Promise<Partial<any>> {
     try {
       const res = await this.steamService.getSteamUser(dto);
+      console.log(res);
       if (!res) {
         throw new BadRequestException();
       }
-      //console.log(res);
-      const id = res[0].steamid,
-        personaname = res[0].personaname,
-        profileurl = res[0].profileurl,
-        avatar = res[0].avatar,
-        realname = res[0].realname,
-        timecreated = this.formatTimestampToDateString(res[0].timecreated);
 
-      console.log(id, personaname, profileurl, avatar, realname, timecreated);
+      const {
+        steamid,
+        personaname,
+        profileurl,
+        avatarfull,
+        realname,
+        timecreated,
+      } = res[0];
 
-      const user = await this.prisma.steamUser.create({
-        data: {
-          id: id,
-          personaName: personaname,
-          profileUrl: profileurl,
-          avatar: avatar,
-          realname: realname,
-          timeCreated: timecreated,
+      const steamUser = await this.prisma.steamUser.findFirst({
+        where: { id: steamid },
+        include: {
+          commentsAsRecipient: {
+            include: { author: { select: { username: true, avatar: true } } },
+          },
+          user: {
+            select: { id: true, username: true, avatar: true, role: true },
+          },
         },
       });
-      console.log(user);
+
+      if (!steamUser) {
+        const user = await this.prisma.steamUser.create({
+          data: {
+            id: steamid,
+            personaName: personaname,
+            profileUrl: profileurl,
+            avatar: avatarfull,
+            realname: realname,
+            timeCreated: this.formatTimestampToDateString(timecreated),
+          },
+        });
+        return user;
+      }
+      if (
+        !(
+          personaname == steamUser.personaName &&
+          profileurl == steamUser.profileUrl &&
+          avatarfull == steamUser.avatar &&
+          realname == steamUser.realname
+        )
+      ) {
+        const user = await this.prisma.steamUser.update({
+          where: { id: steamid },
+          data: {
+            personaName: personaname,
+            profileUrl: profileurl,
+            avatar: avatarfull,
+            realname: realname,
+          },
+        });
+      }
+      return steamUser;
     } catch (e) {
       console.log(e);
       return e;
     }
+  }
+
+  public async verifyAccountViaSteam(
+    req: Request,
+    steamid: string,
+  ): Promise<Partial<any>> {
+    const id = await this.tokenSerive.getIdFromToken(req);
+    const userRole = await this.userService.getUserRole(id);
+    if (userRole === 'VERIFIED_EMAIL') {
+      console.log(id);
+      const user = await this.prisma.user.update({
+        where: { id: id },
+        data: { steamUser: { connect: { id: steamid } } },
+      });
+      console.log(user);
+      return user;
+    }
+    return { message: 'Steam already used!' };
   }
 }

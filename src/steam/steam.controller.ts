@@ -5,13 +5,14 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { SteamService } from './steam.service';
-import { SteamUrlDto } from './dto/steamUrl.dto';
-import { Steam64IdDto } from './dto/steamId.dto';
 import { SteamPrismaService } from './steam-prisma.service';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
+import { Request } from 'express';
 
 @Controller()
 export class SteamController {
@@ -21,9 +22,18 @@ export class SteamController {
   ) {}
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAccessGuard)
   @Post(':steamid')
-  createSteamUser(@Param('steamid') dto: string) {
+  getOrCreateSteamProfile(@Param('steamid') dto: string) {
     return this.steamPrisma.createSteamUser(dto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAccessGuard)
+  @Put('/verify/:steamid')
+  verifyAccountViaSteam(
+    @Req() req: Request,
+    @Param('steamid') steamid: string,
+  ) {
+    return this.steamPrisma.verifyAccountViaSteam(req, steamid);
   }
 }
