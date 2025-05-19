@@ -1,11 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { SteamOAuth } from './steam.oauth';
 
 @Injectable()
 export class SteamService {
-  constructor() {}
+  constructor(private readonly steamOAuth: SteamOAuth) {}
 
-  checkIsSteam64Id(steamParam: string) {
+  public checkIsSteam64Id(steamParam: string) {
     const prefix = '7656';
     if (steamParam.startsWith(prefix)) {
       return true;
@@ -71,5 +72,21 @@ export class SteamService {
       return fetchSteamUser(steam64Id);
     }
     return fetchSteamUser(steamParam);
+  }
+
+  async steamAuth(req, res) {
+    console.log('STEAM_AUTH!');
+    let valid_struct = await this.steamOAuth.verify_id(req.query);
+
+    if (valid_struct.success) {
+      console.log(`Validated Oauth, steamid is: ${valid_struct.steamid}`);
+
+      // login/make token here
+      //res.send({ success: true, steamid: valid_struct.steamid });
+      res.redirect('http://localhost:5173/profile/' + valid_struct.steamid);
+    } else {
+      //Validation of auth flow did not pass
+      res.send({ success: false, reason: 'Invalid auth token.' });
+    }
   }
 }

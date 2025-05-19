@@ -60,6 +60,7 @@ export class AuthService {
     try {
       const user = await this.prisma.user.findUnique({
         where: { username: dto.username },
+        include: { steamUser: {} },
       });
       if (!user) {
         throw new UnauthorizedException('Wrong password!');

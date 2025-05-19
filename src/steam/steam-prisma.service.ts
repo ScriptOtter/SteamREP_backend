@@ -59,9 +59,6 @@ export class SteamPrismaService {
       const steamUser = await this.prisma.steamUser.findFirst({
         where: { id: steamid },
         include: {
-          commentsAsRecipient: {
-            include: { author: { select: { username: true, avatar: true } } },
-          },
           user: {
             select: { id: true, username: true, avatar: true, role: true },
           },
