@@ -18,10 +18,10 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAccessGuard)
-  @Get('profile/me')
-  getMyProfile(@Req() req: Request) {
-    return this.userService.getMyProfile(req);
+  //@UseGuards(JwtAccessGuard)
+  @Post('profile/me')
+  getMyProfile(@Req() id: string) {
+    return this.userService.getMeViaId(id);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -29,4 +29,6 @@ export class UserController {
   getProfile(@Param('id') id: string) {
     return this.userService.getUserProfile(id);
   }
+
+  getMeViaId;
 }

@@ -70,4 +70,28 @@ export class UserService {
       console.log(e);
     }
   }
+
+  public async getMeViaId(id: string): Promise<any> {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+        select: {
+          steamUser: {
+            select: {
+              avatar: true,
+              id: true,
+              personaName: true,
+            },
+          },
+        },
+      });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      return user;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  }
 }

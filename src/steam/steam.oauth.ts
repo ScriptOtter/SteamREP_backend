@@ -45,7 +45,6 @@ export class SteamOAuth {
       },
     })
       .then((res) => {
-        console.log(res);
         return res.text();
       })
       .then((data) => {
