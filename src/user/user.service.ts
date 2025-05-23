@@ -3,6 +3,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { TokenService } from 'src/auth/tokens/tokens.service';
@@ -37,7 +38,7 @@ export class UserService {
     }
   }
 
-  public async getMyProfile(req: Request): Promise<Partial<any>> {
+  public async getMyData(req: Request): Promise<Partial<any>> {
     const userId = await this.tokenService.getIdFromToken(req);
     try {
       const user = await this.prisma.user.findUnique({
@@ -48,11 +49,20 @@ export class UserService {
           username: true,
           avatar: true,
           role: true,
+          steamUser: {
+            select: {
+              avatar: true,
+              personaName: true,
+              id: true,
+            },
+          },
         },
       });
       if (!user) {
-        throw new BadRequestException();
+        console.log(user);
+        throw new UnauthorizedException();
       }
+      //console.log(user);
       return user;
     } catch (e) {
       return e;

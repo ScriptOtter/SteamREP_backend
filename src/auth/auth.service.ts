@@ -10,12 +10,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 import { Request, Response } from 'express';
 import { TokenService } from './tokens/tokens.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private tokens: TokenService,
     private prisma: PrismaService,
+    private jwtService: JwtService,
   ) {}
 
   async registerUser(dto: RegisterDto, res: Response): Promise<any> {
@@ -89,37 +91,70 @@ export class AuthService {
   }
 
   async refreshAccessToken(req: Request, res: Response) {
-    if (!(req.cookies.SteamREP_refreshToken == '')) {
+    //console.log(req.cookies);
+    if (req.cookies.SteamREP_refreshToken) {
       try {
-        const user = await this.prisma.jwtToken.findFirst({
-          where: { refreshToken: req.cookies.SteamREP_refreshToken },
-        });
-        if (!user) {
-          throw new UnauthorizedException();
+        const userId = await this.jwtService.verify(
+          req.cookies.SteamREP_refreshToken,
+          {
+            secret: process.env.JWT_REFRESH_SECRET!,
+          },
+        ).id;
+        console.log(userId);
+        //console.log('User найден');
+        if (!userId) {
+          console.log('Token expired!');
+          throw new UnauthorizedException('User not found!');
         }
-        const { accessToken, refreshToken } = await this.tokens.getTokens(
-          user.id,
-        );
+        console.log('refreshAccessToken = ' + userId);
+
+        const { accessToken, refreshToken } =
+          await this.tokens.getTokens(userId);
+        //console.log(accessToken, refreshToken);
         res.cookie('SteamREP_refreshToken', refreshToken);
         res.cookie('SteamREP_accessToken', accessToken);
-        const token = await this.prisma.jwtToken.update({
-          where: { id: user.id },
-          data: { refreshToken: refreshToken },
+        // const tokenSearch = await this.prisma.jwtToken.findFirst({
+        //   where: {
+        //     refreshToken: req.cookies.SteamREP_refreshToken,
+        //   },
+        // });
+        // if (!tokenSearch) {
+        //   console.log(tokenSearch);
+        //   return;
+        // }
+
+        const token = await this.prisma.jwtToken.deleteMany({
+          where: { refreshToken: req.cookies.SteamREP_refreshToken },
         });
+
         if (!token) {
-          throw new UnauthorizedException();
+          console.log('Token not updated');
+          return { message: 'TOKEN NOT UPDATED!' };
+          throw new UnauthorizedException('Token not updated!');
         }
 
-        res.json('logout');
+        const createToken = await this.prisma.jwtToken.create({
+          data: {
+            userId: userId,
+            refreshToken: refreshToken,
+          },
+        });
+        if (!createToken) {
+          console.log('createToken error');
+          return;
+        }
+        console.log('Updated');
+
+        res.json({ message: 'Tokens updated!' });
       } catch (e) {
         console.log(e);
+        return e;
       }
     }
   }
 
   async logout(req: Request, res: Response) {
     const refreshToken = req.cookies.SteamREP_refreshToken;
-    console.log(refreshToken);
     if (!(refreshToken == '')) {
       try {
         const tokenToDelete = await this.prisma.jwtToken.findFirst({
@@ -134,6 +169,7 @@ export class AuthService {
         if (!token) {
           throw new UnauthorizedException();
         }
+        console.log('UDALEN');
         res.cookie('SteamREP_refreshToken', '');
         res.cookie('SteamREP_accessToken', '');
         res.json('logout');

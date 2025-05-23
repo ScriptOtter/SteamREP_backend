@@ -46,6 +46,6 @@ export class SteamController {
   @HttpCode(HttpStatus.OK)
   @Get('steam/auth')
   steamAuth(@Req() req: Request, @Res() res: Response) {
-    this.steamService.steamAuth(req, res);
+    this.steamPrisma.steamAuth(req, res);
   }
 }

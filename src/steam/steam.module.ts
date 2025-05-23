@@ -12,10 +12,10 @@ import { SteamOAuth } from './steam.oauth';
   controllers: [SteamController],
   providers: [
     SteamService,
-    SteamPrismaService,
     TokenService,
     UserService,
     SteamOAuth,
+    SteamPrismaService,
   ],
 })
 export class SteamModule {}

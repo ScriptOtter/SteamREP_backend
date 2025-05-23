@@ -4,6 +4,7 @@ import { SteamService } from './steam.service';
 import { TokenService } from 'src/auth/tokens/tokens.service';
 import { Request } from 'express';
 import { UserService } from 'src/user/user.service';
+import { SteamOAuth } from './steam.oauth';
 
 @Injectable()
 export class SteamPrismaService {
@@ -12,6 +13,7 @@ export class SteamPrismaService {
     private readonly steamService: SteamService,
     private readonly tokenSerive: TokenService,
     private readonly userService: UserService,
+    private readonly steamOAuth: SteamOAuth,
   ) {}
 
   formatTimestampToDateString(timestamp: number) {
@@ -39,12 +41,21 @@ export class SteamPrismaService {
     return month + ' ' + day + ' ' + year;
   }
 
-  public async createSteamUser(dto: string): Promise<Partial<any>> {
+  public async createSteamUser(dto: string): Promise<Partial<any> | null> {
     try {
       const res = await this.steamService.getSteamUser(dto);
       console.log(res);
-      if (!res) {
-        throw new BadRequestException();
+      console.log(res.profileurl);
+      if (res.profileurl === null) {
+        const steamUser = await this.prisma.steamUser.findUnique({
+          where: { id: res.steamid },
+          include: {
+            user: {
+              select: { id: true, username: true, avatar: true, role: true },
+            },
+          },
+        });
+        return steamUser;
       }
 
       const {
@@ -55,7 +66,7 @@ export class SteamPrismaService {
         realname,
         timecreated,
       } = res[0];
-
+      console.log(res);
       const steamUser = await this.prisma.steamUser.findFirst({
         where: { id: steamid },
         include: {
@@ -119,5 +130,69 @@ export class SteamPrismaService {
       return user;
     }
     return { message: 'Steam already used!' };
+  }
+
+  async steamAuth(req, res) {
+    console.log('STEAM_AUTH!');
+
+    let valid_struct = await this.steamOAuth.verify_id(req.query);
+
+    if (valid_struct.success) {
+      console.log(`Validated Oauth, steamid i: ${valid_struct.steamid}`);
+
+      const steamUserCreate = await this.createSteamUser(valid_struct.steamid);
+      if (!steamUserCreate) {
+        res.send({
+          success: false,
+          reason: 'Try again later!',
+        });
+        return;
+      }
+
+      const refreshToken = req.cookies.SteamREP_refreshToken;
+      if (!refreshToken) {
+        res.send({
+          success: false,
+          reason: 'First you need to log in to SteamRep!',
+        });
+        return;
+      }
+      const user = await this.prisma.jwtToken.findFirst({
+        where: { refreshToken: refreshToken },
+      });
+      if (!user) {
+        res.send({
+          success: false,
+          reason: 'Login to SteamRep again!',
+        });
+        return;
+      }
+
+      const userSteam = await this.prisma.user.findUnique({
+        where: { id: user?.userId },
+        select: { steamUser: true },
+      });
+      if (!Boolean(userSteam?.steamUser == null)) {
+        res.send({
+          success: false,
+          reason:
+            'SteamRep found that you already have a connected Steam account, please contact support!',
+        });
+        console.log(userSteam);
+        return;
+      }
+      const userUpdate = await this.prisma.user.update({
+        where: { id: user?.userId },
+        data: {
+          steamUser: { connect: { id: valid_struct.steamid } },
+          role: 'VERIFIED_STEAM',
+        },
+      });
+
+      res.redirect('http://localhost:5173/profile/' + valid_struct.steamid);
+    } else {
+      //Validation of auth flow did not pass
+      res.send({ success: false, reason: 'Invalid auth token.' });
+    }
   }
 }

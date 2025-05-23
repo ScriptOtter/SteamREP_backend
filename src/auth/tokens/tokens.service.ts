@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from '../dto/login-user.dto';
 import { Request, Response } from 'express';
@@ -10,6 +10,7 @@ export class TokenService {
 
   public async getTokens(id: string): Promise<Partial<any>> {
     try {
+      console.log('getTokens - ' + id);
       const accessToken = await this.jwtService.signAsync(
         { id },
         { secret: process.env.JWT_ACCESS_SECRET!, expiresIn: '15m' },
@@ -53,9 +54,15 @@ export class TokenService {
   }
 
   public async getIdFromToken(req: Request): Promise<string> {
-    const token = req.cookies.SteamREP_accessToken;
-    return await this.jwtService.verify(token, {
-      secret: process.env.JWT_ACCESS_SECRET!,
-    }).id;
+    try {
+      const token = req.cookies.SteamREP_accessToken;
+
+      const id = await this.jwtService.verify(token, {
+        secret: process.env.JWT_ACCESS_SECRET!,
+      }).id;
+      return id;
+    } catch (e) {
+      throw new UnauthorizedException('cant get id');
+    }
   }
 }

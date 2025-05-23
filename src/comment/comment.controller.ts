@@ -21,9 +21,13 @@ export class CommentController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
-  @Post('comment/create')
-  signIn(@Body() dto: CreateCommentDto, @Req() req: Request) {
-    return this.commentService.createComment(dto, req);
+  @Post('comment/create/:id')
+  signIn(
+    @Body() dto: CreateCommentDto,
+    @Req() req: Request,
+    @Param('id') id: string,
+  ) {
+    return this.commentService.createComment(dto, req, id);
   }
 
   @HttpCode(HttpStatus.OK)

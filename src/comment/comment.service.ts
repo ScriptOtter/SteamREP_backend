@@ -5,6 +5,7 @@ import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { GetCommenttDto } from './dto/get-comments.dto';
 import { SteamService } from 'src/steam/steam.service';
+import { TokenService } from 'src/auth/tokens/tokens.service';
 
 @Injectable()
 export class CommentService {
@@ -12,21 +13,24 @@ export class CommentService {
     private readonly prisma: PrismaService,
     private readonly steamService: SteamService,
     private readonly jwtService: JwtService,
+    private readonly tokenService: TokenService,
   ) {}
 
-  async createComment(dto: CreateCommentDto, req: Request): Promise<any> {
-    const { content, author_id, recipient_id } = dto;
+  async createComment(
+    dto: CreateCommentDto,
+    req: Request,
+    id: string,
+  ): Promise<any> {
     const userAccessToken = req.cookies.SteamREP_accessToken;
-    const userId = this.jwtService.verify(userAccessToken, {
-      secret: process.env.JWT_ACCESS_SECRET!,
-    }).id;
-
+    const userId = await this.tokenService.getIdFromToken(req);
+    console.log(dto.content, userId, id);
     try {
+      const steamid = await this.steamService.getSteam64Id(id);
       const comment = await this.prisma.comment.create({
         data: {
-          content: content,
+          content: dto.content,
           authorId: userId,
-          recipientId: recipient_id,
+          recipientId: steamid,
         },
       });
       if (!comment) {
