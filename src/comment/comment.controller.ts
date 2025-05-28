@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -13,7 +15,6 @@ import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { Request } from 'express';
-import { GetCommenttDto } from './dto/get-comments.dto';
 
 @Controller('')
 export class CommentController {
@@ -31,8 +32,27 @@ export class CommentController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('comments/:id')
-  getComments(@Param('id') id: string) {
-    return this.commentService.getComments(id);
+  @Get('comments/:steamid')
+  getComments(@Param('steamid') steamid: string) {
+    return this.commentService.getComments(steamid);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAccessGuard)
+  @Delete('comment/:commentId')
+  deleteComments(@Param('commentId') commentId: string, @Req() req: Request) {
+    return this.commentService.deleteComment(commentId, req);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAccessGuard)
+  @Patch('comment/:commentId')
+  updateComments(
+    @Param('commentId') commentId: string,
+    @Body() content: string,
+    @Req() req: Request,
+  ) {
+    console.log(commentId, content);
+    return this.commentService.updateComment(commentId, content, req);
   }
 }

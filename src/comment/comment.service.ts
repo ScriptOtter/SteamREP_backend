@@ -24,21 +24,34 @@ export class CommentService {
     const userAccessToken = req.cookies.SteamREP_accessToken;
     const userId = await this.tokenService.getIdFromToken(req);
     console.log(dto.content, userId, id);
+    const steamid = async (id): Promise<string> => {
+      if (await this.steamService.checkIsSteam64Id(id)) {
+        return id;
+      } else {
+        return await this.steamService.getSteam64Id(id);
+      }
+    };
     try {
-      const steamid = await this.steamService.getSteam64Id(id);
       const comment = await this.prisma.comment.create({
         data: {
           content: dto.content,
           authorId: userId,
-          recipientId: steamid,
+          recipientId: await steamid(id),
         },
+        include: { author: {} },
       });
       if (!comment) {
         throw new BadRequestException('Comment is not created');
       }
+
+      console.log(comment);
+
       return comment;
     } catch (e) {
       console.log(e);
+      throw new BadRequestException(
+        "You can't leave more than one comment. Please delete or edit your previous comment.",
+      );
     }
   }
 
@@ -66,7 +79,9 @@ export class CommentService {
             select: {
               username: true,
               avatar: true,
-              steamUser: { select: { avatar: true } },
+              steamUser: {
+                select: { avatar: true, personaName: true, id: true },
+              },
             },
           },
         },
@@ -76,6 +91,39 @@ export class CommentService {
     } catch (e) {
       console.log(e);
       return {};
+    }
+  }
+
+  async deleteComment(commentId, req) {
+    const userId = await this.tokenService.getIdFromToken(req);
+
+    try {
+      const comment = this.prisma.comment.delete({
+        where: { id: commentId, authorId: userId },
+      });
+      if (!comment) {
+        console.log('Not found comment!');
+      }
+      return comment;
+    } catch (e) {
+      console.log('DELETE_COMMENT', e);
+    }
+  }
+
+  async updateComment(commentId, content, req) {
+    const userId = await this.tokenService.getIdFromToken(req);
+    console.log(commentId, content, userId);
+    try {
+      const comment = this.prisma.comment.update({
+        where: { id: commentId, authorId: userId },
+        data: content,
+      });
+      if (!comment) {
+        console.log('Not found comment!');
+      }
+      return comment;
+    } catch (e) {
+      console.log('DELETE_COMMENT', e);
     }
   }
 }

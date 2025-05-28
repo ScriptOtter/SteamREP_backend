@@ -11,6 +11,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Request, Response } from 'express';
 import { TokenService } from './tokens/tokens.service';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
+import { API_AVATAR } from 'src/api/generateAvatar';
 
 @Injectable()
 export class AuthService {
@@ -34,6 +36,7 @@ export class AuthService {
           username: dto.username,
           password: hashedPassword,
           email: dto.email,
+          avatar: API_AVATAR(dto.username),
         },
       });
 
@@ -53,8 +56,11 @@ export class AuthService {
       if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
         return;
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: unknown) {
+      if (e instanceof PrismaClientKnownRequestError) {
+        console.log('AUTH_REGISTER', e.meta);
+        throw new BadRequestException(e.meta);
+      } else console.error(e);
     }
   }
 
