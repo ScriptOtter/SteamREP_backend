@@ -15,10 +15,12 @@ model User {
   password String
   avatar   String?
 
-  role             UserRole   @default(REGISTERED)
-  steamUser        SteamUser? @relation
-  commentsAsAuthor Comment[]  @relation()
+  role             UserRole     @default(REGISTERED)
+  steamUser        SteamUser?   @relation
+  commentsAsAuthor Comment[]    @relation()
   jwtTokens        JwtToken[]
+  reportUsers      ReportUser[] @relation()
+  verdicts         Verdict[]    @relation()
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -34,9 +36,10 @@ model SteamUser {
   realname    String?
   timeCreated String  @map("time_created")
 
-  user                User?     @relation(fields: [userId], references: [id])
-  userId              String?   @unique @map("user_id")
-  commentsAsRecipient Comment[] @relation()
+  user                User?        @relation(fields: [userId], references: [id])
+  userId              String?      @unique @map("user_id")
+  commentsAsRecipient Comment[]    @relation()
+  reportsAsRecipient  ReportUser[] @relation()
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -45,8 +48,9 @@ model SteamUser {
 }
 
 model Comment {
-  id      String @id @unique @default(cuid())
-  content String
+  id         String  @id @unique @default(cuid())
+  content    String
+  pictureUrl String?
 
   author      User      @relation(fields: [authorId], references: [id])
   authorId    String    @map("author_id")
@@ -70,6 +74,42 @@ model JwtToken {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("jwt_token")
+}
+
+model ReportUser {
+  id            Int      @id @unique @default(autoincrement())
+  youtubeLink   String   @unique @map("youtube_link")
+  demoLink      String?
+  reasonsReport String[]
+  comment       String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  recipient   SteamUser @relation(fields: [recipientId], references: [id])
+  recipientId String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  verdicts Verdict[] @relation()
+
+  @@unique([authorId, recipientId])
+  @@map("report_user")
+}
+
+model Verdict {
+  id       Int        @id @unique @default(autoincrement())
+  user     User       @relation(fields: [userId], references: [id])
+  userId   String
+  report   ReportUser @relation(fields: [reportId], references: [id])
+  reportId Int
+  verdicts String[] // Массив строк для хранения вердиктов
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("verdict")
 }
 
 enum UserRole {

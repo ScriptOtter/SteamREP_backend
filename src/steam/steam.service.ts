@@ -16,7 +16,7 @@ export class SteamService {
     return false;
   }
 
-  getCorrectUrl(url: string): string {
+  private getCorrectUrl(url: string): string {
     if (url.endsWith('/')) {
       url = url.slice(0, -1);
     }
@@ -39,6 +39,7 @@ export class SteamService {
       process.env.STEAM_API! +
       '&vanityurl=' +
       id;
+
     try {
       const res = await axios.get(url);
       if (!res) {

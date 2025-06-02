@@ -14,6 +14,7 @@ import { CookieMiddleware } from './middleware/cookie.middleware';
 import { ProtectedController } from './protected.controller';
 import { AuthModule } from './auth/auth.module';
 import { TokenService } from './auth/tokens/tokens.service';
+import { ReportUserModule } from './report_user/report-user.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TokenService } from './auth/tokens/tokens.service';
     CommentModule,
     SteamModule,
     AuthModule,
+    ReportUserModule,
   ],
   controllers: [
     AppController,

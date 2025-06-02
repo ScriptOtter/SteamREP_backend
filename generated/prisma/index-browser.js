@@ -146,6 +146,7 @@ exports.Prisma.SteamUserScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   content: 'content',
+  pictureUrl: 'pictureUrl',
   authorId: 'authorId',
   recipientId: 'recipientId',
   createdAt: 'createdAt',
@@ -156,6 +157,27 @@ exports.Prisma.JwtTokenScalarFieldEnum = {
   id: 'id',
   refreshToken: 'refreshToken',
   userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReportUserScalarFieldEnum = {
+  id: 'id',
+  youtubeLink: 'youtubeLink',
+  demoLink: 'demoLink',
+  reasonsReport: 'reasonsReport',
+  comment: 'comment',
+  authorId: 'authorId',
+  recipientId: 'recipientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VerdictScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  reportId: 'reportId',
+  verdicts: 'verdicts',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -187,7 +209,9 @@ exports.Prisma.ModelName = {
   User: 'User',
   SteamUser: 'SteamUser',
   Comment: 'Comment',
-  JwtToken: 'JwtToken'
+  JwtToken: 'JwtToken',
+  ReportUser: 'ReportUser',
+  Verdict: 'Verdict'
 };
 
 /**

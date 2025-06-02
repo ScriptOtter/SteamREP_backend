@@ -26,7 +26,7 @@ export class SteamController {
   ) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post(':steamid')
+  @Post('steam/:steamid')
   getOrCreateSteamProfile(@Param('steamid') dto: string) {
     return this.steamPrisma.createSteamUser(dto);
   }
