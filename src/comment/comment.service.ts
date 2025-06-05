@@ -77,6 +77,7 @@ export class CommentService {
           updatedAt: true,
           author: {
             select: {
+              role: true,
               username: true,
               avatar: true,
               steamUser: {

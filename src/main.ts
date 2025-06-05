@@ -2,13 +2,21 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 import 'dotenv/config';
-import * as cookieParser from 'cookie-parser';
+//import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
   app.setGlobalPrefix('/api');
-  app.enableCors({ methods, origin: true, credentials: true });
+
+  app.enableCors({
+    methods,
+    origin: true,
+    credentials: true,
+    allowedHeaders:
+      'Content-Type, Authorization, SteamREP_accessToken, SteamREP_refreshToken',
+  });
   await app.listen(3000);
 }
 bootstrap();
