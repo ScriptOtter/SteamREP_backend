@@ -189,7 +189,10 @@ export class SteamPrismaService {
         },
       });
 
-      res.redirect('http://localhost:5173/profile/' + valid_struct.steamid);
+      res.redirect(
+        'https://steamrep-production.up.railway.app/profile/' +
+          valid_struct.steamid,
+      );
     } else {
       //Validation of auth flow did not pass
       res.send({ success: false, reason: 'Invalid auth token.' });
