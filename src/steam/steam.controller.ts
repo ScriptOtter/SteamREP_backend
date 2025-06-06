@@ -37,8 +37,8 @@ export class SteamController {
     console.log('STEAM VERIFY');
     res.redirect(
       this.steamOAuth.generate_redirect(
-        'http://localhost:3000',
-        'http://localhost:3000/api/steam/auth',
+        'https://steamrep-production.up.railway.app/',
+        'https://steamrep-production.up.railway.app/api/steam/auth',
       ),
     );
   }
