@@ -37,8 +37,8 @@ export class SteamController {
     console.log('STEAM VERIFY');
     res.redirect(
       this.steamOAuth.generate_redirect(
-        'steamrepbackend-production.up.railway.app',
-        'steamrepbackend-production.up.railway.app/api/steam/auth',
+        'http://steamrepbackend-production.up.railway.app',
+        'http://steamrepbackend-production.up.railway.app/api/steam/auth',
       ),
     );
   }
