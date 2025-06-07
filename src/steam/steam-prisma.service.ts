@@ -159,7 +159,9 @@ export class SteamPrismaService {
       }
       const user = await this.prisma.jwtToken.findFirst({
         where: { refreshToken: refreshToken },
+        include: { user: { select: { steamUser: true } } },
       });
+      console.log(user);
       if (!user) {
         res.send({
           success: false,
@@ -190,8 +192,7 @@ export class SteamPrismaService {
       });
 
       res.redirect(
-        'https://steamrep-production.up.railway.app/profile/' +
-          valid_struct.steamid,
+        process.env.FRONTEND_URL + 'profile/' + valid_struct.steamid,
       );
     } else {
       //Validation of auth flow did not pass
