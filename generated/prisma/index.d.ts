@@ -6032,22 +6032,12 @@ export namespace Prisma {
 
   export type AggregateReportUser = {
     _count: ReportUserCountAggregateOutputType | null
-    _avg: ReportUserAvgAggregateOutputType | null
-    _sum: ReportUserSumAggregateOutputType | null
     _min: ReportUserMinAggregateOutputType | null
     _max: ReportUserMaxAggregateOutputType | null
   }
 
-  export type ReportUserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type ReportUserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type ReportUserMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     youtubeLink: string | null
     demoLink: string | null
     comment: string | null
@@ -6058,7 +6048,7 @@ export namespace Prisma {
   }
 
   export type ReportUserMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     youtubeLink: string | null
     demoLink: string | null
     comment: string | null
@@ -6072,7 +6062,6 @@ export namespace Prisma {
     id: number
     youtubeLink: number
     demoLink: number
-    reasonsReport: number
     comment: number
     authorId: number
     recipientId: number
@@ -6081,14 +6070,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ReportUserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type ReportUserSumAggregateInputType = {
-    id?: true
-  }
 
   export type ReportUserMinAggregateInputType = {
     id?: true
@@ -6116,7 +6097,6 @@ export namespace Prisma {
     id?: true
     youtubeLink?: true
     demoLink?: true
-    reasonsReport?: true
     comment?: true
     authorId?: true
     recipientId?: true
@@ -6163,18 +6143,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ReportUserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ReportUserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ReportUserMinAggregateInputType
@@ -6205,25 +6173,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ReportUserCountAggregateInputType | true
-    _avg?: ReportUserAvgAggregateInputType
-    _sum?: ReportUserSumAggregateInputType
     _min?: ReportUserMinAggregateInputType
     _max?: ReportUserMaxAggregateInputType
   }
 
   export type ReportUserGroupByOutputType = {
-    id: number
+    id: string
     youtubeLink: string
     demoLink: string | null
-    reasonsReport: string[]
     comment: string | null
     authorId: string
     recipientId: string
     createdAt: Date
     updatedAt: Date
     _count: ReportUserCountAggregateOutputType | null
-    _avg: ReportUserAvgAggregateOutputType | null
-    _sum: ReportUserSumAggregateOutputType | null
     _min: ReportUserMinAggregateOutputType | null
     _max: ReportUserMaxAggregateOutputType | null
   }
@@ -6246,7 +6209,6 @@ export namespace Prisma {
     id?: boolean
     youtubeLink?: boolean
     demoLink?: boolean
-    reasonsReport?: boolean
     comment?: boolean
     authorId?: boolean
     recipientId?: boolean
@@ -6262,7 +6224,6 @@ export namespace Prisma {
     id?: boolean
     youtubeLink?: boolean
     demoLink?: boolean
-    reasonsReport?: boolean
     comment?: boolean
     authorId?: boolean
     recipientId?: boolean
@@ -6276,7 +6237,6 @@ export namespace Prisma {
     id?: boolean
     youtubeLink?: boolean
     demoLink?: boolean
-    reasonsReport?: boolean
     comment?: boolean
     authorId?: boolean
     recipientId?: boolean
@@ -6290,7 +6250,6 @@ export namespace Prisma {
     id?: boolean
     youtubeLink?: boolean
     demoLink?: boolean
-    reasonsReport?: boolean
     comment?: boolean
     authorId?: boolean
     recipientId?: boolean
@@ -6298,7 +6257,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ReportUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "youtubeLink" | "demoLink" | "reasonsReport" | "comment" | "authorId" | "recipientId" | "createdAt" | "updatedAt", ExtArgs["result"]["reportUser"]>
+  export type ReportUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "youtubeLink" | "demoLink" | "comment" | "authorId" | "recipientId" | "createdAt" | "updatedAt", ExtArgs["result"]["reportUser"]>
   export type ReportUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -6322,10 +6281,9 @@ export namespace Prisma {
       verdicts: Prisma.$VerdictPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       youtubeLink: string
       demoLink: string | null
-      reasonsReport: string[]
       comment: string | null
       authorId: string
       recipientId: string
@@ -6757,10 +6715,9 @@ export namespace Prisma {
    * Fields of the ReportUser model
    */
   interface ReportUserFieldRefs {
-    readonly id: FieldRef<"ReportUser", 'Int'>
+    readonly id: FieldRef<"ReportUser", 'String'>
     readonly youtubeLink: FieldRef<"ReportUser", 'String'>
     readonly demoLink: FieldRef<"ReportUser", 'String'>
-    readonly reasonsReport: FieldRef<"ReportUser", 'String[]'>
     readonly comment: FieldRef<"ReportUser", 'String'>
     readonly authorId: FieldRef<"ReportUser", 'String'>
     readonly recipientId: FieldRef<"ReportUser", 'String'>
@@ -7210,34 +7167,24 @@ export namespace Prisma {
 
   export type AggregateVerdict = {
     _count: VerdictCountAggregateOutputType | null
-    _avg: VerdictAvgAggregateOutputType | null
-    _sum: VerdictSumAggregateOutputType | null
     _min: VerdictMinAggregateOutputType | null
     _max: VerdictMaxAggregateOutputType | null
   }
 
-  export type VerdictAvgAggregateOutputType = {
-    id: number | null
-    reportId: number | null
-  }
-
-  export type VerdictSumAggregateOutputType = {
-    id: number | null
-    reportId: number | null
-  }
-
   export type VerdictMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
-    reportId: number | null
+    reportId: string | null
+    comment: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type VerdictMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     userId: string | null
-    reportId: number | null
+    reportId: string | null
+    comment: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7247,26 +7194,18 @@ export namespace Prisma {
     userId: number
     reportId: number
     verdicts: number
+    comment: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
 
-  export type VerdictAvgAggregateInputType = {
-    id?: true
-    reportId?: true
-  }
-
-  export type VerdictSumAggregateInputType = {
-    id?: true
-    reportId?: true
-  }
-
   export type VerdictMinAggregateInputType = {
     id?: true
     userId?: true
     reportId?: true
+    comment?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7275,6 +7214,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     reportId?: true
+    comment?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7284,6 +7224,7 @@ export namespace Prisma {
     userId?: true
     reportId?: true
     verdicts?: true
+    comment?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7327,18 +7268,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: VerdictAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: VerdictSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: VerdictMinAggregateInputType
@@ -7369,22 +7298,19 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: VerdictCountAggregateInputType | true
-    _avg?: VerdictAvgAggregateInputType
-    _sum?: VerdictSumAggregateInputType
     _min?: VerdictMinAggregateInputType
     _max?: VerdictMaxAggregateInputType
   }
 
   export type VerdictGroupByOutputType = {
-    id: number
+    id: string
     userId: string
-    reportId: number
+    reportId: string
     verdicts: string[]
+    comment: string | null
     createdAt: Date
     updatedAt: Date
     _count: VerdictCountAggregateOutputType | null
-    _avg: VerdictAvgAggregateOutputType | null
-    _sum: VerdictSumAggregateOutputType | null
     _min: VerdictMinAggregateOutputType | null
     _max: VerdictMaxAggregateOutputType | null
   }
@@ -7408,6 +7334,7 @@ export namespace Prisma {
     userId?: boolean
     reportId?: boolean
     verdicts?: boolean
+    comment?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7419,6 +7346,7 @@ export namespace Prisma {
     userId?: boolean
     reportId?: boolean
     verdicts?: boolean
+    comment?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7430,6 +7358,7 @@ export namespace Prisma {
     userId?: boolean
     reportId?: boolean
     verdicts?: boolean
+    comment?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7441,11 +7370,12 @@ export namespace Prisma {
     userId?: boolean
     reportId?: boolean
     verdicts?: boolean
+    comment?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type VerdictOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "reportId" | "verdicts" | "createdAt" | "updatedAt", ExtArgs["result"]["verdict"]>
+  export type VerdictOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "reportId" | "verdicts" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["verdict"]>
   export type VerdictInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     report?: boolean | ReportUserDefaultArgs<ExtArgs>
@@ -7466,10 +7396,11 @@ export namespace Prisma {
       report: Prisma.$ReportUserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       userId: string
-      reportId: number
+      reportId: string
       verdicts: string[]
+      comment: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["verdict"]>
@@ -7897,10 +7828,11 @@ export namespace Prisma {
    * Fields of the Verdict model
    */
   interface VerdictFieldRefs {
-    readonly id: FieldRef<"Verdict", 'Int'>
+    readonly id: FieldRef<"Verdict", 'String'>
     readonly userId: FieldRef<"Verdict", 'String'>
-    readonly reportId: FieldRef<"Verdict", 'Int'>
+    readonly reportId: FieldRef<"Verdict", 'String'>
     readonly verdicts: FieldRef<"Verdict", 'String[]'>
+    readonly comment: FieldRef<"Verdict", 'String'>
     readonly createdAt: FieldRef<"Verdict", 'DateTime'>
     readonly updatedAt: FieldRef<"Verdict", 'DateTime'>
   }
@@ -8388,7 +8320,6 @@ export namespace Prisma {
     id: 'id',
     youtubeLink: 'youtubeLink',
     demoLink: 'demoLink',
-    reasonsReport: 'reasonsReport',
     comment: 'comment',
     authorId: 'authorId',
     recipientId: 'recipientId',
@@ -8404,6 +8335,7 @@ export namespace Prisma {
     userId: 'userId',
     reportId: 'reportId',
     verdicts: 'verdicts',
+    comment: 'comment',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8493,20 +8425,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -8804,10 +8722,9 @@ export namespace Prisma {
     AND?: ReportUserWhereInput | ReportUserWhereInput[]
     OR?: ReportUserWhereInput[]
     NOT?: ReportUserWhereInput | ReportUserWhereInput[]
-    id?: IntFilter<"ReportUser"> | number
+    id?: StringFilter<"ReportUser"> | string
     youtubeLink?: StringFilter<"ReportUser"> | string
     demoLink?: StringNullableFilter<"ReportUser"> | string | null
-    reasonsReport?: StringNullableListFilter<"ReportUser">
     comment?: StringNullableFilter<"ReportUser"> | string | null
     authorId?: StringFilter<"ReportUser"> | string
     recipientId?: StringFilter<"ReportUser"> | string
@@ -8822,7 +8739,6 @@ export namespace Prisma {
     id?: SortOrder
     youtubeLink?: SortOrder
     demoLink?: SortOrderInput | SortOrder
-    reasonsReport?: SortOrder
     comment?: SortOrderInput | SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
@@ -8834,14 +8750,13 @@ export namespace Prisma {
   }
 
   export type ReportUserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     youtubeLink?: string
     authorId_recipientId?: ReportUserAuthorIdRecipientIdCompoundUniqueInput
     AND?: ReportUserWhereInput | ReportUserWhereInput[]
     OR?: ReportUserWhereInput[]
     NOT?: ReportUserWhereInput | ReportUserWhereInput[]
     demoLink?: StringNullableFilter<"ReportUser"> | string | null
-    reasonsReport?: StringNullableListFilter<"ReportUser">
     comment?: StringNullableFilter<"ReportUser"> | string | null
     authorId?: StringFilter<"ReportUser"> | string
     recipientId?: StringFilter<"ReportUser"> | string
@@ -8856,27 +8771,23 @@ export namespace Prisma {
     id?: SortOrder
     youtubeLink?: SortOrder
     demoLink?: SortOrderInput | SortOrder
-    reasonsReport?: SortOrder
     comment?: SortOrderInput | SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ReportUserCountOrderByAggregateInput
-    _avg?: ReportUserAvgOrderByAggregateInput
     _max?: ReportUserMaxOrderByAggregateInput
     _min?: ReportUserMinOrderByAggregateInput
-    _sum?: ReportUserSumOrderByAggregateInput
   }
 
   export type ReportUserScalarWhereWithAggregatesInput = {
     AND?: ReportUserScalarWhereWithAggregatesInput | ReportUserScalarWhereWithAggregatesInput[]
     OR?: ReportUserScalarWhereWithAggregatesInput[]
     NOT?: ReportUserScalarWhereWithAggregatesInput | ReportUserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"ReportUser"> | number
+    id?: StringWithAggregatesFilter<"ReportUser"> | string
     youtubeLink?: StringWithAggregatesFilter<"ReportUser"> | string
     demoLink?: StringNullableWithAggregatesFilter<"ReportUser"> | string | null
-    reasonsReport?: StringNullableListFilter<"ReportUser">
     comment?: StringNullableWithAggregatesFilter<"ReportUser"> | string | null
     authorId?: StringWithAggregatesFilter<"ReportUser"> | string
     recipientId?: StringWithAggregatesFilter<"ReportUser"> | string
@@ -8888,10 +8799,11 @@ export namespace Prisma {
     AND?: VerdictWhereInput | VerdictWhereInput[]
     OR?: VerdictWhereInput[]
     NOT?: VerdictWhereInput | VerdictWhereInput[]
-    id?: IntFilter<"Verdict"> | number
+    id?: StringFilter<"Verdict"> | string
     userId?: StringFilter<"Verdict"> | string
-    reportId?: IntFilter<"Verdict"> | number
+    reportId?: StringFilter<"Verdict"> | string
     verdicts?: StringNullableListFilter<"Verdict">
+    comment?: StringNullableFilter<"Verdict"> | string | null
     createdAt?: DateTimeFilter<"Verdict"> | Date | string
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8903,6 +8815,7 @@ export namespace Prisma {
     userId?: SortOrder
     reportId?: SortOrder
     verdicts?: SortOrder
+    comment?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -8910,13 +8823,14 @@ export namespace Prisma {
   }
 
   export type VerdictWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: VerdictWhereInput | VerdictWhereInput[]
     OR?: VerdictWhereInput[]
     NOT?: VerdictWhereInput | VerdictWhereInput[]
     userId?: StringFilter<"Verdict"> | string
-    reportId?: IntFilter<"Verdict"> | number
+    reportId?: StringFilter<"Verdict"> | string
     verdicts?: StringNullableListFilter<"Verdict">
+    comment?: StringNullableFilter<"Verdict"> | string | null
     createdAt?: DateTimeFilter<"Verdict"> | Date | string
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -8928,23 +8842,23 @@ export namespace Prisma {
     userId?: SortOrder
     reportId?: SortOrder
     verdicts?: SortOrder
+    comment?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: VerdictCountOrderByAggregateInput
-    _avg?: VerdictAvgOrderByAggregateInput
     _max?: VerdictMaxOrderByAggregateInput
     _min?: VerdictMinOrderByAggregateInput
-    _sum?: VerdictSumOrderByAggregateInput
   }
 
   export type VerdictScalarWhereWithAggregatesInput = {
     AND?: VerdictScalarWhereWithAggregatesInput | VerdictScalarWhereWithAggregatesInput[]
     OR?: VerdictScalarWhereWithAggregatesInput[]
     NOT?: VerdictScalarWhereWithAggregatesInput | VerdictScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Verdict"> | number
+    id?: StringWithAggregatesFilter<"Verdict"> | string
     userId?: StringWithAggregatesFilter<"Verdict"> | string
-    reportId?: IntWithAggregatesFilter<"Verdict"> | number
+    reportId?: StringWithAggregatesFilter<"Verdict"> | string
     verdicts?: StringNullableListFilter<"Verdict">
+    comment?: StringNullableWithAggregatesFilter<"Verdict"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Verdict"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Verdict"> | Date | string
   }
@@ -9261,9 +9175,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateInput = {
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9273,10 +9187,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedCreateInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     authorId: string
     recipientId: string
@@ -9286,9 +9199,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9298,10 +9211,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
@@ -9311,10 +9223,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateManyInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     authorId: string
     recipientId: string
@@ -9323,19 +9234,18 @@ export namespace Prisma {
   }
 
   export type ReportUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReportUserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
@@ -9344,7 +9254,9 @@ export namespace Prisma {
   }
 
   export type VerdictCreateInput = {
+    id?: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutVerdictsInput
@@ -9352,16 +9264,19 @@ export namespace Prisma {
   }
 
   export type VerdictUncheckedCreateInput = {
-    id?: number
+    id?: string
     userId: string
-    reportId: number
+    reportId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type VerdictUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutVerdictsNestedInput
@@ -9369,34 +9284,39 @@ export namespace Prisma {
   }
 
   export type VerdictUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    reportId?: IntFieldUpdateOperationsInput | number
+    reportId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictCreateManyInput = {
-    id?: number
+    id?: string
     userId: string
-    reportId: number
+    reportId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type VerdictUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    reportId?: IntFieldUpdateOperationsInput | number
+    reportId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9702,25 +9622,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type ReportUserAuthorIdRecipientIdCompoundUniqueInput = {
     authorId: string
     recipientId: string
@@ -9730,16 +9631,11 @@ export namespace Prisma {
     id?: SortOrder
     youtubeLink?: SortOrder
     demoLink?: SortOrder
-    reasonsReport?: SortOrder
     comment?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type ReportUserAvgOrderByAggregateInput = {
-    id?: SortOrder
   }
 
   export type ReportUserMaxOrderByAggregateInput = {
@@ -9764,24 +9660,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ReportUserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type ReportUserScalarRelationFilter = {
@@ -9794,19 +9678,16 @@ export namespace Prisma {
     userId?: SortOrder
     reportId?: SortOrder
     verdicts?: SortOrder
+    comment?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type VerdictAvgOrderByAggregateInput = {
-    id?: SortOrder
-    reportId?: SortOrder
   }
 
   export type VerdictMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     reportId?: SortOrder
+    comment?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9815,13 +9696,9 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     reportId?: SortOrder
+    comment?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type VerdictSumOrderByAggregateInput = {
-    id?: SortOrder
-    reportId?: SortOrder
   }
 
   export type SteamUserCreateNestedOneWithoutUserInput = {
@@ -10182,10 +10059,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutJwtTokensInput, UserUpdateWithoutJwtTokensInput>, UserUncheckedUpdateWithoutJwtTokensInput>
   }
 
-  export type ReportUserCreatereasonsReportInput = {
-    set: string[]
-  }
-
   export type UserCreateNestedOneWithoutReportUsersInput = {
     create?: XOR<UserCreateWithoutReportUsersInput, UserUncheckedCreateWithoutReportUsersInput>
     connectOrCreate?: UserCreateOrConnectWithoutReportUsersInput
@@ -10210,11 +10083,6 @@ export namespace Prisma {
     connectOrCreate?: VerdictCreateOrConnectWithoutReportInput | VerdictCreateOrConnectWithoutReportInput[]
     createMany?: VerdictCreateManyReportInputEnvelope
     connect?: VerdictWhereUniqueInput | VerdictWhereUniqueInput[]
-  }
-
-  export type ReportUserUpdatereasonsReportInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type UserUpdateOneRequiredWithoutReportUsersNestedInput = {
@@ -10245,14 +10113,6 @@ export namespace Prisma {
     update?: VerdictUpdateWithWhereUniqueWithoutReportInput | VerdictUpdateWithWhereUniqueWithoutReportInput[]
     updateMany?: VerdictUpdateManyWithWhereWithoutReportInput | VerdictUpdateManyWithWhereWithoutReportInput[]
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type VerdictUncheckedUpdateManyWithoutReportNestedInput = {
@@ -10432,33 +10292,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type SteamUserCreateWithoutUserInput = {
     id: string
     personaName: string
@@ -10543,9 +10376,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateWithoutAuthorInput = {
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10554,10 +10387,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedCreateWithoutAuthorInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     recipientId: string
     createdAt?: Date | string
@@ -10576,16 +10408,19 @@ export namespace Prisma {
   }
 
   export type VerdictCreateWithoutUserInput = {
+    id?: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     report: ReportUserCreateNestedOneWithoutVerdictsInput
   }
 
   export type VerdictUncheckedCreateWithoutUserInput = {
-    id?: number
-    reportId: number
+    id?: string
+    reportId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10713,10 +10548,9 @@ export namespace Prisma {
     AND?: ReportUserScalarWhereInput | ReportUserScalarWhereInput[]
     OR?: ReportUserScalarWhereInput[]
     NOT?: ReportUserScalarWhereInput | ReportUserScalarWhereInput[]
-    id?: IntFilter<"ReportUser"> | number
+    id?: StringFilter<"ReportUser"> | string
     youtubeLink?: StringFilter<"ReportUser"> | string
     demoLink?: StringNullableFilter<"ReportUser"> | string | null
-    reasonsReport?: StringNullableListFilter<"ReportUser">
     comment?: StringNullableFilter<"ReportUser"> | string | null
     authorId?: StringFilter<"ReportUser"> | string
     recipientId?: StringFilter<"ReportUser"> | string
@@ -10744,10 +10578,11 @@ export namespace Prisma {
     AND?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
     OR?: VerdictScalarWhereInput[]
     NOT?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
-    id?: IntFilter<"Verdict"> | number
+    id?: StringFilter<"Verdict"> | string
     userId?: StringFilter<"Verdict"> | string
-    reportId?: IntFilter<"Verdict"> | number
+    reportId?: StringFilter<"Verdict"> | string
     verdicts?: StringNullableListFilter<"Verdict">
+    comment?: StringNullableFilter<"Verdict"> | string | null
     createdAt?: DateTimeFilter<"Verdict"> | Date | string
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
   }
@@ -10816,9 +10651,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateWithoutRecipientInput = {
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10827,10 +10662,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedCreateWithoutRecipientInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     authorId: string
     createdAt?: Date | string
@@ -11208,16 +11042,19 @@ export namespace Prisma {
   }
 
   export type VerdictCreateWithoutReportInput = {
+    id?: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutVerdictsInput
   }
 
   export type VerdictUncheckedCreateWithoutReportInput = {
-    id?: number
+    id?: string
     userId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11362,9 +11199,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateWithoutVerdictsInput = {
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11373,10 +11210,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedCreateWithoutVerdictsInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     authorId: string
     recipientId: string
@@ -11442,9 +11278,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUpdateWithoutVerdictsInput = {
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11453,10 +11289,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateWithoutVerdictsInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
@@ -11481,10 +11316,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateManyAuthorInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     recipientId: string
     createdAt?: Date | string
@@ -11492,9 +11326,10 @@ export namespace Prisma {
   }
 
   export type VerdictCreateManyUserInput = {
-    id?: number
-    reportId: number
+    id?: string
+    reportId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11548,9 +11383,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUpdateWithoutAuthorInput = {
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11559,10 +11394,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateWithoutAuthorInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11571,10 +11405,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateManyWithoutAuthorInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11582,24 +11415,28 @@ export namespace Prisma {
   }
 
   export type VerdictUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     report?: ReportUserUpdateOneRequiredWithoutVerdictsNestedInput
   }
 
   export type VerdictUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    reportId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    reportId?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11614,10 +11451,9 @@ export namespace Prisma {
   }
 
   export type ReportUserCreateManyRecipientInput = {
-    id?: number
+    id?: string
     youtubeLink: string
     demoLink?: string | null
-    reasonsReport?: ReportUserCreatereasonsReportInput | string[]
     comment?: string | null
     authorId: string
     createdAt?: Date | string
@@ -11652,9 +11488,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUpdateWithoutRecipientInput = {
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11663,10 +11499,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateWithoutRecipientInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11675,10 +11510,9 @@ export namespace Prisma {
   }
 
   export type ReportUserUncheckedUpdateManyWithoutRecipientInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     youtubeLink?: StringFieldUpdateOperationsInput | string
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
-    reasonsReport?: ReportUserUpdatereasonsReportInput | string[]
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11686,32 +11520,37 @@ export namespace Prisma {
   }
 
   export type VerdictCreateManyReportInput = {
-    id?: number
+    id?: string
     userId: string
     verdicts?: VerdictCreateverdictsInput | string[]
+    comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type VerdictUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutVerdictsNestedInput
   }
 
   export type VerdictUncheckedUpdateWithoutReportInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictUncheckedUpdateManyWithoutReportInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     verdicts?: VerdictUpdateverdictsInput | string[]
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

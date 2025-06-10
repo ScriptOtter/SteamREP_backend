@@ -165,7 +165,6 @@ exports.Prisma.ReportUserScalarFieldEnum = {
   id: 'id',
   youtubeLink: 'youtubeLink',
   demoLink: 'demoLink',
-  reasonsReport: 'reasonsReport',
   comment: 'comment',
   authorId: 'authorId',
   recipientId: 'recipientId',
@@ -178,6 +177,7 @@ exports.Prisma.VerdictScalarFieldEnum = {
   userId: 'userId',
   reportId: 'reportId',
   verdicts: 'verdicts',
+  comment: 'comment',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

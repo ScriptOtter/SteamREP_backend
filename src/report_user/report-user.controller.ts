@@ -22,15 +22,15 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
-  @Post('report')
+  @Post('createReport')
   createReport(@Body() dto: CreateReportDto, @Req() req: Request) {
     return this.reportUserService.createReport(dto, req);
   }
 
   @HttpCode(HttpStatus.OK)
-  @Get('getReports')
-  getReportsWithoutMe(@Req() req: Request) {
-    return this.reportUserService.getAllReportsWithoutMe(req);
+  @Get('getDemos')
+  getDemosWithoutVerdicts(@Req() req: Request) {
+    return this.reportUserService.getDemosWithoutVerdicts(req);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -41,6 +41,13 @@ export class ReportUserController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAccessGuard)
+  @Get('getMyReports')
+  getMyReports(@Req() req: Request) {
+    return this.reportUserService.getMyReports(req);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('getReport/:id')
   getSelectedReport(@Param('id') param: string) {
     return this.reportUserService.getSelectedReport(param);
@@ -48,7 +55,7 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
-  @Post('sendVerdict/:id')
+  @Post('postVerdict/:id')
   sendVerdict(
     @Param('id') param: string,
     @Req() req: Request,

@@ -46,6 +46,7 @@ export class SteamPrismaService {
       const res = await this.steamService.getSteamUser(dto);
       console.log(res);
       console.log(res.profileurl);
+      if (res.toString() === '') return {};
       if (res.profileurl === null) {
         const steamUser = await this.prisma.steamUser.findUnique({
           where: { id: res.steamid },
@@ -145,15 +146,7 @@ export class SteamPrismaService {
         select: { userId: true },
       });
       console.log(user_with_steamid);
-      if (user_with_steamid?.userId !== null) {
-        console.log('Пользователь есть в бд');
-        res.send({
-          success: false,
-          reason:
-            'SteamRep found that you already have a connected Steam account, please contact support!',
-        });
-        return;
-      }
+
       const steamUserCreate = await this.createSteamUser(valid_struct.steamid);
       if (!steamUserCreate) {
         res.send({
@@ -181,6 +174,31 @@ export class SteamPrismaService {
         res.send({
           success: false,
           reason: 'Login to SteamRep again!',
+        });
+        return;
+      }
+
+      if (user_with_steamid === null) {
+        const userUpdate = await this.prisma.user.update({
+          where: { id: user?.userId },
+          data: {
+            steamUser: { connect: { id: valid_struct.steamid } },
+            role: 'VERIFIED_STEAM',
+          },
+        });
+        //console.log('userUpdate', userUpdate);
+        res.redirect(
+          process.env.FRONTEND_URL + 'profile/' + valid_struct.steamid,
+        );
+        return;
+      }
+
+      if (user_with_steamid?.userId !== null) {
+        console.log('Пользователь есть в бд');
+        res.send({
+          success: false,
+          reason:
+            'SteamRep found that you already have a connected Steam account, please contact support!',
         });
         return;
       }

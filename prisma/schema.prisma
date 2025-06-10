@@ -76,10 +76,9 @@ model JwtToken {
 }
 
 model ReportUser {
-  id Int @unique @id @default(autoincrement())
+  id String   @unique @id @default(cuid())
   youtubeLink String @unique @map("youtube_link")
   demoLink String?
-  reasonsReport String[] 
   comment String?
 
   author User @relation(fields: [authorId] , references: [id])
@@ -98,12 +97,13 @@ model ReportUser {
 }
 
 model Verdict {
-  id Int @unique @id @default(autoincrement())
+  id String   @unique @id @default(cuid())
   user User @relation(fields: [userId], references: [id])
   userId String
   report ReportUser @relation(fields: [reportId], references: [id])
-  reportId Int
+  reportId String
   verdicts String[] // Массив строк для хранения вердиктов
+  comment String?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

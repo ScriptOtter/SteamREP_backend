@@ -26,7 +26,7 @@ export class ReportUserService {
           youtubeLink: dto.youtubeLink,
           demoLink: dto.demoLink,
           recipientId: recipientId,
-          reasonsReport: dto.reasonsReport,
+
           comment: dto.comment,
         },
       });
@@ -37,7 +37,8 @@ export class ReportUserService {
         data: {
           userId: report.authorId,
           reportId: report.id,
-          verdicts: report.reasonsReport,
+          verdicts: dto.reasonsReport,
+          comment: dto.comment,
         },
       });
       if (!verdict) {
@@ -73,38 +74,128 @@ export class ReportUserService {
     }
   }
 
-  async getAllReportsWithoutMe(req: Request): Promise<any> {
+  async getDemosWithoutVerdicts(req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
 
-    const reports = await this.prisma.reportUser.findMany({
-      where: { NOT: { authorId: userId } },
+    const demos = await this.prisma.reportUser.findMany({
+      where: { verdicts: { every: { NOT: { userId: userId } } } },
+      include: {
+        author: {
+          select: {
+            steamUser: {
+              select: {
+                id: true,
+                personaName: true,
+                avatar: true,
+                profileUrl: true,
+              },
+            },
+          },
+        },
+        recipient: {
+          select: {
+            id: true,
+            personaName: true,
+            avatar: true,
+            profileUrl: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
     });
 
-    if (!reports) {
+    if (!demos) {
       throw new BadRequestException('Reload the page!');
     }
-    return reports;
+    return demos;
   }
 
   async getMyVerdicts(req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
 
-    const verdicts = await this.prisma.verdict.findMany({
-      where: { userId: userId },
+    const demos = await this.prisma.reportUser.findMany({
+      where: { verdicts: { some: { userId: userId } } },
+      include: {
+        verdicts: {
+          where: { userId: userId },
+          select: { verdicts: true, comment: true, createdAt: true },
+        },
+        author: {
+          select: {
+            steamUser: {
+              select: {
+                id: true,
+                personaName: true,
+                avatar: true,
+                profileUrl: true,
+              },
+            },
+          },
+        },
+        recipient: {
+          select: {
+            id: true,
+            personaName: true,
+            avatar: true,
+            profileUrl: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
     });
-    if (!verdicts) {
-      throw new BadRequestException('Try again later!');
+
+    if (!demos) {
+      throw new BadRequestException('Reload the page!');
     }
-    return verdicts;
+    return demos;
+  }
+
+  async getMyReports(req: Request): Promise<any> {
+    const userId = await this.tokenService.getIdFromToken(req);
+
+    const demos = await this.prisma.reportUser.findMany({
+      where: { authorId: userId },
+      include: {
+        verdicts: {
+          where: { userId: userId },
+          select: { verdicts: true, comment: true, createdAt: true },
+        },
+        author: {
+          select: {
+            steamUser: {
+              select: {
+                id: true,
+                personaName: true,
+                avatar: true,
+                profileUrl: true,
+              },
+            },
+          },
+        },
+        recipient: {
+          select: {
+            id: true,
+            personaName: true,
+            avatar: true,
+            profileUrl: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!demos) {
+      throw new BadRequestException('Reload the page!');
+    }
+    return demos;
   }
 
   async getSelectedReport(param: string): Promise<any> {
-    const id = Number(param);
-    if (!id) {
+    if (!param) {
       throw new BadRequestException('Wrong URL!');
     }
     const report = await this.prisma.reportUser.findUnique({
-      where: { id: id },
+      where: { id: param },
     });
     if (!report) {
       throw new BadRequestException('Reload the page!');
@@ -118,16 +209,21 @@ export class ReportUserService {
     dto: sendVerdictDto,
   ): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
-    const reportId = Number(param);
-    if (!reportId) {
+    console.log(dto);
+    if (!param) {
       throw new BadRequestException('Wrong URL!');
     }
     console.log(dto.verdict);
-    if (!dto.verdict.toString()) {
+    if (dto.verdict.toString() === '') {
       throw new BadRequestException('Verdicts is null!');
     }
     const verdictUser = await this.prisma.verdict.create({
-      data: { userId: userId, reportId: reportId, verdicts: dto.verdict },
+      data: {
+        userId: userId,
+        reportId: param,
+        verdicts: dto.verdict,
+        comment: dto.comment,
+      },
     });
     if (!verdictUser) {
       throw new BadRequestException('Try again!');
