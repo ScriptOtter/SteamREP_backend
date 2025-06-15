@@ -13,6 +13,8 @@ import { TokenService } from './tokens/tokens.service';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
 import { API_AVATAR } from 'src/api/generateAvatar';
+import { genRandomCode } from 'src/lib/randomInt';
+import { verificationAccount } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +22,14 @@ export class AuthService {
     private tokens: TokenService,
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private tokenService: TokenService,
   ) {}
 
-  async registerUser(dto: RegisterDto, res: Response): Promise<any> {
+  async registerUser(
+    dto: RegisterDto,
+    req: Request,
+    res: Response,
+  ): Promise<any> {
     if (dto.password !== dto.confirmPassword)
       throw new BadRequestException('Password do not match!');
 
@@ -53,6 +60,21 @@ export class AuthService {
       if (!userToken) {
         throw new BadRequestException();
       }
+      const code = genRandomCode();
+      const emailVerify = await this.prisma.emailVerify.create({
+        data: { userId: user.id, code: code },
+      });
+      if (!emailVerify) {
+        await this.prisma.user.delete({ where: { id: user.id } });
+        throw new BadRequestException('Try again!');
+      }
+      verificationAccount(
+        user.username,
+        code.toString(),
+        'mainfrolov@gmail.com',
+        req,
+        res,
+      );
       if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
         return;
       }
@@ -64,6 +86,39 @@ export class AuthService {
     }
   }
 
+  async emailVerify(
+    code: number,
+    req: Request,
+    res: Response,
+  ): Promise<Partial<any>> {
+    const userId = await this.tokenService.getIdFromToken(req);
+
+    console.log('emailVerif');
+    const emailVerify = await this.prisma.emailVerify.findFirst({
+      where: { userId: userId },
+    });
+
+    if (emailVerify?.code != code) {
+      await this.prisma.emailVerify.deleteMany({ where: { userId: userId } });
+      await this.prisma.jwtToken.deleteMany({ where: { userId: userId } });
+      await this.prisma.user.deleteMany({ where: { id: userId } });
+
+      throw new BadRequestException(
+        'Invalid code! Your account has been deleted!',
+      );
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { role: 'ACTIVE' },
+    });
+    await this.prisma.emailVerify.deleteMany({
+      where: { userId: userId },
+    });
+    res.json({ message: 'Email verified!' });
+
+    return {};
+  }
   async loginUser(dto: LoginDto, res: Response): Promise<any> {
     try {
       const user = await this.prisma.user.findUnique({

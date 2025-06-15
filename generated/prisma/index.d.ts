@@ -19,10 +19,25 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model EmailVerify
+ * 
+ */
+export type EmailVerify = $Result.DefaultSelection<Prisma.$EmailVerifyPayload>
+/**
+ * Model LinksInProfile
+ * 
+ */
+export type LinksInProfile = $Result.DefaultSelection<Prisma.$LinksInProfilePayload>
+/**
  * Model SteamUser
  * 
  */
 export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
+/**
+ * Model SteamUserBans
+ * 
+ */
+export type SteamUserBans = $Result.DefaultSelection<Prisma.$SteamUserBansPayload>
 /**
  * Model Comment
  * 
@@ -49,21 +64,32 @@ export type Verdict = $Result.DefaultSelection<Prisma.$VerdictPayload>
  */
 export namespace $Enums {
   export const UserRole: {
-  REGISTERED: 'REGISTERED',
-  VERIFIED_EMAIL: 'VERIFIED_EMAIL',
-  VERIFIED_STEAM: 'VERIFIED_STEAM',
+  NOT_ACTIVE: 'NOT_ACTIVE',
+  ACTIVE: 'ACTIVE',
+  VERIFIED: 'VERIFIED',
+  DISABLED: 'DISABLED'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const AdditionalRole: {
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
   CREATOR: 'CREATOR'
 };
 
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+export type AdditionalRole = (typeof AdditionalRole)[keyof typeof AdditionalRole]
 
 }
 
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type AdditionalRole = $Enums.AdditionalRole
+
+export const AdditionalRole: typeof $Enums.AdditionalRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -201,6 +227,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.emailVerify`: Exposes CRUD operations for the **EmailVerify** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmailVerifies
+    * const emailVerifies = await prisma.emailVerify.findMany()
+    * ```
+    */
+  get emailVerify(): Prisma.EmailVerifyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.linksInProfile`: Exposes CRUD operations for the **LinksInProfile** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LinksInProfiles
+    * const linksInProfiles = await prisma.linksInProfile.findMany()
+    * ```
+    */
+  get linksInProfile(): Prisma.LinksInProfileDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.steamUser`: Exposes CRUD operations for the **SteamUser** model.
     * Example usage:
     * ```ts
@@ -209,6 +255,16 @@ export class PrismaClient<
     * ```
     */
   get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.steamUserBans`: Exposes CRUD operations for the **SteamUserBans** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SteamUserBans
+    * const steamUserBans = await prisma.steamUserBans.findMany()
+    * ```
+    */
+  get steamUserBans(): Prisma.SteamUserBansDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
@@ -690,7 +746,10 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    EmailVerify: 'EmailVerify',
+    LinksInProfile: 'LinksInProfile',
     SteamUser: 'SteamUser',
+    SteamUserBans: 'SteamUserBans',
     Comment: 'Comment',
     JwtToken: 'JwtToken',
     ReportUser: 'ReportUser',
@@ -713,7 +772,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "steamUser" | "comment" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "emailVerify" | "linksInProfile" | "steamUser" | "steamUserBans" | "comment" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -791,6 +850,154 @@ export namespace Prisma {
           }
         }
       }
+      EmailVerify: {
+        payload: Prisma.$EmailVerifyPayload<ExtArgs>
+        fields: Prisma.EmailVerifyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmailVerifyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmailVerifyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          findFirst: {
+            args: Prisma.EmailVerifyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmailVerifyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          findMany: {
+            args: Prisma.EmailVerifyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>[]
+          }
+          create: {
+            args: Prisma.EmailVerifyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          createMany: {
+            args: Prisma.EmailVerifyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmailVerifyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>[]
+          }
+          delete: {
+            args: Prisma.EmailVerifyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          update: {
+            args: Prisma.EmailVerifyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmailVerifyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmailVerifyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmailVerifyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmailVerifyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmailVerifyPayload>
+          }
+          aggregate: {
+            args: Prisma.EmailVerifyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmailVerify>
+          }
+          groupBy: {
+            args: Prisma.EmailVerifyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmailVerifyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmailVerifyCountArgs<ExtArgs>
+            result: $Utils.Optional<EmailVerifyCountAggregateOutputType> | number
+          }
+        }
+      }
+      LinksInProfile: {
+        payload: Prisma.$LinksInProfilePayload<ExtArgs>
+        fields: Prisma.LinksInProfileFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LinksInProfileFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LinksInProfileFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          findFirst: {
+            args: Prisma.LinksInProfileFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LinksInProfileFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          findMany: {
+            args: Prisma.LinksInProfileFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>[]
+          }
+          create: {
+            args: Prisma.LinksInProfileCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          createMany: {
+            args: Prisma.LinksInProfileCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LinksInProfileCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>[]
+          }
+          delete: {
+            args: Prisma.LinksInProfileDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          update: {
+            args: Prisma.LinksInProfileUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          deleteMany: {
+            args: Prisma.LinksInProfileDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LinksInProfileUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LinksInProfileUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>[]
+          }
+          upsert: {
+            args: Prisma.LinksInProfileUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinksInProfilePayload>
+          }
+          aggregate: {
+            args: Prisma.LinksInProfileAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLinksInProfile>
+          }
+          groupBy: {
+            args: Prisma.LinksInProfileGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LinksInProfileGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LinksInProfileCountArgs<ExtArgs>
+            result: $Utils.Optional<LinksInProfileCountAggregateOutputType> | number
+          }
+        }
+      }
       SteamUser: {
         payload: Prisma.$SteamUserPayload<ExtArgs>
         fields: Prisma.SteamUserFieldRefs
@@ -862,6 +1069,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SteamUserCountArgs<ExtArgs>
             result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      SteamUserBans: {
+        payload: Prisma.$SteamUserBansPayload<ExtArgs>
+        fields: Prisma.SteamUserBansFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SteamUserBansFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SteamUserBansFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          findFirst: {
+            args: Prisma.SteamUserBansFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SteamUserBansFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          findMany: {
+            args: Prisma.SteamUserBansFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>[]
+          }
+          create: {
+            args: Prisma.SteamUserBansCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          createMany: {
+            args: Prisma.SteamUserBansCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SteamUserBansCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>[]
+          }
+          delete: {
+            args: Prisma.SteamUserBansDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          update: {
+            args: Prisma.SteamUserBansUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          deleteMany: {
+            args: Prisma.SteamUserBansDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SteamUserBansUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SteamUserBansUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>[]
+          }
+          upsert: {
+            args: Prisma.SteamUserBansUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamUserBansPayload>
+          }
+          aggregate: {
+            args: Prisma.SteamUserBansAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSteamUserBans>
+          }
+          groupBy: {
+            args: Prisma.SteamUserBansGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserBansGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SteamUserBansCountArgs<ExtArgs>
+            result: $Utils.Optional<SteamUserBansCountAggregateOutputType> | number
           }
         }
       }
@@ -1246,7 +1527,10 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    emailVerify?: EmailVerifyOmit
+    linksInProfile?: LinksInProfileOmit
     steamUser?: SteamUserOmit
+    steamUserBans?: SteamUserBansOmit
     comment?: CommentOmit
     jwtToken?: JwtTokenOmit
     reportUser?: ReportUserOmit
@@ -1490,6 +1774,7 @@ export namespace Prisma {
     password: string | null
     avatar: string | null
     role: $Enums.UserRole | null
+    additionalRole: $Enums.AdditionalRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1501,6 +1786,7 @@ export namespace Prisma {
     password: string | null
     avatar: string | null
     role: $Enums.UserRole | null
+    additionalRole: $Enums.AdditionalRole | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1512,6 +1798,7 @@ export namespace Prisma {
     password: number
     avatar: number
     role: number
+    additionalRole: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1525,6 +1812,7 @@ export namespace Prisma {
     password?: true
     avatar?: true
     role?: true
+    additionalRole?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1536,6 +1824,7 @@ export namespace Prisma {
     password?: true
     avatar?: true
     role?: true
+    additionalRole?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1547,6 +1836,7 @@ export namespace Prisma {
     password?: true
     avatar?: true
     role?: true
+    additionalRole?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1631,6 +1921,7 @@ export namespace Prisma {
     password: string
     avatar: string | null
     role: $Enums.UserRole
+    additionalRole: $Enums.AdditionalRole | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1659,8 +1950,10 @@ export namespace Prisma {
     password?: boolean
     avatar?: boolean
     role?: boolean
+    additionalRole?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    links?: boolean | User$linksArgs<ExtArgs>
     steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
@@ -1676,6 +1969,7 @@ export namespace Prisma {
     password?: boolean
     avatar?: boolean
     role?: boolean
+    additionalRole?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1687,6 +1981,7 @@ export namespace Prisma {
     password?: boolean
     avatar?: boolean
     role?: boolean
+    additionalRole?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1698,12 +1993,14 @@ export namespace Prisma {
     password?: boolean
     avatar?: boolean
     role?: boolean
+    additionalRole?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "avatar" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "avatar" | "role" | "additionalRole" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    links?: boolean | User$linksArgs<ExtArgs>
     steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
@@ -1717,6 +2014,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      links: Prisma.$LinksInProfilePayload<ExtArgs> | null
       steamUser: Prisma.$SteamUserPayload<ExtArgs> | null
       commentsAsAuthor: Prisma.$CommentPayload<ExtArgs>[]
       jwtTokens: Prisma.$JwtTokenPayload<ExtArgs>[]
@@ -1730,6 +2028,7 @@ export namespace Prisma {
       password: string
       avatar: string | null
       role: $Enums.UserRole
+      additionalRole: $Enums.AdditionalRole | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2126,6 +2425,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    links<T extends User$linksArgs<ExtArgs> = {}>(args?: Subset<T, User$linksArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     steamUser<T extends User$steamUserArgs<ExtArgs> = {}>(args?: Subset<T, User$steamUserArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     commentsAsAuthor<T extends User$commentsAsAuthorArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsAsAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     jwtTokens<T extends User$jwtTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$jwtTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JwtTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2166,6 +2466,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly additionalRole: FieldRef<"User", 'AdditionalRole'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2556,6 +2857,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.links
+   */
+  export type User$linksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    where?: LinksInProfileWhereInput
+  }
+
+  /**
    * User.steamUser
    */
   export type User$steamUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2690,13 +3010,2084 @@ export namespace Prisma {
 
 
   /**
+   * Model EmailVerify
+   */
+
+  export type AggregateEmailVerify = {
+    _count: EmailVerifyCountAggregateOutputType | null
+    _avg: EmailVerifyAvgAggregateOutputType | null
+    _sum: EmailVerifySumAggregateOutputType | null
+    _min: EmailVerifyMinAggregateOutputType | null
+    _max: EmailVerifyMaxAggregateOutputType | null
+  }
+
+  export type EmailVerifyAvgAggregateOutputType = {
+    code: number | null
+  }
+
+  export type EmailVerifySumAggregateOutputType = {
+    code: number | null
+  }
+
+  export type EmailVerifyMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: number | null
+  }
+
+  export type EmailVerifyMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    code: number | null
+  }
+
+  export type EmailVerifyCountAggregateOutputType = {
+    id: number
+    userId: number
+    code: number
+    _all: number
+  }
+
+
+  export type EmailVerifyAvgAggregateInputType = {
+    code?: true
+  }
+
+  export type EmailVerifySumAggregateInputType = {
+    code?: true
+  }
+
+  export type EmailVerifyMinAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+  }
+
+  export type EmailVerifyMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+  }
+
+  export type EmailVerifyCountAggregateInputType = {
+    id?: true
+    userId?: true
+    code?: true
+    _all?: true
+  }
+
+  export type EmailVerifyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailVerify to aggregate.
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailVerifies to fetch.
+     */
+    orderBy?: EmailVerifyOrderByWithRelationInput | EmailVerifyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmailVerifyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailVerifies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailVerifies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmailVerifies
+    **/
+    _count?: true | EmailVerifyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmailVerifyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmailVerifySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmailVerifyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmailVerifyMaxAggregateInputType
+  }
+
+  export type GetEmailVerifyAggregateType<T extends EmailVerifyAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmailVerify]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmailVerify[P]>
+      : GetScalarType<T[P], AggregateEmailVerify[P]>
+  }
+
+
+
+
+  export type EmailVerifyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmailVerifyWhereInput
+    orderBy?: EmailVerifyOrderByWithAggregationInput | EmailVerifyOrderByWithAggregationInput[]
+    by: EmailVerifyScalarFieldEnum[] | EmailVerifyScalarFieldEnum
+    having?: EmailVerifyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmailVerifyCountAggregateInputType | true
+    _avg?: EmailVerifyAvgAggregateInputType
+    _sum?: EmailVerifySumAggregateInputType
+    _min?: EmailVerifyMinAggregateInputType
+    _max?: EmailVerifyMaxAggregateInputType
+  }
+
+  export type EmailVerifyGroupByOutputType = {
+    id: string
+    userId: string
+    code: number
+    _count: EmailVerifyCountAggregateOutputType | null
+    _avg: EmailVerifyAvgAggregateOutputType | null
+    _sum: EmailVerifySumAggregateOutputType | null
+    _min: EmailVerifyMinAggregateOutputType | null
+    _max: EmailVerifyMaxAggregateOutputType | null
+  }
+
+  type GetEmailVerifyGroupByPayload<T extends EmailVerifyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmailVerifyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmailVerifyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmailVerifyGroupByOutputType[P]>
+            : GetScalarType<T[P], EmailVerifyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmailVerifySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+  }, ExtArgs["result"]["emailVerify"]>
+
+  export type EmailVerifySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+  }, ExtArgs["result"]["emailVerify"]>
+
+  export type EmailVerifySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+  }, ExtArgs["result"]["emailVerify"]>
+
+  export type EmailVerifySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    code?: boolean
+  }
+
+  export type EmailVerifyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "code", ExtArgs["result"]["emailVerify"]>
+
+  export type $EmailVerifyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmailVerify"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      code: number
+    }, ExtArgs["result"]["emailVerify"]>
+    composites: {}
+  }
+
+  type EmailVerifyGetPayload<S extends boolean | null | undefined | EmailVerifyDefaultArgs> = $Result.GetResult<Prisma.$EmailVerifyPayload, S>
+
+  type EmailVerifyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmailVerifyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmailVerifyCountAggregateInputType | true
+    }
+
+  export interface EmailVerifyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmailVerify'], meta: { name: 'EmailVerify' } }
+    /**
+     * Find zero or one EmailVerify that matches the filter.
+     * @param {EmailVerifyFindUniqueArgs} args - Arguments to find a EmailVerify
+     * @example
+     * // Get one EmailVerify
+     * const emailVerify = await prisma.emailVerify.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmailVerifyFindUniqueArgs>(args: SelectSubset<T, EmailVerifyFindUniqueArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmailVerify that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmailVerifyFindUniqueOrThrowArgs} args - Arguments to find a EmailVerify
+     * @example
+     * // Get one EmailVerify
+     * const emailVerify = await prisma.emailVerify.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmailVerifyFindUniqueOrThrowArgs>(args: SelectSubset<T, EmailVerifyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmailVerify that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyFindFirstArgs} args - Arguments to find a EmailVerify
+     * @example
+     * // Get one EmailVerify
+     * const emailVerify = await prisma.emailVerify.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmailVerifyFindFirstArgs>(args?: SelectSubset<T, EmailVerifyFindFirstArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmailVerify that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyFindFirstOrThrowArgs} args - Arguments to find a EmailVerify
+     * @example
+     * // Get one EmailVerify
+     * const emailVerify = await prisma.emailVerify.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmailVerifyFindFirstOrThrowArgs>(args?: SelectSubset<T, EmailVerifyFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmailVerifies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmailVerifies
+     * const emailVerifies = await prisma.emailVerify.findMany()
+     * 
+     * // Get first 10 EmailVerifies
+     * const emailVerifies = await prisma.emailVerify.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const emailVerifyWithIdOnly = await prisma.emailVerify.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmailVerifyFindManyArgs>(args?: SelectSubset<T, EmailVerifyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmailVerify.
+     * @param {EmailVerifyCreateArgs} args - Arguments to create a EmailVerify.
+     * @example
+     * // Create one EmailVerify
+     * const EmailVerify = await prisma.emailVerify.create({
+     *   data: {
+     *     // ... data to create a EmailVerify
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmailVerifyCreateArgs>(args: SelectSubset<T, EmailVerifyCreateArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmailVerifies.
+     * @param {EmailVerifyCreateManyArgs} args - Arguments to create many EmailVerifies.
+     * @example
+     * // Create many EmailVerifies
+     * const emailVerify = await prisma.emailVerify.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmailVerifyCreateManyArgs>(args?: SelectSubset<T, EmailVerifyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmailVerifies and returns the data saved in the database.
+     * @param {EmailVerifyCreateManyAndReturnArgs} args - Arguments to create many EmailVerifies.
+     * @example
+     * // Create many EmailVerifies
+     * const emailVerify = await prisma.emailVerify.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmailVerifies and only return the `id`
+     * const emailVerifyWithIdOnly = await prisma.emailVerify.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmailVerifyCreateManyAndReturnArgs>(args?: SelectSubset<T, EmailVerifyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmailVerify.
+     * @param {EmailVerifyDeleteArgs} args - Arguments to delete one EmailVerify.
+     * @example
+     * // Delete one EmailVerify
+     * const EmailVerify = await prisma.emailVerify.delete({
+     *   where: {
+     *     // ... filter to delete one EmailVerify
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmailVerifyDeleteArgs>(args: SelectSubset<T, EmailVerifyDeleteArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmailVerify.
+     * @param {EmailVerifyUpdateArgs} args - Arguments to update one EmailVerify.
+     * @example
+     * // Update one EmailVerify
+     * const emailVerify = await prisma.emailVerify.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmailVerifyUpdateArgs>(args: SelectSubset<T, EmailVerifyUpdateArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmailVerifies.
+     * @param {EmailVerifyDeleteManyArgs} args - Arguments to filter EmailVerifies to delete.
+     * @example
+     * // Delete a few EmailVerifies
+     * const { count } = await prisma.emailVerify.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmailVerifyDeleteManyArgs>(args?: SelectSubset<T, EmailVerifyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmailVerifies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmailVerifies
+     * const emailVerify = await prisma.emailVerify.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmailVerifyUpdateManyArgs>(args: SelectSubset<T, EmailVerifyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmailVerifies and returns the data updated in the database.
+     * @param {EmailVerifyUpdateManyAndReturnArgs} args - Arguments to update many EmailVerifies.
+     * @example
+     * // Update many EmailVerifies
+     * const emailVerify = await prisma.emailVerify.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmailVerifies and only return the `id`
+     * const emailVerifyWithIdOnly = await prisma.emailVerify.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmailVerifyUpdateManyAndReturnArgs>(args: SelectSubset<T, EmailVerifyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmailVerify.
+     * @param {EmailVerifyUpsertArgs} args - Arguments to update or create a EmailVerify.
+     * @example
+     * // Update or create a EmailVerify
+     * const emailVerify = await prisma.emailVerify.upsert({
+     *   create: {
+     *     // ... data to create a EmailVerify
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmailVerify we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmailVerifyUpsertArgs>(args: SelectSubset<T, EmailVerifyUpsertArgs<ExtArgs>>): Prisma__EmailVerifyClient<$Result.GetResult<Prisma.$EmailVerifyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmailVerifies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyCountArgs} args - Arguments to filter EmailVerifies to count.
+     * @example
+     * // Count the number of EmailVerifies
+     * const count = await prisma.emailVerify.count({
+     *   where: {
+     *     // ... the filter for the EmailVerifies we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmailVerifyCountArgs>(
+      args?: Subset<T, EmailVerifyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmailVerifyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmailVerify.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmailVerifyAggregateArgs>(args: Subset<T, EmailVerifyAggregateArgs>): Prisma.PrismaPromise<GetEmailVerifyAggregateType<T>>
+
+    /**
+     * Group by EmailVerify.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmailVerifyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmailVerifyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmailVerifyGroupByArgs['orderBy'] }
+        : { orderBy?: EmailVerifyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmailVerifyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmailVerifyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmailVerify model
+   */
+  readonly fields: EmailVerifyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmailVerify.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmailVerifyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmailVerify model
+   */
+  interface EmailVerifyFieldRefs {
+    readonly id: FieldRef<"EmailVerify", 'String'>
+    readonly userId: FieldRef<"EmailVerify", 'String'>
+    readonly code: FieldRef<"EmailVerify", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmailVerify findUnique
+   */
+  export type EmailVerifyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter, which EmailVerify to fetch.
+     */
+    where: EmailVerifyWhereUniqueInput
+  }
+
+  /**
+   * EmailVerify findUniqueOrThrow
+   */
+  export type EmailVerifyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter, which EmailVerify to fetch.
+     */
+    where: EmailVerifyWhereUniqueInput
+  }
+
+  /**
+   * EmailVerify findFirst
+   */
+  export type EmailVerifyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter, which EmailVerify to fetch.
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailVerifies to fetch.
+     */
+    orderBy?: EmailVerifyOrderByWithRelationInput | EmailVerifyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailVerifies.
+     */
+    cursor?: EmailVerifyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailVerifies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailVerifies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailVerifies.
+     */
+    distinct?: EmailVerifyScalarFieldEnum | EmailVerifyScalarFieldEnum[]
+  }
+
+  /**
+   * EmailVerify findFirstOrThrow
+   */
+  export type EmailVerifyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter, which EmailVerify to fetch.
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailVerifies to fetch.
+     */
+    orderBy?: EmailVerifyOrderByWithRelationInput | EmailVerifyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmailVerifies.
+     */
+    cursor?: EmailVerifyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailVerifies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailVerifies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmailVerifies.
+     */
+    distinct?: EmailVerifyScalarFieldEnum | EmailVerifyScalarFieldEnum[]
+  }
+
+  /**
+   * EmailVerify findMany
+   */
+  export type EmailVerifyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter, which EmailVerifies to fetch.
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmailVerifies to fetch.
+     */
+    orderBy?: EmailVerifyOrderByWithRelationInput | EmailVerifyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmailVerifies.
+     */
+    cursor?: EmailVerifyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmailVerifies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmailVerifies.
+     */
+    skip?: number
+    distinct?: EmailVerifyScalarFieldEnum | EmailVerifyScalarFieldEnum[]
+  }
+
+  /**
+   * EmailVerify create
+   */
+  export type EmailVerifyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * The data needed to create a EmailVerify.
+     */
+    data: XOR<EmailVerifyCreateInput, EmailVerifyUncheckedCreateInput>
+  }
+
+  /**
+   * EmailVerify createMany
+   */
+  export type EmailVerifyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmailVerifies.
+     */
+    data: EmailVerifyCreateManyInput | EmailVerifyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmailVerify createManyAndReturn
+   */
+  export type EmailVerifyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmailVerifies.
+     */
+    data: EmailVerifyCreateManyInput | EmailVerifyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmailVerify update
+   */
+  export type EmailVerifyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * The data needed to update a EmailVerify.
+     */
+    data: XOR<EmailVerifyUpdateInput, EmailVerifyUncheckedUpdateInput>
+    /**
+     * Choose, which EmailVerify to update.
+     */
+    where: EmailVerifyWhereUniqueInput
+  }
+
+  /**
+   * EmailVerify updateMany
+   */
+  export type EmailVerifyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmailVerifies.
+     */
+    data: XOR<EmailVerifyUpdateManyMutationInput, EmailVerifyUncheckedUpdateManyInput>
+    /**
+     * Filter which EmailVerifies to update
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * Limit how many EmailVerifies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmailVerify updateManyAndReturn
+   */
+  export type EmailVerifyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * The data used to update EmailVerifies.
+     */
+    data: XOR<EmailVerifyUpdateManyMutationInput, EmailVerifyUncheckedUpdateManyInput>
+    /**
+     * Filter which EmailVerifies to update
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * Limit how many EmailVerifies to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmailVerify upsert
+   */
+  export type EmailVerifyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * The filter to search for the EmailVerify to update in case it exists.
+     */
+    where: EmailVerifyWhereUniqueInput
+    /**
+     * In case the EmailVerify found by the `where` argument doesn't exist, create a new EmailVerify with this data.
+     */
+    create: XOR<EmailVerifyCreateInput, EmailVerifyUncheckedCreateInput>
+    /**
+     * In case the EmailVerify was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmailVerifyUpdateInput, EmailVerifyUncheckedUpdateInput>
+  }
+
+  /**
+   * EmailVerify delete
+   */
+  export type EmailVerifyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+    /**
+     * Filter which EmailVerify to delete.
+     */
+    where: EmailVerifyWhereUniqueInput
+  }
+
+  /**
+   * EmailVerify deleteMany
+   */
+  export type EmailVerifyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmailVerifies to delete
+     */
+    where?: EmailVerifyWhereInput
+    /**
+     * Limit how many EmailVerifies to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmailVerify without action
+   */
+  export type EmailVerifyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmailVerify
+     */
+    select?: EmailVerifySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmailVerify
+     */
+    omit?: EmailVerifyOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LinksInProfile
+   */
+
+  export type AggregateLinksInProfile = {
+    _count: LinksInProfileCountAggregateOutputType | null
+    _min: LinksInProfileMinAggregateOutputType | null
+    _max: LinksInProfileMaxAggregateOutputType | null
+  }
+
+  export type LinksInProfileMinAggregateOutputType = {
+    id: string | null
+    twitch: string | null
+    youtube: string | null
+    telegram: string | null
+    discord: string | null
+  }
+
+  export type LinksInProfileMaxAggregateOutputType = {
+    id: string | null
+    twitch: string | null
+    youtube: string | null
+    telegram: string | null
+    discord: string | null
+  }
+
+  export type LinksInProfileCountAggregateOutputType = {
+    id: number
+    twitch: number
+    youtube: number
+    telegram: number
+    discord: number
+    _all: number
+  }
+
+
+  export type LinksInProfileMinAggregateInputType = {
+    id?: true
+    twitch?: true
+    youtube?: true
+    telegram?: true
+    discord?: true
+  }
+
+  export type LinksInProfileMaxAggregateInputType = {
+    id?: true
+    twitch?: true
+    youtube?: true
+    telegram?: true
+    discord?: true
+  }
+
+  export type LinksInProfileCountAggregateInputType = {
+    id?: true
+    twitch?: true
+    youtube?: true
+    telegram?: true
+    discord?: true
+    _all?: true
+  }
+
+  export type LinksInProfileAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinksInProfile to aggregate.
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinksInProfiles to fetch.
+     */
+    orderBy?: LinksInProfileOrderByWithRelationInput | LinksInProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LinksInProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinksInProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinksInProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LinksInProfiles
+    **/
+    _count?: true | LinksInProfileCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LinksInProfileMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LinksInProfileMaxAggregateInputType
+  }
+
+  export type GetLinksInProfileAggregateType<T extends LinksInProfileAggregateArgs> = {
+        [P in keyof T & keyof AggregateLinksInProfile]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLinksInProfile[P]>
+      : GetScalarType<T[P], AggregateLinksInProfile[P]>
+  }
+
+
+
+
+  export type LinksInProfileGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinksInProfileWhereInput
+    orderBy?: LinksInProfileOrderByWithAggregationInput | LinksInProfileOrderByWithAggregationInput[]
+    by: LinksInProfileScalarFieldEnum[] | LinksInProfileScalarFieldEnum
+    having?: LinksInProfileScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LinksInProfileCountAggregateInputType | true
+    _min?: LinksInProfileMinAggregateInputType
+    _max?: LinksInProfileMaxAggregateInputType
+  }
+
+  export type LinksInProfileGroupByOutputType = {
+    id: string
+    twitch: string | null
+    youtube: string | null
+    telegram: string | null
+    discord: string | null
+    _count: LinksInProfileCountAggregateOutputType | null
+    _min: LinksInProfileMinAggregateOutputType | null
+    _max: LinksInProfileMaxAggregateOutputType | null
+  }
+
+  type GetLinksInProfileGroupByPayload<T extends LinksInProfileGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LinksInProfileGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LinksInProfileGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LinksInProfileGroupByOutputType[P]>
+            : GetScalarType<T[P], LinksInProfileGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LinksInProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    twitch?: boolean
+    youtube?: boolean
+    telegram?: boolean
+    discord?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linksInProfile"]>
+
+  export type LinksInProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    twitch?: boolean
+    youtube?: boolean
+    telegram?: boolean
+    discord?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linksInProfile"]>
+
+  export type LinksInProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    twitch?: boolean
+    youtube?: boolean
+    telegram?: boolean
+    discord?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linksInProfile"]>
+
+  export type LinksInProfileSelectScalar = {
+    id?: boolean
+    twitch?: boolean
+    youtube?: boolean
+    telegram?: boolean
+    discord?: boolean
+  }
+
+  export type LinksInProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "twitch" | "youtube" | "telegram" | "discord", ExtArgs["result"]["linksInProfile"]>
+  export type LinksInProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LinksInProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LinksInProfileIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LinksInProfilePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LinksInProfile"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      twitch: string | null
+      youtube: string | null
+      telegram: string | null
+      discord: string | null
+    }, ExtArgs["result"]["linksInProfile"]>
+    composites: {}
+  }
+
+  type LinksInProfileGetPayload<S extends boolean | null | undefined | LinksInProfileDefaultArgs> = $Result.GetResult<Prisma.$LinksInProfilePayload, S>
+
+  type LinksInProfileCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LinksInProfileFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LinksInProfileCountAggregateInputType | true
+    }
+
+  export interface LinksInProfileDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LinksInProfile'], meta: { name: 'LinksInProfile' } }
+    /**
+     * Find zero or one LinksInProfile that matches the filter.
+     * @param {LinksInProfileFindUniqueArgs} args - Arguments to find a LinksInProfile
+     * @example
+     * // Get one LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LinksInProfileFindUniqueArgs>(args: SelectSubset<T, LinksInProfileFindUniqueArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LinksInProfile that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LinksInProfileFindUniqueOrThrowArgs} args - Arguments to find a LinksInProfile
+     * @example
+     * // Get one LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LinksInProfileFindUniqueOrThrowArgs>(args: SelectSubset<T, LinksInProfileFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinksInProfile that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileFindFirstArgs} args - Arguments to find a LinksInProfile
+     * @example
+     * // Get one LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LinksInProfileFindFirstArgs>(args?: SelectSubset<T, LinksInProfileFindFirstArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinksInProfile that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileFindFirstOrThrowArgs} args - Arguments to find a LinksInProfile
+     * @example
+     * // Get one LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LinksInProfileFindFirstOrThrowArgs>(args?: SelectSubset<T, LinksInProfileFindFirstOrThrowArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LinksInProfiles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LinksInProfiles
+     * const linksInProfiles = await prisma.linksInProfile.findMany()
+     * 
+     * // Get first 10 LinksInProfiles
+     * const linksInProfiles = await prisma.linksInProfile.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const linksInProfileWithIdOnly = await prisma.linksInProfile.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LinksInProfileFindManyArgs>(args?: SelectSubset<T, LinksInProfileFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LinksInProfile.
+     * @param {LinksInProfileCreateArgs} args - Arguments to create a LinksInProfile.
+     * @example
+     * // Create one LinksInProfile
+     * const LinksInProfile = await prisma.linksInProfile.create({
+     *   data: {
+     *     // ... data to create a LinksInProfile
+     *   }
+     * })
+     * 
+     */
+    create<T extends LinksInProfileCreateArgs>(args: SelectSubset<T, LinksInProfileCreateArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LinksInProfiles.
+     * @param {LinksInProfileCreateManyArgs} args - Arguments to create many LinksInProfiles.
+     * @example
+     * // Create many LinksInProfiles
+     * const linksInProfile = await prisma.linksInProfile.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LinksInProfileCreateManyArgs>(args?: SelectSubset<T, LinksInProfileCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LinksInProfiles and returns the data saved in the database.
+     * @param {LinksInProfileCreateManyAndReturnArgs} args - Arguments to create many LinksInProfiles.
+     * @example
+     * // Create many LinksInProfiles
+     * const linksInProfile = await prisma.linksInProfile.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LinksInProfiles and only return the `id`
+     * const linksInProfileWithIdOnly = await prisma.linksInProfile.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LinksInProfileCreateManyAndReturnArgs>(args?: SelectSubset<T, LinksInProfileCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LinksInProfile.
+     * @param {LinksInProfileDeleteArgs} args - Arguments to delete one LinksInProfile.
+     * @example
+     * // Delete one LinksInProfile
+     * const LinksInProfile = await prisma.linksInProfile.delete({
+     *   where: {
+     *     // ... filter to delete one LinksInProfile
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LinksInProfileDeleteArgs>(args: SelectSubset<T, LinksInProfileDeleteArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LinksInProfile.
+     * @param {LinksInProfileUpdateArgs} args - Arguments to update one LinksInProfile.
+     * @example
+     * // Update one LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LinksInProfileUpdateArgs>(args: SelectSubset<T, LinksInProfileUpdateArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LinksInProfiles.
+     * @param {LinksInProfileDeleteManyArgs} args - Arguments to filter LinksInProfiles to delete.
+     * @example
+     * // Delete a few LinksInProfiles
+     * const { count } = await prisma.linksInProfile.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LinksInProfileDeleteManyArgs>(args?: SelectSubset<T, LinksInProfileDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinksInProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LinksInProfiles
+     * const linksInProfile = await prisma.linksInProfile.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LinksInProfileUpdateManyArgs>(args: SelectSubset<T, LinksInProfileUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinksInProfiles and returns the data updated in the database.
+     * @param {LinksInProfileUpdateManyAndReturnArgs} args - Arguments to update many LinksInProfiles.
+     * @example
+     * // Update many LinksInProfiles
+     * const linksInProfile = await prisma.linksInProfile.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LinksInProfiles and only return the `id`
+     * const linksInProfileWithIdOnly = await prisma.linksInProfile.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LinksInProfileUpdateManyAndReturnArgs>(args: SelectSubset<T, LinksInProfileUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LinksInProfile.
+     * @param {LinksInProfileUpsertArgs} args - Arguments to update or create a LinksInProfile.
+     * @example
+     * // Update or create a LinksInProfile
+     * const linksInProfile = await prisma.linksInProfile.upsert({
+     *   create: {
+     *     // ... data to create a LinksInProfile
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LinksInProfile we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LinksInProfileUpsertArgs>(args: SelectSubset<T, LinksInProfileUpsertArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LinksInProfiles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileCountArgs} args - Arguments to filter LinksInProfiles to count.
+     * @example
+     * // Count the number of LinksInProfiles
+     * const count = await prisma.linksInProfile.count({
+     *   where: {
+     *     // ... the filter for the LinksInProfiles we want to count
+     *   }
+     * })
+    **/
+    count<T extends LinksInProfileCountArgs>(
+      args?: Subset<T, LinksInProfileCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LinksInProfileCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LinksInProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LinksInProfileAggregateArgs>(args: Subset<T, LinksInProfileAggregateArgs>): Prisma.PrismaPromise<GetLinksInProfileAggregateType<T>>
+
+    /**
+     * Group by LinksInProfile.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinksInProfileGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LinksInProfileGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LinksInProfileGroupByArgs['orderBy'] }
+        : { orderBy?: LinksInProfileGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LinksInProfileGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinksInProfileGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LinksInProfile model
+   */
+  readonly fields: LinksInProfileFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LinksInProfile.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LinksInProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LinksInProfile model
+   */
+  interface LinksInProfileFieldRefs {
+    readonly id: FieldRef<"LinksInProfile", 'String'>
+    readonly twitch: FieldRef<"LinksInProfile", 'String'>
+    readonly youtube: FieldRef<"LinksInProfile", 'String'>
+    readonly telegram: FieldRef<"LinksInProfile", 'String'>
+    readonly discord: FieldRef<"LinksInProfile", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LinksInProfile findUnique
+   */
+  export type LinksInProfileFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which LinksInProfile to fetch.
+     */
+    where: LinksInProfileWhereUniqueInput
+  }
+
+  /**
+   * LinksInProfile findUniqueOrThrow
+   */
+  export type LinksInProfileFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which LinksInProfile to fetch.
+     */
+    where: LinksInProfileWhereUniqueInput
+  }
+
+  /**
+   * LinksInProfile findFirst
+   */
+  export type LinksInProfileFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which LinksInProfile to fetch.
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinksInProfiles to fetch.
+     */
+    orderBy?: LinksInProfileOrderByWithRelationInput | LinksInProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinksInProfiles.
+     */
+    cursor?: LinksInProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinksInProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinksInProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinksInProfiles.
+     */
+    distinct?: LinksInProfileScalarFieldEnum | LinksInProfileScalarFieldEnum[]
+  }
+
+  /**
+   * LinksInProfile findFirstOrThrow
+   */
+  export type LinksInProfileFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which LinksInProfile to fetch.
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinksInProfiles to fetch.
+     */
+    orderBy?: LinksInProfileOrderByWithRelationInput | LinksInProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinksInProfiles.
+     */
+    cursor?: LinksInProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinksInProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinksInProfiles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinksInProfiles.
+     */
+    distinct?: LinksInProfileScalarFieldEnum | LinksInProfileScalarFieldEnum[]
+  }
+
+  /**
+   * LinksInProfile findMany
+   */
+  export type LinksInProfileFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter, which LinksInProfiles to fetch.
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinksInProfiles to fetch.
+     */
+    orderBy?: LinksInProfileOrderByWithRelationInput | LinksInProfileOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LinksInProfiles.
+     */
+    cursor?: LinksInProfileWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinksInProfiles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinksInProfiles.
+     */
+    skip?: number
+    distinct?: LinksInProfileScalarFieldEnum | LinksInProfileScalarFieldEnum[]
+  }
+
+  /**
+   * LinksInProfile create
+   */
+  export type LinksInProfileCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LinksInProfile.
+     */
+    data: XOR<LinksInProfileCreateInput, LinksInProfileUncheckedCreateInput>
+  }
+
+  /**
+   * LinksInProfile createMany
+   */
+  export type LinksInProfileCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LinksInProfiles.
+     */
+    data: LinksInProfileCreateManyInput | LinksInProfileCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LinksInProfile createManyAndReturn
+   */
+  export type LinksInProfileCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * The data used to create many LinksInProfiles.
+     */
+    data: LinksInProfileCreateManyInput | LinksInProfileCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinksInProfile update
+   */
+  export type LinksInProfileUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LinksInProfile.
+     */
+    data: XOR<LinksInProfileUpdateInput, LinksInProfileUncheckedUpdateInput>
+    /**
+     * Choose, which LinksInProfile to update.
+     */
+    where: LinksInProfileWhereUniqueInput
+  }
+
+  /**
+   * LinksInProfile updateMany
+   */
+  export type LinksInProfileUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LinksInProfiles.
+     */
+    data: XOR<LinksInProfileUpdateManyMutationInput, LinksInProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which LinksInProfiles to update
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * Limit how many LinksInProfiles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinksInProfile updateManyAndReturn
+   */
+  export type LinksInProfileUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * The data used to update LinksInProfiles.
+     */
+    data: XOR<LinksInProfileUpdateManyMutationInput, LinksInProfileUncheckedUpdateManyInput>
+    /**
+     * Filter which LinksInProfiles to update
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * Limit how many LinksInProfiles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinksInProfile upsert
+   */
+  export type LinksInProfileUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LinksInProfile to update in case it exists.
+     */
+    where: LinksInProfileWhereUniqueInput
+    /**
+     * In case the LinksInProfile found by the `where` argument doesn't exist, create a new LinksInProfile with this data.
+     */
+    create: XOR<LinksInProfileCreateInput, LinksInProfileUncheckedCreateInput>
+    /**
+     * In case the LinksInProfile was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LinksInProfileUpdateInput, LinksInProfileUncheckedUpdateInput>
+  }
+
+  /**
+   * LinksInProfile delete
+   */
+  export type LinksInProfileDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+    /**
+     * Filter which LinksInProfile to delete.
+     */
+    where: LinksInProfileWhereUniqueInput
+  }
+
+  /**
+   * LinksInProfile deleteMany
+   */
+  export type LinksInProfileDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinksInProfiles to delete
+     */
+    where?: LinksInProfileWhereInput
+    /**
+     * Limit how many LinksInProfiles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinksInProfile without action
+   */
+  export type LinksInProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinksInProfile
+     */
+    select?: LinksInProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinksInProfile
+     */
+    omit?: LinksInProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinksInProfileInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model SteamUser
    */
 
   export type AggregateSteamUser = {
     _count: SteamUserCountAggregateOutputType | null
+    _avg: SteamUserAvgAggregateOutputType | null
+    _sum: SteamUserSumAggregateOutputType | null
     _min: SteamUserMinAggregateOutputType | null
     _max: SteamUserMaxAggregateOutputType | null
+  }
+
+  export type SteamUserAvgAggregateOutputType = {
+    viewers: number | null
+  }
+
+  export type SteamUserSumAggregateOutputType = {
+    viewers: number | null
   }
 
   export type SteamUserMinAggregateOutputType = {
@@ -2706,6 +5097,11 @@ export namespace Prisma {
     avatar: string | null
     realname: string | null
     timeCreated: string | null
+    steamId2: string | null
+    steamId3: string | null
+    steamIdHex: string | null
+    countryCode: string | null
+    viewers: number | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2718,6 +5114,11 @@ export namespace Prisma {
     avatar: string | null
     realname: string | null
     timeCreated: string | null
+    steamId2: string | null
+    steamId3: string | null
+    steamIdHex: string | null
+    countryCode: string | null
+    viewers: number | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2730,12 +5131,25 @@ export namespace Prisma {
     avatar: number
     realname: number
     timeCreated: number
+    steamId2: number
+    steamId3: number
+    steamIdHex: number
+    countryCode: number
+    viewers: number
     userId: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type SteamUserAvgAggregateInputType = {
+    viewers?: true
+  }
+
+  export type SteamUserSumAggregateInputType = {
+    viewers?: true
+  }
 
   export type SteamUserMinAggregateInputType = {
     id?: true
@@ -2744,6 +5158,11 @@ export namespace Prisma {
     avatar?: true
     realname?: true
     timeCreated?: true
+    steamId2?: true
+    steamId3?: true
+    steamIdHex?: true
+    countryCode?: true
+    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2756,6 +5175,11 @@ export namespace Prisma {
     avatar?: true
     realname?: true
     timeCreated?: true
+    steamId2?: true
+    steamId3?: true
+    steamIdHex?: true
+    countryCode?: true
+    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2768,6 +5192,11 @@ export namespace Prisma {
     avatar?: true
     realname?: true
     timeCreated?: true
+    steamId2?: true
+    steamId3?: true
+    steamIdHex?: true
+    countryCode?: true
+    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2812,6 +5241,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: SteamUserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SteamUserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: SteamUserMinAggregateInputType
@@ -2842,6 +5283,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SteamUserCountAggregateInputType | true
+    _avg?: SteamUserAvgAggregateInputType
+    _sum?: SteamUserSumAggregateInputType
     _min?: SteamUserMinAggregateInputType
     _max?: SteamUserMaxAggregateInputType
   }
@@ -2853,10 +5296,17 @@ export namespace Prisma {
     avatar: string
     realname: string | null
     timeCreated: string
+    steamId2: string | null
+    steamId3: string | null
+    steamIdHex: string | null
+    countryCode: string | null
+    viewers: number | null
     userId: string | null
     createdAt: Date
     updatedAt: Date
     _count: SteamUserCountAggregateOutputType | null
+    _avg: SteamUserAvgAggregateOutputType | null
+    _sum: SteamUserSumAggregateOutputType | null
     _min: SteamUserMinAggregateOutputType | null
     _max: SteamUserMaxAggregateOutputType | null
   }
@@ -2882,10 +5332,16 @@ export namespace Prisma {
     avatar?: boolean
     realname?: boolean
     timeCreated?: boolean
+    steamId2?: boolean
+    steamId3?: boolean
+    steamIdHex?: boolean
+    countryCode?: boolean
+    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | SteamUser$userArgs<ExtArgs>
+    steamUserBans?: boolean | SteamUser$steamUserBansArgs<ExtArgs>
     commentsAsRecipient?: boolean | SteamUser$commentsAsRecipientArgs<ExtArgs>
     reportsAsRecipient?: boolean | SteamUser$reportsAsRecipientArgs<ExtArgs>
     _count?: boolean | SteamUserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2898,6 +5354,11 @@ export namespace Prisma {
     avatar?: boolean
     realname?: boolean
     timeCreated?: boolean
+    steamId2?: boolean
+    steamId3?: boolean
+    steamIdHex?: boolean
+    countryCode?: boolean
+    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2911,6 +5372,11 @@ export namespace Prisma {
     avatar?: boolean
     realname?: boolean
     timeCreated?: boolean
+    steamId2?: boolean
+    steamId3?: boolean
+    steamIdHex?: boolean
+    countryCode?: boolean
+    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2924,14 +5390,20 @@ export namespace Prisma {
     avatar?: boolean
     realname?: boolean
     timeCreated?: boolean
+    steamId2?: boolean
+    steamId3?: boolean
+    steamIdHex?: boolean
+    countryCode?: boolean
+    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "viewers" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
   export type SteamUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | SteamUser$userArgs<ExtArgs>
+    steamUserBans?: boolean | SteamUser$steamUserBansArgs<ExtArgs>
     commentsAsRecipient?: boolean | SteamUser$commentsAsRecipientArgs<ExtArgs>
     reportsAsRecipient?: boolean | SteamUser$reportsAsRecipientArgs<ExtArgs>
     _count?: boolean | SteamUserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2947,6 +5419,7 @@ export namespace Prisma {
     name: "SteamUser"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
+      steamUserBans: Prisma.$SteamUserBansPayload<ExtArgs> | null
       commentsAsRecipient: Prisma.$CommentPayload<ExtArgs>[]
       reportsAsRecipient: Prisma.$ReportUserPayload<ExtArgs>[]
     }
@@ -2957,6 +5430,11 @@ export namespace Prisma {
       avatar: string
       realname: string | null
       timeCreated: string
+      steamId2: string | null
+      steamId3: string | null
+      steamIdHex: string | null
+      countryCode: string | null
+      viewers: number | null
       userId: string | null
       createdAt: Date
       updatedAt: Date
@@ -3355,6 +5833,7 @@ export namespace Prisma {
   export interface Prisma__SteamUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends SteamUser$userArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    steamUserBans<T extends SteamUser$steamUserBansArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$steamUserBansArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     commentsAsRecipient<T extends SteamUser$commentsAsRecipientArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$commentsAsRecipientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportsAsRecipient<T extends SteamUser$reportsAsRecipientArgs<ExtArgs> = {}>(args?: Subset<T, SteamUser$reportsAsRecipientArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -3392,6 +5871,11 @@ export namespace Prisma {
     readonly avatar: FieldRef<"SteamUser", 'String'>
     readonly realname: FieldRef<"SteamUser", 'String'>
     readonly timeCreated: FieldRef<"SteamUser", 'String'>
+    readonly steamId2: FieldRef<"SteamUser", 'String'>
+    readonly steamId3: FieldRef<"SteamUser", 'String'>
+    readonly steamIdHex: FieldRef<"SteamUser", 'String'>
+    readonly countryCode: FieldRef<"SteamUser", 'String'>
+    readonly viewers: FieldRef<"SteamUser", 'Int'>
     readonly userId: FieldRef<"SteamUser", 'String'>
     readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
     readonly updatedAt: FieldRef<"SteamUser", 'DateTime'>
@@ -3810,6 +6294,25 @@ export namespace Prisma {
   }
 
   /**
+   * SteamUser.steamUserBans
+   */
+  export type SteamUser$steamUserBansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    where?: SteamUserBansWhereInput
+  }
+
+  /**
    * SteamUser.commentsAsRecipient
    */
   export type SteamUser$commentsAsRecipientArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3873,6 +6376,1132 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SteamUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SteamUserBans
+   */
+
+  export type AggregateSteamUserBans = {
+    _count: SteamUserBansCountAggregateOutputType | null
+    _avg: SteamUserBansAvgAggregateOutputType | null
+    _sum: SteamUserBansSumAggregateOutputType | null
+    _min: SteamUserBansMinAggregateOutputType | null
+    _max: SteamUserBansMaxAggregateOutputType | null
+  }
+
+  export type SteamUserBansAvgAggregateOutputType = {
+    daysSinceLastBan: number | null
+    gameBans: number | null
+    vacBans: number | null
+  }
+
+  export type SteamUserBansSumAggregateOutputType = {
+    daysSinceLastBan: number | null
+    gameBans: number | null
+    vacBans: number | null
+  }
+
+  export type SteamUserBansMinAggregateOutputType = {
+    id: string | null
+    communityBanned: boolean | null
+    daysSinceLastBan: number | null
+    economyBan: string | null
+    gameBans: number | null
+    vacBanned: boolean | null
+    vacBans: number | null
+  }
+
+  export type SteamUserBansMaxAggregateOutputType = {
+    id: string | null
+    communityBanned: boolean | null
+    daysSinceLastBan: number | null
+    economyBan: string | null
+    gameBans: number | null
+    vacBanned: boolean | null
+    vacBans: number | null
+  }
+
+  export type SteamUserBansCountAggregateOutputType = {
+    id: number
+    communityBanned: number
+    daysSinceLastBan: number
+    economyBan: number
+    gameBans: number
+    vacBanned: number
+    vacBans: number
+    _all: number
+  }
+
+
+  export type SteamUserBansAvgAggregateInputType = {
+    daysSinceLastBan?: true
+    gameBans?: true
+    vacBans?: true
+  }
+
+  export type SteamUserBansSumAggregateInputType = {
+    daysSinceLastBan?: true
+    gameBans?: true
+    vacBans?: true
+  }
+
+  export type SteamUserBansMinAggregateInputType = {
+    id?: true
+    communityBanned?: true
+    daysSinceLastBan?: true
+    economyBan?: true
+    gameBans?: true
+    vacBanned?: true
+    vacBans?: true
+  }
+
+  export type SteamUserBansMaxAggregateInputType = {
+    id?: true
+    communityBanned?: true
+    daysSinceLastBan?: true
+    economyBan?: true
+    gameBans?: true
+    vacBanned?: true
+    vacBans?: true
+  }
+
+  export type SteamUserBansCountAggregateInputType = {
+    id?: true
+    communityBanned?: true
+    daysSinceLastBan?: true
+    economyBan?: true
+    gameBans?: true
+    vacBanned?: true
+    vacBans?: true
+    _all?: true
+  }
+
+  export type SteamUserBansAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUserBans to aggregate.
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUserBans to fetch.
+     */
+    orderBy?: SteamUserBansOrderByWithRelationInput | SteamUserBansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SteamUserBansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUserBans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUserBans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SteamUserBans
+    **/
+    _count?: true | SteamUserBansCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SteamUserBansAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SteamUserBansSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SteamUserBansMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SteamUserBansMaxAggregateInputType
+  }
+
+  export type GetSteamUserBansAggregateType<T extends SteamUserBansAggregateArgs> = {
+        [P in keyof T & keyof AggregateSteamUserBans]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSteamUserBans[P]>
+      : GetScalarType<T[P], AggregateSteamUserBans[P]>
+  }
+
+
+
+
+  export type SteamUserBansGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SteamUserBansWhereInput
+    orderBy?: SteamUserBansOrderByWithAggregationInput | SteamUserBansOrderByWithAggregationInput[]
+    by: SteamUserBansScalarFieldEnum[] | SteamUserBansScalarFieldEnum
+    having?: SteamUserBansScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SteamUserBansCountAggregateInputType | true
+    _avg?: SteamUserBansAvgAggregateInputType
+    _sum?: SteamUserBansSumAggregateInputType
+    _min?: SteamUserBansMinAggregateInputType
+    _max?: SteamUserBansMaxAggregateInputType
+  }
+
+  export type SteamUserBansGroupByOutputType = {
+    id: string
+    communityBanned: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned: boolean
+    vacBans: number
+    _count: SteamUserBansCountAggregateOutputType | null
+    _avg: SteamUserBansAvgAggregateOutputType | null
+    _sum: SteamUserBansSumAggregateOutputType | null
+    _min: SteamUserBansMinAggregateOutputType | null
+    _max: SteamUserBansMaxAggregateOutputType | null
+  }
+
+  type GetSteamUserBansGroupByPayload<T extends SteamUserBansGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SteamUserBansGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SteamUserBansGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SteamUserBansGroupByOutputType[P]>
+            : GetScalarType<T[P], SteamUserBansGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SteamUserBansSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    communityBanned?: boolean
+    daysSinceLastBan?: boolean
+    economyBan?: boolean
+    gameBans?: boolean
+    vacBanned?: boolean
+    vacBans?: boolean
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUserBans"]>
+
+  export type SteamUserBansSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    communityBanned?: boolean
+    daysSinceLastBan?: boolean
+    economyBan?: boolean
+    gameBans?: boolean
+    vacBanned?: boolean
+    vacBans?: boolean
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUserBans"]>
+
+  export type SteamUserBansSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    communityBanned?: boolean
+    daysSinceLastBan?: boolean
+    economyBan?: boolean
+    gameBans?: boolean
+    vacBanned?: boolean
+    vacBans?: boolean
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["steamUserBans"]>
+
+  export type SteamUserBansSelectScalar = {
+    id?: boolean
+    communityBanned?: boolean
+    daysSinceLastBan?: boolean
+    economyBan?: boolean
+    gameBans?: boolean
+    vacBanned?: boolean
+    vacBans?: boolean
+  }
+
+  export type SteamUserBansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "communityBanned" | "daysSinceLastBan" | "economyBan" | "gameBans" | "vacBanned" | "vacBans", ExtArgs["result"]["steamUserBans"]>
+  export type SteamUserBansInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }
+  export type SteamUserBansIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }
+  export type SteamUserBansIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    steam?: boolean | SteamUserDefaultArgs<ExtArgs>
+  }
+
+  export type $SteamUserBansPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SteamUserBans"
+    objects: {
+      steam: Prisma.$SteamUserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      communityBanned: boolean
+      daysSinceLastBan: number
+      economyBan: string
+      gameBans: number
+      vacBanned: boolean
+      vacBans: number
+    }, ExtArgs["result"]["steamUserBans"]>
+    composites: {}
+  }
+
+  type SteamUserBansGetPayload<S extends boolean | null | undefined | SteamUserBansDefaultArgs> = $Result.GetResult<Prisma.$SteamUserBansPayload, S>
+
+  type SteamUserBansCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SteamUserBansFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SteamUserBansCountAggregateInputType | true
+    }
+
+  export interface SteamUserBansDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SteamUserBans'], meta: { name: 'SteamUserBans' } }
+    /**
+     * Find zero or one SteamUserBans that matches the filter.
+     * @param {SteamUserBansFindUniqueArgs} args - Arguments to find a SteamUserBans
+     * @example
+     * // Get one SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SteamUserBansFindUniqueArgs>(args: SelectSubset<T, SteamUserBansFindUniqueArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SteamUserBans that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SteamUserBansFindUniqueOrThrowArgs} args - Arguments to find a SteamUserBans
+     * @example
+     * // Get one SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SteamUserBansFindUniqueOrThrowArgs>(args: SelectSubset<T, SteamUserBansFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUserBans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansFindFirstArgs} args - Arguments to find a SteamUserBans
+     * @example
+     * // Get one SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SteamUserBansFindFirstArgs>(args?: SelectSubset<T, SteamUserBansFindFirstArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamUserBans that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansFindFirstOrThrowArgs} args - Arguments to find a SteamUserBans
+     * @example
+     * // Get one SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SteamUserBansFindFirstOrThrowArgs>(args?: SelectSubset<T, SteamUserBansFindFirstOrThrowArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SteamUserBans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findMany()
+     * 
+     * // Get first 10 SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const steamUserBansWithIdOnly = await prisma.steamUserBans.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SteamUserBansFindManyArgs>(args?: SelectSubset<T, SteamUserBansFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SteamUserBans.
+     * @param {SteamUserBansCreateArgs} args - Arguments to create a SteamUserBans.
+     * @example
+     * // Create one SteamUserBans
+     * const SteamUserBans = await prisma.steamUserBans.create({
+     *   data: {
+     *     // ... data to create a SteamUserBans
+     *   }
+     * })
+     * 
+     */
+    create<T extends SteamUserBansCreateArgs>(args: SelectSubset<T, SteamUserBansCreateArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SteamUserBans.
+     * @param {SteamUserBansCreateManyArgs} args - Arguments to create many SteamUserBans.
+     * @example
+     * // Create many SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SteamUserBansCreateManyArgs>(args?: SelectSubset<T, SteamUserBansCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SteamUserBans and returns the data saved in the database.
+     * @param {SteamUserBansCreateManyAndReturnArgs} args - Arguments to create many SteamUserBans.
+     * @example
+     * // Create many SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SteamUserBans and only return the `id`
+     * const steamUserBansWithIdOnly = await prisma.steamUserBans.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SteamUserBansCreateManyAndReturnArgs>(args?: SelectSubset<T, SteamUserBansCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SteamUserBans.
+     * @param {SteamUserBansDeleteArgs} args - Arguments to delete one SteamUserBans.
+     * @example
+     * // Delete one SteamUserBans
+     * const SteamUserBans = await prisma.steamUserBans.delete({
+     *   where: {
+     *     // ... filter to delete one SteamUserBans
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SteamUserBansDeleteArgs>(args: SelectSubset<T, SteamUserBansDeleteArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SteamUserBans.
+     * @param {SteamUserBansUpdateArgs} args - Arguments to update one SteamUserBans.
+     * @example
+     * // Update one SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SteamUserBansUpdateArgs>(args: SelectSubset<T, SteamUserBansUpdateArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SteamUserBans.
+     * @param {SteamUserBansDeleteManyArgs} args - Arguments to filter SteamUserBans to delete.
+     * @example
+     * // Delete a few SteamUserBans
+     * const { count } = await prisma.steamUserBans.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SteamUserBansDeleteManyArgs>(args?: SelectSubset<T, SteamUserBansDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUserBans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SteamUserBansUpdateManyArgs>(args: SelectSubset<T, SteamUserBansUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamUserBans and returns the data updated in the database.
+     * @param {SteamUserBansUpdateManyAndReturnArgs} args - Arguments to update many SteamUserBans.
+     * @example
+     * // Update many SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SteamUserBans and only return the `id`
+     * const steamUserBansWithIdOnly = await prisma.steamUserBans.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SteamUserBansUpdateManyAndReturnArgs>(args: SelectSubset<T, SteamUserBansUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SteamUserBans.
+     * @param {SteamUserBansUpsertArgs} args - Arguments to update or create a SteamUserBans.
+     * @example
+     * // Update or create a SteamUserBans
+     * const steamUserBans = await prisma.steamUserBans.upsert({
+     *   create: {
+     *     // ... data to create a SteamUserBans
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SteamUserBans we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SteamUserBansUpsertArgs>(args: SelectSubset<T, SteamUserBansUpsertArgs<ExtArgs>>): Prisma__SteamUserBansClient<$Result.GetResult<Prisma.$SteamUserBansPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SteamUserBans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansCountArgs} args - Arguments to filter SteamUserBans to count.
+     * @example
+     * // Count the number of SteamUserBans
+     * const count = await prisma.steamUserBans.count({
+     *   where: {
+     *     // ... the filter for the SteamUserBans we want to count
+     *   }
+     * })
+    **/
+    count<T extends SteamUserBansCountArgs>(
+      args?: Subset<T, SteamUserBansCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SteamUserBansCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SteamUserBans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SteamUserBansAggregateArgs>(args: Subset<T, SteamUserBansAggregateArgs>): Prisma.PrismaPromise<GetSteamUserBansAggregateType<T>>
+
+    /**
+     * Group by SteamUserBans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamUserBansGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SteamUserBansGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SteamUserBansGroupByArgs['orderBy'] }
+        : { orderBy?: SteamUserBansGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SteamUserBansGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSteamUserBansGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SteamUserBans model
+   */
+  readonly fields: SteamUserBansFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SteamUserBans.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SteamUserBansClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    steam<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SteamUserBans model
+   */
+  interface SteamUserBansFieldRefs {
+    readonly id: FieldRef<"SteamUserBans", 'String'>
+    readonly communityBanned: FieldRef<"SteamUserBans", 'Boolean'>
+    readonly daysSinceLastBan: FieldRef<"SteamUserBans", 'Int'>
+    readonly economyBan: FieldRef<"SteamUserBans", 'String'>
+    readonly gameBans: FieldRef<"SteamUserBans", 'Int'>
+    readonly vacBanned: FieldRef<"SteamUserBans", 'Boolean'>
+    readonly vacBans: FieldRef<"SteamUserBans", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SteamUserBans findUnique
+   */
+  export type SteamUserBansFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUserBans to fetch.
+     */
+    where: SteamUserBansWhereUniqueInput
+  }
+
+  /**
+   * SteamUserBans findUniqueOrThrow
+   */
+  export type SteamUserBansFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUserBans to fetch.
+     */
+    where: SteamUserBansWhereUniqueInput
+  }
+
+  /**
+   * SteamUserBans findFirst
+   */
+  export type SteamUserBansFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUserBans to fetch.
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUserBans to fetch.
+     */
+    orderBy?: SteamUserBansOrderByWithRelationInput | SteamUserBansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUserBans.
+     */
+    cursor?: SteamUserBansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUserBans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUserBans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUserBans.
+     */
+    distinct?: SteamUserBansScalarFieldEnum | SteamUserBansScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUserBans findFirstOrThrow
+   */
+  export type SteamUserBansFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUserBans to fetch.
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUserBans to fetch.
+     */
+    orderBy?: SteamUserBansOrderByWithRelationInput | SteamUserBansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamUserBans.
+     */
+    cursor?: SteamUserBansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUserBans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUserBans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamUserBans.
+     */
+    distinct?: SteamUserBansScalarFieldEnum | SteamUserBansScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUserBans findMany
+   */
+  export type SteamUserBansFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter, which SteamUserBans to fetch.
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamUserBans to fetch.
+     */
+    orderBy?: SteamUserBansOrderByWithRelationInput | SteamUserBansOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SteamUserBans.
+     */
+    cursor?: SteamUserBansWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamUserBans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamUserBans.
+     */
+    skip?: number
+    distinct?: SteamUserBansScalarFieldEnum | SteamUserBansScalarFieldEnum[]
+  }
+
+  /**
+   * SteamUserBans create
+   */
+  export type SteamUserBansCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SteamUserBans.
+     */
+    data: XOR<SteamUserBansCreateInput, SteamUserBansUncheckedCreateInput>
+  }
+
+  /**
+   * SteamUserBans createMany
+   */
+  export type SteamUserBansCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SteamUserBans.
+     */
+    data: SteamUserBansCreateManyInput | SteamUserBansCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamUserBans createManyAndReturn
+   */
+  export type SteamUserBansCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * The data used to create many SteamUserBans.
+     */
+    data: SteamUserBansCreateManyInput | SteamUserBansCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SteamUserBans update
+   */
+  export type SteamUserBansUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SteamUserBans.
+     */
+    data: XOR<SteamUserBansUpdateInput, SteamUserBansUncheckedUpdateInput>
+    /**
+     * Choose, which SteamUserBans to update.
+     */
+    where: SteamUserBansWhereUniqueInput
+  }
+
+  /**
+   * SteamUserBans updateMany
+   */
+  export type SteamUserBansUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SteamUserBans.
+     */
+    data: XOR<SteamUserBansUpdateManyMutationInput, SteamUserBansUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUserBans to update
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * Limit how many SteamUserBans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUserBans updateManyAndReturn
+   */
+  export type SteamUserBansUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * The data used to update SteamUserBans.
+     */
+    data: XOR<SteamUserBansUpdateManyMutationInput, SteamUserBansUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamUserBans to update
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * Limit how many SteamUserBans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SteamUserBans upsert
+   */
+  export type SteamUserBansUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SteamUserBans to update in case it exists.
+     */
+    where: SteamUserBansWhereUniqueInput
+    /**
+     * In case the SteamUserBans found by the `where` argument doesn't exist, create a new SteamUserBans with this data.
+     */
+    create: XOR<SteamUserBansCreateInput, SteamUserBansUncheckedCreateInput>
+    /**
+     * In case the SteamUserBans was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SteamUserBansUpdateInput, SteamUserBansUncheckedUpdateInput>
+  }
+
+  /**
+   * SteamUserBans delete
+   */
+  export type SteamUserBansDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
+    /**
+     * Filter which SteamUserBans to delete.
+     */
+    where: SteamUserBansWhereUniqueInput
+  }
+
+  /**
+   * SteamUserBans deleteMany
+   */
+  export type SteamUserBansDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamUserBans to delete
+     */
+    where?: SteamUserBansWhereInput
+    /**
+     * Limit how many SteamUserBans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamUserBans without action
+   */
+  export type SteamUserBansDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamUserBans
+     */
+    select?: SteamUserBansSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamUserBans
+     */
+    omit?: SteamUserBansOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SteamUserBansInclude<ExtArgs> | null
   }
 
 
@@ -8270,11 +11899,32 @@ export namespace Prisma {
     password: 'password',
     avatar: 'avatar',
     role: 'role',
+    additionalRole: 'additionalRole',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const EmailVerifyScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    code: 'code'
+  };
+
+  export type EmailVerifyScalarFieldEnum = (typeof EmailVerifyScalarFieldEnum)[keyof typeof EmailVerifyScalarFieldEnum]
+
+
+  export const LinksInProfileScalarFieldEnum: {
+    id: 'id',
+    twitch: 'twitch',
+    youtube: 'youtube',
+    telegram: 'telegram',
+    discord: 'discord'
+  };
+
+  export type LinksInProfileScalarFieldEnum = (typeof LinksInProfileScalarFieldEnum)[keyof typeof LinksInProfileScalarFieldEnum]
 
 
   export const SteamUserScalarFieldEnum: {
@@ -8284,12 +11934,30 @@ export namespace Prisma {
     avatar: 'avatar',
     realname: 'realname',
     timeCreated: 'timeCreated',
+    steamId2: 'steamId2',
+    steamId3: 'steamId3',
+    steamIdHex: 'steamIdHex',
+    countryCode: 'countryCode',
+    viewers: 'viewers',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
+
+
+  export const SteamUserBansScalarFieldEnum: {
+    id: 'id',
+    communityBanned: 'communityBanned',
+    daysSinceLastBan: 'daysSinceLastBan',
+    economyBan: 'economyBan',
+    gameBans: 'gameBans',
+    vacBanned: 'vacBanned',
+    vacBans: 'vacBans'
+  };
+
+  export type SteamUserBansScalarFieldEnum = (typeof SteamUserBansScalarFieldEnum)[keyof typeof SteamUserBansScalarFieldEnum]
 
 
   export const CommentScalarFieldEnum: {
@@ -8401,6 +12069,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'AdditionalRole'
+   */
+  export type EnumAdditionalRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdditionalRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'AdditionalRole[]'
+   */
+  export type ListEnumAdditionalRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdditionalRole[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -8426,6 +12108,27 @@ export namespace Prisma {
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
   /**
    * Deep Input Types
    */
@@ -8441,8 +12144,10 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleNullableFilter<"User"> | $Enums.AdditionalRole | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    links?: XOR<LinksInProfileNullableScalarRelationFilter, LinksInProfileWhereInput> | null
     steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
     jwtTokens?: JwtTokenListRelationFilter
@@ -8457,8 +12162,10 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
+    additionalRole?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    links?: LinksInProfileOrderByWithRelationInput
     steamUser?: SteamUserOrderByWithRelationInput
     commentsAsAuthor?: CommentOrderByRelationAggregateInput
     jwtTokens?: JwtTokenOrderByRelationAggregateInput
@@ -8476,8 +12183,10 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleNullableFilter<"User"> | $Enums.AdditionalRole | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    links?: XOR<LinksInProfileNullableScalarRelationFilter, LinksInProfileWhereInput> | null
     steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
     jwtTokens?: JwtTokenListRelationFilter
@@ -8492,6 +12201,7 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
+    additionalRole?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8509,8 +12219,108 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleNullableWithAggregatesFilter<"User"> | $Enums.AdditionalRole | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type EmailVerifyWhereInput = {
+    AND?: EmailVerifyWhereInput | EmailVerifyWhereInput[]
+    OR?: EmailVerifyWhereInput[]
+    NOT?: EmailVerifyWhereInput | EmailVerifyWhereInput[]
+    id?: StringFilter<"EmailVerify"> | string
+    userId?: StringFilter<"EmailVerify"> | string
+    code?: IntFilter<"EmailVerify"> | number
+  }
+
+  export type EmailVerifyOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+  }
+
+  export type EmailVerifyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EmailVerifyWhereInput | EmailVerifyWhereInput[]
+    OR?: EmailVerifyWhereInput[]
+    NOT?: EmailVerifyWhereInput | EmailVerifyWhereInput[]
+    userId?: StringFilter<"EmailVerify"> | string
+    code?: IntFilter<"EmailVerify"> | number
+  }, "id" | "id">
+
+  export type EmailVerifyOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+    _count?: EmailVerifyCountOrderByAggregateInput
+    _avg?: EmailVerifyAvgOrderByAggregateInput
+    _max?: EmailVerifyMaxOrderByAggregateInput
+    _min?: EmailVerifyMinOrderByAggregateInput
+    _sum?: EmailVerifySumOrderByAggregateInput
+  }
+
+  export type EmailVerifyScalarWhereWithAggregatesInput = {
+    AND?: EmailVerifyScalarWhereWithAggregatesInput | EmailVerifyScalarWhereWithAggregatesInput[]
+    OR?: EmailVerifyScalarWhereWithAggregatesInput[]
+    NOT?: EmailVerifyScalarWhereWithAggregatesInput | EmailVerifyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EmailVerify"> | string
+    userId?: StringWithAggregatesFilter<"EmailVerify"> | string
+    code?: IntWithAggregatesFilter<"EmailVerify"> | number
+  }
+
+  export type LinksInProfileWhereInput = {
+    AND?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
+    OR?: LinksInProfileWhereInput[]
+    NOT?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
+    id?: StringFilter<"LinksInProfile"> | string
+    twitch?: StringNullableFilter<"LinksInProfile"> | string | null
+    youtube?: StringNullableFilter<"LinksInProfile"> | string | null
+    telegram?: StringNullableFilter<"LinksInProfile"> | string | null
+    discord?: StringNullableFilter<"LinksInProfile"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LinksInProfileOrderByWithRelationInput = {
+    id?: SortOrder
+    twitch?: SortOrderInput | SortOrder
+    youtube?: SortOrderInput | SortOrder
+    telegram?: SortOrderInput | SortOrder
+    discord?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type LinksInProfileWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
+    OR?: LinksInProfileWhereInput[]
+    NOT?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
+    twitch?: StringNullableFilter<"LinksInProfile"> | string | null
+    youtube?: StringNullableFilter<"LinksInProfile"> | string | null
+    telegram?: StringNullableFilter<"LinksInProfile"> | string | null
+    discord?: StringNullableFilter<"LinksInProfile"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type LinksInProfileOrderByWithAggregationInput = {
+    id?: SortOrder
+    twitch?: SortOrderInput | SortOrder
+    youtube?: SortOrderInput | SortOrder
+    telegram?: SortOrderInput | SortOrder
+    discord?: SortOrderInput | SortOrder
+    _count?: LinksInProfileCountOrderByAggregateInput
+    _max?: LinksInProfileMaxOrderByAggregateInput
+    _min?: LinksInProfileMinOrderByAggregateInput
+  }
+
+  export type LinksInProfileScalarWhereWithAggregatesInput = {
+    AND?: LinksInProfileScalarWhereWithAggregatesInput | LinksInProfileScalarWhereWithAggregatesInput[]
+    OR?: LinksInProfileScalarWhereWithAggregatesInput[]
+    NOT?: LinksInProfileScalarWhereWithAggregatesInput | LinksInProfileScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LinksInProfile"> | string
+    twitch?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
+    youtube?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
+    telegram?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
+    discord?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
   }
 
   export type SteamUserWhereInput = {
@@ -8523,10 +12333,16 @@ export namespace Prisma {
     avatar?: StringFilter<"SteamUser"> | string
     realname?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
+    steamId2?: StringNullableFilter<"SteamUser"> | string | null
+    steamId3?: StringNullableFilter<"SteamUser"> | string | null
+    steamIdHex?: StringNullableFilter<"SteamUser"> | string | null
+    countryCode?: StringNullableFilter<"SteamUser"> | string | null
+    viewers?: IntNullableFilter<"SteamUser"> | number | null
     userId?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    steamUserBans?: XOR<SteamUserBansNullableScalarRelationFilter, SteamUserBansWhereInput> | null
     commentsAsRecipient?: CommentListRelationFilter
     reportsAsRecipient?: ReportUserListRelationFilter
   }
@@ -8538,10 +12354,16 @@ export namespace Prisma {
     avatar?: SortOrder
     realname?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
+    steamId2?: SortOrderInput | SortOrder
+    steamId3?: SortOrderInput | SortOrder
+    steamIdHex?: SortOrderInput | SortOrder
+    countryCode?: SortOrderInput | SortOrder
+    viewers?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    steamUserBans?: SteamUserBansOrderByWithRelationInput
     commentsAsRecipient?: CommentOrderByRelationAggregateInput
     reportsAsRecipient?: ReportUserOrderByRelationAggregateInput
   }
@@ -8557,9 +12379,15 @@ export namespace Prisma {
     avatar?: StringFilter<"SteamUser"> | string
     realname?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
+    steamId2?: StringNullableFilter<"SteamUser"> | string | null
+    steamId3?: StringNullableFilter<"SteamUser"> | string | null
+    steamIdHex?: StringNullableFilter<"SteamUser"> | string | null
+    countryCode?: StringNullableFilter<"SteamUser"> | string | null
+    viewers?: IntNullableFilter<"SteamUser"> | number | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    steamUserBans?: XOR<SteamUserBansNullableScalarRelationFilter, SteamUserBansWhereInput> | null
     commentsAsRecipient?: CommentListRelationFilter
     reportsAsRecipient?: ReportUserListRelationFilter
   }, "id" | "id" | "userId">
@@ -8571,12 +12399,19 @@ export namespace Prisma {
     avatar?: SortOrder
     realname?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
+    steamId2?: SortOrderInput | SortOrder
+    steamId3?: SortOrderInput | SortOrder
+    steamIdHex?: SortOrderInput | SortOrder
+    countryCode?: SortOrderInput | SortOrder
+    viewers?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SteamUserCountOrderByAggregateInput
+    _avg?: SteamUserAvgOrderByAggregateInput
     _max?: SteamUserMaxOrderByAggregateInput
     _min?: SteamUserMinOrderByAggregateInput
+    _sum?: SteamUserSumOrderByAggregateInput
   }
 
   export type SteamUserScalarWhereWithAggregatesInput = {
@@ -8589,9 +12424,81 @@ export namespace Prisma {
     avatar?: StringWithAggregatesFilter<"SteamUser"> | string
     realname?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     timeCreated?: StringWithAggregatesFilter<"SteamUser"> | string
+    steamId2?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    steamId3?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    steamIdHex?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    countryCode?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    viewers?: IntNullableWithAggregatesFilter<"SteamUser"> | number | null
     userId?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
+  }
+
+  export type SteamUserBansWhereInput = {
+    AND?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
+    OR?: SteamUserBansWhereInput[]
+    NOT?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
+    id?: StringFilter<"SteamUserBans"> | string
+    communityBanned?: BoolFilter<"SteamUserBans"> | boolean
+    daysSinceLastBan?: IntFilter<"SteamUserBans"> | number
+    economyBan?: StringFilter<"SteamUserBans"> | string
+    gameBans?: IntFilter<"SteamUserBans"> | number
+    vacBanned?: BoolFilter<"SteamUserBans"> | boolean
+    vacBans?: IntFilter<"SteamUserBans"> | number
+    steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+  }
+
+  export type SteamUserBansOrderByWithRelationInput = {
+    id?: SortOrder
+    communityBanned?: SortOrder
+    daysSinceLastBan?: SortOrder
+    economyBan?: SortOrder
+    gameBans?: SortOrder
+    vacBanned?: SortOrder
+    vacBans?: SortOrder
+    steam?: SteamUserOrderByWithRelationInput
+  }
+
+  export type SteamUserBansWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
+    OR?: SteamUserBansWhereInput[]
+    NOT?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
+    communityBanned?: BoolFilter<"SteamUserBans"> | boolean
+    daysSinceLastBan?: IntFilter<"SteamUserBans"> | number
+    economyBan?: StringFilter<"SteamUserBans"> | string
+    gameBans?: IntFilter<"SteamUserBans"> | number
+    vacBanned?: BoolFilter<"SteamUserBans"> | boolean
+    vacBans?: IntFilter<"SteamUserBans"> | number
+    steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+  }, "id" | "id">
+
+  export type SteamUserBansOrderByWithAggregationInput = {
+    id?: SortOrder
+    communityBanned?: SortOrder
+    daysSinceLastBan?: SortOrder
+    economyBan?: SortOrder
+    gameBans?: SortOrder
+    vacBanned?: SortOrder
+    vacBans?: SortOrder
+    _count?: SteamUserBansCountOrderByAggregateInput
+    _avg?: SteamUserBansAvgOrderByAggregateInput
+    _max?: SteamUserBansMaxOrderByAggregateInput
+    _min?: SteamUserBansMinOrderByAggregateInput
+    _sum?: SteamUserBansSumOrderByAggregateInput
+  }
+
+  export type SteamUserBansScalarWhereWithAggregatesInput = {
+    AND?: SteamUserBansScalarWhereWithAggregatesInput | SteamUserBansScalarWhereWithAggregatesInput[]
+    OR?: SteamUserBansScalarWhereWithAggregatesInput[]
+    NOT?: SteamUserBansScalarWhereWithAggregatesInput | SteamUserBansScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SteamUserBans"> | string
+    communityBanned?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
+    daysSinceLastBan?: IntWithAggregatesFilter<"SteamUserBans"> | number
+    economyBan?: StringWithAggregatesFilter<"SteamUserBans"> | string
+    gameBans?: IntWithAggregatesFilter<"SteamUserBans"> | number
+    vacBanned?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
+    vacBans?: IntWithAggregatesFilter<"SteamUserBans"> | number
   }
 
   export type CommentWhereInput = {
@@ -8870,8 +12777,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -8886,8 +12795,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -8902,8 +12813,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -8918,8 +12831,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -8934,6 +12849,7 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8945,6 +12861,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8956,8 +12873,106 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmailVerifyCreateInput = {
+    id?: string
+    userId: string
+    code: number
+  }
+
+  export type EmailVerifyUncheckedCreateInput = {
+    id?: string
+    userId: string
+    code: number
+  }
+
+  export type EmailVerifyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmailVerifyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmailVerifyCreateManyInput = {
+    id?: string
+    userId: string
+    code: number
+  }
+
+  export type EmailVerifyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmailVerifyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    code?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinksInProfileCreateInput = {
+    twitch?: string | null
+    youtube?: string | null
+    telegram?: string | null
+    discord?: string | null
+    user?: UserCreateNestedOneWithoutLinksInput
+  }
+
+  export type LinksInProfileUncheckedCreateInput = {
+    id?: string
+    twitch?: string | null
+    youtube?: string | null
+    telegram?: string | null
+    discord?: string | null
+  }
+
+  export type LinksInProfileUpdateInput = {
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutLinksNestedInput
+  }
+
+  export type LinksInProfileUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LinksInProfileCreateManyInput = {
+    id?: string
+    twitch?: string | null
+    youtube?: string | null
+    telegram?: string | null
+    discord?: string | null
+  }
+
+  export type LinksInProfileUpdateManyMutationInput = {
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LinksInProfileUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SteamUserCreateInput = {
@@ -8967,9 +12982,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
+    steamUserBans?: SteamUserBansCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
     reportsAsRecipient?: ReportUserCreateNestedManyWithoutRecipientInput
   }
@@ -8981,9 +13002,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    steamUserBans?: SteamUserBansUncheckedCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
     reportsAsRecipient?: ReportUserUncheckedCreateNestedManyWithoutRecipientInput
   }
@@ -8995,9 +13022,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
+    steamUserBans?: SteamUserBansUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
     reportsAsRecipient?: ReportUserUpdateManyWithoutRecipientNestedInput
   }
@@ -9009,9 +13042,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUserBans?: SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
     reportsAsRecipient?: ReportUserUncheckedUpdateManyWithoutRecipientNestedInput
   }
@@ -9023,6 +13062,11 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9035,6 +13079,11 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9046,9 +13095,83 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SteamUserBansCreateInput = {
+    communityBanned?: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned?: boolean
+    vacBans: number
+    steam: SteamUserCreateNestedOneWithoutSteamUserBansInput
+  }
+
+  export type SteamUserBansUncheckedCreateInput = {
+    id: string
+    communityBanned?: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned?: boolean
+    vacBans: number
+  }
+
+  export type SteamUserBansUpdateInput = {
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
+    steam?: SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput
+  }
+
+  export type SteamUserBansUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamUserBansCreateManyInput = {
+    id: string
+    communityBanned?: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned?: boolean
+    vacBans: number
+  }
+
+  export type SteamUserBansUpdateManyMutationInput = {
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamUserBansUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentCreateInput = {
@@ -9358,6 +13481,13 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type EnumAdditionalRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel> | $Enums.AdditionalRole | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9367,6 +13497,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type LinksInProfileNullableScalarRelationFilter = {
+    is?: LinksInProfileWhereInput | null
+    isNot?: LinksInProfileWhereInput | null
   }
 
   export type SteamUserNullableScalarRelationFilter = {
@@ -9426,6 +13561,7 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    additionalRole?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9437,6 +13573,7 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    additionalRole?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9448,6 +13585,7 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrder
     role?: SortOrder
+    additionalRole?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9498,6 +13636,16 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type EnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9512,9 +13660,107 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type EmailVerifyCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+  }
+
+  export type EmailVerifyAvgOrderByAggregateInput = {
+    code?: SortOrder
+  }
+
+  export type EmailVerifyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+  }
+
+  export type EmailVerifyMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    code?: SortOrder
+  }
+
+  export type EmailVerifySumOrderByAggregateInput = {
+    code?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type LinksInProfileCountOrderByAggregateInput = {
+    id?: SortOrder
+    twitch?: SortOrder
+    youtube?: SortOrder
+    telegram?: SortOrder
+    discord?: SortOrder
+  }
+
+  export type LinksInProfileMaxOrderByAggregateInput = {
+    id?: SortOrder
+    twitch?: SortOrder
+    youtube?: SortOrder
+    telegram?: SortOrder
+    discord?: SortOrder
+  }
+
+  export type LinksInProfileMinOrderByAggregateInput = {
+    id?: SortOrder
+    twitch?: SortOrder
+    youtube?: SortOrder
+    telegram?: SortOrder
+    discord?: SortOrder
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type SteamUserBansNullableScalarRelationFilter = {
+    is?: SteamUserBansWhereInput | null
+    isNot?: SteamUserBansWhereInput | null
   }
 
   export type SteamUserCountOrderByAggregateInput = {
@@ -9524,9 +13770,18 @@ export namespace Prisma {
     avatar?: SortOrder
     realname?: SortOrder
     timeCreated?: SortOrder
+    steamId2?: SortOrder
+    steamId3?: SortOrder
+    steamIdHex?: SortOrder
+    countryCode?: SortOrder
+    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type SteamUserAvgOrderByAggregateInput = {
+    viewers?: SortOrder
   }
 
   export type SteamUserMaxOrderByAggregateInput = {
@@ -9536,6 +13791,11 @@ export namespace Prisma {
     avatar?: SortOrder
     realname?: SortOrder
     timeCreated?: SortOrder
+    steamId2?: SortOrder
+    steamId3?: SortOrder
+    steamIdHex?: SortOrder
+    countryCode?: SortOrder
+    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9548,19 +13808,94 @@ export namespace Prisma {
     avatar?: SortOrder
     realname?: SortOrder
     timeCreated?: SortOrder
+    steamId2?: SortOrder
+    steamId3?: SortOrder
+    steamIdHex?: SortOrder
+    countryCode?: SortOrder
+    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type SteamUserSumOrderByAggregateInput = {
+    viewers?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type SteamUserScalarRelationFilter = {
     is?: SteamUserWhereInput
     isNot?: SteamUserWhereInput
+  }
+
+  export type SteamUserBansCountOrderByAggregateInput = {
+    id?: SortOrder
+    communityBanned?: SortOrder
+    daysSinceLastBan?: SortOrder
+    economyBan?: SortOrder
+    gameBans?: SortOrder
+    vacBanned?: SortOrder
+    vacBans?: SortOrder
+  }
+
+  export type SteamUserBansAvgOrderByAggregateInput = {
+    daysSinceLastBan?: SortOrder
+    gameBans?: SortOrder
+    vacBans?: SortOrder
+  }
+
+  export type SteamUserBansMaxOrderByAggregateInput = {
+    id?: SortOrder
+    communityBanned?: SortOrder
+    daysSinceLastBan?: SortOrder
+    economyBan?: SortOrder
+    gameBans?: SortOrder
+    vacBanned?: SortOrder
+    vacBans?: SortOrder
+  }
+
+  export type SteamUserBansMinOrderByAggregateInput = {
+    id?: SortOrder
+    communityBanned?: SortOrder
+    daysSinceLastBan?: SortOrder
+    economyBan?: SortOrder
+    gameBans?: SortOrder
+    vacBanned?: SortOrder
+    vacBans?: SortOrder
+  }
+
+  export type SteamUserBansSumOrderByAggregateInput = {
+    daysSinceLastBan?: SortOrder
+    gameBans?: SortOrder
+    vacBans?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type CommentAuthorIdRecipientIdCompoundUniqueInput = {
@@ -9701,6 +14036,12 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type LinksInProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
+    connect?: LinksInProfileWhereUniqueInput
+  }
+
   export type SteamUserCreateNestedOneWithoutUserInput = {
     create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
     connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
@@ -9733,6 +14074,12 @@ export namespace Prisma {
     connectOrCreate?: VerdictCreateOrConnectWithoutUserInput | VerdictCreateOrConnectWithoutUserInput[]
     createMany?: VerdictCreateManyUserInputEnvelope
     connect?: VerdictWhereUniqueInput | VerdictWhereUniqueInput[]
+  }
+
+  export type LinksInProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
+    connect?: LinksInProfileWhereUniqueInput
   }
 
   export type SteamUserUncheckedCreateNestedOneWithoutUserInput = {
@@ -9781,8 +14128,22 @@ export namespace Prisma {
     set?: $Enums.UserRole
   }
 
+  export type NullableEnumAdditionalRoleFieldUpdateOperationsInput = {
+    set?: $Enums.AdditionalRole | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type LinksInProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
+    upsert?: LinksInProfileUpsertWithoutUserInput
+    disconnect?: LinksInProfileWhereInput | boolean
+    delete?: LinksInProfileWhereInput | boolean
+    connect?: LinksInProfileWhereUniqueInput
+    update?: XOR<XOR<LinksInProfileUpdateToOneWithWhereWithoutUserInput, LinksInProfileUpdateWithoutUserInput>, LinksInProfileUncheckedUpdateWithoutUserInput>
   }
 
   export type SteamUserUpdateOneWithoutUserNestedInput = {
@@ -9851,6 +14212,16 @@ export namespace Prisma {
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
   }
 
+  export type LinksInProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
+    upsert?: LinksInProfileUpsertWithoutUserInput
+    disconnect?: LinksInProfileWhereInput | boolean
+    delete?: LinksInProfileWhereInput | boolean
+    connect?: LinksInProfileWhereUniqueInput
+    update?: XOR<XOR<LinksInProfileUpdateToOneWithWhereWithoutUserInput, LinksInProfileUpdateWithoutUserInput>, LinksInProfileUncheckedUpdateWithoutUserInput>
+  }
+
   export type SteamUserUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
     connectOrCreate?: SteamUserCreateOrConnectWithoutUserInput
@@ -9917,10 +14288,38 @@ export namespace Prisma {
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserCreateNestedOneWithoutLinksInput = {
+    create?: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLinksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLinksNestedInput = {
+    create?: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLinksInput
+    upsert?: UserUpsertWithoutLinksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLinksInput, UserUpdateWithoutLinksInput>, UserUncheckedUpdateWithoutLinksInput>
+  }
+
   export type UserCreateNestedOneWithoutSteamUserInput = {
     create?: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
     connectOrCreate?: UserCreateOrConnectWithoutSteamUserInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type SteamUserBansCreateNestedOneWithoutSteamInput = {
+    create?: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
+    connectOrCreate?: SteamUserBansCreateOrConnectWithoutSteamInput
+    connect?: SteamUserBansWhereUniqueInput
   }
 
   export type CommentCreateNestedManyWithoutRecipientInput = {
@@ -9937,6 +14336,12 @@ export namespace Prisma {
     connect?: ReportUserWhereUniqueInput | ReportUserWhereUniqueInput[]
   }
 
+  export type SteamUserBansUncheckedCreateNestedOneWithoutSteamInput = {
+    create?: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
+    connectOrCreate?: SteamUserBansCreateOrConnectWithoutSteamInput
+    connect?: SteamUserBansWhereUniqueInput
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutRecipientInput = {
     create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
@@ -9951,6 +14356,14 @@ export namespace Prisma {
     connect?: ReportUserWhereUniqueInput | ReportUserWhereUniqueInput[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UserUpdateOneWithoutSteamUserNestedInput = {
     create?: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
     connectOrCreate?: UserCreateOrConnectWithoutSteamUserInput
@@ -9959,6 +14372,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSteamUserInput, UserUpdateWithoutSteamUserInput>, UserUncheckedUpdateWithoutSteamUserInput>
+  }
+
+  export type SteamUserBansUpdateOneWithoutSteamNestedInput = {
+    create?: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
+    connectOrCreate?: SteamUserBansCreateOrConnectWithoutSteamInput
+    upsert?: SteamUserBansUpsertWithoutSteamInput
+    disconnect?: SteamUserBansWhereInput | boolean
+    delete?: SteamUserBansWhereInput | boolean
+    connect?: SteamUserBansWhereUniqueInput
+    update?: XOR<XOR<SteamUserBansUpdateToOneWithWhereWithoutSteamInput, SteamUserBansUpdateWithoutSteamInput>, SteamUserBansUncheckedUpdateWithoutSteamInput>
   }
 
   export type CommentUpdateManyWithoutRecipientNestedInput = {
@@ -9989,6 +14412,16 @@ export namespace Prisma {
     deleteMany?: ReportUserScalarWhereInput | ReportUserScalarWhereInput[]
   }
 
+  export type SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput = {
+    create?: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
+    connectOrCreate?: SteamUserBansCreateOrConnectWithoutSteamInput
+    upsert?: SteamUserBansUpsertWithoutSteamInput
+    disconnect?: SteamUserBansWhereInput | boolean
+    delete?: SteamUserBansWhereInput | boolean
+    connect?: SteamUserBansWhereUniqueInput
+    update?: XOR<XOR<SteamUserBansUpdateToOneWithWhereWithoutSteamInput, SteamUserBansUpdateWithoutSteamInput>, SteamUserBansUncheckedUpdateWithoutSteamInput>
+  }
+
   export type CommentUncheckedUpdateManyWithoutRecipientNestedInput = {
     create?: XOR<CommentCreateWithoutRecipientInput, CommentUncheckedCreateWithoutRecipientInput> | CommentCreateWithoutRecipientInput[] | CommentUncheckedCreateWithoutRecipientInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutRecipientInput | CommentCreateOrConnectWithoutRecipientInput[]
@@ -10015,6 +14448,24 @@ export namespace Prisma {
     update?: ReportUserUpdateWithWhereUniqueWithoutRecipientInput | ReportUserUpdateWithWhereUniqueWithoutRecipientInput[]
     updateMany?: ReportUserUpdateManyWithWhereWithoutRecipientInput | ReportUserUpdateManyWithWhereWithoutRecipientInput[]
     deleteMany?: ReportUserScalarWhereInput | ReportUserScalarWhereInput[]
+  }
+
+  export type SteamUserCreateNestedOneWithoutSteamUserBansInput = {
+    create?: XOR<SteamUserCreateWithoutSteamUserBansInput, SteamUserUncheckedCreateWithoutSteamUserBansInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutSteamUserBansInput
+    connect?: SteamUserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput = {
+    create?: XOR<SteamUserCreateWithoutSteamUserBansInput, SteamUserUncheckedCreateWithoutSteamUserBansInput>
+    connectOrCreate?: SteamUserCreateOrConnectWithoutSteamUserBansInput
+    upsert?: SteamUserUpsertWithoutSteamUserBansInput
+    connect?: SteamUserWhereUniqueInput
+    update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutSteamUserBansInput, SteamUserUpdateWithoutSteamUserBansInput>, SteamUserUncheckedUpdateWithoutSteamUserBansInput>
   }
 
   export type UserCreateNestedOneWithoutCommentsAsAuthorInput = {
@@ -10201,6 +14652,13 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedEnumAdditionalRoleNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel> | $Enums.AdditionalRole | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10278,6 +14736,16 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+    _max?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10292,6 +14760,92 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type LinksInProfileCreateWithoutUserInput = {
+    twitch?: string | null
+    youtube?: string | null
+    telegram?: string | null
+    discord?: string | null
+  }
+
+  export type LinksInProfileUncheckedCreateWithoutUserInput = {
+    twitch?: string | null
+    youtube?: string | null
+    telegram?: string | null
+    discord?: string | null
+  }
+
+  export type LinksInProfileCreateOrConnectWithoutUserInput = {
+    where: LinksInProfileWhereUniqueInput
+    create: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+  }
+
   export type SteamUserCreateWithoutUserInput = {
     id: string
     personaName: string
@@ -10299,8 +14853,14 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    steamUserBans?: SteamUserBansCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
     reportsAsRecipient?: ReportUserCreateNestedManyWithoutRecipientInput
   }
@@ -10312,8 +14872,14 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    steamUserBans?: SteamUserBansUncheckedCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
     reportsAsRecipient?: ReportUserUncheckedCreateNestedManyWithoutRecipientInput
   }
@@ -10435,6 +15001,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LinksInProfileUpsertWithoutUserInput = {
+    update: XOR<LinksInProfileUpdateWithoutUserInput, LinksInProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
+    where?: LinksInProfileWhereInput
+  }
+
+  export type LinksInProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: LinksInProfileWhereInput
+    data: XOR<LinksInProfileUpdateWithoutUserInput, LinksInProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type LinksInProfileUpdateWithoutUserInput = {
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type LinksInProfileUncheckedUpdateWithoutUserInput = {
+    twitch?: NullableStringFieldUpdateOperationsInput | string | null
+    youtube?: NullableStringFieldUpdateOperationsInput | string | null
+    telegram?: NullableStringFieldUpdateOperationsInput | string | null
+    discord?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type SteamUserUpsertWithoutUserInput = {
     update: XOR<SteamUserUpdateWithoutUserInput, SteamUserUncheckedUpdateWithoutUserInput>
     create: XOR<SteamUserCreateWithoutUserInput, SteamUserUncheckedCreateWithoutUserInput>
@@ -10453,8 +15044,14 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUserBans?: SteamUserBansUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
     reportsAsRecipient?: ReportUserUpdateManyWithoutRecipientNestedInput
   }
@@ -10466,8 +15063,14 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUserBans?: SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
     reportsAsRecipient?: ReportUserUncheckedUpdateManyWithoutRecipientNestedInput
   }
@@ -10587,6 +15190,90 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
   }
 
+  export type UserCreateWithoutLinksInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLinksInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLinksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
+  }
+
+  export type UserUpsertWithoutLinksInput = {
+    update: XOR<UserUpdateWithoutLinksInput, UserUncheckedUpdateWithoutLinksInput>
+    create: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLinksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLinksInput, UserUncheckedUpdateWithoutLinksInput>
+  }
+
+  export type UserUpdateWithoutLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLinksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutSteamUserInput = {
     id?: string
     email: string
@@ -10594,8 +15281,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
@@ -10609,8 +15298,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
@@ -10620,6 +15311,29 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutSteamUserInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
+  }
+
+  export type SteamUserBansCreateWithoutSteamInput = {
+    communityBanned?: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned?: boolean
+    vacBans: number
+  }
+
+  export type SteamUserBansUncheckedCreateWithoutSteamInput = {
+    communityBanned?: boolean
+    daysSinceLastBan: number
+    economyBan: string
+    gameBans: number
+    vacBanned?: boolean
+    vacBans: number
+  }
+
+  export type SteamUserBansCreateOrConnectWithoutSteamInput = {
+    where: SteamUserBansWhereUniqueInput
+    create: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
   }
 
   export type CommentCreateWithoutRecipientInput = {
@@ -10700,8 +15414,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
@@ -10715,12 +15431,43 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SteamUserBansUpsertWithoutSteamInput = {
+    update: XOR<SteamUserBansUpdateWithoutSteamInput, SteamUserBansUncheckedUpdateWithoutSteamInput>
+    create: XOR<SteamUserBansCreateWithoutSteamInput, SteamUserBansUncheckedCreateWithoutSteamInput>
+    where?: SteamUserBansWhereInput
+  }
+
+  export type SteamUserBansUpdateToOneWithWhereWithoutSteamInput = {
+    where?: SteamUserBansWhereInput
+    data: XOR<SteamUserBansUpdateWithoutSteamInput, SteamUserBansUncheckedUpdateWithoutSteamInput>
+  }
+
+  export type SteamUserBansUpdateWithoutSteamInput = {
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamUserBansUncheckedUpdateWithoutSteamInput = {
+    communityBanned?: BoolFieldUpdateOperationsInput | boolean
+    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
+    economyBan?: StringFieldUpdateOperationsInput | string
+    gameBans?: IntFieldUpdateOperationsInput | number
+    vacBanned?: BoolFieldUpdateOperationsInput | boolean
+    vacBans?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentUpsertWithWhereUniqueWithoutRecipientInput = {
@@ -10755,6 +15502,98 @@ export namespace Prisma {
     data: XOR<ReportUserUpdateManyMutationInput, ReportUserUncheckedUpdateManyWithoutRecipientInput>
   }
 
+  export type SteamUserCreateWithoutSteamUserBansInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutSteamUserInput
+    commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
+    reportsAsRecipient?: ReportUserCreateNestedManyWithoutRecipientInput
+  }
+
+  export type SteamUserUncheckedCreateWithoutSteamUserBansInput = {
+    id: string
+    personaName: string
+    profileUrl: string
+    avatar: string
+    realname?: string | null
+    timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
+    userId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
+    reportsAsRecipient?: ReportUserUncheckedCreateNestedManyWithoutRecipientInput
+  }
+
+  export type SteamUserCreateOrConnectWithoutSteamUserBansInput = {
+    where: SteamUserWhereUniqueInput
+    create: XOR<SteamUserCreateWithoutSteamUserBansInput, SteamUserUncheckedCreateWithoutSteamUserBansInput>
+  }
+
+  export type SteamUserUpsertWithoutSteamUserBansInput = {
+    update: XOR<SteamUserUpdateWithoutSteamUserBansInput, SteamUserUncheckedUpdateWithoutSteamUserBansInput>
+    create: XOR<SteamUserCreateWithoutSteamUserBansInput, SteamUserUncheckedCreateWithoutSteamUserBansInput>
+    where?: SteamUserWhereInput
+  }
+
+  export type SteamUserUpdateToOneWithWhereWithoutSteamUserBansInput = {
+    where?: SteamUserWhereInput
+    data: XOR<SteamUserUpdateWithoutSteamUserBansInput, SteamUserUncheckedUpdateWithoutSteamUserBansInput>
+  }
+
+  export type SteamUserUpdateWithoutSteamUserBansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutSteamUserNestedInput
+    commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
+    reportsAsRecipient?: ReportUserUpdateManyWithoutRecipientNestedInput
+  }
+
+  export type SteamUserUncheckedUpdateWithoutSteamUserBansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personaName?: StringFieldUpdateOperationsInput | string
+    profileUrl?: StringFieldUpdateOperationsInput | string
+    avatar?: StringFieldUpdateOperationsInput | string
+    realname?: NullableStringFieldUpdateOperationsInput | string | null
+    timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
+    reportsAsRecipient?: ReportUserUncheckedUpdateManyWithoutRecipientNestedInput
+  }
+
   export type UserCreateWithoutCommentsAsAuthorInput = {
     id?: string
     email: string
@@ -10762,8 +15601,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
@@ -10777,8 +15618,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
@@ -10797,9 +15640,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
+    steamUserBans?: SteamUserBansCreateNestedOneWithoutSteamInput
     reportsAsRecipient?: ReportUserCreateNestedManyWithoutRecipientInput
   }
 
@@ -10810,9 +15659,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    steamUserBans?: SteamUserBansUncheckedCreateNestedOneWithoutSteamInput
     reportsAsRecipient?: ReportUserUncheckedCreateNestedManyWithoutRecipientInput
   }
 
@@ -10839,8 +15694,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
@@ -10854,8 +15711,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10880,9 +15739,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
+    steamUserBans?: SteamUserBansUpdateOneWithoutSteamNestedInput
     reportsAsRecipient?: ReportUserUpdateManyWithoutRecipientNestedInput
   }
 
@@ -10893,9 +15758,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUserBans?: SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput
     reportsAsRecipient?: ReportUserUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
@@ -10906,8 +15777,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
@@ -10921,8 +15794,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
@@ -10952,8 +15827,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
@@ -10967,8 +15844,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
@@ -10982,8 +15861,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -10997,8 +15878,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11017,9 +15900,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
+    steamUserBans?: SteamUserBansCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentCreateNestedManyWithoutRecipientInput
   }
 
@@ -11030,9 +15919,15 @@ export namespace Prisma {
     avatar: string
     realname?: string | null
     timeCreated: string
+    steamId2?: string | null
+    steamId3?: string | null
+    steamIdHex?: string | null
+    countryCode?: string | null
+    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    steamUserBans?: SteamUserBansUncheckedCreateNestedOneWithoutSteamInput
     commentsAsRecipient?: CommentUncheckedCreateNestedManyWithoutRecipientInput
   }
 
@@ -11087,8 +15982,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -11102,8 +15999,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -11128,9 +16027,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
+    steamUserBans?: SteamUserBansUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUpdateManyWithoutRecipientNestedInput
   }
 
@@ -11141,9 +16046,15 @@ export namespace Prisma {
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
+    steamId2?: NullableStringFieldUpdateOperationsInput | string | null
+    steamId3?: NullableStringFieldUpdateOperationsInput | string | null
+    steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
+    countryCode?: NullableStringFieldUpdateOperationsInput | string | null
+    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steamUserBans?: SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput
     commentsAsRecipient?: CommentUncheckedUpdateManyWithoutRecipientNestedInput
   }
 
@@ -11170,8 +16081,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -11185,8 +16098,10 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -11243,8 +16158,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -11258,8 +16175,10 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput

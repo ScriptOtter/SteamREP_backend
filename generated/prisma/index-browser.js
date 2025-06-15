@@ -127,8 +127,23 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   avatar: 'avatar',
   role: 'role',
+  additionalRole: 'additionalRole',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EmailVerifyScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  code: 'code'
+};
+
+exports.Prisma.LinksInProfileScalarFieldEnum = {
+  id: 'id',
+  twitch: 'twitch',
+  youtube: 'youtube',
+  telegram: 'telegram',
+  discord: 'discord'
 };
 
 exports.Prisma.SteamUserScalarFieldEnum = {
@@ -138,9 +153,24 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   avatar: 'avatar',
   realname: 'realname',
   timeCreated: 'timeCreated',
+  steamId2: 'steamId2',
+  steamId3: 'steamId3',
+  steamIdHex: 'steamIdHex',
+  countryCode: 'countryCode',
+  viewers: 'viewers',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SteamUserBansScalarFieldEnum = {
+  id: 'id',
+  communityBanned: 'communityBanned',
+  daysSinceLastBan: 'daysSinceLastBan',
+  economyBan: 'economyBan',
+  gameBans: 'gameBans',
+  vacBanned: 'vacBanned',
+  vacBans: 'vacBans'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -197,9 +227,13 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.UserRole = exports.$Enums.UserRole = {
-  REGISTERED: 'REGISTERED',
-  VERIFIED_EMAIL: 'VERIFIED_EMAIL',
-  VERIFIED_STEAM: 'VERIFIED_STEAM',
+  NOT_ACTIVE: 'NOT_ACTIVE',
+  ACTIVE: 'ACTIVE',
+  VERIFIED: 'VERIFIED',
+  DISABLED: 'DISABLED'
+};
+
+exports.AdditionalRole = exports.$Enums.AdditionalRole = {
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
   CREATOR: 'CREATOR'
@@ -207,7 +241,10 @@ exports.UserRole = exports.$Enums.UserRole = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  EmailVerify: 'EmailVerify',
+  LinksInProfile: 'LinksInProfile',
   SteamUser: 'SteamUser',
+  SteamUserBans: 'SteamUserBans',
   Comment: 'Comment',
   JwtToken: 'JwtToken',
   ReportUser: 'ReportUser',

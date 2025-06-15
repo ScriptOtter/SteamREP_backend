@@ -8,12 +8,12 @@ import {
   Req,
   UseGuards,
   Get,
+  Param,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
 import { Response, Request } from 'express';
-import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { JwtRefreshGuard } from 'src/guards/jwt_refresh.guard';
 
 @Controller('auth')
@@ -22,8 +22,19 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
-  signUp(@Body() dto: RegisterDto, @Res() res: Response) {
-    return this.authService.registerUser(dto, res);
+  signUp(@Body() dto: RegisterDto, @Req() req: Request, @Res() res: Response) {
+    return this.authService.registerUser(dto, req, res);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('emailVerify/:code')
+  emailVerify(
+    @Param('code') code: number,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    console.log(code);
+    return this.authService.emailVerify(code, req, res);
   }
 
   @HttpCode(HttpStatus.OK)

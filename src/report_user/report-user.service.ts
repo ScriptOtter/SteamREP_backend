@@ -147,6 +147,7 @@ export class ReportUserService {
     if (!demos) {
       throw new BadRequestException('Reload the page!');
     }
+
     return demos;
   }
 

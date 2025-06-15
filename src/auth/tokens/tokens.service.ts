@@ -56,7 +56,6 @@ export class TokenService {
   public async getIdFromToken(req: Request): Promise<string> {
     try {
       const token = req.cookies.SteamREP_accessToken;
-
       const id = await this.jwtService.verify(token, {
         secret: process.env.JWT_ACCESS_SECRET!,
       }).id;

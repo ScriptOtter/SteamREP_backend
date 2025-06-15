@@ -5,6 +5,7 @@ import { TokenService } from 'src/auth/tokens/tokens.service';
 import { Request } from 'express';
 import { UserService } from 'src/user/user.service';
 import { SteamOAuth } from './steam.oauth';
+import axios from 'axios';
 
 @Injectable()
 export class SteamPrismaService {
@@ -44,10 +45,12 @@ export class SteamPrismaService {
   public async createSteamUser(dto: string): Promise<Partial<any> | null> {
     try {
       const res = await this.steamService.getSteamUser(dto);
-      console.log(res);
-      console.log(res.profileurl);
-      if (res.toString() === '') return {};
+      //console.log(res);
+      //console.log(res.profileurl);
+
+      //if (res.toString() === '') return {};
       if (res.profileurl === null) {
+        console.log('!res.profileurl', res);
         const steamUser = await this.prisma.steamUser.findUnique({
           where: { id: res.steamid },
           include: {
@@ -78,6 +81,7 @@ export class SteamPrismaService {
       });
 
       if (!steamUser) {
+        console.log('!steamuser');
         const user = await this.prisma.steamUser.create({
           data: {
             id: steamid,
@@ -88,8 +92,41 @@ export class SteamPrismaService {
             timeCreated: this.formatTimestampToDateString(timecreated),
           },
         });
-        return user;
+        console.log('user.id - ', user.id);
+        const tradeit = await axios.post(
+          'https://tradeit.gg/api/steam/v1/steams/id-finder',
+          { id: user.id },
+        );
+        await this.prisma.steamUser.update({
+          where: { id: user.id },
+          data: {
+            steamId2: tradeit.data.steamId2,
+            steamId3: tradeit.data.steamId3,
+            steamIdHex: tradeit.data.steamIdHex,
+          },
+        });
+
+        return await this.prisma.steamUser.findFirstOrThrow({
+          where: { id: user.id },
+        });
       }
+
+      if (steamUser.steamId2 === null) {
+        const tradeit = await axios.post(
+          'https://tradeit.gg/api/steam/v1/steams/id-finder',
+          { id: steamUser.id },
+        );
+        console.log('steamUser.id - ', steamUser.id);
+        await this.prisma.steamUser.update({
+          where: { id: steamUser.id },
+          data: {
+            steamId2: tradeit.data.steamId2,
+            steamId3: tradeit.data.steamId3,
+            steamIdHex: tradeit.data.steamIdHex,
+          },
+        });
+      }
+      //console.log('in', steamUser);
       if (
         !(
           personaname == steamUser.personaName &&
@@ -98,6 +135,7 @@ export class SteamPrismaService {
           realname == steamUser.realname
         )
       ) {
+        console.log('steamUser', steamUser);
         const user = await this.prisma.steamUser.update({
           where: { id: steamid },
           data: {
@@ -183,7 +221,7 @@ export class SteamPrismaService {
           where: { id: user?.userId },
           data: {
             steamUser: { connect: { id: valid_struct.steamid } },
-            role: 'VERIFIED_STEAM',
+            role: 'VERIFIED',
           },
         });
         //console.log('userUpdate', userUpdate);
@@ -207,7 +245,7 @@ export class SteamPrismaService {
         where: { id: user?.userId },
         data: {
           steamUser: { connect: { id: valid_struct.steamid } },
-          role: 'VERIFIED_STEAM',
+          role: 'VERIFIED',
         },
       });
       //console.log('userUpdate', userUpdate);
