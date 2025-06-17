@@ -152,6 +152,7 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   profileUrl: 'profileUrl',
   avatar: 'avatar',
   realname: 'realname',
+  level: 'level',
   timeCreated: 'timeCreated',
   steamId2: 'steamId2',
   steamId3: 'steamId3',

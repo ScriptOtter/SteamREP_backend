@@ -24,6 +24,8 @@ export class SteamUserDto {
   @IsString()
   @IsNotEmpty()
   timecreated: string;
+
+  loccountrycode?: string;
 }
 
 export interface ISteamUser {
@@ -33,4 +35,5 @@ export interface ISteamUser {
   avatar: string;
   realname: string;
   timecreated: number;
+  loccountrycode?: string;
 }

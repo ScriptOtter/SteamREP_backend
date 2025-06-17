@@ -47,44 +47,62 @@ export class SteamService {
       }
       return res.data.response.steamid;
     } catch (e) {
+      console.log('getSteam64Id - ', e);
       throw new BadRequestException('Try later!');
     }
   }
 
   async getPlayerBans(steamid: string): Promise<Partial<any>> {
-    const url =
-      'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' +
-      process.env.STEAM_API! +
-      '&steamids=' +
-      steamid;
-    try {
-      const res = await axios.get(url);
-      if (!res) {
+    async function fetchSteamUser(steam64Id: string) {
+      const url =
+        'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=' +
+        process.env.STEAM_API! +
+        '&steamids=' +
+        steam64Id;
+      try {
+        const res = await axios.get(url);
+        if (!res) {
+          throw new BadRequestException('Try later!');
+        }
+        return res.data;
+      } catch (e) {
+        console.log('getPlayerBans - ', e);
         throw new BadRequestException('Try later!');
       }
-      return res;
-    } catch (e) {
-      console.log(e);
-      throw new BadRequestException('Try later!');
     }
+    const isSteam64Id = this.checkIsSteam64Id(steamid);
+    if (!isSteam64Id) {
+      const steam64Id = await this.getSteam64Id(steamid);
+
+      return fetchSteamUser(steam64Id);
+    }
+    return fetchSteamUser(steamid);
   }
 
   async getSteamLevel(steamid: string): Promise<Partial<any>> {
-    const url =
-      'https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=' +
-      process.env.STEAM_API! +
-      '&steamids=' +
-      steamid;
-    try {
-      const res = await axios.get(url);
-      if (!res) {
+    async function fetchSteamUser(steam64Id: string) {
+      const url =
+        'https://api.steampowered.com/IPlayerService/GetSteamLevel/v1/?key=' +
+        process.env.STEAM_API! +
+        '&steamids=' +
+        steamid;
+      try {
+        const res = await axios.get(url);
+        if (!res) {
+          throw new BadRequestException('Try later!');
+        }
+        return res.data.response.players;
+      } catch (e) {
+        console.log(e);
         throw new BadRequestException('Try later!');
       }
-      return res;
-    } catch (e) {
-      console.log(e);
-      throw new BadRequestException('Try later!');
     }
+    const isSteam64Id = this.checkIsSteam64Id(steamid);
+    if (!isSteam64Id) {
+      const steam64Id = await this.getSteam64Id(steamid);
+      return fetchSteamUser(steam64Id);
+    }
+    return fetchSteamUser(steamid);
   }
 
   async getRecentlyPlayedGames(steamid: string): Promise<Partial<any>> {
@@ -106,21 +124,29 @@ export class SteamService {
   }
 
   async getOwnedGames(steamid: string): Promise<Partial<any>> {
-    const url =
-      'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' +
-      process.env.STEAM_API! +
-      '&steamids=' +
-      steamid;
-    try {
-      const res = await axios.get(url);
-      if (!res) {
+    async function fetchSteamUser(steam64Id: string) {
+      const url =
+        'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' +
+        process.env.STEAM_API! +
+        '&steamids=' +
+        steamid;
+      try {
+        const res = await axios.get(url);
+        if (!res) {
+          throw new BadRequestException('Try later!');
+        }
+        return res;
+      } catch (e) {
+        console.log(e);
         throw new BadRequestException('Try later!');
       }
-      return res;
-    } catch (e) {
-      console.log(e);
-      throw new BadRequestException('Try later!');
     }
+    const isSteam64Id = this.checkIsSteam64Id(steamid);
+    if (!isSteam64Id) {
+      const steam64Id = await this.getSteam64Id(steamid);
+      return fetchSteamUser(steam64Id);
+    }
+    return fetchSteamUser(steamid);
   }
 
   public async getSteamUser(steamParam: string): Promise<Partial<any>> {

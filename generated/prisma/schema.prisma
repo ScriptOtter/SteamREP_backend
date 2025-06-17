@@ -53,6 +53,7 @@ model SteamUser {
   profileUrl  String  @map("profile_url")
   avatar      String
   realname    String?
+  level       String?
   timeCreated String  @map("time_created")
 
   steamId2    String?

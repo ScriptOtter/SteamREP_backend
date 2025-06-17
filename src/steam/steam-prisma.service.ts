@@ -45,8 +45,14 @@ export class SteamPrismaService {
   public async createSteamUser(dto: string): Promise<Partial<any> | null> {
     try {
       const res = await this.steamService.getSteamUser(dto);
-      //console.log(res);
-      //console.log(res.profileurl);
+      //const steamBans = await this.steamService.getPlayerBans(dto);
+      const tradeit = await axios.post(
+        'https://tradeit.gg/api/steam/v1/steams/id-finder',
+        { id: dto },
+      );
+      //console.log('STEAM_BANS - ', steamBans);
+      console.log('createSteamUser - ', res);
+      const steamlevel = tradeit.data.userLevel.toString();
 
       //if (res.toString() === '') return {};
       if (res.profileurl === null) {
@@ -69,8 +75,9 @@ export class SteamPrismaService {
         avatarfull,
         realname,
         timecreated,
+        loccountrycode,
       } = res[0];
-      console.log(res);
+
       const steamUser = await this.prisma.steamUser.findFirst({
         where: { id: steamid },
         include: {
@@ -89,7 +96,9 @@ export class SteamPrismaService {
             profileUrl: profileurl,
             avatar: avatarfull,
             realname: realname,
+            level: steamlevel,
             timeCreated: this.formatTimestampToDateString(timecreated),
+            countryCode: loccountrycode,
           },
         });
         console.log('user.id - ', user.id);
@@ -132,10 +141,13 @@ export class SteamPrismaService {
           personaname == steamUser.personaName &&
           profileurl == steamUser.profileUrl &&
           avatarfull == steamUser.avatar &&
-          realname == steamUser.realname
+          realname == steamUser.realname &&
+          loccountrycode == steamUser.countryCode &&
+          steamlevel == steamUser.level
         )
       ) {
         console.log('steamUser', steamUser);
+
         const user = await this.prisma.steamUser.update({
           where: { id: steamid },
           data: {
@@ -143,13 +155,19 @@ export class SteamPrismaService {
             profileUrl: profileurl,
             avatar: avatarfull,
             realname: realname,
+            level: steamlevel,
+            countryCode: loccountrycode,
           },
         });
       }
       return steamUser;
     } catch (e) {
-      console.log(e);
-      return e;
+      console.log('catchhh', dto);
+      const data = await this.prisma.steamUser.findFirst({
+        where: { profileUrl: 'https://steamcommunity.com/profiles/' + dto },
+      });
+      console.log(data);
+      return data;
     }
   }
 

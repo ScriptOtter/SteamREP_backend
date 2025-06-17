@@ -5096,6 +5096,7 @@ export namespace Prisma {
     profileUrl: string | null
     avatar: string | null
     realname: string | null
+    level: string | null
     timeCreated: string | null
     steamId2: string | null
     steamId3: string | null
@@ -5113,6 +5114,7 @@ export namespace Prisma {
     profileUrl: string | null
     avatar: string | null
     realname: string | null
+    level: string | null
     timeCreated: string | null
     steamId2: string | null
     steamId3: string | null
@@ -5130,6 +5132,7 @@ export namespace Prisma {
     profileUrl: number
     avatar: number
     realname: number
+    level: number
     timeCreated: number
     steamId2: number
     steamId3: number
@@ -5157,6 +5160,7 @@ export namespace Prisma {
     profileUrl?: true
     avatar?: true
     realname?: true
+    level?: true
     timeCreated?: true
     steamId2?: true
     steamId3?: true
@@ -5174,6 +5178,7 @@ export namespace Prisma {
     profileUrl?: true
     avatar?: true
     realname?: true
+    level?: true
     timeCreated?: true
     steamId2?: true
     steamId3?: true
@@ -5191,6 +5196,7 @@ export namespace Prisma {
     profileUrl?: true
     avatar?: true
     realname?: true
+    level?: true
     timeCreated?: true
     steamId2?: true
     steamId3?: true
@@ -5295,6 +5301,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname: string | null
+    level: string | null
     timeCreated: string
     steamId2: string | null
     steamId3: string | null
@@ -5331,6 +5338,7 @@ export namespace Prisma {
     profileUrl?: boolean
     avatar?: boolean
     realname?: boolean
+    level?: boolean
     timeCreated?: boolean
     steamId2?: boolean
     steamId3?: boolean
@@ -5353,6 +5361,7 @@ export namespace Prisma {
     profileUrl?: boolean
     avatar?: boolean
     realname?: boolean
+    level?: boolean
     timeCreated?: boolean
     steamId2?: boolean
     steamId3?: boolean
@@ -5371,6 +5380,7 @@ export namespace Prisma {
     profileUrl?: boolean
     avatar?: boolean
     realname?: boolean
+    level?: boolean
     timeCreated?: boolean
     steamId2?: boolean
     steamId3?: boolean
@@ -5389,6 +5399,7 @@ export namespace Prisma {
     profileUrl?: boolean
     avatar?: boolean
     realname?: boolean
+    level?: boolean
     timeCreated?: boolean
     steamId2?: boolean
     steamId3?: boolean
@@ -5400,7 +5411,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "viewers" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "level" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "viewers" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
   export type SteamUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | SteamUser$userArgs<ExtArgs>
     steamUserBans?: boolean | SteamUser$steamUserBansArgs<ExtArgs>
@@ -5429,6 +5440,7 @@ export namespace Prisma {
       profileUrl: string
       avatar: string
       realname: string | null
+      level: string | null
       timeCreated: string
       steamId2: string | null
       steamId3: string | null
@@ -5870,6 +5882,7 @@ export namespace Prisma {
     readonly profileUrl: FieldRef<"SteamUser", 'String'>
     readonly avatar: FieldRef<"SteamUser", 'String'>
     readonly realname: FieldRef<"SteamUser", 'String'>
+    readonly level: FieldRef<"SteamUser", 'String'>
     readonly timeCreated: FieldRef<"SteamUser", 'String'>
     readonly steamId2: FieldRef<"SteamUser", 'String'>
     readonly steamId3: FieldRef<"SteamUser", 'String'>
@@ -11933,6 +11946,7 @@ export namespace Prisma {
     profileUrl: 'profileUrl',
     avatar: 'avatar',
     realname: 'realname',
+    level: 'level',
     timeCreated: 'timeCreated',
     steamId2: 'steamId2',
     steamId3: 'steamId3',
@@ -12332,6 +12346,7 @@ export namespace Prisma {
     profileUrl?: StringFilter<"SteamUser"> | string
     avatar?: StringFilter<"SteamUser"> | string
     realname?: StringNullableFilter<"SteamUser"> | string | null
+    level?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
     steamId2?: StringNullableFilter<"SteamUser"> | string | null
     steamId3?: StringNullableFilter<"SteamUser"> | string | null
@@ -12353,6 +12368,7 @@ export namespace Prisma {
     profileUrl?: SortOrder
     avatar?: SortOrder
     realname?: SortOrderInput | SortOrder
+    level?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
     steamId2?: SortOrderInput | SortOrder
     steamId3?: SortOrderInput | SortOrder
@@ -12378,6 +12394,7 @@ export namespace Prisma {
     profileUrl?: StringFilter<"SteamUser"> | string
     avatar?: StringFilter<"SteamUser"> | string
     realname?: StringNullableFilter<"SteamUser"> | string | null
+    level?: StringNullableFilter<"SteamUser"> | string | null
     timeCreated?: StringFilter<"SteamUser"> | string
     steamId2?: StringNullableFilter<"SteamUser"> | string | null
     steamId3?: StringNullableFilter<"SteamUser"> | string | null
@@ -12398,6 +12415,7 @@ export namespace Prisma {
     profileUrl?: SortOrder
     avatar?: SortOrder
     realname?: SortOrderInput | SortOrder
+    level?: SortOrderInput | SortOrder
     timeCreated?: SortOrder
     steamId2?: SortOrderInput | SortOrder
     steamId3?: SortOrderInput | SortOrder
@@ -12423,6 +12441,7 @@ export namespace Prisma {
     profileUrl?: StringWithAggregatesFilter<"SteamUser"> | string
     avatar?: StringWithAggregatesFilter<"SteamUser"> | string
     realname?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    level?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     timeCreated?: StringWithAggregatesFilter<"SteamUser"> | string
     steamId2?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     steamId3?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
@@ -12981,6 +13000,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -13001,6 +13021,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -13021,6 +13042,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13041,6 +13063,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13061,6 +13084,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -13078,6 +13102,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13094,6 +13119,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13769,6 +13795,7 @@ export namespace Prisma {
     profileUrl?: SortOrder
     avatar?: SortOrder
     realname?: SortOrder
+    level?: SortOrder
     timeCreated?: SortOrder
     steamId2?: SortOrder
     steamId3?: SortOrder
@@ -13790,6 +13817,7 @@ export namespace Prisma {
     profileUrl?: SortOrder
     avatar?: SortOrder
     realname?: SortOrder
+    level?: SortOrder
     timeCreated?: SortOrder
     steamId2?: SortOrder
     steamId3?: SortOrder
@@ -13807,6 +13835,7 @@ export namespace Prisma {
     profileUrl?: SortOrder
     avatar?: SortOrder
     realname?: SortOrder
+    level?: SortOrder
     timeCreated?: SortOrder
     steamId2?: SortOrder
     steamId3?: SortOrder
@@ -14852,6 +14881,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -14871,6 +14901,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15043,6 +15074,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15062,6 +15094,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15508,6 +15541,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15527,6 +15561,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15562,6 +15597,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15581,6 +15617,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15639,6 +15676,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15658,6 +15696,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15738,6 +15777,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15757,6 +15797,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15899,6 +15940,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -15918,6 +15960,7 @@ export namespace Prisma {
     profileUrl: string
     avatar: string
     realname?: string | null
+    level?: string | null
     timeCreated: string
     steamId2?: string | null
     steamId3?: string | null
@@ -16026,6 +16069,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16045,6 +16089,7 @@ export namespace Prisma {
     profileUrl?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     realname?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: NullableStringFieldUpdateOperationsInput | string | null
     timeCreated?: StringFieldUpdateOperationsInput | string
     steamId2?: NullableStringFieldUpdateOperationsInput | string | null
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
