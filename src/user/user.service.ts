@@ -54,6 +54,7 @@ export class UserService {
               avatar: true,
               personaName: true,
               id: true,
+              countryCode: true,
             },
           },
         },

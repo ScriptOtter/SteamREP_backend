@@ -79,12 +79,12 @@ model SteamUser {
 model SteamUserBans {
   id String @unique @id
   steam SteamUser @relation(fields: [id], references: [id])
-  communityBanned Boolean @default(false)
-  daysSinceLastBan Int
-  economyBan String
-  gameBans Int
-  vacBanned Boolean @default(false)
-  vacBans Int 
+  communityBanned Boolean? @default(false)
+  daysSinceLastBan Int?
+  economyBan String?
+  gameBans Int?
+  vacBanned Boolean? @default(false)
+  vacBans Int? 
 }
 
 model Comment {

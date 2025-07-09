@@ -6,6 +6,9 @@ import { Request } from 'express';
 import { UserService } from 'src/user/user.service';
 import { SteamOAuth } from './steam.oauth';
 import axios from 'axios';
+import { ISteamBans } from './dto/steam-bans.dto';
+import { tradeItApi } from 'src/api/tradeit';
+import { ITradeit } from './dto/steam-tradeit.dto';
 
 @Injectable()
 export class SteamPrismaService {
@@ -42,32 +45,163 @@ export class SteamPrismaService {
     return month + ' ' + day + ' ' + year;
   }
 
-  public async createSteamUser(dto: string): Promise<Partial<any> | null> {
+  public async findSteamUser(id: string): Promise<Partial<any> | null> {
     try {
-      const res = await this.steamService.getSteamUser(dto);
-      //const steamBans = await this.steamService.getPlayerBans(dto);
-      const tradeit = await axios.post(
-        'https://tradeit.gg/api/steam/v1/steams/id-finder',
-        { id: dto },
-      );
-      //console.log('STEAM_BANS - ', steamBans);
-      console.log('createSteamUser - ', res);
-      const steamlevel = tradeit.data.userLevel.toString();
-
-      //if (res.toString() === '') return {};
-      if (res.profileurl === null) {
-        console.log('!res.profileurl', res);
-        const steamUser = await this.prisma.steamUser.findUnique({
-          where: { id: res.steamid },
-          include: {
-            user: {
-              select: { id: true, username: true, avatar: true, role: true },
-            },
+      console.log('findSteamUser');
+      const steamid = (await this.steamService.getSteamUser(id))[0].steamid;
+      const steamUser = await this.prisma.steamUser.findUnique({
+        where: { id: steamid },
+        include: {
+          user: {
+            select: { id: true, username: true, avatar: true, role: true },
           },
-        });
-        return steamUser;
+        },
+      });
+      if (!steamUser) {
+        await this.createSteamUser(steamid);
+      } else {
+        console.log('PROFILE UPDATING!');
+        const lastUpdatedDate = steamUser.updatedAt; // Получаем дату последнего обновления
+        const currentDate = new Date(); // Текущая дата
+
+        // Сравниваем только даты (без учета времени)
+        if (lastUpdatedDate.toDateString() !== currentDate.toDateString()) {
+          // Если даты разные, значит, наступил новый день
+          console.log('PROFILE UPDATED!');
+          await this.updateSteamUserFromTradeIt(steamid); // Обновляем профиль
+          await this.updateSteamUserFromSteam(steamid);
+        }
+        console.log('PROFILE NOT UPDATED!');
       }
 
+      return await this.prisma.steamUser.findUnique({
+        where: { id: steamid },
+        include: {
+          user: {
+            select: { id: true, username: true, avatar: true, role: true },
+          },
+          steamUserBans: {},
+        },
+      });
+    } catch (e) {
+      console.log('findSteamUser', e);
+      return null;
+    }
+  }
+
+  public async updateSteamUserFromSteam(
+    steamid: string,
+  ): Promise<Partial<any> | null> {
+    try {
+      const steamUser = await this.prisma.steamUser.findUnique({
+        where: { id: steamid },
+      });
+      if (!steamUser) {
+        console.log('Profile not found!');
+        return null;
+      }
+      const res = await this.steamService.getSteamUser(steamid);
+      const { personaname, profileurl, avatarfull, realname, loccountrycode } =
+        res[0];
+
+      if (
+        !(
+          personaname == steamUser.personaName &&
+          profileurl == steamUser.profileUrl &&
+          avatarfull == steamUser.avatar &&
+          realname == steamUser.realname &&
+          loccountrycode == steamUser.countryCode
+        )
+      ) {
+        await this.prisma.steamUser.update({
+          where: { id: steamid },
+          data: {
+            personaName: personaname,
+            profileUrl: profileurl,
+            avatar: avatarfull,
+            realname: realname,
+            countryCode: loccountrycode,
+          },
+        });
+      }
+      return null;
+    } catch (e) {
+      console.log('updateSteamUserFromSteam', e);
+      return null;
+    }
+  }
+
+  /* Update Steam level, bans, steamIds */
+  public async updateSteamUserFromTradeIt(
+    steamid: string,
+  ): Promise<Partial<any> | null> {
+    try {
+      console.log('updateSteamUserFromTradeIt');
+      const steamUser = await this.prisma.steamUser.findUnique({
+        where: { id: steamid },
+      });
+      if (!steamUser) {
+        console.log('Profile not found!');
+        return null;
+      }
+      const tradeitData = await tradeItApi(steamid);
+      if (!tradeitData) {
+        console.log(tradeitData);
+        return null;
+      }
+
+      if (steamUser.steamId2 === null) {
+        const { steamId2, steamId3, steamIdHex } = tradeitData.data;
+
+        await this.prisma.steamUser.update({
+          where: { id: steamid },
+          data: {
+            steamId2: steamId2,
+            steamId3: steamId3,
+            steamIdHex: steamIdHex,
+          },
+        });
+      }
+
+      await this.prisma.steamUser.update({
+        where: { id: steamid },
+        data: { level: tradeitData.data.userLevel.toString() },
+      });
+      const {
+        communityBanned,
+        daysSinceLastBan,
+        economyBan,
+        gameBans,
+        vacBanned,
+        vacBans,
+      } = tradeitData.data.userBans;
+      await this.prisma.steamUserBans.update({
+        where: { id: steamid },
+        data: {
+          communityBanned: communityBanned,
+          daysSinceLastBan: daysSinceLastBan,
+          economyBan: economyBan,
+          gameBans: gameBans,
+          vacBanned: vacBanned,
+          vacBans: vacBans,
+        },
+      });
+
+      return null;
+    } catch (e) {
+      console.log('updateSteamUser', e);
+      return null;
+    }
+  }
+
+  public async createSteamUser(id: string): Promise<Partial<any> | null> {
+    try {
+      const res = await this.steamService.getSteamUser(id);
+      if (!res) {
+        throw new BadRequestException(
+          "Steam server doesen't work! Try again later!",
+        );
+      }
       const {
         steamid,
         personaname,
@@ -78,93 +212,44 @@ export class SteamPrismaService {
         loccountrycode,
       } = res[0];
 
-      const steamUser = await this.prisma.steamUser.findFirst({
-        where: { id: steamid },
-        include: {
-          user: {
-            select: { id: true, username: true, avatar: true, role: true },
-          },
+      const steamUser = await this.prisma.steamUser.create({
+        data: {
+          id: steamid,
+          personaName: personaname,
+          profileUrl: profileurl,
+          avatar: avatarfull,
+          realname: realname,
+          timeCreated: this.formatTimestampToDateString(timecreated),
+          countryCode: loccountrycode,
         },
       });
 
-      if (!steamUser) {
-        console.log('!steamuser');
-        const user = await this.prisma.steamUser.create({
-          data: {
-            id: steamid,
-            personaName: personaname,
-            profileUrl: profileurl,
-            avatar: avatarfull,
-            realname: realname,
-            level: steamlevel,
-            timeCreated: this.formatTimestampToDateString(timecreated),
-            countryCode: loccountrycode,
-          },
-        });
-        console.log('user.id - ', user.id);
-        const tradeit = await axios.post(
-          'https://tradeit.gg/api/steam/v1/steams/id-finder',
-          { id: user.id },
-        );
-        await this.prisma.steamUser.update({
-          where: { id: user.id },
-          data: {
-            steamId2: tradeit.data.steamId2,
-            steamId3: tradeit.data.steamId3,
-            steamIdHex: tradeit.data.steamIdHex,
-          },
-        });
+      const steamUserBans = await this.prisma.steamUserBans.create({
+        data: { id: steamid },
+      });
+      await this.prisma.steamUser.update({
+        where: { id: steamid },
+        data: { steamUserBans: { connect: { id: steamid } } },
+      });
+      const tradeit = await tradeItApi(steamid);
+      await this.prisma.steamUser.update({
+        where: { id: steamUser.id },
+        data: {
+          steamId2: tradeit.data.steamId2,
+          steamId3: tradeit.data.steamId3,
+          steamIdHex: tradeit.data.steamIdHex,
+        },
+      });
 
-        return await this.prisma.steamUser.findFirstOrThrow({
-          where: { id: user.id },
-        });
-      }
+      await this.updateSteamUserFromTradeIt(steamid);
 
-      if (steamUser.steamId2 === null) {
-        const tradeit = await axios.post(
-          'https://tradeit.gg/api/steam/v1/steams/id-finder',
-          { id: steamUser.id },
-        );
-        console.log('steamUser.id - ', steamUser.id);
-        await this.prisma.steamUser.update({
-          where: { id: steamUser.id },
-          data: {
-            steamId2: tradeit.data.steamId2,
-            steamId3: tradeit.data.steamId3,
-            steamIdHex: tradeit.data.steamIdHex,
-          },
-        });
-      }
-      //console.log('in', steamUser);
-      if (
-        !(
-          personaname == steamUser.personaName &&
-          profileurl == steamUser.profileUrl &&
-          avatarfull == steamUser.avatar &&
-          realname == steamUser.realname &&
-          loccountrycode == steamUser.countryCode &&
-          steamlevel == steamUser.level
-        )
-      ) {
-        console.log('steamUser', steamUser);
-
-        const user = await this.prisma.steamUser.update({
-          where: { id: steamid },
-          data: {
-            personaName: personaname,
-            profileUrl: profileurl,
-            avatar: avatarfull,
-            realname: realname,
-            level: steamlevel,
-            countryCode: loccountrycode,
-          },
-        });
-      }
-      return steamUser;
+      return await this.prisma.steamUser.findFirstOrThrow({
+        where: { id: steamUser.id },
+      });
     } catch (e) {
-      console.log('catchhh', dto);
+      console.log('catchhh', id);
       const data = await this.prisma.steamUser.findFirst({
-        where: { profileUrl: 'https://steamcommunity.com/profiles/' + dto },
+        where: { profileUrl: 'https://steamcommunity.com/profiles/' + id },
       });
       console.log(data);
       return data;

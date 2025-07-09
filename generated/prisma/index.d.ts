@@ -6579,12 +6579,12 @@ export namespace Prisma {
 
   export type SteamUserBansGroupByOutputType = {
     id: string
-    communityBanned: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned: boolean
-    vacBans: number
+    communityBanned: boolean | null
+    daysSinceLastBan: number | null
+    economyBan: string | null
+    gameBans: number | null
+    vacBanned: boolean | null
+    vacBans: number | null
     _count: SteamUserBansCountAggregateOutputType | null
     _avg: SteamUserBansAvgAggregateOutputType | null
     _sum: SteamUserBansSumAggregateOutputType | null
@@ -6667,12 +6667,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      communityBanned: boolean
-      daysSinceLastBan: number
-      economyBan: string
-      gameBans: number
-      vacBanned: boolean
-      vacBans: number
+      communityBanned: boolean | null
+      daysSinceLastBan: number | null
+      economyBan: string | null
+      gameBans: number | null
+      vacBanned: boolean | null
+      vacBans: number | null
     }, ExtArgs["result"]["steamUserBans"]>
     composites: {}
   }
@@ -12458,23 +12458,23 @@ export namespace Prisma {
     OR?: SteamUserBansWhereInput[]
     NOT?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
     id?: StringFilter<"SteamUserBans"> | string
-    communityBanned?: BoolFilter<"SteamUserBans"> | boolean
-    daysSinceLastBan?: IntFilter<"SteamUserBans"> | number
-    economyBan?: StringFilter<"SteamUserBans"> | string
-    gameBans?: IntFilter<"SteamUserBans"> | number
-    vacBanned?: BoolFilter<"SteamUserBans"> | boolean
-    vacBans?: IntFilter<"SteamUserBans"> | number
+    communityBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
+    daysSinceLastBan?: IntNullableFilter<"SteamUserBans"> | number | null
+    economyBan?: StringNullableFilter<"SteamUserBans"> | string | null
+    gameBans?: IntNullableFilter<"SteamUserBans"> | number | null
+    vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
+    vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
   }
 
   export type SteamUserBansOrderByWithRelationInput = {
     id?: SortOrder
-    communityBanned?: SortOrder
-    daysSinceLastBan?: SortOrder
-    economyBan?: SortOrder
-    gameBans?: SortOrder
-    vacBanned?: SortOrder
-    vacBans?: SortOrder
+    communityBanned?: SortOrderInput | SortOrder
+    daysSinceLastBan?: SortOrderInput | SortOrder
+    economyBan?: SortOrderInput | SortOrder
+    gameBans?: SortOrderInput | SortOrder
+    vacBanned?: SortOrderInput | SortOrder
+    vacBans?: SortOrderInput | SortOrder
     steam?: SteamUserOrderByWithRelationInput
   }
 
@@ -12483,23 +12483,23 @@ export namespace Prisma {
     AND?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
     OR?: SteamUserBansWhereInput[]
     NOT?: SteamUserBansWhereInput | SteamUserBansWhereInput[]
-    communityBanned?: BoolFilter<"SteamUserBans"> | boolean
-    daysSinceLastBan?: IntFilter<"SteamUserBans"> | number
-    economyBan?: StringFilter<"SteamUserBans"> | string
-    gameBans?: IntFilter<"SteamUserBans"> | number
-    vacBanned?: BoolFilter<"SteamUserBans"> | boolean
-    vacBans?: IntFilter<"SteamUserBans"> | number
+    communityBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
+    daysSinceLastBan?: IntNullableFilter<"SteamUserBans"> | number | null
+    economyBan?: StringNullableFilter<"SteamUserBans"> | string | null
+    gameBans?: IntNullableFilter<"SteamUserBans"> | number | null
+    vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
+    vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
   }, "id" | "id">
 
   export type SteamUserBansOrderByWithAggregationInput = {
     id?: SortOrder
-    communityBanned?: SortOrder
-    daysSinceLastBan?: SortOrder
-    economyBan?: SortOrder
-    gameBans?: SortOrder
-    vacBanned?: SortOrder
-    vacBans?: SortOrder
+    communityBanned?: SortOrderInput | SortOrder
+    daysSinceLastBan?: SortOrderInput | SortOrder
+    economyBan?: SortOrderInput | SortOrder
+    gameBans?: SortOrderInput | SortOrder
+    vacBanned?: SortOrderInput | SortOrder
+    vacBans?: SortOrderInput | SortOrder
     _count?: SteamUserBansCountOrderByAggregateInput
     _avg?: SteamUserBansAvgOrderByAggregateInput
     _max?: SteamUserBansMaxOrderByAggregateInput
@@ -12512,12 +12512,12 @@ export namespace Prisma {
     OR?: SteamUserBansScalarWhereWithAggregatesInput[]
     NOT?: SteamUserBansScalarWhereWithAggregatesInput | SteamUserBansScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"SteamUserBans"> | string
-    communityBanned?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
-    daysSinceLastBan?: IntWithAggregatesFilter<"SteamUserBans"> | number
-    economyBan?: StringWithAggregatesFilter<"SteamUserBans"> | string
-    gameBans?: IntWithAggregatesFilter<"SteamUserBans"> | number
-    vacBanned?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
-    vacBans?: IntWithAggregatesFilter<"SteamUserBans"> | number
+    communityBanned?: BoolNullableWithAggregatesFilter<"SteamUserBans"> | boolean | null
+    daysSinceLastBan?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
+    economyBan?: StringNullableWithAggregatesFilter<"SteamUserBans"> | string | null
+    gameBans?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
+    vacBanned?: BoolNullableWithAggregatesFilter<"SteamUserBans"> | boolean | null
+    vacBans?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
   }
 
   export type CommentWhereInput = {
@@ -13132,72 +13132,72 @@ export namespace Prisma {
   }
 
   export type SteamUserBansCreateInput = {
-    communityBanned?: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned?: boolean
-    vacBans: number
+    communityBanned?: boolean | null
+    daysSinceLastBan?: number | null
+    economyBan?: string | null
+    gameBans?: number | null
+    vacBanned?: boolean | null
+    vacBans?: number | null
     steam: SteamUserCreateNestedOneWithoutSteamUserBansInput
   }
 
   export type SteamUserBansUncheckedCreateInput = {
     id: string
-    communityBanned?: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned?: boolean
-    vacBans: number
+    communityBanned?: boolean | null
+    daysSinceLastBan?: number | null
+    economyBan?: string | null
+    gameBans?: number | null
+    vacBanned?: boolean | null
+    vacBans?: number | null
   }
 
   export type SteamUserBansUpdateInput = {
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     steam?: SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput
   }
 
   export type SteamUserBansUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SteamUserBansCreateManyInput = {
     id: string
-    communityBanned?: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned?: boolean
-    vacBans: number
+    communityBanned?: boolean | null
+    daysSinceLastBan?: number | null
+    economyBan?: string | null
+    gameBans?: number | null
+    vacBanned?: boolean | null
+    vacBans?: number | null
   }
 
   export type SteamUserBansUpdateManyMutationInput = {
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SteamUserBansUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentCreateInput = {
@@ -13867,9 +13867,9 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type SteamUserScalarRelationFilter = {
@@ -13919,12 +13919,12 @@ export namespace Prisma {
     vacBans?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type CommentAuthorIdRecipientIdCompoundUniqueInput = {
@@ -14485,8 +14485,8 @@ export namespace Prisma {
     connect?: SteamUserWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput = {
@@ -14843,17 +14843,17 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type LinksInProfileCreateWithoutUserInput = {
@@ -15347,21 +15347,21 @@ export namespace Prisma {
   }
 
   export type SteamUserBansCreateWithoutSteamInput = {
-    communityBanned?: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned?: boolean
-    vacBans: number
+    communityBanned?: boolean | null
+    daysSinceLastBan?: number | null
+    economyBan?: string | null
+    gameBans?: number | null
+    vacBanned?: boolean | null
+    vacBans?: number | null
   }
 
   export type SteamUserBansUncheckedCreateWithoutSteamInput = {
-    communityBanned?: boolean
-    daysSinceLastBan: number
-    economyBan: string
-    gameBans: number
-    vacBanned?: boolean
-    vacBans: number
+    communityBanned?: boolean | null
+    daysSinceLastBan?: number | null
+    economyBan?: string | null
+    gameBans?: number | null
+    vacBanned?: boolean | null
+    vacBans?: number | null
   }
 
   export type SteamUserBansCreateOrConnectWithoutSteamInput = {
@@ -15486,21 +15486,21 @@ export namespace Prisma {
   }
 
   export type SteamUserBansUpdateWithoutSteamInput = {
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SteamUserBansUncheckedUpdateWithoutSteamInput = {
-    communityBanned?: BoolFieldUpdateOperationsInput | boolean
-    daysSinceLastBan?: IntFieldUpdateOperationsInput | number
-    economyBan?: StringFieldUpdateOperationsInput | string
-    gameBans?: IntFieldUpdateOperationsInput | number
-    vacBanned?: BoolFieldUpdateOperationsInput | boolean
-    vacBans?: IntFieldUpdateOperationsInput | number
+    communityBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    daysSinceLastBan?: NullableIntFieldUpdateOperationsInput | number | null
+    economyBan?: NullableStringFieldUpdateOperationsInput | string | null
+    gameBans?: NullableIntFieldUpdateOperationsInput | number | null
+    vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    vacBans?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CommentUpsertWithWhereUniqueWithoutRecipientInput = {
