@@ -288,7 +288,7 @@ export class SteamPrismaService {
       });
       console.log(user_with_steamid);
 
-      const steamUserCreate = await this.createSteamUser(valid_struct.steamid);
+      const steamUserCreate = await this.findSteamUser(valid_struct.steamid);
       if (!steamUserCreate) {
         res.send({
           success: false,
