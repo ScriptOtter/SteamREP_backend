@@ -37,12 +37,12 @@ export class TokenService {
       res.cookie('SteamREP_accessToken', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
       });
       res.cookie('SteamREP_refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
       });
       const { password, ...userData } = user;
       res.json({ ...userData, accessToken, refreshToken });
