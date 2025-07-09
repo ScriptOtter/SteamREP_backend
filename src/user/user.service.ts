@@ -48,6 +48,7 @@ export class UserService {
           createdAt: true,
           username: true,
           avatar: true,
+          email: true,
           role: true,
           steamUser: {
             select: {
