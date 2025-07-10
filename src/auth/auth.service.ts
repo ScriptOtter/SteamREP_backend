@@ -155,9 +155,7 @@ export class AuthService {
     //console.log(req.cookies);
     if (req.cookies.SteamREP_refreshToken) {
       try {
-        const userId = await this.tokenService.getIdFromToken(
-          req.cookies.SteamREP_refreshToken,
-        );
+        const userId = await this.tokenService.getIdFromToken(req);
         const user = await this.prisma.user.findUnique({
           where: { id: userId },
         });
