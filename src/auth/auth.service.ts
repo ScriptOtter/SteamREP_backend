@@ -155,12 +155,15 @@ export class AuthService {
     //console.log(req.cookies);
     if (req.cookies.SteamREP_refreshToken) {
       try {
-        const userId = await this.jwtService.verify(
+        const userId = await this.tokenService.getIdFromToken(
           req.cookies.SteamREP_refreshToken,
-          {
-            secret: process.env.JWT_REFRESH_SECRET!,
-          },
-        ).id;
+        );
+        const user = await this.prisma.user.findUnique({
+          where: { id: userId },
+        });
+        if (!user) {
+          throw new UnauthorizedException('User not found!');
+        }
         console.log(userId);
         //console.log('User найден');
         if (!userId) {
@@ -171,18 +174,10 @@ export class AuthService {
 
         const { accessToken, refreshToken } =
           await this.tokens.getTokens(userId);
-        //console.log(accessToken, refreshToken);
-        res.cookie('SteamREP_refreshToken', refreshToken);
-        res.cookie('SteamREP_accessToken', accessToken);
-        // const tokenSearch = await this.prisma.jwtToken.findFirst({
-        //   where: {
-        //     refreshToken: req.cookies.SteamREP_refreshToken,
-        //   },
-        // });
-        // if (!tokenSearch) {
-        //   console.log(tokenSearch);
-        //   return;
-        // }
+
+        if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
+          return;
+        }
 
         const token = await this.prisma.jwtToken.deleteMany({
           where: { refreshToken: req.cookies.SteamREP_refreshToken },
