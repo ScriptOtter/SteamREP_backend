@@ -39,12 +39,13 @@ model EmailVerify {
 }
 
 model LinksInProfile {
-  id       String  @id @unique @default(cuid())
-  user     User    @relation(fields: [id], references: [id])
-  twitch   String?
-  youtube  String?
-  telegram String?
-  discord  String?
+  id        String  @id @unique @default(cuid())
+  user      User    @relation(fields: [id], references: [id])
+  tradeLink String?
+  twitch    String?
+  youtube   String?
+  telegram  String?
+  discord   String?
 }
 
 model SteamUser {
@@ -61,8 +62,6 @@ model SteamUser {
   steamIdHex  String?
   countryCode String?
 
-  viewers Int?
-
   user   User?   @relation(fields: [userId], references: [id])
   userId String? @unique @map("user_id")
 
@@ -74,6 +73,11 @@ model SteamUser {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("steam_user")
+}
+
+model SteamViewers {
+  id      String @id
+  viewers Int    @default(1)
 }
 
 model SteamUserBans {
@@ -162,6 +166,7 @@ enum UserRole {
 }
 
 enum AdditionalRole {
+  DONOR
   MODERATOR
   ADMIN
   CREATOR

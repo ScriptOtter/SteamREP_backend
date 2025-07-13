@@ -60,6 +60,10 @@ export class SteamPrismaService {
       if (!steamUser) {
         await this.createSteamUser(steamid);
       } else {
+        await this.prisma.steamViewers.update({
+          where: { id: steamid },
+          data: { viewers: { increment: 1 } },
+        });
         console.log('PROFILE UPDATING!');
         const lastUpdatedDate = steamUser.updatedAt; // Получаем дату последнего обновления
         const currentDate = new Date(); // Текущая дата
@@ -224,7 +228,9 @@ export class SteamPrismaService {
         },
       });
 
-      const steamUserBans = await this.prisma.steamUserBans.create({
+      await this.prisma.steamViewers.create({ data: { id: steamid } });
+
+      await this.prisma.steamUserBans.create({
         data: { id: steamid },
       });
       await this.prisma.steamUser.update({
@@ -253,6 +259,18 @@ export class SteamPrismaService {
       });
       console.log(data);
       return data;
+    }
+  }
+
+  public async getViewers(steamid: string): Promise<number> {
+    try {
+      const viewers = await this.prisma.steamViewers.findFirstOrThrow({
+        where: { id: steamid },
+      });
+      return viewers.viewers;
+    } catch (e) {
+      console.log('GET_VIEWERS', e);
+      return 1;
     }
   }
 

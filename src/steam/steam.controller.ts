@@ -32,6 +32,12 @@ export class SteamController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @Get('getViewers/:steamid')
+  getViewers(@Param('steamid') steamid: string) {
+    return this.steamPrisma.getViewers(steamid);
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('steam/verify')
   verifyAccountViaSteam(@Req() req: Request, @Res() res: Response) {
     console.log('STEAM VERIFY');

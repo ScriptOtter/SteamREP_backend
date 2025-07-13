@@ -140,6 +140,7 @@ exports.Prisma.EmailVerifyScalarFieldEnum = {
 
 exports.Prisma.LinksInProfileScalarFieldEnum = {
   id: 'id',
+  tradeLink: 'tradeLink',
   twitch: 'twitch',
   youtube: 'youtube',
   telegram: 'telegram',
@@ -158,10 +159,14 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   steamId3: 'steamId3',
   steamIdHex: 'steamIdHex',
   countryCode: 'countryCode',
-  viewers: 'viewers',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SteamViewersScalarFieldEnum = {
+  id: 'id',
+  viewers: 'viewers'
 };
 
 exports.Prisma.SteamUserBansScalarFieldEnum = {
@@ -235,6 +240,7 @@ exports.UserRole = exports.$Enums.UserRole = {
 };
 
 exports.AdditionalRole = exports.$Enums.AdditionalRole = {
+  DONOR: 'DONOR',
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
   CREATOR: 'CREATOR'
@@ -245,6 +251,7 @@ exports.Prisma.ModelName = {
   EmailVerify: 'EmailVerify',
   LinksInProfile: 'LinksInProfile',
   SteamUser: 'SteamUser',
+  SteamViewers: 'SteamViewers',
   SteamUserBans: 'SteamUserBans',
   Comment: 'Comment',
   JwtToken: 'JwtToken',

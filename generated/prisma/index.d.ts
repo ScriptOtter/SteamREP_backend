@@ -34,6 +34,11 @@ export type LinksInProfile = $Result.DefaultSelection<Prisma.$LinksInProfilePayl
  */
 export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
 /**
+ * Model SteamViewers
+ * 
+ */
+export type SteamViewers = $Result.DefaultSelection<Prisma.$SteamViewersPayload>
+/**
  * Model SteamUserBans
  * 
  */
@@ -74,6 +79,7 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const AdditionalRole: {
+  DONOR: 'DONOR',
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
   CREATOR: 'CREATOR'
@@ -255,6 +261,16 @@ export class PrismaClient<
     * ```
     */
   get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.steamViewers`: Exposes CRUD operations for the **SteamViewers** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SteamViewers
+    * const steamViewers = await prisma.steamViewers.findMany()
+    * ```
+    */
+  get steamViewers(): Prisma.SteamViewersDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.steamUserBans`: Exposes CRUD operations for the **SteamUserBans** model.
@@ -749,6 +765,7 @@ export namespace Prisma {
     EmailVerify: 'EmailVerify',
     LinksInProfile: 'LinksInProfile',
     SteamUser: 'SteamUser',
+    SteamViewers: 'SteamViewers',
     SteamUserBans: 'SteamUserBans',
     Comment: 'Comment',
     JwtToken: 'JwtToken',
@@ -772,7 +789,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "emailVerify" | "linksInProfile" | "steamUser" | "steamUserBans" | "comment" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "emailVerify" | "linksInProfile" | "steamUser" | "steamViewers" | "steamUserBans" | "comment" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1069,6 +1086,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SteamUserCountArgs<ExtArgs>
             result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      SteamViewers: {
+        payload: Prisma.$SteamViewersPayload<ExtArgs>
+        fields: Prisma.SteamViewersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SteamViewersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SteamViewersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          findFirst: {
+            args: Prisma.SteamViewersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SteamViewersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          findMany: {
+            args: Prisma.SteamViewersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>[]
+          }
+          create: {
+            args: Prisma.SteamViewersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          createMany: {
+            args: Prisma.SteamViewersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SteamViewersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>[]
+          }
+          delete: {
+            args: Prisma.SteamViewersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          update: {
+            args: Prisma.SteamViewersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          deleteMany: {
+            args: Prisma.SteamViewersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SteamViewersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SteamViewersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>[]
+          }
+          upsert: {
+            args: Prisma.SteamViewersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SteamViewersPayload>
+          }
+          aggregate: {
+            args: Prisma.SteamViewersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSteamViewers>
+          }
+          groupBy: {
+            args: Prisma.SteamViewersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SteamViewersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SteamViewersCountArgs<ExtArgs>
+            result: $Utils.Optional<SteamViewersCountAggregateOutputType> | number
           }
         }
       }
@@ -1530,6 +1621,7 @@ export namespace Prisma {
     emailVerify?: EmailVerifyOmit
     linksInProfile?: LinksInProfileOmit
     steamUser?: SteamUserOmit
+    steamViewers?: SteamViewersOmit
     steamUserBans?: SteamUserBansOmit
     comment?: CommentOmit
     jwtToken?: JwtTokenOmit
@@ -4024,6 +4116,7 @@ export namespace Prisma {
 
   export type LinksInProfileMinAggregateOutputType = {
     id: string | null
+    tradeLink: string | null
     twitch: string | null
     youtube: string | null
     telegram: string | null
@@ -4032,6 +4125,7 @@ export namespace Prisma {
 
   export type LinksInProfileMaxAggregateOutputType = {
     id: string | null
+    tradeLink: string | null
     twitch: string | null
     youtube: string | null
     telegram: string | null
@@ -4040,6 +4134,7 @@ export namespace Prisma {
 
   export type LinksInProfileCountAggregateOutputType = {
     id: number
+    tradeLink: number
     twitch: number
     youtube: number
     telegram: number
@@ -4050,6 +4145,7 @@ export namespace Prisma {
 
   export type LinksInProfileMinAggregateInputType = {
     id?: true
+    tradeLink?: true
     twitch?: true
     youtube?: true
     telegram?: true
@@ -4058,6 +4154,7 @@ export namespace Prisma {
 
   export type LinksInProfileMaxAggregateInputType = {
     id?: true
+    tradeLink?: true
     twitch?: true
     youtube?: true
     telegram?: true
@@ -4066,6 +4163,7 @@ export namespace Prisma {
 
   export type LinksInProfileCountAggregateInputType = {
     id?: true
+    tradeLink?: true
     twitch?: true
     youtube?: true
     telegram?: true
@@ -4147,6 +4245,7 @@ export namespace Prisma {
 
   export type LinksInProfileGroupByOutputType = {
     id: string
+    tradeLink: string | null
     twitch: string | null
     youtube: string | null
     telegram: string | null
@@ -4172,6 +4271,7 @@ export namespace Prisma {
 
   export type LinksInProfileSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tradeLink?: boolean
     twitch?: boolean
     youtube?: boolean
     telegram?: boolean
@@ -4181,6 +4281,7 @@ export namespace Prisma {
 
   export type LinksInProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tradeLink?: boolean
     twitch?: boolean
     youtube?: boolean
     telegram?: boolean
@@ -4190,6 +4291,7 @@ export namespace Prisma {
 
   export type LinksInProfileSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    tradeLink?: boolean
     twitch?: boolean
     youtube?: boolean
     telegram?: boolean
@@ -4199,13 +4301,14 @@ export namespace Prisma {
 
   export type LinksInProfileSelectScalar = {
     id?: boolean
+    tradeLink?: boolean
     twitch?: boolean
     youtube?: boolean
     telegram?: boolean
     discord?: boolean
   }
 
-  export type LinksInProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "twitch" | "youtube" | "telegram" | "discord", ExtArgs["result"]["linksInProfile"]>
+  export type LinksInProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tradeLink" | "twitch" | "youtube" | "telegram" | "discord", ExtArgs["result"]["linksInProfile"]>
   export type LinksInProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -4223,6 +4326,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      tradeLink: string | null
       twitch: string | null
       youtube: string | null
       telegram: string | null
@@ -4652,6 +4756,7 @@ export namespace Prisma {
    */
   interface LinksInProfileFieldRefs {
     readonly id: FieldRef<"LinksInProfile", 'String'>
+    readonly tradeLink: FieldRef<"LinksInProfile", 'String'>
     readonly twitch: FieldRef<"LinksInProfile", 'String'>
     readonly youtube: FieldRef<"LinksInProfile", 'String'>
     readonly telegram: FieldRef<"LinksInProfile", 'String'>
@@ -5076,18 +5181,8 @@ export namespace Prisma {
 
   export type AggregateSteamUser = {
     _count: SteamUserCountAggregateOutputType | null
-    _avg: SteamUserAvgAggregateOutputType | null
-    _sum: SteamUserSumAggregateOutputType | null
     _min: SteamUserMinAggregateOutputType | null
     _max: SteamUserMaxAggregateOutputType | null
-  }
-
-  export type SteamUserAvgAggregateOutputType = {
-    viewers: number | null
-  }
-
-  export type SteamUserSumAggregateOutputType = {
-    viewers: number | null
   }
 
   export type SteamUserMinAggregateOutputType = {
@@ -5102,7 +5197,6 @@ export namespace Prisma {
     steamId3: string | null
     steamIdHex: string | null
     countryCode: string | null
-    viewers: number | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5120,7 +5214,6 @@ export namespace Prisma {
     steamId3: string | null
     steamIdHex: string | null
     countryCode: string | null
-    viewers: number | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5138,21 +5231,12 @@ export namespace Prisma {
     steamId3: number
     steamIdHex: number
     countryCode: number
-    viewers: number
     userId: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
-
-  export type SteamUserAvgAggregateInputType = {
-    viewers?: true
-  }
-
-  export type SteamUserSumAggregateInputType = {
-    viewers?: true
-  }
 
   export type SteamUserMinAggregateInputType = {
     id?: true
@@ -5166,7 +5250,6 @@ export namespace Prisma {
     steamId3?: true
     steamIdHex?: true
     countryCode?: true
-    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -5184,7 +5267,6 @@ export namespace Prisma {
     steamId3?: true
     steamIdHex?: true
     countryCode?: true
-    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -5202,7 +5284,6 @@ export namespace Prisma {
     steamId3?: true
     steamIdHex?: true
     countryCode?: true
-    viewers?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -5247,18 +5328,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: SteamUserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SteamUserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: SteamUserMinAggregateInputType
@@ -5289,8 +5358,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: SteamUserCountAggregateInputType | true
-    _avg?: SteamUserAvgAggregateInputType
-    _sum?: SteamUserSumAggregateInputType
     _min?: SteamUserMinAggregateInputType
     _max?: SteamUserMaxAggregateInputType
   }
@@ -5307,13 +5374,10 @@ export namespace Prisma {
     steamId3: string | null
     steamIdHex: string | null
     countryCode: string | null
-    viewers: number | null
     userId: string | null
     createdAt: Date
     updatedAt: Date
     _count: SteamUserCountAggregateOutputType | null
-    _avg: SteamUserAvgAggregateOutputType | null
-    _sum: SteamUserSumAggregateOutputType | null
     _min: SteamUserMinAggregateOutputType | null
     _max: SteamUserMaxAggregateOutputType | null
   }
@@ -5344,7 +5408,6 @@ export namespace Prisma {
     steamId3?: boolean
     steamIdHex?: boolean
     countryCode?: boolean
-    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5367,7 +5430,6 @@ export namespace Prisma {
     steamId3?: boolean
     steamIdHex?: boolean
     countryCode?: boolean
-    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5386,7 +5448,6 @@ export namespace Prisma {
     steamId3?: boolean
     steamIdHex?: boolean
     countryCode?: boolean
-    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5405,13 +5466,12 @@ export namespace Prisma {
     steamId3?: boolean
     steamIdHex?: boolean
     countryCode?: boolean
-    viewers?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "level" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "viewers" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "level" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
   export type SteamUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | SteamUser$userArgs<ExtArgs>
     steamUserBans?: boolean | SteamUser$steamUserBansArgs<ExtArgs>
@@ -5446,7 +5506,6 @@ export namespace Prisma {
       steamId3: string | null
       steamIdHex: string | null
       countryCode: string | null
-      viewers: number | null
       userId: string | null
       createdAt: Date
       updatedAt: Date
@@ -5888,7 +5947,6 @@ export namespace Prisma {
     readonly steamId3: FieldRef<"SteamUser", 'String'>
     readonly steamIdHex: FieldRef<"SteamUser", 'String'>
     readonly countryCode: FieldRef<"SteamUser", 'String'>
-    readonly viewers: FieldRef<"SteamUser", 'Int'>
     readonly userId: FieldRef<"SteamUser", 'String'>
     readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
     readonly updatedAt: FieldRef<"SteamUser", 'DateTime'>
@@ -6389,6 +6447,996 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SteamUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SteamViewers
+   */
+
+  export type AggregateSteamViewers = {
+    _count: SteamViewersCountAggregateOutputType | null
+    _avg: SteamViewersAvgAggregateOutputType | null
+    _sum: SteamViewersSumAggregateOutputType | null
+    _min: SteamViewersMinAggregateOutputType | null
+    _max: SteamViewersMaxAggregateOutputType | null
+  }
+
+  export type SteamViewersAvgAggregateOutputType = {
+    viewers: number | null
+  }
+
+  export type SteamViewersSumAggregateOutputType = {
+    viewers: number | null
+  }
+
+  export type SteamViewersMinAggregateOutputType = {
+    id: string | null
+    viewers: number | null
+  }
+
+  export type SteamViewersMaxAggregateOutputType = {
+    id: string | null
+    viewers: number | null
+  }
+
+  export type SteamViewersCountAggregateOutputType = {
+    id: number
+    viewers: number
+    _all: number
+  }
+
+
+  export type SteamViewersAvgAggregateInputType = {
+    viewers?: true
+  }
+
+  export type SteamViewersSumAggregateInputType = {
+    viewers?: true
+  }
+
+  export type SteamViewersMinAggregateInputType = {
+    id?: true
+    viewers?: true
+  }
+
+  export type SteamViewersMaxAggregateInputType = {
+    id?: true
+    viewers?: true
+  }
+
+  export type SteamViewersCountAggregateInputType = {
+    id?: true
+    viewers?: true
+    _all?: true
+  }
+
+  export type SteamViewersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamViewers to aggregate.
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamViewers to fetch.
+     */
+    orderBy?: SteamViewersOrderByWithRelationInput | SteamViewersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SteamViewersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamViewers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamViewers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SteamViewers
+    **/
+    _count?: true | SteamViewersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SteamViewersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SteamViewersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SteamViewersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SteamViewersMaxAggregateInputType
+  }
+
+  export type GetSteamViewersAggregateType<T extends SteamViewersAggregateArgs> = {
+        [P in keyof T & keyof AggregateSteamViewers]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSteamViewers[P]>
+      : GetScalarType<T[P], AggregateSteamViewers[P]>
+  }
+
+
+
+
+  export type SteamViewersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SteamViewersWhereInput
+    orderBy?: SteamViewersOrderByWithAggregationInput | SteamViewersOrderByWithAggregationInput[]
+    by: SteamViewersScalarFieldEnum[] | SteamViewersScalarFieldEnum
+    having?: SteamViewersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SteamViewersCountAggregateInputType | true
+    _avg?: SteamViewersAvgAggregateInputType
+    _sum?: SteamViewersSumAggregateInputType
+    _min?: SteamViewersMinAggregateInputType
+    _max?: SteamViewersMaxAggregateInputType
+  }
+
+  export type SteamViewersGroupByOutputType = {
+    id: string
+    viewers: number
+    _count: SteamViewersCountAggregateOutputType | null
+    _avg: SteamViewersAvgAggregateOutputType | null
+    _sum: SteamViewersSumAggregateOutputType | null
+    _min: SteamViewersMinAggregateOutputType | null
+    _max: SteamViewersMaxAggregateOutputType | null
+  }
+
+  type GetSteamViewersGroupByPayload<T extends SteamViewersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SteamViewersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SteamViewersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SteamViewersGroupByOutputType[P]>
+            : GetScalarType<T[P], SteamViewersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SteamViewersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    viewers?: boolean
+  }, ExtArgs["result"]["steamViewers"]>
+
+  export type SteamViewersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    viewers?: boolean
+  }, ExtArgs["result"]["steamViewers"]>
+
+  export type SteamViewersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    viewers?: boolean
+  }, ExtArgs["result"]["steamViewers"]>
+
+  export type SteamViewersSelectScalar = {
+    id?: boolean
+    viewers?: boolean
+  }
+
+  export type SteamViewersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "viewers", ExtArgs["result"]["steamViewers"]>
+
+  export type $SteamViewersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SteamViewers"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      viewers: number
+    }, ExtArgs["result"]["steamViewers"]>
+    composites: {}
+  }
+
+  type SteamViewersGetPayload<S extends boolean | null | undefined | SteamViewersDefaultArgs> = $Result.GetResult<Prisma.$SteamViewersPayload, S>
+
+  type SteamViewersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SteamViewersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SteamViewersCountAggregateInputType | true
+    }
+
+  export interface SteamViewersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SteamViewers'], meta: { name: 'SteamViewers' } }
+    /**
+     * Find zero or one SteamViewers that matches the filter.
+     * @param {SteamViewersFindUniqueArgs} args - Arguments to find a SteamViewers
+     * @example
+     * // Get one SteamViewers
+     * const steamViewers = await prisma.steamViewers.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SteamViewersFindUniqueArgs>(args: SelectSubset<T, SteamViewersFindUniqueArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SteamViewers that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SteamViewersFindUniqueOrThrowArgs} args - Arguments to find a SteamViewers
+     * @example
+     * // Get one SteamViewers
+     * const steamViewers = await prisma.steamViewers.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SteamViewersFindUniqueOrThrowArgs>(args: SelectSubset<T, SteamViewersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamViewers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersFindFirstArgs} args - Arguments to find a SteamViewers
+     * @example
+     * // Get one SteamViewers
+     * const steamViewers = await prisma.steamViewers.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SteamViewersFindFirstArgs>(args?: SelectSubset<T, SteamViewersFindFirstArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SteamViewers that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersFindFirstOrThrowArgs} args - Arguments to find a SteamViewers
+     * @example
+     * // Get one SteamViewers
+     * const steamViewers = await prisma.steamViewers.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SteamViewersFindFirstOrThrowArgs>(args?: SelectSubset<T, SteamViewersFindFirstOrThrowArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SteamViewers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SteamViewers
+     * const steamViewers = await prisma.steamViewers.findMany()
+     * 
+     * // Get first 10 SteamViewers
+     * const steamViewers = await prisma.steamViewers.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const steamViewersWithIdOnly = await prisma.steamViewers.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SteamViewersFindManyArgs>(args?: SelectSubset<T, SteamViewersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SteamViewers.
+     * @param {SteamViewersCreateArgs} args - Arguments to create a SteamViewers.
+     * @example
+     * // Create one SteamViewers
+     * const SteamViewers = await prisma.steamViewers.create({
+     *   data: {
+     *     // ... data to create a SteamViewers
+     *   }
+     * })
+     * 
+     */
+    create<T extends SteamViewersCreateArgs>(args: SelectSubset<T, SteamViewersCreateArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SteamViewers.
+     * @param {SteamViewersCreateManyArgs} args - Arguments to create many SteamViewers.
+     * @example
+     * // Create many SteamViewers
+     * const steamViewers = await prisma.steamViewers.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SteamViewersCreateManyArgs>(args?: SelectSubset<T, SteamViewersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SteamViewers and returns the data saved in the database.
+     * @param {SteamViewersCreateManyAndReturnArgs} args - Arguments to create many SteamViewers.
+     * @example
+     * // Create many SteamViewers
+     * const steamViewers = await prisma.steamViewers.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SteamViewers and only return the `id`
+     * const steamViewersWithIdOnly = await prisma.steamViewers.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SteamViewersCreateManyAndReturnArgs>(args?: SelectSubset<T, SteamViewersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SteamViewers.
+     * @param {SteamViewersDeleteArgs} args - Arguments to delete one SteamViewers.
+     * @example
+     * // Delete one SteamViewers
+     * const SteamViewers = await prisma.steamViewers.delete({
+     *   where: {
+     *     // ... filter to delete one SteamViewers
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SteamViewersDeleteArgs>(args: SelectSubset<T, SteamViewersDeleteArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SteamViewers.
+     * @param {SteamViewersUpdateArgs} args - Arguments to update one SteamViewers.
+     * @example
+     * // Update one SteamViewers
+     * const steamViewers = await prisma.steamViewers.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SteamViewersUpdateArgs>(args: SelectSubset<T, SteamViewersUpdateArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SteamViewers.
+     * @param {SteamViewersDeleteManyArgs} args - Arguments to filter SteamViewers to delete.
+     * @example
+     * // Delete a few SteamViewers
+     * const { count } = await prisma.steamViewers.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SteamViewersDeleteManyArgs>(args?: SelectSubset<T, SteamViewersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamViewers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SteamViewers
+     * const steamViewers = await prisma.steamViewers.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SteamViewersUpdateManyArgs>(args: SelectSubset<T, SteamViewersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SteamViewers and returns the data updated in the database.
+     * @param {SteamViewersUpdateManyAndReturnArgs} args - Arguments to update many SteamViewers.
+     * @example
+     * // Update many SteamViewers
+     * const steamViewers = await prisma.steamViewers.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SteamViewers and only return the `id`
+     * const steamViewersWithIdOnly = await prisma.steamViewers.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SteamViewersUpdateManyAndReturnArgs>(args: SelectSubset<T, SteamViewersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SteamViewers.
+     * @param {SteamViewersUpsertArgs} args - Arguments to update or create a SteamViewers.
+     * @example
+     * // Update or create a SteamViewers
+     * const steamViewers = await prisma.steamViewers.upsert({
+     *   create: {
+     *     // ... data to create a SteamViewers
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SteamViewers we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SteamViewersUpsertArgs>(args: SelectSubset<T, SteamViewersUpsertArgs<ExtArgs>>): Prisma__SteamViewersClient<$Result.GetResult<Prisma.$SteamViewersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SteamViewers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersCountArgs} args - Arguments to filter SteamViewers to count.
+     * @example
+     * // Count the number of SteamViewers
+     * const count = await prisma.steamViewers.count({
+     *   where: {
+     *     // ... the filter for the SteamViewers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SteamViewersCountArgs>(
+      args?: Subset<T, SteamViewersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SteamViewersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SteamViewers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SteamViewersAggregateArgs>(args: Subset<T, SteamViewersAggregateArgs>): Prisma.PrismaPromise<GetSteamViewersAggregateType<T>>
+
+    /**
+     * Group by SteamViewers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SteamViewersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SteamViewersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SteamViewersGroupByArgs['orderBy'] }
+        : { orderBy?: SteamViewersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SteamViewersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSteamViewersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SteamViewers model
+   */
+  readonly fields: SteamViewersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SteamViewers.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SteamViewersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SteamViewers model
+   */
+  interface SteamViewersFieldRefs {
+    readonly id: FieldRef<"SteamViewers", 'String'>
+    readonly viewers: FieldRef<"SteamViewers", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SteamViewers findUnique
+   */
+  export type SteamViewersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamViewers to fetch.
+     */
+    where: SteamViewersWhereUniqueInput
+  }
+
+  /**
+   * SteamViewers findUniqueOrThrow
+   */
+  export type SteamViewersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamViewers to fetch.
+     */
+    where: SteamViewersWhereUniqueInput
+  }
+
+  /**
+   * SteamViewers findFirst
+   */
+  export type SteamViewersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamViewers to fetch.
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamViewers to fetch.
+     */
+    orderBy?: SteamViewersOrderByWithRelationInput | SteamViewersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamViewers.
+     */
+    cursor?: SteamViewersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamViewers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamViewers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamViewers.
+     */
+    distinct?: SteamViewersScalarFieldEnum | SteamViewersScalarFieldEnum[]
+  }
+
+  /**
+   * SteamViewers findFirstOrThrow
+   */
+  export type SteamViewersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamViewers to fetch.
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamViewers to fetch.
+     */
+    orderBy?: SteamViewersOrderByWithRelationInput | SteamViewersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SteamViewers.
+     */
+    cursor?: SteamViewersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamViewers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamViewers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SteamViewers.
+     */
+    distinct?: SteamViewersScalarFieldEnum | SteamViewersScalarFieldEnum[]
+  }
+
+  /**
+   * SteamViewers findMany
+   */
+  export type SteamViewersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter, which SteamViewers to fetch.
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SteamViewers to fetch.
+     */
+    orderBy?: SteamViewersOrderByWithRelationInput | SteamViewersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SteamViewers.
+     */
+    cursor?: SteamViewersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SteamViewers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SteamViewers.
+     */
+    skip?: number
+    distinct?: SteamViewersScalarFieldEnum | SteamViewersScalarFieldEnum[]
+  }
+
+  /**
+   * SteamViewers create
+   */
+  export type SteamViewersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SteamViewers.
+     */
+    data: XOR<SteamViewersCreateInput, SteamViewersUncheckedCreateInput>
+  }
+
+  /**
+   * SteamViewers createMany
+   */
+  export type SteamViewersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SteamViewers.
+     */
+    data: SteamViewersCreateManyInput | SteamViewersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamViewers createManyAndReturn
+   */
+  export type SteamViewersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * The data used to create many SteamViewers.
+     */
+    data: SteamViewersCreateManyInput | SteamViewersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SteamViewers update
+   */
+  export type SteamViewersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SteamViewers.
+     */
+    data: XOR<SteamViewersUpdateInput, SteamViewersUncheckedUpdateInput>
+    /**
+     * Choose, which SteamViewers to update.
+     */
+    where: SteamViewersWhereUniqueInput
+  }
+
+  /**
+   * SteamViewers updateMany
+   */
+  export type SteamViewersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SteamViewers.
+     */
+    data: XOR<SteamViewersUpdateManyMutationInput, SteamViewersUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamViewers to update
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * Limit how many SteamViewers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamViewers updateManyAndReturn
+   */
+  export type SteamViewersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * The data used to update SteamViewers.
+     */
+    data: XOR<SteamViewersUpdateManyMutationInput, SteamViewersUncheckedUpdateManyInput>
+    /**
+     * Filter which SteamViewers to update
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * Limit how many SteamViewers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamViewers upsert
+   */
+  export type SteamViewersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SteamViewers to update in case it exists.
+     */
+    where: SteamViewersWhereUniqueInput
+    /**
+     * In case the SteamViewers found by the `where` argument doesn't exist, create a new SteamViewers with this data.
+     */
+    create: XOR<SteamViewersCreateInput, SteamViewersUncheckedCreateInput>
+    /**
+     * In case the SteamViewers was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SteamViewersUpdateInput, SteamViewersUncheckedUpdateInput>
+  }
+
+  /**
+   * SteamViewers delete
+   */
+  export type SteamViewersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
+    /**
+     * Filter which SteamViewers to delete.
+     */
+    where: SteamViewersWhereUniqueInput
+  }
+
+  /**
+   * SteamViewers deleteMany
+   */
+  export type SteamViewersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SteamViewers to delete
+     */
+    where?: SteamViewersWhereInput
+    /**
+     * Limit how many SteamViewers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SteamViewers without action
+   */
+  export type SteamViewersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SteamViewers
+     */
+    select?: SteamViewersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SteamViewers
+     */
+    omit?: SteamViewersOmit<ExtArgs> | null
   }
 
 
@@ -11931,6 +12979,7 @@ export namespace Prisma {
 
   export const LinksInProfileScalarFieldEnum: {
     id: 'id',
+    tradeLink: 'tradeLink',
     twitch: 'twitch',
     youtube: 'youtube',
     telegram: 'telegram',
@@ -11952,13 +13001,20 @@ export namespace Prisma {
     steamId3: 'steamId3',
     steamIdHex: 'steamIdHex',
     countryCode: 'countryCode',
-    viewers: 'viewers',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
+
+
+  export const SteamViewersScalarFieldEnum: {
+    id: 'id',
+    viewers: 'viewers'
+  };
+
+  export type SteamViewersScalarFieldEnum = (typeof SteamViewersScalarFieldEnum)[keyof typeof SteamViewersScalarFieldEnum]
 
 
   export const SteamUserBansScalarFieldEnum: {
@@ -12287,6 +13343,7 @@ export namespace Prisma {
     OR?: LinksInProfileWhereInput[]
     NOT?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
     id?: StringFilter<"LinksInProfile"> | string
+    tradeLink?: StringNullableFilter<"LinksInProfile"> | string | null
     twitch?: StringNullableFilter<"LinksInProfile"> | string | null
     youtube?: StringNullableFilter<"LinksInProfile"> | string | null
     telegram?: StringNullableFilter<"LinksInProfile"> | string | null
@@ -12296,6 +13353,7 @@ export namespace Prisma {
 
   export type LinksInProfileOrderByWithRelationInput = {
     id?: SortOrder
+    tradeLink?: SortOrderInput | SortOrder
     twitch?: SortOrderInput | SortOrder
     youtube?: SortOrderInput | SortOrder
     telegram?: SortOrderInput | SortOrder
@@ -12308,6 +13366,7 @@ export namespace Prisma {
     AND?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
     OR?: LinksInProfileWhereInput[]
     NOT?: LinksInProfileWhereInput | LinksInProfileWhereInput[]
+    tradeLink?: StringNullableFilter<"LinksInProfile"> | string | null
     twitch?: StringNullableFilter<"LinksInProfile"> | string | null
     youtube?: StringNullableFilter<"LinksInProfile"> | string | null
     telegram?: StringNullableFilter<"LinksInProfile"> | string | null
@@ -12317,6 +13376,7 @@ export namespace Prisma {
 
   export type LinksInProfileOrderByWithAggregationInput = {
     id?: SortOrder
+    tradeLink?: SortOrderInput | SortOrder
     twitch?: SortOrderInput | SortOrder
     youtube?: SortOrderInput | SortOrder
     telegram?: SortOrderInput | SortOrder
@@ -12331,6 +13391,7 @@ export namespace Prisma {
     OR?: LinksInProfileScalarWhereWithAggregatesInput[]
     NOT?: LinksInProfileScalarWhereWithAggregatesInput | LinksInProfileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"LinksInProfile"> | string
+    tradeLink?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
     twitch?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
     youtube?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
     telegram?: StringNullableWithAggregatesFilter<"LinksInProfile"> | string | null
@@ -12352,7 +13413,6 @@ export namespace Prisma {
     steamId3?: StringNullableFilter<"SteamUser"> | string | null
     steamIdHex?: StringNullableFilter<"SteamUser"> | string | null
     countryCode?: StringNullableFilter<"SteamUser"> | string | null
-    viewers?: IntNullableFilter<"SteamUser"> | number | null
     userId?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
@@ -12374,7 +13434,6 @@ export namespace Prisma {
     steamId3?: SortOrderInput | SortOrder
     steamIdHex?: SortOrderInput | SortOrder
     countryCode?: SortOrderInput | SortOrder
-    viewers?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12400,7 +13459,6 @@ export namespace Prisma {
     steamId3?: StringNullableFilter<"SteamUser"> | string | null
     steamIdHex?: StringNullableFilter<"SteamUser"> | string | null
     countryCode?: StringNullableFilter<"SteamUser"> | string | null
-    viewers?: IntNullableFilter<"SteamUser"> | number | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUser"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -12421,15 +13479,12 @@ export namespace Prisma {
     steamId3?: SortOrderInput | SortOrder
     steamIdHex?: SortOrderInput | SortOrder
     countryCode?: SortOrderInput | SortOrder
-    viewers?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SteamUserCountOrderByAggregateInput
-    _avg?: SteamUserAvgOrderByAggregateInput
     _max?: SteamUserMaxOrderByAggregateInput
     _min?: SteamUserMinOrderByAggregateInput
-    _sum?: SteamUserSumOrderByAggregateInput
   }
 
   export type SteamUserScalarWhereWithAggregatesInput = {
@@ -12447,10 +13502,48 @@ export namespace Prisma {
     steamId3?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     steamIdHex?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     countryCode?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
-    viewers?: IntNullableWithAggregatesFilter<"SteamUser"> | number | null
     userId?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
+  }
+
+  export type SteamViewersWhereInput = {
+    AND?: SteamViewersWhereInput | SteamViewersWhereInput[]
+    OR?: SteamViewersWhereInput[]
+    NOT?: SteamViewersWhereInput | SteamViewersWhereInput[]
+    id?: StringFilter<"SteamViewers"> | string
+    viewers?: IntFilter<"SteamViewers"> | number
+  }
+
+  export type SteamViewersOrderByWithRelationInput = {
+    id?: SortOrder
+    viewers?: SortOrder
+  }
+
+  export type SteamViewersWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SteamViewersWhereInput | SteamViewersWhereInput[]
+    OR?: SteamViewersWhereInput[]
+    NOT?: SteamViewersWhereInput | SteamViewersWhereInput[]
+    viewers?: IntFilter<"SteamViewers"> | number
+  }, "id">
+
+  export type SteamViewersOrderByWithAggregationInput = {
+    id?: SortOrder
+    viewers?: SortOrder
+    _count?: SteamViewersCountOrderByAggregateInput
+    _avg?: SteamViewersAvgOrderByAggregateInput
+    _max?: SteamViewersMaxOrderByAggregateInput
+    _min?: SteamViewersMinOrderByAggregateInput
+    _sum?: SteamViewersSumOrderByAggregateInput
+  }
+
+  export type SteamViewersScalarWhereWithAggregatesInput = {
+    AND?: SteamViewersScalarWhereWithAggregatesInput | SteamViewersScalarWhereWithAggregatesInput[]
+    OR?: SteamViewersScalarWhereWithAggregatesInput[]
+    NOT?: SteamViewersScalarWhereWithAggregatesInput | SteamViewersScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SteamViewers"> | string
+    viewers?: IntWithAggregatesFilter<"SteamViewers"> | number
   }
 
   export type SteamUserBansWhereInput = {
@@ -12940,6 +14033,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileCreateInput = {
+    tradeLink?: string | null
     twitch?: string | null
     youtube?: string | null
     telegram?: string | null
@@ -12949,6 +14043,7 @@ export namespace Prisma {
 
   export type LinksInProfileUncheckedCreateInput = {
     id?: string
+    tradeLink?: string | null
     twitch?: string | null
     youtube?: string | null
     telegram?: string | null
@@ -12956,6 +14051,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileUpdateInput = {
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12965,6 +14061,7 @@ export namespace Prisma {
 
   export type LinksInProfileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12973,6 +14070,7 @@ export namespace Prisma {
 
   export type LinksInProfileCreateManyInput = {
     id?: string
+    tradeLink?: string | null
     twitch?: string | null
     youtube?: string | null
     telegram?: string | null
@@ -12980,6 +14078,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileUpdateManyMutationInput = {
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12988,6 +14087,7 @@ export namespace Prisma {
 
   export type LinksInProfileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13006,7 +14106,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
@@ -13027,7 +14126,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13048,7 +14146,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
@@ -13069,7 +14166,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13090,7 +14186,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13108,7 +14203,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13125,10 +14219,44 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SteamViewersCreateInput = {
+    id: string
+    viewers?: number
+  }
+
+  export type SteamViewersUncheckedCreateInput = {
+    id: string
+    viewers?: number
+  }
+
+  export type SteamViewersUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewers?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamViewersUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewers?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamViewersCreateManyInput = {
+    id: string
+    viewers?: number
+  }
+
+  export type SteamViewersUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewers?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SteamViewersUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    viewers?: IntFieldUpdateOperationsInput | number
   }
 
   export type SteamUserBansCreateInput = {
@@ -13746,6 +14874,7 @@ export namespace Prisma {
 
   export type LinksInProfileCountOrderByAggregateInput = {
     id?: SortOrder
+    tradeLink?: SortOrder
     twitch?: SortOrder
     youtube?: SortOrder
     telegram?: SortOrder
@@ -13754,6 +14883,7 @@ export namespace Prisma {
 
   export type LinksInProfileMaxOrderByAggregateInput = {
     id?: SortOrder
+    tradeLink?: SortOrder
     twitch?: SortOrder
     youtube?: SortOrder
     telegram?: SortOrder
@@ -13762,21 +14892,11 @@ export namespace Prisma {
 
   export type LinksInProfileMinOrderByAggregateInput = {
     id?: SortOrder
+    tradeLink?: SortOrder
     twitch?: SortOrder
     youtube?: SortOrder
     telegram?: SortOrder
     discord?: SortOrder
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -13801,14 +14921,9 @@ export namespace Prisma {
     steamId3?: SortOrder
     steamIdHex?: SortOrder
     countryCode?: SortOrder
-    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type SteamUserAvgOrderByAggregateInput = {
-    viewers?: SortOrder
   }
 
   export type SteamUserMaxOrderByAggregateInput = {
@@ -13823,7 +14938,6 @@ export namespace Prisma {
     steamId3?: SortOrder
     steamIdHex?: SortOrder
     countryCode?: SortOrder
-    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13841,17 +14955,40 @@ export namespace Prisma {
     steamId3?: SortOrder
     steamIdHex?: SortOrder
     countryCode?: SortOrder
-    viewers?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type SteamUserSumOrderByAggregateInput = {
+  export type SteamViewersCountOrderByAggregateInput = {
+    id?: SortOrder
     viewers?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type SteamViewersAvgOrderByAggregateInput = {
+    viewers?: SortOrder
+  }
+
+  export type SteamViewersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    viewers?: SortOrder
+  }
+
+  export type SteamViewersMinOrderByAggregateInput = {
+    id?: SortOrder
+    viewers?: SortOrder
+  }
+
+  export type SteamViewersSumOrderByAggregateInput = {
+    viewers?: SortOrder
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -13859,17 +14996,7 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type SteamUserScalarRelationFilter = {
@@ -13925,6 +15052,22 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type CommentAuthorIdRecipientIdCompoundUniqueInput = {
@@ -14385,14 +15528,6 @@ export namespace Prisma {
     connect?: ReportUserWhereUniqueInput | ReportUserWhereUniqueInput[]
   }
 
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type UserUpdateOneWithoutSteamUserNestedInput = {
     create?: XOR<UserCreateWithoutSteamUserInput, UserUncheckedCreateWithoutSteamUserInput>
     connectOrCreate?: UserCreateOrConnectWithoutSteamUserInput
@@ -14487,6 +15622,14 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput = {
@@ -14816,6 +15959,19 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14843,20 +15999,8 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
   export type LinksInProfileCreateWithoutUserInput = {
+    tradeLink?: string | null
     twitch?: string | null
     youtube?: string | null
     telegram?: string | null
@@ -14864,6 +16008,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileUncheckedCreateWithoutUserInput = {
+    tradeLink?: string | null
     twitch?: string | null
     youtube?: string | null
     telegram?: string | null
@@ -14887,7 +16032,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     steamUserBans?: SteamUserBansCreateNestedOneWithoutSteamInput
@@ -14907,7 +16051,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     steamUserBans?: SteamUserBansUncheckedCreateNestedOneWithoutSteamInput
@@ -15044,6 +16187,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileUpdateWithoutUserInput = {
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15051,6 +16195,7 @@ export namespace Prisma {
   }
 
   export type LinksInProfileUncheckedUpdateWithoutUserInput = {
+    tradeLink?: NullableStringFieldUpdateOperationsInput | string | null
     twitch?: NullableStringFieldUpdateOperationsInput | string | null
     youtube?: NullableStringFieldUpdateOperationsInput | string | null
     telegram?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15080,7 +16225,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steamUserBans?: SteamUserBansUpdateOneWithoutSteamNestedInput
@@ -15100,7 +16244,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steamUserBans?: SteamUserBansUncheckedUpdateOneWithoutSteamNestedInput
@@ -15547,7 +16690,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
@@ -15567,7 +16709,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15603,7 +16744,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
@@ -15623,7 +16763,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15682,7 +16821,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
@@ -15702,7 +16840,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15783,7 +16920,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
@@ -15803,7 +16939,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15946,7 +17081,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutSteamUserInput
@@ -15966,7 +17100,6 @@ export namespace Prisma {
     steamId3?: string | null
     steamIdHex?: string | null
     countryCode?: string | null
-    viewers?: number | null
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16075,7 +17208,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutSteamUserNestedInput
@@ -16095,7 +17227,6 @@ export namespace Prisma {
     steamId3?: NullableStringFieldUpdateOperationsInput | string | null
     steamIdHex?: NullableStringFieldUpdateOperationsInput | string | null
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
-    viewers?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
