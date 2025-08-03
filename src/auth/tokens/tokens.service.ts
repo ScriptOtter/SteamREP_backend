@@ -56,9 +56,11 @@ export class TokenService {
   public async getIdFromToken(req: Request): Promise<string> {
     try {
       const token = req.cookies.SteamREP_refreshToken;
+
       const id = await this.jwtService.verify(token, {
         secret: process.env.JWT_REFRESH_SECRET!,
       }).id;
+
       return id;
     } catch (e) {
       throw new UnauthorizedException('cant get id');

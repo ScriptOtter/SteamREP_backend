@@ -15,6 +15,8 @@ import { ProtectedController } from './protected.controller';
 import { AuthModule } from './auth/auth.module';
 import { TokenService } from './auth/tokens/tokens.service';
 import { ReportUserModule } from './report_user/report-user.module';
+import { SocialLinksController } from './social_links/social-links.controller';
+import { SocialLinksService } from './social_links/social-links.service';
 
 @Module({
   imports: [
@@ -33,8 +35,15 @@ import { ReportUserModule } from './report_user/report-user.module';
     AuthController,
     UserController,
     ProtectedController,
+    SocialLinksController,
   ],
-  providers: [AppService, AuthService, TokenService, UserService],
+  providers: [
+    AppService,
+    AuthService,
+    TokenService,
+    UserService,
+    SocialLinksService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

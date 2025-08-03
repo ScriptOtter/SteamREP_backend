@@ -9,12 +9,15 @@ export class SocialLinksService {
     private readonly tokenService: TokenService,
     private readonly prismaService: PrismaService,
   ) {}
-  public async saveSocialLinks(dto: SaveSocialLinksDto, req: Request) {
+
+  async saveSocialLinks(dto: SaveSocialLinksDto, req: Request) {
+    console.log(req.cookies);
+
+    const userId = await this.tokenService.getIdFromToken(req);
+    if (!userId) {
+      throw new UnauthorizedException('User not found!');
+    }
     try {
-      const userId = await this.tokenService.getIdFromToken(req);
-      if (!userId) {
-        throw new UnauthorizedException('User not found!');
-      }
       const links = await this.prismaService.linksInProfile.findFirstOrThrow({
         where: { user: { id: userId } },
       });

@@ -3,13 +3,11 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
-
+import { Request } from 'express';
 import { SaveSocialLinksDto } from './dto/saveSocialLinks.dto';
 import { SocialLinksService } from './social-links.service';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
@@ -20,7 +18,7 @@ export class SocialLinksController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
-  @Patch('update')
+  @Post('update')
   saveSocialLinks(@Body() dto: SaveSocialLinksDto, @Req() req: Request) {
     return this.socialLinksService.saveSocialLinks(dto, req);
   }

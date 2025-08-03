@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Request } from 'express';
@@ -21,8 +25,10 @@ export class CommentService {
     req: Request,
     id: string,
   ): Promise<any> {
-    const userAccessToken = req.cookies.SteamREP_accessToken;
     const userId = await this.tokenService.getIdFromToken(req);
+    if (!userId) {
+      throw new UnauthorizedException('User not found!');
+    }
     console.log(dto.content, userId, id);
     const steamid = async (id): Promise<string> => {
       if (await this.steamService.checkIsSteam64Id(id)) {
