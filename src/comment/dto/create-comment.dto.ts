@@ -8,6 +8,8 @@ export class CreateCommentDto {
   @IsString({ message: 'Author must be string!' })
   @IsNotEmpty({ message: 'Author is empty!' })
   author_id: string;
+  @IsString({ message: 'Author must be string!' })
+  pictureUrl: string;
 
   @IsString({ message: 'Recipient must be string!' })
   @IsNotEmpty({ message: 'Recipient is empty!' })

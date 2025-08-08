@@ -17,6 +17,8 @@ import { TokenService } from './auth/tokens/tokens.service';
 import { ReportUserModule } from './report_user/report-user.module';
 import { SocialLinksController } from './social_links/social-links.controller';
 import { SocialLinksService } from './social_links/social-links.service';
+import { SocialLinksModule } from './social_links/social-links.module';
+import { UploadImageModule } from './upload-image/upload-image.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { SocialLinksService } from './social_links/social-links.service';
     SteamModule,
     AuthModule,
     ReportUserModule,
+    SocialLinksModule,
+    UploadImageModule,
   ],
   controllers: [
     AppController,

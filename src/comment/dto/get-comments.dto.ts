@@ -15,6 +15,10 @@ export class GetCommenttDto {
 
   @IsString({ message: 'Recipient must be string!' })
   @IsNotEmpty({ message: 'Recipient is empty!' })
+  pictureUrl: string;
+
+  @IsString({ message: 'Recipient must be string!' })
+  @IsNotEmpty({ message: 'Recipient is empty!' })
   createdAt: string;
 
   @IsString({ message: 'Recipient must be string!' })

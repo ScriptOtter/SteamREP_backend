@@ -9,26 +9,31 @@ import {
   Patch,
   Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(JwtAccessGuard)
   @Post('comment/create/:id')
-  signIn(
+  createComment(
+    @UploadedFile() file: Express.Multer.File,
     @Body() dto: CreateCommentDto,
     @Req() req: Request,
     @Param('id') id: string,
   ) {
-    return this.commentService.createComment(dto, req, id);
+    return this.commentService.createComment(file, dto, req, id);
   }
 
   @HttpCode(HttpStatus.OK)

@@ -7,9 +7,10 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { GetCommenttDto } from './dto/get-comments.dto';
 import { SteamService } from 'src/steam/steam.service';
 import { TokenService } from 'src/auth/tokens/tokens.service';
+import { join } from 'path';
+import { access, constants, unlink, unlinkSync } from 'fs';
 
 @Injectable()
 export class CommentService {
@@ -20,7 +21,20 @@ export class CommentService {
     private readonly tokenService: TokenService,
   ) {}
 
+  async deleteImage(filename: string) {
+    const filePath = join('static/images', filename);
+    console.log(filePath);
+    try {
+      await unlinkSync(filePath);
+      console.log(filename, 'успешно удален.');
+    } catch (error) {
+      console.error('DELETE_FILE', error);
+      throw new Error('Ошибка при удалении файла');
+    }
+  }
+
   async createComment(
+    file: Express.Multer.File,
     dto: CreateCommentDto,
     req: Request,
     id: string,
@@ -38,10 +52,14 @@ export class CommentService {
       }
     };
     try {
+      if (file) {
+        console.log(file);
+      }
       const comment = await this.prisma.comment.create({
         data: {
           content: dto.content,
           authorId: userId,
+          pictureUrl: dto.pictureUrl,
           recipientId: await steamid(id),
         },
         include: { author: {} },
@@ -77,6 +95,7 @@ export class CommentService {
         where: { recipientId: steamid },
         select: {
           recipientId: true,
+          pictureUrl: true,
           id: true,
           content: true,
           createdAt: true,
@@ -105,12 +124,13 @@ export class CommentService {
     const userId = await this.tokenService.getIdFromToken(req);
 
     try {
-      const comment = this.prisma.comment.delete({
+      const comment = await this.prisma.comment.delete({
         where: { id: commentId, authorId: userId },
       });
       if (!comment) {
         console.log('Not found comment!');
       }
+      if (comment?.pictureUrl) this.deleteImage(comment?.pictureUrl);
       return comment;
     } catch (e) {
       console.log('DELETE_COMMENT', e);
@@ -119,16 +139,37 @@ export class CommentService {
 
   async updateComment(commentId, content, req) {
     const userId = await this.tokenService.getIdFromToken(req);
-    console.log(commentId, content, userId);
+    if (!userId) {
+      throw new UnauthorizedException();
+    }
+
     try {
-      const comment = this.prisma.comment.update({
-        where: { id: commentId, authorId: userId },
-        data: content,
-      });
-      if (!comment) {
-        console.log('Not found comment!');
+      if (content?.pictureUrl) {
+        let comment = this.prisma.comment.update({
+          where: { id: commentId, authorId: userId },
+          data: content,
+        });
+        if (!comment) {
+          throw new BadRequestException('Comment not found!');
+        }
+        return comment;
+      } else {
+        const com = await this.prisma.comment.findFirst({
+          where: { id: commentId, authorId: userId },
+        });
+
+        let comment = await this.prisma.comment.update({
+          where: { id: commentId, authorId: userId },
+          data: { content: content.content, pictureUrl: null },
+        });
+        if (com?.pictureUrl && com?.pictureUrl != comment?.pictureUrl) {
+          this.deleteImage(com?.pictureUrl);
+        }
+        if (!comment) {
+          throw new BadRequestException('Comment not found!');
+        }
+        return comment;
       }
-      return comment;
     } catch (e) {
       console.log('DELETE_COMMENT', e);
     }
