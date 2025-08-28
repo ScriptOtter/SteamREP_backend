@@ -31,8 +31,6 @@ export class CookieMiddleware extends Prisma implements NestMiddleware {
         return next(err);
       }
 
-      console.log(req.cookies.SteamREP_refreshToken);
-
       try {
         const user = await this.searchUser(req.cookies.SteamREP_refreshToken);
 

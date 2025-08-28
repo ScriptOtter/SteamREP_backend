@@ -1,30 +1,38 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { CoreModule } from './core/core.module';
 const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
-import 'dotenv/config';
 //import * as cookieParser from 'cookie-parser';
 import cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as bodyParser from 'body-parser';
+import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(CoreModule);
   app.use(cookieParser());
+  const config = app.get(ConfigService);
   app.setGlobalPrefix('/api');
   app.use(bodyParser.json({ limit: '1mb' })); // установите желаемый лимит
   app.use(bodyParser.urlencoded({ limit: '1mb', extended: true })); // для urlencoded запросов
   app.enableCors({
     methods,
-    origin: true,
+    origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
     credentials: true,
     allowedHeaders:
-      'Content-Type, Authorization, SteamREP_accessToken, SteamREP_refreshToken',
+      'Content-Type, Authorization, SteamREP_accessToken,  SteamREP_refreshToken',
   });
-  app.useStaticAssets(join(__dirname, '..', 'static/images'), {
+  app.useStaticAssets(join('./static/images'), {
     prefix: '/api/static/',
   });
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Преобразует входящие данные в классы DTO
+      whitelist: true, // Удаляет свойства, не описанные в DTO
+      forbidNonWhitelisted: true, // Генерирует ошибку для нежелательных свойств
+    }),
+  );
   await app.listen(3000);
 }
 bootstrap();

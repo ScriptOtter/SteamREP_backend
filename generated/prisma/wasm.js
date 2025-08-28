@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -128,23 +128,19 @@ exports.Prisma.UserScalarFieldEnum = {
   avatar: 'avatar',
   role: 'role',
   additionalRole: 'additionalRole',
+  isEmailVerified: 'isEmailVerified',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.EmailVerifyScalarFieldEnum = {
+exports.Prisma.TokenScalarFieldEnum = {
   id: 'id',
+  token: 'token',
+  type: 'type',
+  expiresIn: 'expiresIn',
   userId: 'userId',
-  code: 'code'
-};
-
-exports.Prisma.LinksInProfileScalarFieldEnum = {
-  id: 'id',
-  tradeLink: 'tradeLink',
-  twitch: 'twitch',
-  youtube: 'youtube',
-  telegram: 'telegram',
-  discord: 'discord'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SteamUserScalarFieldEnum = {
@@ -159,14 +155,95 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   steamId3: 'steamId3',
   steamIdHex: 'steamIdHex',
   countryCode: 'countryCode',
+  lastUpdateSteamInformation: 'lastUpdateSteamInformation',
+  viewers: 'viewers',
   userId: 'userId',
+  sharedCode: 'sharedCode',
+  gameAuthenticationCode: 'gameAuthenticationCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.SteamViewersScalarFieldEnum = {
+exports.Prisma.MatchScalarFieldEnum = {
   id: 'id',
-  viewers: 'viewers'
+  type: 'type',
+  matchId: 'matchId',
+  score: 'score',
+  date: 'date',
+  sharedCode: 'sharedCode',
+  replay: 'replay',
+  result: 'result',
+  duration: 'duration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GeneralPlayerStatisticsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId'
+};
+
+exports.Prisma.MapRanksScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  playerId: 'playerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MapStatsScalarFieldEnum = {
+  id: 'id',
+  total_matches: 'total_matches',
+  win_matches: 'win_matches',
+  ct_total_rounds: 'ct_total_rounds',
+  ct_win_rounds: 'ct_win_rounds',
+  t_total_rounds: 't_total_rounds',
+  t_win_rounds: 't_win_rounds',
+  mapId: 'mapId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WeaponStatsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  fire: 'fire',
+  userId: 'userId'
+};
+
+exports.Prisma.HitScalarFieldEnum = {
+  id: 'id',
+  weaponId: 'weaponId',
+  hitLocation: 'hitLocation',
+  hits: 'hits',
+  totalDamage: 'totalDamage',
+  kills: 'kills'
+};
+
+exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  matchId: 'matchId',
+  kills_total: 'kills_total',
+  deaths_total: 'deaths_total',
+  assists_total: 'assists_total',
+  headshot_kills_total: 'headshot_kills_total',
+  ace_rounds_total: 'ace_rounds_total',
+  k4_rounds_total: 'k4_rounds_total',
+  k3_rounds_total: 'k3_rounds_total',
+  k2_rounds_total: 'k2_rounds_total',
+  damage_total: 'damage_total',
+  objective_total: 'objective_total',
+  utility_damage_total: 'utility_damage_total',
+  mvps: 'mvps',
+  crosshair_code: 'crosshair_code',
+  player_color: 'player_color',
+  rank_if_win: 'rank_if_win',
+  rank: 'rank',
+  rank_if_loss: 'rank_if_loss',
+  rank_if_tie: 'rank_if_tie',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SteamUserBansScalarFieldEnum = {
@@ -176,7 +253,20 @@ exports.Prisma.SteamUserBansScalarFieldEnum = {
   economyBan: 'economyBan',
   gameBans: 'gameBans',
   vacBanned: 'vacBanned',
-  vacBans: 'vacBans'
+  vacBans: 'vacBans',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LinksInProfileScalarFieldEnum = {
+  id: 'id',
+  tradeLink: 'tradeLink',
+  twitch: 'twitch',
+  youtube: 'youtube',
+  telegram: 'telegram',
+  discord: 'discord',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -246,13 +336,32 @@ exports.AdditionalRole = exports.$Enums.AdditionalRole = {
   CREATOR: 'CREATOR'
 };
 
+exports.TokenType = exports.$Enums.TokenType = {
+  EMAIL_VERIFY: 'EMAIL_VERIFY',
+  PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
+  TELEGRAM_VERIFY: 'TELEGRAM_VERIFY'
+};
+
+exports.MatchType = exports.$Enums.MatchType = {
+  MATCHMAKING: 'MATCHMAKING',
+  PREMIER: 'PREMIER',
+  WINGMAN: 'WINGMAN',
+  FACEIT: 'FACEIT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
-  EmailVerify: 'EmailVerify',
-  LinksInProfile: 'LinksInProfile',
+  Token: 'Token',
   SteamUser: 'SteamUser',
-  SteamViewers: 'SteamViewers',
+  Match: 'Match',
+  GeneralPlayerStatistics: 'GeneralPlayerStatistics',
+  MapRanks: 'MapRanks',
+  MapStats: 'MapStats',
+  WeaponStats: 'WeaponStats',
+  Hit: 'Hit',
+  PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',
   SteamUserBans: 'SteamUserBans',
+  LinksInProfile: 'LinksInProfile',
   Comment: 'Comment',
   JwtToken: 'JwtToken',
   ReportUser: 'ReportUser',

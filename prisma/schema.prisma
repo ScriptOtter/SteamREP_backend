@@ -15,6 +15,7 @@ model User {
   password String
   avatar String? 
 
+  tokens Token[]
   links LinksInProfile? @relation
   role                UserRole   @default(NOT_ACTIVE) 
   additionalRole AdditionalRole?
@@ -23,29 +24,31 @@ model User {
   jwtTokens           JwtToken[]
   reportUsers ReportUser[] @relation()
   verdicts Verdict[] @relation()
-
+  isEmailVerified Boolean @default(false) @map("is_email_verified")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("user")
 }
 
-model EmailVerify {
-  id String @unique @id @default(cuid())
-  userId String
-  code Int 
-  @@map("email_verify")
+
+
+model Token {
+  id String @id @default(uuid())
+
+  token String @unique
+  type TokenType
+  expiresIn DateTime @map("expires_in")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@map("tokens")
 }
 
-model LinksInProfile {
-  id String @unique @id @default(cuid())
-  user User @relation(fields: [id], references: [id])
-  tradeLink String?
-  twitch String?
-  youtube String?
-  telegram String?
-  discord String?
-}
+
 
 model SteamUser {
   id String @unique @id
@@ -61,33 +64,175 @@ model SteamUser {
   steamIdHex String?
   countryCode String?
 
-  user User? @relation(fields: [userId], references: [id])
+  lastUpdateSteamInformation DateTime
+
+  viewers Int @default(1)
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String? @unique @map("user_id")
 
   steamUserBans SteamUserBans? @relation
   commentsAsRecipient Comment[] @relation()
   reportsAsRecipient ReportUser [] @relation()
 
+  matches Match[]
+  playerStatisticsInMatch PlayerStatisticsInMatch[] 
+  generalPlayerStatistics GeneralPlayerStatistics?
+
+  sharedCode String? @map("shared_code")
+  gameAuthenticationCode String? @map("game_authentification_code")
+
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   @@map("steam_user")
+  
+}
+model Match {
+  id String @id @unique
+  type MatchType
+  
+  participants SteamUser[]
+  playersStatistic PlayerStatisticsInMatch[] 
+
+  matchId String @unique
+  score String
+  date DateTime 
+  sharedCode String @unique @map("shared_code")
+  replay String
+  result Boolean @default(true)
+  duration String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@map("matches")
 }
 
-model SteamViewers {
-  id String @id
-  viewers Int @default(1)
+model GeneralPlayerStatistics {
+  id String @unique @id @default(cuid())
+  steam SteamUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+
+  MapRanks MapRanks[]
+  
+  WeaponStats WeaponStats[] 
+
 }
+
+model MapRanks {
+  id String @unique @id @default(cuid())
+  name String
+  
+  mapStat MapStats[]
+  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id])
+  playerId String
+
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@map("map_ranks")
+}
+
+model MapStats {
+  id String @unique @id @default(cuid())
+  total_matches Int
+  win_matches Int
+
+  ct_total_rounds Int
+  ct_win_rounds Int
+
+  t_total_rounds Int
+  t_win_rounds Int
+
+  mapId String
+  MapRanks       MapRanks   @relation(fields: [mapId], references: [id])
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  @@map("map_stats")
+}
+
+model WeaponStats {
+  id         String   @id @default(cuid())
+  name       String
+  fire       Int
+  userId     String
+  generalPlayerStatistics       GeneralPlayerStatistics     @relation(fields: [userId], references: [id])
+  hits       Hit[]
+}
+
+model Hit {
+  id            String   @id @default(cuid())
+  weaponId      String
+  hitLocation    String
+  hits          Int
+  totalDamage   Int
+  kills         Int
+  weapon       WeaponStats   @relation(fields: [weaponId], references: [id])
+}
+
+model PlayerStatisticsInMatch {
+  id        String     @id @default(uuid())
+
+  steamUser      SteamUser  @relation(fields: [userId], references: [id])
+  match     Match @relation(fields: [matchId], references: [id])
+
+  userId    String @map("user_id")
+  matchId   String
+
+  kills_total Int
+  deaths_total Int
+  assists_total Int
+  headshot_kills_total Int
+  ace_rounds_total Int
+  k4_rounds_total Int
+  k3_rounds_total Int
+  k2_rounds_total Int
+  damage_total Int
+  objective_total Int
+  utility_damage_total Int
+  mvps Int
+  crosshair_code String   
+  player_color String
+
+  rank_if_win Int
+  rank Int
+  rank_if_loss Int
+  rank_if_tie Int
+  
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, matchId]) 
+  @@map("player_statistics_in_match")
+}
+
 
 model SteamUserBans {
   id String @unique @id
-  steam SteamUser @relation(fields: [id], references: [id])
+  steam SteamUser @relation(fields: [id], references: [id], onDelete: Cascade)
   communityBanned Boolean? @default(false)
   daysSinceLastBan Int?
   economyBan String?
   gameBans Int?
   vacBanned Boolean? @default(false)
   vacBans Int? 
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+}
+
+model LinksInProfile {
+  id String @unique @id @default(cuid())
+  user User @relation(fields: [id], references: [id], onDelete: Cascade)
+  tradeLink String?
+  twitch String?
+  youtube String?
+  telegram String?
+  discord String?
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 }
 
 model Comment {
@@ -95,9 +240,9 @@ model Comment {
   content     String
   pictureUrl String?
 
-  author      User     @relation(fields: [authorId], references: [id])
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String  @map("author_id")
-  recipient   SteamUser @relation(fields: [recipientId], references: [id])
+  recipient   SteamUser @relation(fields: [recipientId], references: [id], onDelete: Cascade)
   recipientId String  @map("recipient_id")
 
   createdAt   DateTime @default(now()) @map("created_at")
@@ -109,7 +254,7 @@ model Comment {
 model JwtToken {
   id          String   @unique @id @default(cuid())
   refreshToken    String @map("refresh_token")
-  user     User   @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
 
   createdAt   DateTime @default(now()) @map("created_at")
@@ -124,10 +269,10 @@ model ReportUser {
   demoLink String?
   comment String?
 
-  author User @relation(fields: [authorId] , references: [id])
+  author User @relation(fields: [authorId] , references: [id], onDelete: Cascade)
   authorId String
 
-  recipient SteamUser @relation(fields: [recipientId], references: [id])
+  recipient SteamUser @relation(fields: [recipientId], references: [id], onDelete: Cascade)
   recipientId String
   @@unique([authorId, recipientId])
 
@@ -141,9 +286,9 @@ model ReportUser {
 
 model Verdict {
   id String   @unique @id @default(cuid())
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
-  report ReportUser @relation(fields: [reportId], references: [id])
+  report ReportUser @relation(fields: [reportId], references: [id], onDelete: Cascade)
   reportId String
   verdicts String[] // Массив строк для хранения вердиктов
   comment String?
@@ -168,4 +313,17 @@ enum UserRole {
   ADMIN          
   CREATOR
   @@map("additional_role")
+ }
+
+ enum TokenType {
+  EMAIL_VERIFY
+  PASSWORD_RECOVERY
+  TELEGRAM_VERIFY
+ }
+
+ enum MatchType {
+  MATCHMAKING
+  PREMIER
+  WINGMAN
+  FACEIT
  }

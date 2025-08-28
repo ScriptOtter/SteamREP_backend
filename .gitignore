@@ -2,6 +2,9 @@
 /dist
 /node_modules
 /build
+src/modules/cs2/demo-analyse/demo/
+src/modules/cs2/demo-analyse/demo/*.dem
+
 
 # Logs
 logs
