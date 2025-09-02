@@ -9,12 +9,14 @@ import {
   UseGuards,
   Get,
   Param,
+  UsePipes,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register-user.dto';
 import { LoginDto } from './dto/login-user.dto';
 import { Response, Request } from 'express';
 import { JwtRefreshGuard } from 'src/guards/jwt_refresh.guard';
+import { ValidationDtoPipe } from 'src/shared/utils/Pipes/ValidationDtoPipe';
 
 @Controller('auth')
 export class AuthController {
@@ -22,12 +24,14 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
+  @UsePipes(ValidationDtoPipe)
   signUp(@Body() dto: RegisterDto, @Req() req: Request, @Res() res: Response) {
     return this.authService.registerUser(dto, req, res);
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('signin')
+  @UsePipes(ValidationDtoPipe)
   signIn(@Body() dto: LoginDto, @Res() res: Response) {
     return this.authService.loginUser(dto, res);
   }

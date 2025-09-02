@@ -14,7 +14,7 @@ export class RegisterDto {
   email: string;
   @IsNotEmpty({ message: 'Username is empty!' })
   @IsString({ message: 'Username must be string!' })
-  @Matches(/^[a-zA-Z]+$/, {
+  @Matches(/^[a-zA-Z0-9]+$/, {
     message: 'Login must contain only English letters.',
   })
   username: string;

@@ -26,13 +26,7 @@ async function bootstrap() {
   app.useStaticAssets(join('./static/images'), {
     prefix: '/api/static/',
   });
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true, // Преобразует входящие данные в классы DTO
-      whitelist: true, // Удаляет свойства, не описанные в DTO
-      forbidNonWhitelisted: true, // Генерирует ошибку для нежелательных свойств
-    }),
-  );
+
   await app.listen(3000);
 }
 bootstrap();

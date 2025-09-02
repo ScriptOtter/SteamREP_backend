@@ -33,18 +33,21 @@ export class AuthService {
     dto.email = dto.email.toLowerCase().trim();
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
-
-    const user = await this.prisma.user.create({
-      data: {
-        username: dto.username,
-        password: hashedPassword,
-        email: dto.email,
-        avatar: API_AVATAR(dto.username),
-      },
-    });
-
-    await this.verificationService.sendVerificationToken(user);
-    res.json('An email has been sent to your email.');
+    try {
+      const user = await this.prisma.user.create({
+        data: {
+          username: dto.username,
+          password: hashedPassword,
+          email: dto.email,
+          avatar: API_AVATAR(dto.username),
+        },
+      });
+      await this.verificationService.sendVerificationToken(user);
+      res.json('An email has been sent to your email.');
+    } catch (e: unknown) {
+      if (e instanceof PrismaClientKnownRequestError)
+        throw new BadRequestException(e?.meta?.target);
+    }
   }
 
   async loginUser(dto: LoginDto, res: Response): Promise<any> {
