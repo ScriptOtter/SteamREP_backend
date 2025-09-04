@@ -37,7 +37,7 @@ import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
     SocialLinksModule,
     AuthModule,
     UploadImageModule,
-    GCModule,
+    //GCModule,
     PasswordRecoveryModule,
     //MatchModule,
   ],
