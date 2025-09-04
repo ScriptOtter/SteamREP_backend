@@ -21,7 +21,7 @@
     "prisma": "prisma studio"
   },
   "dependencies": {
-    "@laihoe/demoparser2": "^0.39.1",
+    "@laihoe/demoparser2": "https://github.com/LaihoE/demoparser",
     "@nestjs/common": "^11.1.6",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
