@@ -39,7 +39,7 @@ import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
     UploadImageModule,
     GCModule,
     PasswordRecoveryModule,
-    MatchModule,
+    //MatchModule,
   ],
   controllers: [UserController, ProtectedController, VerificationController],
   providers: [UserService, SocialLinksService, VerificationService],
