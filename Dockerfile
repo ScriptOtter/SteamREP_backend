@@ -7,6 +7,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 RUN yarn install 
+RUN yarn add @nestjs-modules/mailer
 
 FROM base AS build
 
