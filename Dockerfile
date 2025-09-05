@@ -26,5 +26,5 @@ RUN yarn install --production
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/generated/prisma ./generated/prisma
-EXPOSE 4001
+
 CMD ["node", "dist/main"]

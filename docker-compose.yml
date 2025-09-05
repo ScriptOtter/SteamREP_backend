@@ -1,14 +1,6 @@
 version: '3.7'
 
 services:
-  steamrep:
-    build:
-      context: .
-      dockerfile: dockerfile
-    ports:
-      - '4001:4001'
-    environment:
-      - NODE_ENV: production
   db:
     container_name: postgres
     image: postgres:15.2
