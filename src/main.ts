@@ -28,5 +28,6 @@ async function bootstrap() {
   });
 
   await app.listen(4001);
+  console.log(4001);
 }
 bootstrap();
