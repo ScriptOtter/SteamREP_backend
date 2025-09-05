@@ -17,7 +17,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '1mb', extended: true })); // для urlencoded запросов
   app.enableCors({
     methods,
-    origin: 'https://steamrep.help/', //config.getOrThrow<string>('ALLOWED_ORIGIN'),
+    origin: ['https://steamrep.help/'], //config.getOrThrow<string>('ALLOWED_ORIGIN'),
     credentials: true,
     allowedHeaders:
       'Content-Type, Authorization, SteamREP_accessToken,  SteamREP_refreshToken',
