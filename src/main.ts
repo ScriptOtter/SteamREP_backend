@@ -7,7 +7,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as bodyParser from 'body-parser';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(CoreModule);
@@ -18,7 +17,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '1mb', extended: true })); // для urlencoded запросов
   app.enableCors({
     methods,
-    origin: config.getOrThrow<string>('ALLOWED_ORIGIN'),
+    origin: 'http://steamrep.help', //config.getOrThrow<string>('ALLOWED_ORIGIN'),
     credentials: true,
     allowedHeaders:
       'Content-Type, Authorization, SteamREP_accessToken,  SteamREP_refreshToken',
@@ -27,7 +26,6 @@ async function bootstrap() {
     prefix: '/api/static/',
   });
 
-  await app.listen(4001);
-  console.log(4001);
+  await app.listen(4000);
 }
 bootstrap();
