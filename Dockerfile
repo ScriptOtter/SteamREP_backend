@@ -1,6 +1,6 @@
-FROM node:20.17.0-alpine AS base
+FROM node:24.5.0 AS base
 
-RUN apk add --no-cache libc6-compat
+RUN apt-get update && apt-get install -y libc6-dev && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
