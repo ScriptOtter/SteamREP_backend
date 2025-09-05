@@ -25,6 +25,6 @@ COPY --from=build /app/package.json /app/yarn.lock ./
 RUN yarn install --production --frozen-lockfile
 
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/prisma/generated ./prisma/generated
+COPY --from=build /app/generated/prisma ./generated/prisma
 
 CMD ["node", "dist/main"]
