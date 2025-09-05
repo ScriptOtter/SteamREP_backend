@@ -1,4 +1,4 @@
-FROM node:24.7.0
+FROM node:20.17.0-alpine AS base
 
 RUN apk add --no-cache libc6-compat
 
@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN yarn install --frozen-lockfile
+RUN yarn install 
 
 FROM base AS build
 
@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY --from=build /app/package.json /app/yarn.lock ./
 
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --production 
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/generated/prisma ./generated/prisma
