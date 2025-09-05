@@ -1,4 +1,4 @@
-FROM node:24.7.0 AS base
+FROM NODE_VERSION:24.7.0
 
 RUN apk add --no-cache libc6-compat
 
