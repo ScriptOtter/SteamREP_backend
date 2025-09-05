@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(CoreModule);
   app.use(cookieParser());
   const config = app.get(ConfigService);
-  app.setGlobalPrefix('/api');
+
   app.use(bodyParser.json({ limit: '1mb' })); // установите желаемый лимит
   app.use(bodyParser.urlencoded({ limit: '1mb', extended: true })); // для urlencoded запросов
   app.enableCors({
