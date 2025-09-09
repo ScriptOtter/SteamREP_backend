@@ -202,7 +202,9 @@ export class SteamPrismaService {
 
   public async createSteamUser(id: string): Promise<Partial<any> | null> {
     try {
+      console.time('steamService.getSteamUser');
       const res = await this.steamService.getSteamUser(id);
+      console.timeEnd('steamService.getSteamUser');
       if (!res) {
         throw new BadRequestException(
           "Steam server doesen't work! Try again later!",
@@ -217,7 +219,7 @@ export class SteamPrismaService {
         timecreated,
         loccountrycode,
       } = res[0];
-
+      console.time('teamUser.create');
       const steamUser = await this.prisma.steamUser.create({
         data: {
           id: steamid,
@@ -230,7 +232,7 @@ export class SteamPrismaService {
           lastUpdateSteamInformation: new Date(),
         },
       });
-
+      console.timeEnd('teamUser.create');
       await this.prisma.steamUserBans.create({
         data: { id: steamid },
       });
@@ -238,6 +240,7 @@ export class SteamPrismaService {
         where: { id: steamid },
         data: { steamUserBans: { connect: { id: steamid } } },
       });
+      console.time('tradeItApi');
       const tradeit = await tradeItApi(steamid);
       await this.prisma.steamUser.update({
         where: { id: steamUser.id },
@@ -249,7 +252,7 @@ export class SteamPrismaService {
       });
 
       await this.updateSteamUserFromTradeIt(steamid);
-
+      console.timeEnd('tradeItApi');
       return await this.prisma.steamUser.findFirstOrThrow({
         where: { id: steamUser.id },
       });
