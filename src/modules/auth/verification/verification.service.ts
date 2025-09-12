@@ -10,6 +10,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { TokenService } from '../tokens/tokens.service';
 import { ConfigService } from '@nestjs/config';
 import { generateToken } from 'src/shared/utils/generate-token.utils';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
+import { systemTemplates } from 'src/modules/notifications/templates/system';
 
 @Injectable()
 export class VerificationService {
@@ -18,6 +20,7 @@ export class VerificationService {
     private tokens: TokenService,
     private configService: ConfigService,
     private readonly mailService: MailService,
+    private readonly notificationService: NotificationsService,
   ) {}
 
   public async verify(res: Response, token: string) {
@@ -41,6 +44,10 @@ export class VerificationService {
       where: { id: existingToken.userId },
       data: { isEmailVerified: true, role: UserRole.ACTIVE },
     });
+    await this.notificationService.createNotification(
+      user.id,
+      systemTemplates.emailVerifed,
+    );
     await this.prismaService.token.delete({
       where: { id: existingToken.id, type: TokenType.EMAIL_VERIFY },
     });

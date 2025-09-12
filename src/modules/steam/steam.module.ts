@@ -6,6 +6,7 @@ import { SteamPrismaService } from './steam-prisma.service';
 import { SteamOAuth } from './steam.oauth';
 import { TokenService } from '../auth/tokens/tokens.service';
 import { UserService } from '../user/user.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Module({
   imports: [],
@@ -15,7 +16,9 @@ import { UserService } from '../user/user.service';
     TokenService,
     UserService,
     SteamOAuth,
-    SteamPrismaService,
+    SteamPrismaService, // Убедитесь, что этот сервис объявлен здесь
+    NotificationsService,
   ],
+  exports: [SteamOAuth, SteamPrismaService], // Экспортируйте SteamPrismaService
 })
 export class SteamModule {}

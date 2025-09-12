@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model TrackingUser
+ * 
+ */
+export type TrackingUser = $Result.DefaultSelection<Prisma.$TrackingUserPayload>
+/**
+ * Model Notifications
+ * 
+ */
+export type Notifications = $Result.DefaultSelection<Prisma.$NotificationsPayload>
+/**
  * Model Token
  * 
  */
@@ -79,6 +89,11 @@ export type LinksInProfile = $Result.DefaultSelection<Prisma.$LinksInProfilePayl
  */
 export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
 /**
+ * Model Images
+ * 
+ */
+export type Images = $Result.DefaultSelection<Prisma.$ImagesPayload>
+/**
  * Model JwtToken
  * 
  */
@@ -98,7 +113,18 @@ export type Verdict = $Result.DefaultSelection<Prisma.$VerdictPayload>
  * Enums
  */
 export namespace $Enums {
-  export const UserRole: {
+  export const NotificationType: {
+  SYSTEM: 'SYSTEM',
+  STANDARD: 'STANDARD',
+  COMMENT: 'COMMENT',
+  CS: 'CS',
+  SUBSCRIBE: 'SUBSCRIBE'
+};
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const UserRole: {
   NOT_ACTIVE: 'NOT_ACTIVE',
   ACTIVE: 'ACTIVE',
   VERIFIED: 'VERIFIED',
@@ -109,6 +135,7 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const AdditionalRole: {
+  MEMBER: 'MEMBER',
   DONOR: 'DONOR',
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
@@ -137,6 +164,10 @@ export const MatchType: {
 export type MatchType = (typeof MatchType)[keyof typeof MatchType]
 
 }
+
+export type NotificationType = $Enums.NotificationType
+
+export const NotificationType: typeof $Enums.NotificationType
 
 export type UserRole = $Enums.UserRole
 
@@ -283,6 +314,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.trackingUser`: Exposes CRUD operations for the **TrackingUser** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TrackingUsers
+    * const trackingUsers = await prisma.trackingUser.findMany()
+    * ```
+    */
+  get trackingUser(): Prisma.TrackingUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notifications`: Exposes CRUD operations for the **Notifications** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notifications.findMany()
+    * ```
+    */
+  get notifications(): Prisma.NotificationsDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.token`: Exposes CRUD operations for the **Token** model.
     * Example usage:
     * ```ts
@@ -403,6 +454,16 @@ export class PrismaClient<
   get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.images`: Exposes CRUD operations for the **Images** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Images
+    * const images = await prisma.images.findMany()
+    * ```
+    */
+  get images(): Prisma.ImagesDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.jwtToken`: Exposes CRUD operations for the **JwtToken** model.
     * Example usage:
     * ```ts
@@ -489,8 +550,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.14.0
-   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+   * Prisma Client JS version: 6.15.0
+   * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
    */
   export type PrismaVersion = {
     client: string
@@ -872,6 +933,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    TrackingUser: 'TrackingUser',
+    Notifications: 'Notifications',
     Token: 'Token',
     SteamUser: 'SteamUser',
     Match: 'Match',
@@ -884,6 +947,7 @@ export namespace Prisma {
     SteamUserBans: 'SteamUserBans',
     LinksInProfile: 'LinksInProfile',
     Comment: 'Comment',
+    Images: 'Images',
     JwtToken: 'JwtToken',
     ReportUser: 'ReportUser',
     Verdict: 'Verdict'
@@ -905,7 +969,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "token" | "steamUser" | "match" | "generalPlayerStatistics" | "mapRanks" | "mapStats" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "steamUser" | "match" | "generalPlayerStatistics" | "mapRanks" | "mapStats" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -980,6 +1044,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      TrackingUser: {
+        payload: Prisma.$TrackingUserPayload<ExtArgs>
+        fields: Prisma.TrackingUserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TrackingUserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TrackingUserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          findFirst: {
+            args: Prisma.TrackingUserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TrackingUserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          findMany: {
+            args: Prisma.TrackingUserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>[]
+          }
+          create: {
+            args: Prisma.TrackingUserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          createMany: {
+            args: Prisma.TrackingUserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TrackingUserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>[]
+          }
+          delete: {
+            args: Prisma.TrackingUserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          update: {
+            args: Prisma.TrackingUserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          deleteMany: {
+            args: Prisma.TrackingUserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TrackingUserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TrackingUserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>[]
+          }
+          upsert: {
+            args: Prisma.TrackingUserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TrackingUserPayload>
+          }
+          aggregate: {
+            args: Prisma.TrackingUserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTrackingUser>
+          }
+          groupBy: {
+            args: Prisma.TrackingUserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TrackingUserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TrackingUserCountArgs<ExtArgs>
+            result: $Utils.Optional<TrackingUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Notifications: {
+        payload: Prisma.$NotificationsPayload<ExtArgs>
+        fields: Prisma.NotificationsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          update: {
+            args: Prisma.NotificationsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationsPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotifications>
+          }
+          groupBy: {
+            args: Prisma.NotificationsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationsCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationsCountAggregateOutputType> | number
           }
         }
       }
@@ -1871,6 +2083,80 @@ export namespace Prisma {
           }
         }
       }
+      Images: {
+        payload: Prisma.$ImagesPayload<ExtArgs>
+        fields: Prisma.ImagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          findFirst: {
+            args: Prisma.ImagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          findMany: {
+            args: Prisma.ImagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>[]
+          }
+          create: {
+            args: Prisma.ImagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          createMany: {
+            args: Prisma.ImagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImagesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>[]
+          }
+          delete: {
+            args: Prisma.ImagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          update: {
+            args: Prisma.ImagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.ImagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImagesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>[]
+          }
+          upsert: {
+            args: Prisma.ImagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagesPayload>
+          }
+          aggregate: {
+            args: Prisma.ImagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImages>
+          }
+          groupBy: {
+            args: Prisma.ImagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImagesCountArgs<ExtArgs>
+            result: $Utils.Optional<ImagesCountAggregateOutputType> | number
+          }
+        }
+      }
       JwtToken: {
         payload: Prisma.$JwtTokenPayload<ExtArgs>
         fields: Prisma.JwtTokenFieldRefs
@@ -2186,6 +2472,8 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    trackingUser?: TrackingUserOmit
+    notifications?: NotificationsOmit
     token?: TokenOmit
     steamUser?: SteamUserOmit
     match?: MatchOmit
@@ -2198,6 +2486,7 @@ export namespace Prisma {
     steamUserBans?: SteamUserBansOmit
     linksInProfile?: LinksInProfileOmit
     comment?: CommentOmit
+    images?: ImagesOmit
     jwtToken?: JwtTokenOmit
     reportUser?: ReportUserOmit
     verdict?: VerdictOmit
@@ -2282,6 +2571,8 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     tokens: number
+    notifications: number
+    trackingUsers: number
     commentsAsAuthor: number
     jwtTokens: number
     reportUsers: number
@@ -2290,6 +2581,8 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | UserCountOutputTypeCountTokensArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    trackingUsers?: boolean | UserCountOutputTypeCountTrackingUsersArgs
     commentsAsAuthor?: boolean | UserCountOutputTypeCountCommentsAsAuthorArgs
     jwtTokens?: boolean | UserCountOutputTypeCountJwtTokensArgs
     reportUsers?: boolean | UserCountOutputTypeCountReportUsersArgs
@@ -2312,6 +2605,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationsWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTrackingUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrackingUserWhereInput
   }
 
   /**
@@ -2544,6 +2851,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type CommentCountOutputType
+   */
+
+  export type CommentCountOutputType = {
+    images: number
+  }
+
+  export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | CommentCountOutputTypeCountImagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommentCountOutputType
+     */
+    select?: CommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagesWhereInput
+  }
+
+
+  /**
    * Count Type ReportUserCountOutputType
    */
 
@@ -2597,6 +2935,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     additionalRole: $Enums.AdditionalRole | null
     isEmailVerified: boolean | null
+    isBanned: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2610,6 +2949,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     additionalRole: $Enums.AdditionalRole | null
     isEmailVerified: boolean | null
+    isBanned: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2623,6 +2963,7 @@ export namespace Prisma {
     role: number
     additionalRole: number
     isEmailVerified: number
+    isBanned: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2638,6 +2979,7 @@ export namespace Prisma {
     role?: true
     additionalRole?: true
     isEmailVerified?: true
+    isBanned?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2651,6 +2993,7 @@ export namespace Prisma {
     role?: true
     additionalRole?: true
     isEmailVerified?: true
+    isBanned?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2664,6 +3007,7 @@ export namespace Prisma {
     role?: true
     additionalRole?: true
     isEmailVerified?: true
+    isBanned?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2748,8 +3092,9 @@ export namespace Prisma {
     password: string
     avatar: string | null
     role: $Enums.UserRole
-    additionalRole: $Enums.AdditionalRole | null
+    additionalRole: $Enums.AdditionalRole
     isEmailVerified: boolean
+    isBanned: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2780,9 +3125,12 @@ export namespace Prisma {
     role?: boolean
     additionalRole?: boolean
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tokens?: boolean | User$tokensArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    trackingUsers?: boolean | User$trackingUsersArgs<ExtArgs>
     links?: boolean | User$linksArgs<ExtArgs>
     steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
@@ -2801,6 +3149,7 @@ export namespace Prisma {
     role?: boolean
     additionalRole?: boolean
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2814,6 +3163,7 @@ export namespace Prisma {
     role?: boolean
     additionalRole?: boolean
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2827,13 +3177,16 @@ export namespace Prisma {
     role?: boolean
     additionalRole?: boolean
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "avatar" | "role" | "additionalRole" | "isEmailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password" | "avatar" | "role" | "additionalRole" | "isEmailVerified" | "isBanned" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tokens?: boolean | User$tokensArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    trackingUsers?: boolean | User$trackingUsersArgs<ExtArgs>
     links?: boolean | User$linksArgs<ExtArgs>
     steamUser?: boolean | User$steamUserArgs<ExtArgs>
     commentsAsAuthor?: boolean | User$commentsAsAuthorArgs<ExtArgs>
@@ -2849,6 +3202,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       tokens: Prisma.$TokenPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationsPayload<ExtArgs>[]
+      trackingUsers: Prisma.$TrackingUserPayload<ExtArgs>[]
       links: Prisma.$LinksInProfilePayload<ExtArgs> | null
       steamUser: Prisma.$SteamUserPayload<ExtArgs> | null
       commentsAsAuthor: Prisma.$CommentPayload<ExtArgs>[]
@@ -2863,8 +3218,9 @@ export namespace Prisma {
       password: string
       avatar: string | null
       role: $Enums.UserRole
-      additionalRole: $Enums.AdditionalRole | null
+      additionalRole: $Enums.AdditionalRole
       isEmailVerified: boolean
+      isBanned: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3262,6 +3618,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tokens<T extends User$tokensArgs<ExtArgs> = {}>(args?: Subset<T, User$tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    trackingUsers<T extends User$trackingUsersArgs<ExtArgs> = {}>(args?: Subset<T, User$trackingUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     links<T extends User$linksArgs<ExtArgs> = {}>(args?: Subset<T, User$linksArgs<ExtArgs>>): Prisma__LinksInProfileClient<$Result.GetResult<Prisma.$LinksInProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     steamUser<T extends User$steamUserArgs<ExtArgs> = {}>(args?: Subset<T, User$steamUserArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     commentsAsAuthor<T extends User$commentsAsAuthorArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsAsAuthorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3305,6 +3663,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly additionalRole: FieldRef<"User", 'AdditionalRole'>
     readonly isEmailVerified: FieldRef<"User", 'Boolean'>
+    readonly isBanned: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3719,6 +4078,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    where?: NotificationsWhereInput
+    orderBy?: NotificationsOrderByWithRelationInput | NotificationsOrderByWithRelationInput[]
+    cursor?: NotificationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * User.trackingUsers
+   */
+  export type User$trackingUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    where?: TrackingUserWhereInput
+    orderBy?: TrackingUserOrderByWithRelationInput | TrackingUserOrderByWithRelationInput[]
+    cursor?: TrackingUserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TrackingUserScalarFieldEnum | TrackingUserScalarFieldEnum[]
+  }
+
+  /**
    * User.links
    */
   export type User$linksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3868,6 +4275,2200 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TrackingUser
+   */
+
+  export type AggregateTrackingUser = {
+    _count: TrackingUserCountAggregateOutputType | null
+    _min: TrackingUserMinAggregateOutputType | null
+    _max: TrackingUserMaxAggregateOutputType | null
+  }
+
+  export type TrackingUserMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    steamid: string | null
+    dateBanned: Date | null
+    avatar: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TrackingUserMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    steamid: string | null
+    dateBanned: Date | null
+    avatar: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TrackingUserCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    steamid: number
+    dateBanned: number
+    avatar: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TrackingUserMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    steamid?: true
+    dateBanned?: true
+    avatar?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TrackingUserMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    steamid?: true
+    dateBanned?: true
+    avatar?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TrackingUserCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    steamid?: true
+    dateBanned?: true
+    avatar?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TrackingUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrackingUser to aggregate.
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUsers to fetch.
+     */
+    orderBy?: TrackingUserOrderByWithRelationInput | TrackingUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TrackingUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TrackingUsers
+    **/
+    _count?: true | TrackingUserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TrackingUserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TrackingUserMaxAggregateInputType
+  }
+
+  export type GetTrackingUserAggregateType<T extends TrackingUserAggregateArgs> = {
+        [P in keyof T & keyof AggregateTrackingUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTrackingUser[P]>
+      : GetScalarType<T[P], AggregateTrackingUser[P]>
+  }
+
+
+
+
+  export type TrackingUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TrackingUserWhereInput
+    orderBy?: TrackingUserOrderByWithAggregationInput | TrackingUserOrderByWithAggregationInput[]
+    by: TrackingUserScalarFieldEnum[] | TrackingUserScalarFieldEnum
+    having?: TrackingUserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TrackingUserCountAggregateInputType | true
+    _min?: TrackingUserMinAggregateInputType
+    _max?: TrackingUserMaxAggregateInputType
+  }
+
+  export type TrackingUserGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    steamid: string
+    dateBanned: Date | null
+    avatar: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TrackingUserCountAggregateOutputType | null
+    _min: TrackingUserMinAggregateOutputType | null
+    _max: TrackingUserMaxAggregateOutputType | null
+  }
+
+  type GetTrackingUserGroupByPayload<T extends TrackingUserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TrackingUserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TrackingUserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TrackingUserGroupByOutputType[P]>
+            : GetScalarType<T[P], TrackingUserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TrackingUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    steamid?: boolean
+    dateBanned?: boolean
+    avatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUser"]>
+
+  export type TrackingUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    steamid?: boolean
+    dateBanned?: boolean
+    avatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUser"]>
+
+  export type TrackingUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    steamid?: boolean
+    dateBanned?: boolean
+    avatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trackingUser"]>
+
+  export type TrackingUserSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    steamid?: boolean
+    dateBanned?: boolean
+    avatar?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TrackingUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "steamid" | "dateBanned" | "avatar" | "createdAt" | "updatedAt", ExtArgs["result"]["trackingUser"]>
+  export type TrackingUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TrackingUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TrackingUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TrackingUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TrackingUser"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      steamid: string
+      dateBanned: Date | null
+      avatar: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["trackingUser"]>
+    composites: {}
+  }
+
+  type TrackingUserGetPayload<S extends boolean | null | undefined | TrackingUserDefaultArgs> = $Result.GetResult<Prisma.$TrackingUserPayload, S>
+
+  type TrackingUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TrackingUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TrackingUserCountAggregateInputType | true
+    }
+
+  export interface TrackingUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TrackingUser'], meta: { name: 'TrackingUser' } }
+    /**
+     * Find zero or one TrackingUser that matches the filter.
+     * @param {TrackingUserFindUniqueArgs} args - Arguments to find a TrackingUser
+     * @example
+     * // Get one TrackingUser
+     * const trackingUser = await prisma.trackingUser.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TrackingUserFindUniqueArgs>(args: SelectSubset<T, TrackingUserFindUniqueArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TrackingUser that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TrackingUserFindUniqueOrThrowArgs} args - Arguments to find a TrackingUser
+     * @example
+     * // Get one TrackingUser
+     * const trackingUser = await prisma.trackingUser.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TrackingUserFindUniqueOrThrowArgs>(args: SelectSubset<T, TrackingUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TrackingUser that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserFindFirstArgs} args - Arguments to find a TrackingUser
+     * @example
+     * // Get one TrackingUser
+     * const trackingUser = await prisma.trackingUser.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TrackingUserFindFirstArgs>(args?: SelectSubset<T, TrackingUserFindFirstArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TrackingUser that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserFindFirstOrThrowArgs} args - Arguments to find a TrackingUser
+     * @example
+     * // Get one TrackingUser
+     * const trackingUser = await prisma.trackingUser.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TrackingUserFindFirstOrThrowArgs>(args?: SelectSubset<T, TrackingUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TrackingUsers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TrackingUsers
+     * const trackingUsers = await prisma.trackingUser.findMany()
+     * 
+     * // Get first 10 TrackingUsers
+     * const trackingUsers = await prisma.trackingUser.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const trackingUserWithIdOnly = await prisma.trackingUser.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TrackingUserFindManyArgs>(args?: SelectSubset<T, TrackingUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TrackingUser.
+     * @param {TrackingUserCreateArgs} args - Arguments to create a TrackingUser.
+     * @example
+     * // Create one TrackingUser
+     * const TrackingUser = await prisma.trackingUser.create({
+     *   data: {
+     *     // ... data to create a TrackingUser
+     *   }
+     * })
+     * 
+     */
+    create<T extends TrackingUserCreateArgs>(args: SelectSubset<T, TrackingUserCreateArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TrackingUsers.
+     * @param {TrackingUserCreateManyArgs} args - Arguments to create many TrackingUsers.
+     * @example
+     * // Create many TrackingUsers
+     * const trackingUser = await prisma.trackingUser.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TrackingUserCreateManyArgs>(args?: SelectSubset<T, TrackingUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TrackingUsers and returns the data saved in the database.
+     * @param {TrackingUserCreateManyAndReturnArgs} args - Arguments to create many TrackingUsers.
+     * @example
+     * // Create many TrackingUsers
+     * const trackingUser = await prisma.trackingUser.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TrackingUsers and only return the `id`
+     * const trackingUserWithIdOnly = await prisma.trackingUser.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TrackingUserCreateManyAndReturnArgs>(args?: SelectSubset<T, TrackingUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TrackingUser.
+     * @param {TrackingUserDeleteArgs} args - Arguments to delete one TrackingUser.
+     * @example
+     * // Delete one TrackingUser
+     * const TrackingUser = await prisma.trackingUser.delete({
+     *   where: {
+     *     // ... filter to delete one TrackingUser
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TrackingUserDeleteArgs>(args: SelectSubset<T, TrackingUserDeleteArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TrackingUser.
+     * @param {TrackingUserUpdateArgs} args - Arguments to update one TrackingUser.
+     * @example
+     * // Update one TrackingUser
+     * const trackingUser = await prisma.trackingUser.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TrackingUserUpdateArgs>(args: SelectSubset<T, TrackingUserUpdateArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TrackingUsers.
+     * @param {TrackingUserDeleteManyArgs} args - Arguments to filter TrackingUsers to delete.
+     * @example
+     * // Delete a few TrackingUsers
+     * const { count } = await prisma.trackingUser.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TrackingUserDeleteManyArgs>(args?: SelectSubset<T, TrackingUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrackingUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TrackingUsers
+     * const trackingUser = await prisma.trackingUser.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TrackingUserUpdateManyArgs>(args: SelectSubset<T, TrackingUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TrackingUsers and returns the data updated in the database.
+     * @param {TrackingUserUpdateManyAndReturnArgs} args - Arguments to update many TrackingUsers.
+     * @example
+     * // Update many TrackingUsers
+     * const trackingUser = await prisma.trackingUser.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TrackingUsers and only return the `id`
+     * const trackingUserWithIdOnly = await prisma.trackingUser.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TrackingUserUpdateManyAndReturnArgs>(args: SelectSubset<T, TrackingUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TrackingUser.
+     * @param {TrackingUserUpsertArgs} args - Arguments to update or create a TrackingUser.
+     * @example
+     * // Update or create a TrackingUser
+     * const trackingUser = await prisma.trackingUser.upsert({
+     *   create: {
+     *     // ... data to create a TrackingUser
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TrackingUser we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TrackingUserUpsertArgs>(args: SelectSubset<T, TrackingUserUpsertArgs<ExtArgs>>): Prisma__TrackingUserClient<$Result.GetResult<Prisma.$TrackingUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TrackingUsers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserCountArgs} args - Arguments to filter TrackingUsers to count.
+     * @example
+     * // Count the number of TrackingUsers
+     * const count = await prisma.trackingUser.count({
+     *   where: {
+     *     // ... the filter for the TrackingUsers we want to count
+     *   }
+     * })
+    **/
+    count<T extends TrackingUserCountArgs>(
+      args?: Subset<T, TrackingUserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TrackingUserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TrackingUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TrackingUserAggregateArgs>(args: Subset<T, TrackingUserAggregateArgs>): Prisma.PrismaPromise<GetTrackingUserAggregateType<T>>
+
+    /**
+     * Group by TrackingUser.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TrackingUserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TrackingUserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TrackingUserGroupByArgs['orderBy'] }
+        : { orderBy?: TrackingUserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TrackingUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTrackingUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TrackingUser model
+   */
+  readonly fields: TrackingUserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TrackingUser.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TrackingUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TrackingUser model
+   */
+  interface TrackingUserFieldRefs {
+    readonly id: FieldRef<"TrackingUser", 'String'>
+    readonly userId: FieldRef<"TrackingUser", 'String'>
+    readonly name: FieldRef<"TrackingUser", 'String'>
+    readonly steamid: FieldRef<"TrackingUser", 'String'>
+    readonly dateBanned: FieldRef<"TrackingUser", 'DateTime'>
+    readonly avatar: FieldRef<"TrackingUser", 'String'>
+    readonly createdAt: FieldRef<"TrackingUser", 'DateTime'>
+    readonly updatedAt: FieldRef<"TrackingUser", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TrackingUser findUnique
+   */
+  export type TrackingUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUser to fetch.
+     */
+    where: TrackingUserWhereUniqueInput
+  }
+
+  /**
+   * TrackingUser findUniqueOrThrow
+   */
+  export type TrackingUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUser to fetch.
+     */
+    where: TrackingUserWhereUniqueInput
+  }
+
+  /**
+   * TrackingUser findFirst
+   */
+  export type TrackingUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUser to fetch.
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUsers to fetch.
+     */
+    orderBy?: TrackingUserOrderByWithRelationInput | TrackingUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrackingUsers.
+     */
+    cursor?: TrackingUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrackingUsers.
+     */
+    distinct?: TrackingUserScalarFieldEnum | TrackingUserScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUser findFirstOrThrow
+   */
+  export type TrackingUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUser to fetch.
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUsers to fetch.
+     */
+    orderBy?: TrackingUserOrderByWithRelationInput | TrackingUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TrackingUsers.
+     */
+    cursor?: TrackingUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUsers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TrackingUsers.
+     */
+    distinct?: TrackingUserScalarFieldEnum | TrackingUserScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUser findMany
+   */
+  export type TrackingUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter, which TrackingUsers to fetch.
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TrackingUsers to fetch.
+     */
+    orderBy?: TrackingUserOrderByWithRelationInput | TrackingUserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TrackingUsers.
+     */
+    cursor?: TrackingUserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TrackingUsers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TrackingUsers.
+     */
+    skip?: number
+    distinct?: TrackingUserScalarFieldEnum | TrackingUserScalarFieldEnum[]
+  }
+
+  /**
+   * TrackingUser create
+   */
+  export type TrackingUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TrackingUser.
+     */
+    data: XOR<TrackingUserCreateInput, TrackingUserUncheckedCreateInput>
+  }
+
+  /**
+   * TrackingUser createMany
+   */
+  export type TrackingUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TrackingUsers.
+     */
+    data: TrackingUserCreateManyInput | TrackingUserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TrackingUser createManyAndReturn
+   */
+  export type TrackingUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * The data used to create many TrackingUsers.
+     */
+    data: TrackingUserCreateManyInput | TrackingUserCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrackingUser update
+   */
+  export type TrackingUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TrackingUser.
+     */
+    data: XOR<TrackingUserUpdateInput, TrackingUserUncheckedUpdateInput>
+    /**
+     * Choose, which TrackingUser to update.
+     */
+    where: TrackingUserWhereUniqueInput
+  }
+
+  /**
+   * TrackingUser updateMany
+   */
+  export type TrackingUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TrackingUsers.
+     */
+    data: XOR<TrackingUserUpdateManyMutationInput, TrackingUserUncheckedUpdateManyInput>
+    /**
+     * Filter which TrackingUsers to update
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * Limit how many TrackingUsers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TrackingUser updateManyAndReturn
+   */
+  export type TrackingUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * The data used to update TrackingUsers.
+     */
+    data: XOR<TrackingUserUpdateManyMutationInput, TrackingUserUncheckedUpdateManyInput>
+    /**
+     * Filter which TrackingUsers to update
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * Limit how many TrackingUsers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TrackingUser upsert
+   */
+  export type TrackingUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TrackingUser to update in case it exists.
+     */
+    where: TrackingUserWhereUniqueInput
+    /**
+     * In case the TrackingUser found by the `where` argument doesn't exist, create a new TrackingUser with this data.
+     */
+    create: XOR<TrackingUserCreateInput, TrackingUserUncheckedCreateInput>
+    /**
+     * In case the TrackingUser was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TrackingUserUpdateInput, TrackingUserUncheckedUpdateInput>
+  }
+
+  /**
+   * TrackingUser delete
+   */
+  export type TrackingUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+    /**
+     * Filter which TrackingUser to delete.
+     */
+    where: TrackingUserWhereUniqueInput
+  }
+
+  /**
+   * TrackingUser deleteMany
+   */
+  export type TrackingUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TrackingUsers to delete
+     */
+    where?: TrackingUserWhereInput
+    /**
+     * Limit how many TrackingUsers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TrackingUser without action
+   */
+  export type TrackingUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TrackingUser
+     */
+    select?: TrackingUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TrackingUser
+     */
+    omit?: TrackingUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TrackingUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Notifications
+   */
+
+  export type AggregateNotifications = {
+    _count: NotificationsCountAggregateOutputType | null
+    _min: NotificationsMinAggregateOutputType | null
+    _max: NotificationsMaxAggregateOutputType | null
+  }
+
+  export type NotificationsMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.NotificationType | null
+    title: string | null
+    description: string | null
+    isViewed: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationsMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    type: $Enums.NotificationType | null
+    title: string | null
+    description: string | null
+    isViewed: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationsCountAggregateOutputType = {
+    id: number
+    userId: number
+    type: number
+    title: number
+    description: number
+    isViewed: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationsMinAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    isViewed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationsMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    isViewed?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationsCountAggregateInputType = {
+    id?: true
+    userId?: true
+    type?: true
+    title?: true
+    description?: true
+    isViewed?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to aggregate.
+     */
+    where?: NotificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationsOrderByWithRelationInput | NotificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationsMaxAggregateInputType
+  }
+
+  export type GetNotificationsAggregateType<T extends NotificationsAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotifications]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotifications[P]>
+      : GetScalarType<T[P], AggregateNotifications[P]>
+  }
+
+
+
+
+  export type NotificationsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationsWhereInput
+    orderBy?: NotificationsOrderByWithAggregationInput | NotificationsOrderByWithAggregationInput[]
+    by: NotificationsScalarFieldEnum[] | NotificationsScalarFieldEnum
+    having?: NotificationsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationsCountAggregateInputType | true
+    _min?: NotificationsMinAggregateInputType
+    _max?: NotificationsMaxAggregateInputType
+  }
+
+  export type NotificationsGroupByOutputType = {
+    id: string
+    userId: string
+    type: $Enums.NotificationType
+    title: string
+    description: string | null
+    isViewed: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationsCountAggregateOutputType | null
+    _min: NotificationsMinAggregateOutputType | null
+    _max: NotificationsMaxAggregateOutputType | null
+  }
+
+  type GetNotificationsGroupByPayload<T extends NotificationsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationsGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    isViewed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notifications"]>
+
+  export type NotificationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    isViewed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notifications"]>
+
+  export type NotificationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    isViewed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notifications"]>
+
+  export type NotificationsSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    type?: boolean
+    title?: boolean
+    description?: boolean
+    isViewed?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NotificationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "type" | "title" | "description" | "isViewed" | "createdAt" | "updatedAt", ExtArgs["result"]["notifications"]>
+  export type NotificationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notifications"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      type: $Enums.NotificationType
+      title: string
+      description: string | null
+      isViewed: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notifications"]>
+    composites: {}
+  }
+
+  type NotificationsGetPayload<S extends boolean | null | undefined | NotificationsDefaultArgs> = $Result.GetResult<Prisma.$NotificationsPayload, S>
+
+  type NotificationsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationsCountAggregateInputType | true
+    }
+
+  export interface NotificationsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notifications'], meta: { name: 'Notifications' } }
+    /**
+     * Find zero or one Notifications that matches the filter.
+     * @param {NotificationsFindUniqueArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationsFindUniqueArgs>(args: SelectSubset<T, NotificationsFindUniqueArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notifications that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationsFindUniqueOrThrowArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationsFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsFindFirstArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationsFindFirstArgs>(args?: SelectSubset<T, NotificationsFindFirstArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notifications that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsFindFirstOrThrowArgs} args - Arguments to find a Notifications
+     * @example
+     * // Get one Notifications
+     * const notifications = await prisma.notifications.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationsFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationsFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notifications.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notifications.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationsWithIdOnly = await prisma.notifications.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationsFindManyArgs>(args?: SelectSubset<T, NotificationsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notifications.
+     * @param {NotificationsCreateArgs} args - Arguments to create a Notifications.
+     * @example
+     * // Create one Notifications
+     * const Notifications = await prisma.notifications.create({
+     *   data: {
+     *     // ... data to create a Notifications
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationsCreateArgs>(args: SelectSubset<T, NotificationsCreateArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationsCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notifications = await prisma.notifications.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationsCreateManyArgs>(args?: SelectSubset<T, NotificationsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationsCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notifications = await prisma.notifications.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationsWithIdOnly = await prisma.notifications.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationsCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notifications.
+     * @param {NotificationsDeleteArgs} args - Arguments to delete one Notifications.
+     * @example
+     * // Delete one Notifications
+     * const Notifications = await prisma.notifications.delete({
+     *   where: {
+     *     // ... filter to delete one Notifications
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationsDeleteArgs>(args: SelectSubset<T, NotificationsDeleteArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notifications.
+     * @param {NotificationsUpdateArgs} args - Arguments to update one Notifications.
+     * @example
+     * // Update one Notifications
+     * const notifications = await prisma.notifications.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationsUpdateArgs>(args: SelectSubset<T, NotificationsUpdateArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationsDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notifications.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationsDeleteManyArgs>(args?: SelectSubset<T, NotificationsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notifications = await prisma.notifications.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationsUpdateManyArgs>(args: SelectSubset<T, NotificationsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications and returns the data updated in the database.
+     * @param {NotificationsUpdateManyAndReturnArgs} args - Arguments to update many Notifications.
+     * @example
+     * // Update many Notifications
+     * const notifications = await prisma.notifications.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notifications and only return the `id`
+     * const notificationsWithIdOnly = await prisma.notifications.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationsUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notifications.
+     * @param {NotificationsUpsertArgs} args - Arguments to update or create a Notifications.
+     * @example
+     * // Update or create a Notifications
+     * const notifications = await prisma.notifications.upsert({
+     *   create: {
+     *     // ... data to create a Notifications
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notifications we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationsUpsertArgs>(args: SelectSubset<T, NotificationsUpsertArgs<ExtArgs>>): Prisma__NotificationsClient<$Result.GetResult<Prisma.$NotificationsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notifications.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationsCountArgs>(
+      args?: Subset<T, NotificationsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationsAggregateArgs>(args: Subset<T, NotificationsAggregateArgs>): Prisma.PrismaPromise<GetNotificationsAggregateType<T>>
+
+    /**
+     * Group by Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationsGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notifications model
+   */
+  readonly fields: NotificationsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notifications.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notifications model
+   */
+  interface NotificationsFieldRefs {
+    readonly id: FieldRef<"Notifications", 'String'>
+    readonly userId: FieldRef<"Notifications", 'String'>
+    readonly type: FieldRef<"Notifications", 'NotificationType'>
+    readonly title: FieldRef<"Notifications", 'String'>
+    readonly description: FieldRef<"Notifications", 'String'>
+    readonly isViewed: FieldRef<"Notifications", 'Boolean'>
+    readonly createdAt: FieldRef<"Notifications", 'DateTime'>
+    readonly updatedAt: FieldRef<"Notifications", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notifications findUnique
+   */
+  export type NotificationsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where: NotificationsWhereUniqueInput
+  }
+
+  /**
+   * Notifications findUniqueOrThrow
+   */
+  export type NotificationsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where: NotificationsWhereUniqueInput
+  }
+
+  /**
+   * Notifications findFirst
+   */
+  export type NotificationsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationsOrderByWithRelationInput | NotificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Notifications findFirstOrThrow
+   */
+  export type NotificationsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationsOrderByWithRelationInput | NotificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Notifications findMany
+   */
+  export type NotificationsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationsOrderByWithRelationInput | NotificationsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    distinct?: NotificationsScalarFieldEnum | NotificationsScalarFieldEnum[]
+  }
+
+  /**
+   * Notifications create
+   */
+  export type NotificationsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notifications.
+     */
+    data: XOR<NotificationsCreateInput, NotificationsUncheckedCreateInput>
+  }
+
+  /**
+   * Notifications createMany
+   */
+  export type NotificationsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationsCreateManyInput | NotificationsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notifications createManyAndReturn
+   */
+  export type NotificationsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationsCreateManyInput | NotificationsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notifications update
+   */
+  export type NotificationsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notifications.
+     */
+    data: XOR<NotificationsUpdateInput, NotificationsUncheckedUpdateInput>
+    /**
+     * Choose, which Notifications to update.
+     */
+    where: NotificationsWhereUniqueInput
+  }
+
+  /**
+   * Notifications updateMany
+   */
+  export type NotificationsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationsUpdateManyMutationInput, NotificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationsWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notifications updateManyAndReturn
+   */
+  export type NotificationsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationsUpdateManyMutationInput, NotificationsUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationsWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notifications upsert
+   */
+  export type NotificationsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notifications to update in case it exists.
+     */
+    where: NotificationsWhereUniqueInput
+    /**
+     * In case the Notifications found by the `where` argument doesn't exist, create a new Notifications with this data.
+     */
+    create: XOR<NotificationsCreateInput, NotificationsUncheckedCreateInput>
+    /**
+     * In case the Notifications was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationsUpdateInput, NotificationsUncheckedUpdateInput>
+  }
+
+  /**
+   * Notifications delete
+   */
+  export type NotificationsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
+    /**
+     * Filter which Notifications to delete.
+     */
+    where: NotificationsWhereUniqueInput
+  }
+
+  /**
+   * Notifications deleteMany
+   */
+  export type NotificationsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationsWhereInput
+    /**
+     * Limit how many Notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notifications without action
+   */
+  export type NotificationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notifications
+     */
+    select?: NotificationsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notifications
+     */
+    omit?: NotificationsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationsInclude<ExtArgs> | null
   }
 
 
@@ -14561,6 +17162,7 @@ export namespace Prisma {
     gameBans: number | null
     vacBanned: boolean | null
     vacBans: number | null
+    csBan: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14573,6 +17175,7 @@ export namespace Prisma {
     gameBans: number | null
     vacBanned: boolean | null
     vacBans: number | null
+    csBan: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14585,6 +17188,7 @@ export namespace Prisma {
     gameBans: number
     vacBanned: number
     vacBans: number
+    csBan: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -14611,6 +17215,7 @@ export namespace Prisma {
     gameBans?: true
     vacBanned?: true
     vacBans?: true
+    csBan?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14623,6 +17228,7 @@ export namespace Prisma {
     gameBans?: true
     vacBanned?: true
     vacBans?: true
+    csBan?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14635,6 +17241,7 @@ export namespace Prisma {
     gameBans?: true
     vacBanned?: true
     vacBans?: true
+    csBan?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -14734,6 +17341,7 @@ export namespace Prisma {
     gameBans: number | null
     vacBanned: boolean | null
     vacBans: number | null
+    csBan: boolean
     createdAt: Date
     updatedAt: Date
     _count: SteamUserBansCountAggregateOutputType | null
@@ -14765,6 +17373,7 @@ export namespace Prisma {
     gameBans?: boolean
     vacBanned?: boolean
     vacBans?: boolean
+    csBan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -14778,6 +17387,7 @@ export namespace Prisma {
     gameBans?: boolean
     vacBanned?: boolean
     vacBans?: boolean
+    csBan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -14791,6 +17401,7 @@ export namespace Prisma {
     gameBans?: boolean
     vacBanned?: boolean
     vacBans?: boolean
+    csBan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -14804,11 +17415,12 @@ export namespace Prisma {
     gameBans?: boolean
     vacBanned?: boolean
     vacBans?: boolean
+    csBan?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SteamUserBansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "communityBanned" | "daysSinceLastBan" | "economyBan" | "gameBans" | "vacBanned" | "vacBans" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUserBans"]>
+  export type SteamUserBansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "communityBanned" | "daysSinceLastBan" | "economyBan" | "gameBans" | "vacBanned" | "vacBans" | "csBan" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUserBans"]>
   export type SteamUserBansInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
   }
@@ -14832,6 +17444,7 @@ export namespace Prisma {
       gameBans: number | null
       vacBanned: boolean | null
       vacBans: number | null
+      csBan: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["steamUserBans"]>
@@ -15265,6 +17878,7 @@ export namespace Prisma {
     readonly gameBans: FieldRef<"SteamUserBans", 'Int'>
     readonly vacBanned: FieldRef<"SteamUserBans", 'Boolean'>
     readonly vacBans: FieldRef<"SteamUserBans", 'Int'>
+    readonly csBan: FieldRef<"SteamUserBans", 'Boolean'>
     readonly createdAt: FieldRef<"SteamUserBans", 'DateTime'>
     readonly updatedAt: FieldRef<"SteamUserBans", 'DateTime'>
   }
@@ -16791,7 +19405,6 @@ export namespace Prisma {
   export type CommentMinAggregateOutputType = {
     id: string | null
     content: string | null
-    pictureUrl: string | null
     authorId: string | null
     recipientId: string | null
     createdAt: Date | null
@@ -16801,7 +19414,6 @@ export namespace Prisma {
   export type CommentMaxAggregateOutputType = {
     id: string | null
     content: string | null
-    pictureUrl: string | null
     authorId: string | null
     recipientId: string | null
     createdAt: Date | null
@@ -16811,7 +19423,6 @@ export namespace Prisma {
   export type CommentCountAggregateOutputType = {
     id: number
     content: number
-    pictureUrl: number
     authorId: number
     recipientId: number
     createdAt: number
@@ -16823,7 +19434,6 @@ export namespace Prisma {
   export type CommentMinAggregateInputType = {
     id?: true
     content?: true
-    pictureUrl?: true
     authorId?: true
     recipientId?: true
     createdAt?: true
@@ -16833,7 +19443,6 @@ export namespace Prisma {
   export type CommentMaxAggregateInputType = {
     id?: true
     content?: true
-    pictureUrl?: true
     authorId?: true
     recipientId?: true
     createdAt?: true
@@ -16843,7 +19452,6 @@ export namespace Prisma {
   export type CommentCountAggregateInputType = {
     id?: true
     content?: true
-    pictureUrl?: true
     authorId?: true
     recipientId?: true
     createdAt?: true
@@ -16926,7 +19534,6 @@ export namespace Prisma {
   export type CommentGroupByOutputType = {
     id: string
     content: string
-    pictureUrl: string | null
     authorId: string
     recipientId: string
     createdAt: Date
@@ -16953,19 +19560,19 @@ export namespace Prisma {
   export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    pictureUrl?: boolean
     authorId?: boolean
     recipientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    images?: boolean | Comment$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    pictureUrl?: boolean
     authorId?: boolean
     recipientId?: boolean
     createdAt?: boolean
@@ -16977,7 +19584,6 @@ export namespace Prisma {
   export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    pictureUrl?: boolean
     authorId?: boolean
     recipientId?: boolean
     createdAt?: boolean
@@ -16989,17 +19595,18 @@ export namespace Prisma {
   export type CommentSelectScalar = {
     id?: boolean
     content?: boolean
-    pictureUrl?: boolean
     authorId?: boolean
     recipientId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "pictureUrl" | "authorId" | "recipientId" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "authorId" | "recipientId" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    images?: boolean | Comment$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
@@ -17013,13 +19620,13 @@ export namespace Prisma {
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
+      images: Prisma.$ImagesPayload<ExtArgs>[]
       author: Prisma.$UserPayload<ExtArgs>
       recipient: Prisma.$SteamUserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       content: string
-      pictureUrl: string | null
       authorId: string
       recipientId: string
       createdAt: Date
@@ -17418,6 +20025,7 @@ export namespace Prisma {
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    images<T extends Comment$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Comment$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recipient<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -17451,7 +20059,6 @@ export namespace Prisma {
   interface CommentFieldRefs {
     readonly id: FieldRef<"Comment", 'String'>
     readonly content: FieldRef<"Comment", 'String'>
-    readonly pictureUrl: FieldRef<"Comment", 'String'>
     readonly authorId: FieldRef<"Comment", 'String'>
     readonly recipientId: FieldRef<"Comment", 'String'>
     readonly createdAt: FieldRef<"Comment", 'DateTime'>
@@ -17852,6 +20459,30 @@ export namespace Prisma {
   }
 
   /**
+   * Comment.images
+   */
+  export type Comment$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    where?: ImagesWhereInput
+    orderBy?: ImagesOrderByWithRelationInput | ImagesOrderByWithRelationInput[]
+    cursor?: ImagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
    * Comment without action
    */
   export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17867,6 +20498,1064 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Images
+   */
+
+  export type AggregateImages = {
+    _count: ImagesCountAggregateOutputType | null
+    _min: ImagesMinAggregateOutputType | null
+    _max: ImagesMaxAggregateOutputType | null
+  }
+
+  export type ImagesMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    commentId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImagesMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    commentId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ImagesCountAggregateOutputType = {
+    id: number
+    url: number
+    commentId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ImagesMinAggregateInputType = {
+    id?: true
+    url?: true
+    commentId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImagesMaxAggregateInputType = {
+    id?: true
+    url?: true
+    commentId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ImagesCountAggregateInputType = {
+    id?: true
+    url?: true
+    commentId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ImagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Images to aggregate.
+     */
+    where?: ImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImagesOrderByWithRelationInput | ImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Images
+    **/
+    _count?: true | ImagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImagesMaxAggregateInputType
+  }
+
+  export type GetImagesAggregateType<T extends ImagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateImages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImages[P]>
+      : GetScalarType<T[P], AggregateImages[P]>
+  }
+
+
+
+
+  export type ImagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagesWhereInput
+    orderBy?: ImagesOrderByWithAggregationInput | ImagesOrderByWithAggregationInput[]
+    by: ImagesScalarFieldEnum[] | ImagesScalarFieldEnum
+    having?: ImagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImagesCountAggregateInputType | true
+    _min?: ImagesMinAggregateInputType
+    _max?: ImagesMaxAggregateInputType
+  }
+
+  export type ImagesGroupByOutputType = {
+    id: string
+    url: string
+    commentId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ImagesCountAggregateOutputType | null
+    _min: ImagesMinAggregateOutputType | null
+    _max: ImagesMaxAggregateOutputType | null
+  }
+
+  type GetImagesGroupByPayload<T extends ImagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImagesGroupByOutputType[P]>
+            : GetScalarType<T[P], ImagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    commentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["images"]>
+
+  export type ImagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    commentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["images"]>
+
+  export type ImagesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    commentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["images"]>
+
+  export type ImagesSelectScalar = {
+    id?: boolean
+    url?: boolean
+    commentId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ImagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "commentId" | "createdAt" | "updatedAt", ExtArgs["result"]["images"]>
+  export type ImagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }
+  export type ImagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }
+  export type ImagesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    comment?: boolean | CommentDefaultArgs<ExtArgs>
+  }
+
+  export type $ImagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Images"
+    objects: {
+      comment: Prisma.$CommentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      commentId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["images"]>
+    composites: {}
+  }
+
+  type ImagesGetPayload<S extends boolean | null | undefined | ImagesDefaultArgs> = $Result.GetResult<Prisma.$ImagesPayload, S>
+
+  type ImagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImagesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ImagesCountAggregateInputType | true
+    }
+
+  export interface ImagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Images'], meta: { name: 'Images' } }
+    /**
+     * Find zero or one Images that matches the filter.
+     * @param {ImagesFindUniqueArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImagesFindUniqueArgs>(args: SelectSubset<T, ImagesFindUniqueArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Images that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImagesFindUniqueOrThrowArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImagesFindUniqueOrThrowArgs>(args: SelectSubset<T, ImagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesFindFirstArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImagesFindFirstArgs>(args?: SelectSubset<T, ImagesFindFirstArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Images that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesFindFirstOrThrowArgs} args - Arguments to find a Images
+     * @example
+     * // Get one Images
+     * const images = await prisma.images.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImagesFindFirstOrThrowArgs>(args?: SelectSubset<T, ImagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Images that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Images
+     * const images = await prisma.images.findMany()
+     * 
+     * // Get first 10 Images
+     * const images = await prisma.images.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imagesWithIdOnly = await prisma.images.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImagesFindManyArgs>(args?: SelectSubset<T, ImagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Images.
+     * @param {ImagesCreateArgs} args - Arguments to create a Images.
+     * @example
+     * // Create one Images
+     * const Images = await prisma.images.create({
+     *   data: {
+     *     // ... data to create a Images
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImagesCreateArgs>(args: SelectSubset<T, ImagesCreateArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Images.
+     * @param {ImagesCreateManyArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const images = await prisma.images.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImagesCreateManyArgs>(args?: SelectSubset<T, ImagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Images and returns the data saved in the database.
+     * @param {ImagesCreateManyAndReturnArgs} args - Arguments to create many Images.
+     * @example
+     * // Create many Images
+     * const images = await prisma.images.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Images and only return the `id`
+     * const imagesWithIdOnly = await prisma.images.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImagesCreateManyAndReturnArgs>(args?: SelectSubset<T, ImagesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Images.
+     * @param {ImagesDeleteArgs} args - Arguments to delete one Images.
+     * @example
+     * // Delete one Images
+     * const Images = await prisma.images.delete({
+     *   where: {
+     *     // ... filter to delete one Images
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImagesDeleteArgs>(args: SelectSubset<T, ImagesDeleteArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Images.
+     * @param {ImagesUpdateArgs} args - Arguments to update one Images.
+     * @example
+     * // Update one Images
+     * const images = await prisma.images.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImagesUpdateArgs>(args: SelectSubset<T, ImagesUpdateArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Images.
+     * @param {ImagesDeleteManyArgs} args - Arguments to filter Images to delete.
+     * @example
+     * // Delete a few Images
+     * const { count } = await prisma.images.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImagesDeleteManyArgs>(args?: SelectSubset<T, ImagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Images
+     * const images = await prisma.images.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImagesUpdateManyArgs>(args: SelectSubset<T, ImagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Images and returns the data updated in the database.
+     * @param {ImagesUpdateManyAndReturnArgs} args - Arguments to update many Images.
+     * @example
+     * // Update many Images
+     * const images = await prisma.images.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Images and only return the `id`
+     * const imagesWithIdOnly = await prisma.images.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImagesUpdateManyAndReturnArgs>(args: SelectSubset<T, ImagesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Images.
+     * @param {ImagesUpsertArgs} args - Arguments to update or create a Images.
+     * @example
+     * // Update or create a Images
+     * const images = await prisma.images.upsert({
+     *   create: {
+     *     // ... data to create a Images
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Images we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImagesUpsertArgs>(args: SelectSubset<T, ImagesUpsertArgs<ExtArgs>>): Prisma__ImagesClient<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesCountArgs} args - Arguments to filter Images to count.
+     * @example
+     * // Count the number of Images
+     * const count = await prisma.images.count({
+     *   where: {
+     *     // ... the filter for the Images we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImagesCountArgs>(
+      args?: Subset<T, ImagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImagesAggregateArgs>(args: Subset<T, ImagesAggregateArgs>): Prisma.PrismaPromise<GetImagesAggregateType<T>>
+
+    /**
+     * Group by Images.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImagesGroupByArgs['orderBy'] }
+        : { orderBy?: ImagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Images model
+   */
+  readonly fields: ImagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Images.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    comment<T extends CommentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommentDefaultArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Images model
+   */
+  interface ImagesFieldRefs {
+    readonly id: FieldRef<"Images", 'String'>
+    readonly url: FieldRef<"Images", 'String'>
+    readonly commentId: FieldRef<"Images", 'String'>
+    readonly createdAt: FieldRef<"Images", 'DateTime'>
+    readonly updatedAt: FieldRef<"Images", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Images findUnique
+   */
+  export type ImagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where: ImagesWhereUniqueInput
+  }
+
+  /**
+   * Images findUniqueOrThrow
+   */
+  export type ImagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where: ImagesWhereUniqueInput
+  }
+
+  /**
+   * Images findFirst
+   */
+  export type ImagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where?: ImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImagesOrderByWithRelationInput | ImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * Images findFirstOrThrow
+   */
+  export type ImagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where?: ImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImagesOrderByWithRelationInput | ImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Images.
+     */
+    cursor?: ImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Images.
+     */
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * Images findMany
+   */
+  export type ImagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter, which Images to fetch.
+     */
+    where?: ImagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Images to fetch.
+     */
+    orderBy?: ImagesOrderByWithRelationInput | ImagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Images.
+     */
+    cursor?: ImagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Images from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Images.
+     */
+    skip?: number
+    distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * Images create
+   */
+  export type ImagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Images.
+     */
+    data: XOR<ImagesCreateInput, ImagesUncheckedCreateInput>
+  }
+
+  /**
+   * Images createMany
+   */
+  export type ImagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Images.
+     */
+    data: ImagesCreateManyInput | ImagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Images createManyAndReturn
+   */
+  export type ImagesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Images.
+     */
+    data: ImagesCreateManyInput | ImagesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Images update
+   */
+  export type ImagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Images.
+     */
+    data: XOR<ImagesUpdateInput, ImagesUncheckedUpdateInput>
+    /**
+     * Choose, which Images to update.
+     */
+    where: ImagesWhereUniqueInput
+  }
+
+  /**
+   * Images updateMany
+   */
+  export type ImagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImagesUpdateManyMutationInput, ImagesUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImagesWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Images updateManyAndReturn
+   */
+  export type ImagesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * The data used to update Images.
+     */
+    data: XOR<ImagesUpdateManyMutationInput, ImagesUncheckedUpdateManyInput>
+    /**
+     * Filter which Images to update
+     */
+    where?: ImagesWhereInput
+    /**
+     * Limit how many Images to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Images upsert
+   */
+  export type ImagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Images to update in case it exists.
+     */
+    where: ImagesWhereUniqueInput
+    /**
+     * In case the Images found by the `where` argument doesn't exist, create a new Images with this data.
+     */
+    create: XOR<ImagesCreateInput, ImagesUncheckedCreateInput>
+    /**
+     * In case the Images was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImagesUpdateInput, ImagesUncheckedUpdateInput>
+  }
+
+  /**
+   * Images delete
+   */
+  export type ImagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
+    /**
+     * Filter which Images to delete.
+     */
+    where: ImagesWhereUniqueInput
+  }
+
+  /**
+   * Images deleteMany
+   */
+  export type ImagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Images to delete
+     */
+    where?: ImagesWhereInput
+    /**
+     * Limit how many Images to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Images without action
+   */
+  export type ImagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Images
+     */
+    select?: ImagesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Images
+     */
+    omit?: ImagesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagesInclude<ExtArgs> | null
   }
 
 
@@ -21174,11 +24863,40 @@ export namespace Prisma {
     role: 'role',
     additionalRole: 'additionalRole',
     isEmailVerified: 'isEmailVerified',
+    isBanned: 'isBanned',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const TrackingUserScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    steamid: 'steamid',
+    dateBanned: 'dateBanned',
+    avatar: 'avatar',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TrackingUserScalarFieldEnum = (typeof TrackingUserScalarFieldEnum)[keyof typeof TrackingUserScalarFieldEnum]
+
+
+  export const NotificationsScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    title: 'title',
+    description: 'description',
+    isViewed: 'isViewed',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationsScalarFieldEnum = (typeof NotificationsScalarFieldEnum)[keyof typeof NotificationsScalarFieldEnum]
 
 
   export const TokenScalarFieldEnum: {
@@ -21329,6 +25047,7 @@ export namespace Prisma {
     gameBans: 'gameBans',
     vacBanned: 'vacBanned',
     vacBans: 'vacBans',
+    csBan: 'csBan',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -21353,7 +25072,6 @@ export namespace Prisma {
   export const CommentScalarFieldEnum: {
     id: 'id',
     content: 'content',
-    pictureUrl: 'pictureUrl',
     authorId: 'authorId',
     recipientId: 'recipientId',
     createdAt: 'createdAt',
@@ -21361,6 +25079,17 @@ export namespace Prisma {
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const ImagesScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    commentId: 'commentId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ImagesScalarFieldEnum = (typeof ImagesScalarFieldEnum)[keyof typeof ImagesScalarFieldEnum]
 
 
   export const JwtTokenScalarFieldEnum: {
@@ -21494,6 +25223,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'NotificationType'
+   */
+  export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationType[]'
+   */
+  export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'TokenType'
    */
   export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType'>
@@ -21562,11 +25305,14 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    additionalRole?: EnumAdditionalRoleNullableFilter<"User"> | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFilter<"User"> | $Enums.AdditionalRole
     isEmailVerified?: BoolFilter<"User"> | boolean
+    isBanned?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tokens?: TokenListRelationFilter
+    notifications?: NotificationsListRelationFilter
+    trackingUsers?: TrackingUserListRelationFilter
     links?: XOR<LinksInProfileNullableScalarRelationFilter, LinksInProfileWhereInput> | null
     steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
@@ -21582,11 +25328,14 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
-    additionalRole?: SortOrderInput | SortOrder
+    additionalRole?: SortOrder
     isEmailVerified?: SortOrder
+    isBanned?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tokens?: TokenOrderByRelationAggregateInput
+    notifications?: NotificationsOrderByRelationAggregateInput
+    trackingUsers?: TrackingUserOrderByRelationAggregateInput
     links?: LinksInProfileOrderByWithRelationInput
     steamUser?: SteamUserOrderByWithRelationInput
     commentsAsAuthor?: CommentOrderByRelationAggregateInput
@@ -21605,11 +25354,14 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatar?: StringNullableFilter<"User"> | string | null
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
-    additionalRole?: EnumAdditionalRoleNullableFilter<"User"> | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFilter<"User"> | $Enums.AdditionalRole
     isEmailVerified?: BoolFilter<"User"> | boolean
+    isBanned?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     tokens?: TokenListRelationFilter
+    notifications?: NotificationsListRelationFilter
+    trackingUsers?: TrackingUserListRelationFilter
     links?: XOR<LinksInProfileNullableScalarRelationFilter, LinksInProfileWhereInput> | null
     steamUser?: XOR<SteamUserNullableScalarRelationFilter, SteamUserWhereInput> | null
     commentsAsAuthor?: CommentListRelationFilter
@@ -21625,8 +25377,9 @@ export namespace Prisma {
     password?: SortOrder
     avatar?: SortOrderInput | SortOrder
     role?: SortOrder
-    additionalRole?: SortOrderInput | SortOrder
+    additionalRole?: SortOrder
     isEmailVerified?: SortOrder
+    isBanned?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -21644,10 +25397,151 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
-    additionalRole?: EnumAdditionalRoleNullableWithAggregatesFilter<"User"> | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleWithAggregatesFilter<"User"> | $Enums.AdditionalRole
     isEmailVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    isBanned?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type TrackingUserWhereInput = {
+    AND?: TrackingUserWhereInput | TrackingUserWhereInput[]
+    OR?: TrackingUserWhereInput[]
+    NOT?: TrackingUserWhereInput | TrackingUserWhereInput[]
+    id?: StringFilter<"TrackingUser"> | string
+    userId?: StringFilter<"TrackingUser"> | string
+    name?: StringFilter<"TrackingUser"> | string
+    steamid?: StringFilter<"TrackingUser"> | string
+    dateBanned?: DateTimeNullableFilter<"TrackingUser"> | Date | string | null
+    avatar?: StringFilter<"TrackingUser"> | string
+    createdAt?: DateTimeFilter<"TrackingUser"> | Date | string
+    updatedAt?: DateTimeFilter<"TrackingUser"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TrackingUserOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    steamid?: SortOrder
+    dateBanned?: SortOrderInput | SortOrder
+    avatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TrackingUserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TrackingUserWhereInput | TrackingUserWhereInput[]
+    OR?: TrackingUserWhereInput[]
+    NOT?: TrackingUserWhereInput | TrackingUserWhereInput[]
+    userId?: StringFilter<"TrackingUser"> | string
+    name?: StringFilter<"TrackingUser"> | string
+    steamid?: StringFilter<"TrackingUser"> | string
+    dateBanned?: DateTimeNullableFilter<"TrackingUser"> | Date | string | null
+    avatar?: StringFilter<"TrackingUser"> | string
+    createdAt?: DateTimeFilter<"TrackingUser"> | Date | string
+    updatedAt?: DateTimeFilter<"TrackingUser"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type TrackingUserOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    steamid?: SortOrder
+    dateBanned?: SortOrderInput | SortOrder
+    avatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TrackingUserCountOrderByAggregateInput
+    _max?: TrackingUserMaxOrderByAggregateInput
+    _min?: TrackingUserMinOrderByAggregateInput
+  }
+
+  export type TrackingUserScalarWhereWithAggregatesInput = {
+    AND?: TrackingUserScalarWhereWithAggregatesInput | TrackingUserScalarWhereWithAggregatesInput[]
+    OR?: TrackingUserScalarWhereWithAggregatesInput[]
+    NOT?: TrackingUserScalarWhereWithAggregatesInput | TrackingUserScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TrackingUser"> | string
+    userId?: StringWithAggregatesFilter<"TrackingUser"> | string
+    name?: StringWithAggregatesFilter<"TrackingUser"> | string
+    steamid?: StringWithAggregatesFilter<"TrackingUser"> | string
+    dateBanned?: DateTimeNullableWithAggregatesFilter<"TrackingUser"> | Date | string | null
+    avatar?: StringWithAggregatesFilter<"TrackingUser"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TrackingUser"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TrackingUser"> | Date | string
+  }
+
+  export type NotificationsWhereInput = {
+    AND?: NotificationsWhereInput | NotificationsWhereInput[]
+    OR?: NotificationsWhereInput[]
+    NOT?: NotificationsWhereInput | NotificationsWhereInput[]
+    id?: StringFilter<"Notifications"> | string
+    userId?: StringFilter<"Notifications"> | string
+    type?: EnumNotificationTypeFilter<"Notifications"> | $Enums.NotificationType
+    title?: StringFilter<"Notifications"> | string
+    description?: StringNullableFilter<"Notifications"> | string | null
+    isViewed?: BoolFilter<"Notifications"> | boolean
+    createdAt?: DateTimeFilter<"Notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"Notifications"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationsOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isViewed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationsWhereInput | NotificationsWhereInput[]
+    OR?: NotificationsWhereInput[]
+    NOT?: NotificationsWhereInput | NotificationsWhereInput[]
+    userId?: StringFilter<"Notifications"> | string
+    type?: EnumNotificationTypeFilter<"Notifications"> | $Enums.NotificationType
+    title?: StringFilter<"Notifications"> | string
+    description?: StringNullableFilter<"Notifications"> | string | null
+    isViewed?: BoolFilter<"Notifications"> | boolean
+    createdAt?: DateTimeFilter<"Notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"Notifications"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "id">
+
+  export type NotificationsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isViewed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NotificationsCountOrderByAggregateInput
+    _max?: NotificationsMaxOrderByAggregateInput
+    _min?: NotificationsMinOrderByAggregateInput
+  }
+
+  export type NotificationsScalarWhereWithAggregatesInput = {
+    AND?: NotificationsScalarWhereWithAggregatesInput | NotificationsScalarWhereWithAggregatesInput[]
+    OR?: NotificationsScalarWhereWithAggregatesInput[]
+    NOT?: NotificationsScalarWhereWithAggregatesInput | NotificationsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Notifications"> | string
+    userId?: StringWithAggregatesFilter<"Notifications"> | string
+    type?: EnumNotificationTypeWithAggregatesFilter<"Notifications"> | $Enums.NotificationType
+    title?: StringWithAggregatesFilter<"Notifications"> | string
+    description?: StringNullableWithAggregatesFilter<"Notifications"> | string | null
+    isViewed?: BoolWithAggregatesFilter<"Notifications"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Notifications"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Notifications"> | Date | string
   }
 
   export type TokenWhereInput = {
@@ -22408,6 +26302,7 @@ export namespace Prisma {
     gameBans?: IntNullableFilter<"SteamUserBans"> | number | null
     vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
+    csBan?: BoolFilter<"SteamUserBans"> | boolean
     createdAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -22421,6 +26316,7 @@ export namespace Prisma {
     gameBans?: SortOrderInput | SortOrder
     vacBanned?: SortOrderInput | SortOrder
     vacBans?: SortOrderInput | SortOrder
+    csBan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     steam?: SteamUserOrderByWithRelationInput
@@ -22437,6 +26333,7 @@ export namespace Prisma {
     gameBans?: IntNullableFilter<"SteamUserBans"> | number | null
     vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
+    csBan?: BoolFilter<"SteamUserBans"> | boolean
     createdAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -22450,6 +26347,7 @@ export namespace Prisma {
     gameBans?: SortOrderInput | SortOrder
     vacBanned?: SortOrderInput | SortOrder
     vacBans?: SortOrderInput | SortOrder
+    csBan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SteamUserBansCountOrderByAggregateInput
@@ -22470,6 +26368,7 @@ export namespace Prisma {
     gameBans?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
     vacBanned?: BoolNullableWithAggregatesFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
+    csBan?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
   }
@@ -22550,11 +26449,11 @@ export namespace Prisma {
     NOT?: CommentWhereInput | CommentWhereInput[]
     id?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
-    pictureUrl?: StringNullableFilter<"Comment"> | string | null
     authorId?: StringFilter<"Comment"> | string
     recipientId?: StringFilter<"Comment"> | string
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    images?: ImagesListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
   }
@@ -22562,35 +26461,33 @@ export namespace Prisma {
   export type CommentOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
-    pictureUrl?: SortOrderInput | SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    images?: ImagesOrderByRelationAggregateInput
     author?: UserOrderByWithRelationInput
     recipient?: SteamUserOrderByWithRelationInput
   }
 
   export type CommentWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    authorId_recipientId?: CommentAuthorIdRecipientIdCompoundUniqueInput
     AND?: CommentWhereInput | CommentWhereInput[]
     OR?: CommentWhereInput[]
     NOT?: CommentWhereInput | CommentWhereInput[]
     content?: StringFilter<"Comment"> | string
-    pictureUrl?: StringNullableFilter<"Comment"> | string | null
     authorId?: StringFilter<"Comment"> | string
     recipientId?: StringFilter<"Comment"> | string
     createdAt?: DateTimeFilter<"Comment"> | Date | string
     updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    images?: ImagesListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
-  }, "id" | "id" | "authorId_recipientId">
+  }, "id" | "id">
 
   export type CommentOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
-    pictureUrl?: SortOrderInput | SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
@@ -22606,11 +26503,65 @@ export namespace Prisma {
     NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Comment"> | string
     content?: StringWithAggregatesFilter<"Comment"> | string
-    pictureUrl?: StringNullableWithAggregatesFilter<"Comment"> | string | null
     authorId?: StringWithAggregatesFilter<"Comment"> | string
     recipientId?: StringWithAggregatesFilter<"Comment"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+  }
+
+  export type ImagesWhereInput = {
+    AND?: ImagesWhereInput | ImagesWhereInput[]
+    OR?: ImagesWhereInput[]
+    NOT?: ImagesWhereInput | ImagesWhereInput[]
+    id?: StringFilter<"Images"> | string
+    url?: StringFilter<"Images"> | string
+    commentId?: StringFilter<"Images"> | string
+    createdAt?: DateTimeFilter<"Images"> | Date | string
+    updatedAt?: DateTimeFilter<"Images"> | Date | string
+    comment?: XOR<CommentScalarRelationFilter, CommentWhereInput>
+  }
+
+  export type ImagesOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    commentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    comment?: CommentOrderByWithRelationInput
+  }
+
+  export type ImagesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ImagesWhereInput | ImagesWhereInput[]
+    OR?: ImagesWhereInput[]
+    NOT?: ImagesWhereInput | ImagesWhereInput[]
+    url?: StringFilter<"Images"> | string
+    commentId?: StringFilter<"Images"> | string
+    createdAt?: DateTimeFilter<"Images"> | Date | string
+    updatedAt?: DateTimeFilter<"Images"> | Date | string
+    comment?: XOR<CommentScalarRelationFilter, CommentWhereInput>
+  }, "id" | "id">
+
+  export type ImagesOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    commentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ImagesCountOrderByAggregateInput
+    _max?: ImagesMaxOrderByAggregateInput
+    _min?: ImagesMinOrderByAggregateInput
+  }
+
+  export type ImagesScalarWhereWithAggregatesInput = {
+    AND?: ImagesScalarWhereWithAggregatesInput | ImagesScalarWhereWithAggregatesInput[]
+    OR?: ImagesScalarWhereWithAggregatesInput[]
+    NOT?: ImagesScalarWhereWithAggregatesInput | ImagesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Images"> | string
+    url?: StringWithAggregatesFilter<"Images"> | string
+    commentId?: StringWithAggregatesFilter<"Images"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Images"> | Date | string
   }
 
   export type JwtTokenWhereInput = {
@@ -22820,11 +26771,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
@@ -22840,11 +26794,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -22860,11 +26817,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
@@ -22880,11 +26840,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -22900,8 +26863,9 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22913,8 +26877,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22926,8 +26891,161 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserCreateInput = {
+    id?: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTrackingUsersInput
+  }
+
+  export type TrackingUserUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TrackingUserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTrackingUsersNestedInput
+  }
+
+  export type TrackingUserUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TrackingUserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationsCreateInput = {
+    id?: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationsUncheckedCreateInput = {
+    id?: string
+    userId: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationsCreateManyInput = {
+    id?: string
+    userId: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23769,6 +27887,7 @@ export namespace Prisma {
     gameBans?: number | null
     vacBanned?: boolean | null
     vacBans?: number | null
+    csBan?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutSteamUserBansInput
@@ -23782,6 +27901,7 @@ export namespace Prisma {
     gameBans?: number | null
     vacBanned?: boolean | null
     vacBans?: number | null
+    csBan?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23793,6 +27913,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput
@@ -23806,6 +27927,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23818,6 +27940,7 @@ export namespace Prisma {
     gameBans?: number | null
     vacBanned?: boolean | null
     vacBans?: number | null
+    csBan?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23829,6 +27952,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23841,6 +27965,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23924,9 +28049,9 @@ export namespace Prisma {
   export type CommentCreateInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesCreateNestedManyWithoutCommentInput
     author: UserCreateNestedOneWithoutCommentsAsAuthorInput
     recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
   }
@@ -23934,19 +28059,19 @@ export namespace Prisma {
   export type CommentUncheckedCreateInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     authorId: string
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUpdateManyWithoutCommentNestedInput
     author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
   }
@@ -23954,17 +28079,16 @@ export namespace Prisma {
   export type CommentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentCreateManyInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     authorId: string
     recipientId: string
     createdAt?: Date | string
@@ -23974,7 +28098,6 @@ export namespace Prisma {
   export type CommentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23982,9 +28105,63 @@ export namespace Prisma {
   export type CommentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagesCreateInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comment: CommentCreateNestedOneWithoutImagesInput
+  }
+
+  export type ImagesUncheckedCreateInput = {
+    id?: string
+    url: string
+    commentId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImagesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comment?: CommentUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type ImagesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    commentId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagesCreateManyInput = {
+    id?: string
+    url: string
+    commentId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImagesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    commentId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24228,11 +28405,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
-  export type EnumAdditionalRoleNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel> | $Enums.AdditionalRole | null
+  export type EnumAdditionalRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdditionalRoleFilter<$PrismaModel> | $Enums.AdditionalRole
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -24255,6 +28432,18 @@ export namespace Prisma {
     every?: TokenWhereInput
     some?: TokenWhereInput
     none?: TokenWhereInput
+  }
+
+  export type NotificationsListRelationFilter = {
+    every?: NotificationsWhereInput
+    some?: NotificationsWhereInput
+    none?: NotificationsWhereInput
+  }
+
+  export type TrackingUserListRelationFilter = {
+    every?: TrackingUserWhereInput
+    some?: TrackingUserWhereInput
+    none?: TrackingUserWhereInput
   }
 
   export type LinksInProfileNullableScalarRelationFilter = {
@@ -24300,6 +28489,14 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type NotificationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TrackingUserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -24325,6 +28522,7 @@ export namespace Prisma {
     role?: SortOrder
     additionalRole?: SortOrder
     isEmailVerified?: SortOrder
+    isBanned?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24338,6 +28536,7 @@ export namespace Prisma {
     role?: SortOrder
     additionalRole?: SortOrder
     isEmailVerified?: SortOrder
+    isBanned?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24351,6 +28550,7 @@ export namespace Prisma {
     role?: SortOrder
     additionalRole?: SortOrder
     isEmailVerified?: SortOrder
+    isBanned?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24401,14 +28601,14 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
-  export type EnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
-    _max?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+  export type EnumAdditionalRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdditionalRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdditionalRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdditionalRoleFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -24433,16 +28633,124 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumTokenTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type TrackingUserCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    steamid?: SortOrder
+    dateBanned?: SortOrder
+    avatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TrackingUserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    steamid?: SortOrder
+    dateBanned?: SortOrder
+    avatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TrackingUserMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    steamid?: SortOrder
+    dateBanned?: SortOrder
+    avatar?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumNotificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+  }
+
+  export type NotificationsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    isViewed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    isViewed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    isViewed?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
+  }
+
+  export type EnumTokenTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TokenType | EnumTokenTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TokenType[] | ListEnumTokenTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTokenTypeFilter<$PrismaModel> | $Enums.TokenType
   }
 
   export type TokenCountOrderByAggregateInput = {
@@ -25061,6 +29369,7 @@ export namespace Prisma {
     gameBans?: SortOrder
     vacBanned?: SortOrder
     vacBans?: SortOrder
+    csBan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25079,6 +29388,7 @@ export namespace Prisma {
     gameBans?: SortOrder
     vacBanned?: SortOrder
     vacBans?: SortOrder
+    csBan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25091,6 +29401,7 @@ export namespace Prisma {
     gameBans?: SortOrder
     vacBanned?: SortOrder
     vacBans?: SortOrder
+    csBan?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25158,15 +29469,19 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type CommentAuthorIdRecipientIdCompoundUniqueInput = {
-    authorId: string
-    recipientId: string
+  export type ImagesListRelationFilter = {
+    every?: ImagesWhereInput
+    some?: ImagesWhereInput
+    none?: ImagesWhereInput
+  }
+
+  export type ImagesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    pictureUrl?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
@@ -25176,7 +29491,6 @@ export namespace Prisma {
   export type CommentMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    pictureUrl?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
     createdAt?: SortOrder
@@ -25186,9 +29500,37 @@ export namespace Prisma {
   export type CommentMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    pictureUrl?: SortOrder
     authorId?: SortOrder
     recipientId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommentScalarRelationFilter = {
+    is?: CommentWhereInput
+    isNot?: CommentWhereInput
+  }
+
+  export type ImagesCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    commentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImagesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    commentId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ImagesMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    commentId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25303,6 +29645,20 @@ export namespace Prisma {
     connect?: TokenWhereUniqueInput | TokenWhereUniqueInput[]
   }
 
+  export type NotificationsCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput> | NotificationsCreateWithoutUserInput[] | NotificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationsCreateOrConnectWithoutUserInput | NotificationsCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationsCreateManyUserInputEnvelope
+    connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+  }
+
+  export type TrackingUserCreateNestedManyWithoutUserInput = {
+    create?: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput> | TrackingUserCreateWithoutUserInput[] | TrackingUserUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TrackingUserCreateOrConnectWithoutUserInput | TrackingUserCreateOrConnectWithoutUserInput[]
+    createMany?: TrackingUserCreateManyUserInputEnvelope
+    connect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+  }
+
   export type LinksInProfileCreateNestedOneWithoutUserInput = {
     create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
@@ -25348,6 +29704,20 @@ export namespace Prisma {
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
     createMany?: TokenCreateManyUserInputEnvelope
     connect?: TokenWhereUniqueInput | TokenWhereUniqueInput[]
+  }
+
+  export type NotificationsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput> | NotificationsCreateWithoutUserInput[] | NotificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationsCreateOrConnectWithoutUserInput | NotificationsCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationsCreateManyUserInputEnvelope
+    connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+  }
+
+  export type TrackingUserUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput> | TrackingUserCreateWithoutUserInput[] | TrackingUserUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TrackingUserCreateOrConnectWithoutUserInput | TrackingUserCreateOrConnectWithoutUserInput[]
+    createMany?: TrackingUserCreateManyUserInputEnvelope
+    connect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
   }
 
   export type LinksInProfileUncheckedCreateNestedOneWithoutUserInput = {
@@ -25402,8 +29772,8 @@ export namespace Prisma {
     set?: $Enums.UserRole
   }
 
-  export type NullableEnumAdditionalRoleFieldUpdateOperationsInput = {
-    set?: $Enums.AdditionalRole | null
+  export type EnumAdditionalRoleFieldUpdateOperationsInput = {
+    set?: $Enums.AdditionalRole
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -25426,6 +29796,34 @@ export namespace Prisma {
     update?: TokenUpdateWithWhereUniqueWithoutUserInput | TokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TokenUpdateManyWithWhereWithoutUserInput | TokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TokenScalarWhereInput | TokenScalarWhereInput[]
+  }
+
+  export type NotificationsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput> | NotificationsCreateWithoutUserInput[] | NotificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationsCreateOrConnectWithoutUserInput | NotificationsCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationsUpsertWithWhereUniqueWithoutUserInput | NotificationsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationsCreateManyUserInputEnvelope
+    set?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    disconnect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    delete?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    update?: NotificationsUpdateWithWhereUniqueWithoutUserInput | NotificationsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationsUpdateManyWithWhereWithoutUserInput | NotificationsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
+  }
+
+  export type TrackingUserUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput> | TrackingUserCreateWithoutUserInput[] | TrackingUserUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TrackingUserCreateOrConnectWithoutUserInput | TrackingUserCreateOrConnectWithoutUserInput[]
+    upsert?: TrackingUserUpsertWithWhereUniqueWithoutUserInput | TrackingUserUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TrackingUserCreateManyUserInputEnvelope
+    set?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    disconnect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    delete?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    connect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    update?: TrackingUserUpdateWithWhereUniqueWithoutUserInput | TrackingUserUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TrackingUserUpdateManyWithWhereWithoutUserInput | TrackingUserUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TrackingUserScalarWhereInput | TrackingUserScalarWhereInput[]
   }
 
   export type LinksInProfileUpdateOneWithoutUserNestedInput = {
@@ -25518,6 +29916,34 @@ export namespace Prisma {
     deleteMany?: TokenScalarWhereInput | TokenScalarWhereInput[]
   }
 
+  export type NotificationsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput> | NotificationsCreateWithoutUserInput[] | NotificationsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationsCreateOrConnectWithoutUserInput | NotificationsCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationsUpsertWithWhereUniqueWithoutUserInput | NotificationsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationsCreateManyUserInputEnvelope
+    set?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    disconnect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    delete?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    connect?: NotificationsWhereUniqueInput | NotificationsWhereUniqueInput[]
+    update?: NotificationsUpdateWithWhereUniqueWithoutUserInput | NotificationsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationsUpdateManyWithWhereWithoutUserInput | NotificationsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
+  }
+
+  export type TrackingUserUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput> | TrackingUserCreateWithoutUserInput[] | TrackingUserUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TrackingUserCreateOrConnectWithoutUserInput | TrackingUserCreateOrConnectWithoutUserInput[]
+    upsert?: TrackingUserUpsertWithWhereUniqueWithoutUserInput | TrackingUserUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TrackingUserCreateManyUserInputEnvelope
+    set?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    disconnect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    delete?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    connect?: TrackingUserWhereUniqueInput | TrackingUserWhereUniqueInput[]
+    update?: TrackingUserUpdateWithWhereUniqueWithoutUserInput | TrackingUserUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TrackingUserUpdateManyWithWhereWithoutUserInput | TrackingUserUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TrackingUserScalarWhereInput | TrackingUserScalarWhereInput[]
+  }
+
   export type LinksInProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: LinksInProfileCreateOrConnectWithoutUserInput
@@ -25592,6 +30018,42 @@ export namespace Prisma {
     update?: VerdictUpdateWithWhereUniqueWithoutUserInput | VerdictUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: VerdictUpdateManyWithWhereWithoutUserInput | VerdictUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutTrackingUsersInput = {
+    create?: XOR<UserCreateWithoutTrackingUsersInput, UserUncheckedCreateWithoutTrackingUsersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTrackingUsersInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneRequiredWithoutTrackingUsersNestedInput = {
+    create?: XOR<UserCreateWithoutTrackingUsersInput, UserUncheckedCreateWithoutTrackingUsersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTrackingUsersInput
+    upsert?: UserUpsertWithoutTrackingUsersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTrackingUsersInput, UserUpdateWithoutTrackingUsersInput>, UserUncheckedUpdateWithoutTrackingUsersInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumNotificationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.NotificationType
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
   export type UserCreateNestedOneWithoutTokensInput = {
@@ -26254,6 +30716,13 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLinksInput, UserUpdateWithoutLinksInput>, UserUncheckedUpdateWithoutLinksInput>
   }
 
+  export type ImagesCreateNestedManyWithoutCommentInput = {
+    create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
+    createMany?: ImagesCreateManyCommentInputEnvelope
+    connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutCommentsAsAuthorInput = {
     create?: XOR<UserCreateWithoutCommentsAsAuthorInput, UserUncheckedCreateWithoutCommentsAsAuthorInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommentsAsAuthorInput
@@ -26264,6 +30733,27 @@ export namespace Prisma {
     create?: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
     connectOrCreate?: SteamUserCreateOrConnectWithoutCommentsAsRecipientInput
     connect?: SteamUserWhereUniqueInput
+  }
+
+  export type ImagesUncheckedCreateNestedManyWithoutCommentInput = {
+    create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
+    createMany?: ImagesCreateManyCommentInputEnvelope
+    connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+  }
+
+  export type ImagesUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
+    upsert?: ImagesUpsertWithWhereUniqueWithoutCommentInput | ImagesUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: ImagesCreateManyCommentInputEnvelope
+    set?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    disconnect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    delete?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    update?: ImagesUpdateWithWhereUniqueWithoutCommentInput | ImagesUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: ImagesUpdateManyWithWhereWithoutCommentInput | ImagesUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput = {
@@ -26280,6 +30770,34 @@ export namespace Prisma {
     upsert?: SteamUserUpsertWithoutCommentsAsRecipientInput
     connect?: SteamUserWhereUniqueInput
     update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutCommentsAsRecipientInput, SteamUserUpdateWithoutCommentsAsRecipientInput>, SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput>
+  }
+
+  export type ImagesUncheckedUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
+    upsert?: ImagesUpsertWithWhereUniqueWithoutCommentInput | ImagesUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: ImagesCreateManyCommentInputEnvelope
+    set?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    disconnect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    delete?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+    update?: ImagesUpdateWithWhereUniqueWithoutCommentInput | ImagesUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: ImagesUpdateManyWithWhereWithoutCommentInput | ImagesUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
+  }
+
+  export type CommentCreateNestedOneWithoutImagesInput = {
+    create?: XOR<CommentCreateWithoutImagesInput, CommentUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutImagesInput
+    connect?: CommentWhereUniqueInput
+  }
+
+  export type CommentUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<CommentCreateWithoutImagesInput, CommentUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutImagesInput
+    upsert?: CommentUpsertWithoutImagesInput
+    connect?: CommentWhereUniqueInput
+    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutImagesInput, CommentUpdateWithoutImagesInput>, CommentUncheckedUpdateWithoutImagesInput>
   }
 
   export type UserCreateNestedOneWithoutJwtTokensInput = {
@@ -26438,11 +30956,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
-  export type NestedEnumAdditionalRoleNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel> | $Enums.AdditionalRole | null
+  export type NestedEnumAdditionalRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdditionalRoleFilter<$PrismaModel> | $Enums.AdditionalRole
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -26527,14 +31045,14 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
-  export type NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumAdditionalRoleNullableWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
-    _max?: NestedEnumAdditionalRoleNullableFilter<$PrismaModel>
+  export type NestedEnumAdditionalRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AdditionalRole | EnumAdditionalRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AdditionalRole[] | ListEnumAdditionalRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumAdditionalRoleWithAggregatesFilter<$PrismaModel> | $Enums.AdditionalRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAdditionalRoleFilter<$PrismaModel>
+    _max?: NestedEnumAdditionalRoleFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -26557,6 +31075,48 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
+  }
+
+  export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumTokenTypeFilter<$PrismaModel = never> = {
@@ -26688,6 +31248,66 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationsCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationsUncheckedCreateWithoutUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationsCreateOrConnectWithoutUserInput = {
+    where: NotificationsWhereUniqueInput
+    create: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationsCreateManyUserInputEnvelope = {
+    data: NotificationsCreateManyUserInput | NotificationsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TrackingUserCreateWithoutUserInput = {
+    id?: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TrackingUserUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TrackingUserCreateOrConnectWithoutUserInput = {
+    where: TrackingUserWhereUniqueInput
+    create: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput>
+  }
+
+  export type TrackingUserCreateManyUserInputEnvelope = {
+    data: TrackingUserCreateManyUserInput | TrackingUserCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LinksInProfileCreateWithoutUserInput = {
     tradeLink?: string | null
     twitch?: string | null
@@ -26773,19 +31393,19 @@ export namespace Prisma {
   export type CommentCreateWithoutAuthorInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesCreateNestedManyWithoutCommentInput
     recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
   }
 
   export type CommentUncheckedCreateWithoutAuthorInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentCreateOrConnectWithoutAuthorInput = {
@@ -26911,6 +31531,66 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Token"> | Date | string
   }
 
+  export type NotificationsUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationsWhereUniqueInput
+    update: XOR<NotificationsUpdateWithoutUserInput, NotificationsUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationsCreateWithoutUserInput, NotificationsUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationsUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationsWhereUniqueInput
+    data: XOR<NotificationsUpdateWithoutUserInput, NotificationsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationsUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationsScalarWhereInput
+    data: XOR<NotificationsUpdateManyMutationInput, NotificationsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationsScalarWhereInput = {
+    AND?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
+    OR?: NotificationsScalarWhereInput[]
+    NOT?: NotificationsScalarWhereInput | NotificationsScalarWhereInput[]
+    id?: StringFilter<"Notifications"> | string
+    userId?: StringFilter<"Notifications"> | string
+    type?: EnumNotificationTypeFilter<"Notifications"> | $Enums.NotificationType
+    title?: StringFilter<"Notifications"> | string
+    description?: StringNullableFilter<"Notifications"> | string | null
+    isViewed?: BoolFilter<"Notifications"> | boolean
+    createdAt?: DateTimeFilter<"Notifications"> | Date | string
+    updatedAt?: DateTimeFilter<"Notifications"> | Date | string
+  }
+
+  export type TrackingUserUpsertWithWhereUniqueWithoutUserInput = {
+    where: TrackingUserWhereUniqueInput
+    update: XOR<TrackingUserUpdateWithoutUserInput, TrackingUserUncheckedUpdateWithoutUserInput>
+    create: XOR<TrackingUserCreateWithoutUserInput, TrackingUserUncheckedCreateWithoutUserInput>
+  }
+
+  export type TrackingUserUpdateWithWhereUniqueWithoutUserInput = {
+    where: TrackingUserWhereUniqueInput
+    data: XOR<TrackingUserUpdateWithoutUserInput, TrackingUserUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TrackingUserUpdateManyWithWhereWithoutUserInput = {
+    where: TrackingUserScalarWhereInput
+    data: XOR<TrackingUserUpdateManyMutationInput, TrackingUserUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TrackingUserScalarWhereInput = {
+    AND?: TrackingUserScalarWhereInput | TrackingUserScalarWhereInput[]
+    OR?: TrackingUserScalarWhereInput[]
+    NOT?: TrackingUserScalarWhereInput | TrackingUserScalarWhereInput[]
+    id?: StringFilter<"TrackingUser"> | string
+    userId?: StringFilter<"TrackingUser"> | string
+    name?: StringFilter<"TrackingUser"> | string
+    steamid?: StringFilter<"TrackingUser"> | string
+    dateBanned?: DateTimeNullableFilter<"TrackingUser"> | Date | string | null
+    avatar?: StringFilter<"TrackingUser"> | string
+    createdAt?: DateTimeFilter<"TrackingUser"> | Date | string
+    updatedAt?: DateTimeFilter<"TrackingUser"> | Date | string
+  }
+
   export type LinksInProfileUpsertWithoutUserInput = {
     update: XOR<LinksInProfileUpdateWithoutUserInput, LinksInProfileUncheckedUpdateWithoutUserInput>
     create: XOR<LinksInProfileCreateWithoutUserInput, LinksInProfileUncheckedCreateWithoutUserInput>
@@ -27027,7 +31707,6 @@ export namespace Prisma {
     NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
     id?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
-    pictureUrl?: StringNullableFilter<"Comment"> | string | null
     authorId?: StringFilter<"Comment"> | string
     recipientId?: StringFilter<"Comment"> | string
     createdAt?: DateTimeFilter<"Comment"> | Date | string
@@ -27120,6 +31799,214 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
   }
 
+  export type UserCreateWithoutTrackingUsersInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTrackingUsersInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTrackingUsersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTrackingUsersInput, UserUncheckedCreateWithoutTrackingUsersInput>
+  }
+
+  export type UserUpsertWithoutTrackingUsersInput = {
+    update: XOR<UserUpdateWithoutTrackingUsersInput, UserUncheckedUpdateWithoutTrackingUsersInput>
+    create: XOR<UserCreateWithoutTrackingUsersInput, UserUncheckedCreateWithoutTrackingUsersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTrackingUsersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTrackingUsersInput, UserUncheckedUpdateWithoutTrackingUsersInput>
+  }
+
+  export type UserUpdateWithoutTrackingUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTrackingUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutTokensInput = {
     id?: string
     email: string
@@ -27127,10 +32014,13 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
@@ -27146,10 +32036,13 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -27181,10 +32074,13 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
@@ -27200,10 +32096,13 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -27219,11 +32118,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -27238,11 +32140,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -27262,6 +32167,7 @@ export namespace Prisma {
     gameBans?: number | null
     vacBanned?: boolean | null
     vacBans?: number | null
+    csBan?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27273,6 +32179,7 @@ export namespace Prisma {
     gameBans?: number | null
     vacBanned?: boolean | null
     vacBans?: number | null
+    csBan?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27285,19 +32192,19 @@ export namespace Prisma {
   export type CommentCreateWithoutRecipientInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesCreateNestedManyWithoutCommentInput
     author: UserCreateNestedOneWithoutCommentsAsAuthorInput
   }
 
   export type CommentUncheckedCreateWithoutRecipientInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     authorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentCreateOrConnectWithoutRecipientInput = {
@@ -27472,11 +32379,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -27491,11 +32401,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -27521,6 +32434,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27532,6 +32446,7 @@ export namespace Prisma {
     gameBans?: NullableIntFieldUpdateOperationsInput | number | null
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
+    csBan?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28680,11 +33595,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -28699,11 +33617,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -28734,11 +33655,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -28753,16 +33677,43 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ImagesCreateWithoutCommentInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImagesUncheckedCreateWithoutCommentInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImagesCreateOrConnectWithoutCommentInput = {
+    where: ImagesWhereUniqueInput
+    create: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput>
+  }
+
+  export type ImagesCreateManyCommentInputEnvelope = {
+    data: ImagesCreateManyCommentInput | ImagesCreateManyCommentInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserCreateWithoutCommentsAsAuthorInput = {
@@ -28772,11 +33723,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
@@ -28791,11 +33745,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
@@ -28865,6 +33822,33 @@ export namespace Prisma {
     create: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
   }
 
+  export type ImagesUpsertWithWhereUniqueWithoutCommentInput = {
+    where: ImagesWhereUniqueInput
+    update: XOR<ImagesUpdateWithoutCommentInput, ImagesUncheckedUpdateWithoutCommentInput>
+    create: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput>
+  }
+
+  export type ImagesUpdateWithWhereUniqueWithoutCommentInput = {
+    where: ImagesWhereUniqueInput
+    data: XOR<ImagesUpdateWithoutCommentInput, ImagesUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type ImagesUpdateManyWithWhereWithoutCommentInput = {
+    where: ImagesScalarWhereInput
+    data: XOR<ImagesUpdateManyMutationInput, ImagesUncheckedUpdateManyWithoutCommentInput>
+  }
+
+  export type ImagesScalarWhereInput = {
+    AND?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
+    OR?: ImagesScalarWhereInput[]
+    NOT?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
+    id?: StringFilter<"Images"> | string
+    url?: StringFilter<"Images"> | string
+    commentId?: StringFilter<"Images"> | string
+    createdAt?: DateTimeFilter<"Images"> | Date | string
+    updatedAt?: DateTimeFilter<"Images"> | Date | string
+  }
+
   export type UserUpsertWithoutCommentsAsAuthorInput = {
     update: XOR<UserUpdateWithoutCommentsAsAuthorInput, UserUncheckedUpdateWithoutCommentsAsAuthorInput>
     create: XOR<UserCreateWithoutCommentsAsAuthorInput, UserUncheckedCreateWithoutCommentsAsAuthorInput>
@@ -28883,11 +33867,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
@@ -28902,11 +33889,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -28977,6 +33967,58 @@ export namespace Prisma {
     generalPlayerStatistics?: GeneralPlayerStatisticsUncheckedUpdateOneWithoutSteamNestedInput
   }
 
+  export type CommentCreateWithoutImagesInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
+    recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+  }
+
+  export type CommentUncheckedCreateWithoutImagesInput = {
+    id?: string
+    content: string
+    authorId: string
+    recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommentCreateOrConnectWithoutImagesInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutImagesInput, CommentUncheckedCreateWithoutImagesInput>
+  }
+
+  export type CommentUpsertWithoutImagesInput = {
+    update: XOR<CommentUpdateWithoutImagesInput, CommentUncheckedUpdateWithoutImagesInput>
+    create: XOR<CommentCreateWithoutImagesInput, CommentUncheckedCreateWithoutImagesInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutImagesInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutImagesInput, CommentUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type CommentUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
+    recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserCreateWithoutJwtTokensInput = {
     id?: string
     email: string
@@ -28984,11 +34026,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
@@ -29003,11 +34048,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -29038,11 +34086,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
@@ -29057,11 +34108,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29076,11 +34130,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
@@ -29095,11 +34152,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -29215,11 +34275,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
@@ -29234,11 +34297,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29332,11 +34398,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
     links?: LinksInProfileCreateNestedOneWithoutUserInput
     steamUser?: SteamUserCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
@@ -29351,11 +34420,14 @@ export namespace Prisma {
     password: string
     avatar?: string | null
     role?: $Enums.UserRole
-    additionalRole?: $Enums.AdditionalRole | null
+    additionalRole?: $Enums.AdditionalRole
     isEmailVerified?: boolean
+    isBanned?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
     links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
     steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -29413,11 +34485,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
@@ -29432,11 +34507,14 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    additionalRole?: NullableEnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole | null
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
     links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
     steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -29486,10 +34564,29 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type NotificationsCreateManyUserInput = {
+    id?: string
+    type: $Enums.NotificationType
+    title: string
+    description?: string | null
+    isViewed?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TrackingUserCreateManyUserInput = {
+    id?: string
+    name: string
+    steamid: string
+    dateBanned?: Date | string | null
+    avatar: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type CommentCreateManyAuthorInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29548,28 +34645,87 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isViewed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TrackingUserUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    steamid?: StringFieldUpdateOperationsInput | string
+    dateBanned?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatar?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommentUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUpdateManyWithoutCommentNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29658,7 +34814,6 @@ export namespace Prisma {
   export type CommentCreateManyRecipientInput = {
     id?: string
     content: string
-    pictureUrl?: string | null
     authorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29702,25 +34857,24 @@ export namespace Prisma {
   export type CommentUpdateWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUpdateManyWithoutCommentNestedInput
     author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateManyWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    pictureUrl?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30184,6 +35338,34 @@ export namespace Prisma {
     hits?: IntFieldUpdateOperationsInput | number
     totalDamage?: IntFieldUpdateOperationsInput | number
     kills?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ImagesCreateManyCommentInput = {
+    id?: string
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ImagesUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagesUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagesUncheckedUpdateManyWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictCreateManyReportInput = {

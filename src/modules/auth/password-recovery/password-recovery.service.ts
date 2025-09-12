@@ -8,12 +8,15 @@ import { MailService } from 'src/modules/libs/mail/mail.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { generateToken } from 'src/shared/utils/generate-token.utils';
 import * as bcrypt from 'bcryptjs';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
+import { systemTemplates } from 'src/modules/notifications/templates/system';
 
 @Injectable()
 export class PasswordRecoveryService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly mailService: MailService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   public async verify(token: string, newPassword: string) {
@@ -33,11 +36,14 @@ export class PasswordRecoveryService {
       throw new BadRequestException('Token expired!');
     }
 
-    await this.prismaService.user.update({
+    const res = await this.prismaService.user.update({
       where: { id: existingToken.userId },
       data: { password: await bcrypt.hash(newPassword, 10) },
     });
-
+    await this.notificationsService.createNotification(
+      res.id,
+      systemTemplates.passwordChanged,
+    );
     await this.prismaService.token.delete({
       where: { id: existingToken.id, type: TokenType.PASSWORD_RECOVERY },
     });

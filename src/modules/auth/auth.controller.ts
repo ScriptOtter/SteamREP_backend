@@ -17,10 +17,16 @@ import { LoginDto } from './dto/login-user.dto';
 import { Response, Request } from 'express';
 import { JwtRefreshGuard } from 'src/guards/jwt_refresh.guard';
 import { ValidationDtoPipe } from 'src/shared/utils/Pipes/ValidationDtoPipe';
+import { SteamOAuth } from '../steam/steam.oauth';
+import { SteamPrismaService } from '../steam/steam-prisma.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly steamOAuth: SteamOAuth,
+    private readonly steamPrisma: SteamPrismaService,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Post('signup')
@@ -47,5 +53,23 @@ export class AuthController {
   @Get('logout')
   logout(@Req() req: Request, @Res() res: Response) {
     return this.authService.logout(req, res);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('steam/signin')
+  steamSignin(@Req() req: Request, @Res() res: Response) {
+    console.log('STEAM LOGIN');
+    res.redirect(
+      this.steamOAuth.generate_redirect(
+        process.env.SERVER_URL,
+        process.env.SERVER_URL + '/auth/steam/check',
+      ),
+    );
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('steam/check')
+  steamAuth(@Req() req: Request, @Res() res: Response) {
+    this.authService.loginWithSteam(req, res);
   }
 }

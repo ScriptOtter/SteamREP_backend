@@ -16,22 +16,57 @@ model User {
   avatar String? 
 
   tokens Token[]
+  notifications Notifications[]
+  trackingUsers TrackingUser[]
   links LinksInProfile? @relation
   role                UserRole   @default(NOT_ACTIVE) 
-  additionalRole AdditionalRole?
+  additionalRole AdditionalRole @default(MEMBER)
   steamUser SteamUser? @relation
   commentsAsAuthor     Comment[] @relation()
   jwtTokens           JwtToken[]
   reportUsers ReportUser[] @relation()
   verdicts Verdict[] @relation()
   isEmailVerified Boolean @default(false) @map("is_email_verified")
+  isBanned Boolean @default(false) @map("is_banned")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("user")
 }
+model TrackingUser {
+  id String @id @default(uuid()) @unique
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String 
+  name String
+  steamid String
+  dateBanned DateTime? 
+  avatar String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
 
+model Notifications {
+  id String @id @default(uuid()) @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  type NotificationType
+  title String
+  description String?
+  isViewed Boolean @default(false)
+  
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+}
+
+enum NotificationType {
+  SYSTEM
+  STANDARD
+  COMMENT
+  CS
+  SUBSCRIBE
+}
 
 model Token {
   id String @id @default(uuid())
@@ -217,7 +252,7 @@ model SteamUserBans {
   gameBans Int?
   vacBanned Boolean? @default(false)
   vacBans Int? 
-
+  csBan Boolean @default(false)
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 }
@@ -238,8 +273,8 @@ model LinksInProfile {
 model Comment {
   id          String   @unique @id @default(cuid())
   content     String
-  pictureUrl String?
-
+  images      Images[] 
+  
   author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String  @map("author_id")
   recipient   SteamUser @relation(fields: [recipientId], references: [id], onDelete: Cascade)
@@ -247,8 +282,17 @@ model Comment {
 
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  @@unique([authorId, recipientId]) // Ограничение на уникальность комментария от автора к получателю
+
   @@map("comment")
+}
+
+model Images {
+  id        String @unique @id @default(cuid())
+  url       String
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId     String    @map("comment_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 }
 
 model JwtToken {
@@ -308,6 +352,7 @@ enum UserRole {
   @@map("user_role")
 }
  enum AdditionalRole {
+  MEMBER
   DONOR
   MODERATOR      
   ADMIN          

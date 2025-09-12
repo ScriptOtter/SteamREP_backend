@@ -53,6 +53,32 @@ export class TokenService {
     }
   }
 
+  public sendTokensSteam(
+    res: Response,
+    user: User,
+    accessToken: string,
+    refreshToken: string,
+  ): Boolean {
+    try {
+      res.cookie('SteamREP_accessToken', accessToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+      });
+      res.cookie('SteamREP_refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+      });
+
+      res.redirect(process.env.ALLOWED_ORIGIN!);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
   public async getIdFromToken(req: Request): Promise<string> {
     try {
       const token = req.cookies.SteamREP_refreshToken;

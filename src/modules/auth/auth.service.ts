@@ -12,6 +12,9 @@ import { TokenService } from './tokens/tokens.service';
 import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library';
 import { API_AVATAR } from '../api/generateAvatar';
 import { VerificationService } from './verification/verification.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { systemTemplates } from '../notifications/templates/system';
+import { SteamOAuth } from '../steam/steam.oauth';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +23,8 @@ export class AuthService {
     private prisma: PrismaService,
     private tokenService: TokenService,
     private readonly verificationService: VerificationService,
+    private readonly notificationService: NotificationsService,
+    private readonly steamOAuth: SteamOAuth,
   ) {}
 
   async registerUser(
@@ -42,6 +47,10 @@ export class AuthService {
           avatar: API_AVATAR(dto.username),
         },
       });
+      await this.notificationService.createNotification(
+        user.id,
+        systemTemplates.registered,
+      );
       await this.verificationService.sendVerificationToken(user);
       res.json('An email has been sent to your email.');
     } catch (e: unknown) {
@@ -77,6 +86,44 @@ export class AuthService {
     });
     if (!this.tokens.sendTokens(res, user, accessToken, refreshToken)) {
       return;
+    }
+  }
+
+  async loginWithSteam(req: Request, res: Response): Promise<any> {
+    console.log('STEAM_AUTH!');
+
+    let valid_struct = await this.steamOAuth.verify_id(req.query);
+
+    if (valid_struct.success) {
+      console.log(`Validated Oauth, steamid i: ${valid_struct.steamid}`);
+
+      const user = await this.prisma.user.findFirst({
+        where: { steamUser: { id: valid_struct.steamid } },
+      });
+      console.log(user);
+      if (!user) {
+        res.send({
+          success: false,
+          reason:
+            'To log in using this method, you must be registered on the SteamRep!',
+        });
+        return;
+      }
+
+      const { accessToken, refreshToken } = await this.tokens.getTokens(
+        user.id,
+      );
+
+      await this.prisma.jwtToken.create({
+        data: {
+          userId: user.id,
+          refreshToken: refreshToken,
+        },
+      });
+
+      if (!this.tokens.sendTokensSteam(res, user, accessToken, refreshToken)) {
+        return;
+      }
     }
   }
 

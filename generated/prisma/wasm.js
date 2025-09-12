@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.14.0
- * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
+ * Prisma Client JS version: 6.15.0
+ * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
  */
 Prisma.prismaVersion = {
-  client: "6.14.0",
-  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
+  client: "6.15.0",
+  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -129,6 +129,29 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   additionalRole: 'additionalRole',
   isEmailVerified: 'isEmailVerified',
+  isBanned: 'isBanned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TrackingUserScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  steamid: 'steamid',
+  dateBanned: 'dateBanned',
+  avatar: 'avatar',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  isViewed: 'isViewed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -254,6 +277,7 @@ exports.Prisma.SteamUserBansScalarFieldEnum = {
   gameBans: 'gameBans',
   vacBanned: 'vacBanned',
   vacBans: 'vacBans',
+  csBan: 'csBan',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -272,9 +296,16 @@ exports.Prisma.LinksInProfileScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  pictureUrl: 'pictureUrl',
   authorId: 'authorId',
   recipientId: 'recipientId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ImagesScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  commentId: 'commentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -330,10 +361,19 @@ exports.UserRole = exports.$Enums.UserRole = {
 };
 
 exports.AdditionalRole = exports.$Enums.AdditionalRole = {
+  MEMBER: 'MEMBER',
   DONOR: 'DONOR',
   MODERATOR: 'MODERATOR',
   ADMIN: 'ADMIN',
   CREATOR: 'CREATOR'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  SYSTEM: 'SYSTEM',
+  STANDARD: 'STANDARD',
+  COMMENT: 'COMMENT',
+  CS: 'CS',
+  SUBSCRIBE: 'SUBSCRIBE'
 };
 
 exports.TokenType = exports.$Enums.TokenType = {
@@ -351,6 +391,8 @@ exports.MatchType = exports.$Enums.MatchType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  TrackingUser: 'TrackingUser',
+  Notifications: 'Notifications',
   Token: 'Token',
   SteamUser: 'SteamUser',
   Match: 'Match',
@@ -363,6 +405,7 @@ exports.Prisma.ModelName = {
   SteamUserBans: 'SteamUserBans',
   LinksInProfile: 'LinksInProfile',
   Comment: 'Comment',
+  Images: 'Images',
   JwtToken: 'JwtToken',
   ReportUser: 'ReportUser',
   Verdict: 'Verdict'

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { VerificationService } from './verification.service';
 import { VerificationController } from './verification.controller';
-import { TokenService } from '../tokens/tokens.service';
+
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
 
 @Module({
   imports: [],
   controllers: [VerificationController],
-  providers: [VerificationService],
+  providers: [VerificationService, NotificationsService],
   exports: [VerificationService],
 })
 export class VerificationModule {}

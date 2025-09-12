@@ -4,6 +4,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { PasswordRecoveryModule } from 'src/modules/auth/password-recovery/password-recovery.module';
 import { VerificationController } from 'src/modules/auth/verification/verification.controller';
+import { VerificationModule } from 'src/modules/auth/verification/verification.module';
+
 import { VerificationService } from 'src/modules/auth/verification/verification.service';
 import { CommentModule } from 'src/modules/comment/comment.module';
 
@@ -11,11 +13,16 @@ import { MatchModule } from 'src/modules/cs2/match/match.module';
 import { GCModule } from 'src/modules/cs2/steam-information/gc.module';
 
 import { MailModule } from 'src/modules/libs/mail/mail.module';
+import { NotificationsController } from 'src/modules/notifications/notifications.controller';
+import { NotificationsModule } from 'src/modules/notifications/notifications.module';
+import { NotificationsService } from 'src/modules/notifications/notifications.service';
 import { ReportUserModule } from 'src/modules/report_user/report-user.module';
 import { SocialLinksModule } from 'src/modules/social_links/social-links.module';
 import { SocialLinksService } from 'src/modules/social_links/social-links.service';
+import { SteamPrismaService } from 'src/modules/steam/steam-prisma.service';
 import { SteamModule } from 'src/modules/steam/steam.module';
-import { UploadImageModule } from 'src/modules/upload-image/upload-image.module';
+import { SteamOAuth } from 'src/modules/steam/steam.oauth';
+import { TrackingUsersModule } from 'src/modules/tracking-users/tracking-users.module';
 import { UserController } from 'src/modules/user/user.controller';
 import { UserService } from 'src/modules/user/user.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
@@ -36,12 +43,14 @@ import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
     ReportUserModule,
     SocialLinksModule,
     AuthModule,
-    UploadImageModule,
+    NotificationsModule,
+    VerificationModule,
+    TrackingUsersModule,
     //GCModule,
     PasswordRecoveryModule,
     //MatchModule,
   ],
-  controllers: [UserController, ProtectedController, VerificationController],
-  providers: [UserService, SocialLinksService, VerificationService],
+  controllers: [UserController, ProtectedController],
+  providers: [UserService, SocialLinksService],
 })
 export class CoreModule {}

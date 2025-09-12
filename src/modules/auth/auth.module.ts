@@ -12,11 +12,21 @@ import { JwtRefreshGuard } from 'src/guards/jwt_refresh.guard';
 import { VerificationModule } from './verification/verification.module';
 import { TokenModule } from './tokens/token.module';
 import { PasswordRecoveryModule } from './password-recovery/password-recovery.module';
+import { NotificationsService } from '../notifications/notifications.service';
+import { SteamModule } from '../steam/steam.module';
+import { SteamService } from '../steam/steam.service';
 
 @Module({
-  imports: [PassportModule, VerificationModule, TokenModule, PasswordRecoveryModule],
+  imports: [
+    PassportModule,
+    VerificationModule,
+    TokenModule,
+    PasswordRecoveryModule,
+    SteamModule, // Убедитесь, что вы импортируете SteamModule
+  ],
   providers: [
     AuthService,
+    NotificationsService,
     JwtAccessGuard,
     JwtAccessStrategy,
     JwtRefreshGuard,

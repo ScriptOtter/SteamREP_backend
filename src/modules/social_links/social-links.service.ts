@@ -41,9 +41,7 @@ export class SocialLinksService {
       }
 
       return links;
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   async saveSocialLinks(dto: SaveSocialLinksDto, req: Request): Promise<any> {

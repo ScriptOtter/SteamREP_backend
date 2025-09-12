@@ -9,7 +9,7 @@ import {
   Patch,
   Post,
   Req,
-  UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -17,23 +17,25 @@ import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { Request } from 'express';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileExtensionInterceptor } from 'src/shared/Intercepters/file-type.interceptor';
+import { GetCommenttDto, ImagesDto } from './dto/get-comments.dto';
 
 @Controller('')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(JwtAccessGuard)
+  @UseInterceptors(FileExtensionInterceptor, FilesInterceptor('images'))
   @Post('comment/create/:id')
   createComment(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() dto: CreateCommentDto,
     @Req() req: Request,
     @Param('id') id: string,
   ) {
-    return this.commentService.createComment(file, dto, req, id);
+    return this.commentService.createComment(files, dto, req, id);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -51,12 +53,14 @@ export class CommentController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseInterceptors(FileExtensionInterceptor, FilesInterceptor('images'))
   @Patch('comment/:commentId')
   updateComments(
+    @UploadedFiles() files: Express.Multer.File[],
     @Param('commentId') commentId: string,
-    @Body() content: string,
+    @Body() dto: GetCommenttDto,
     @Req() req: Request,
   ) {
-    return this.commentService.updateComment(commentId, content, req);
+    return this.commentService.updateComment(files, commentId, dto, req);
   }
 }

@@ -6,6 +6,8 @@ import { SteamOAuth } from './steam.oauth';
 import { TokenService } from '../auth/tokens/tokens.service';
 import { UserService } from '../user/user.service';
 import { tradeItApi } from '../api/tradeit';
+import { NotificationsService } from '../notifications/notifications.service';
+import { systemTemplates } from '../notifications/templates/system';
 
 @Injectable()
 export class SteamPrismaService {
@@ -15,6 +17,7 @@ export class SteamPrismaService {
     private readonly tokenSerive: TokenService,
     private readonly userService: UserService,
     private readonly steamOAuth: SteamOAuth,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   formatTimestampToDateString(timestamp: number) {
@@ -349,6 +352,10 @@ export class SteamPrismaService {
             role: 'VERIFIED',
           },
         });
+        this.notificationsService.createNotification(
+          userUpdate.id,
+          systemTemplates.steamVerified,
+        );
         //console.log('userUpdate', userUpdate);
         res.redirect(
           process.env.ALLOWED_ORIGIN + '/profile/' + valid_struct.steamid,
@@ -374,7 +381,10 @@ export class SteamPrismaService {
           role: 'VERIFIED',
         },
       });
-      //console.log('userUpdate', userUpdate);
+      this.notificationsService.createNotification(
+        userUpdate.id,
+        systemTemplates.steamVerified,
+      );
       res.redirect(
         process.env.ALLOWED_ORIGIN + '/profile/' + valid_struct.steamid,
       );
