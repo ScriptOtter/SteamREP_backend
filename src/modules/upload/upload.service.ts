@@ -33,10 +33,8 @@ export class UploadService {
       };
 
       // Здесь мы явно указываем тип результата
-      const uploadResult: S3.ManagedUpload.SendData = await this.s3
-        .upload(params)
-        .promise();
-      uploadedFileUrls.push(uploadResult.Location); // Здесь мы используем uploadResult.Location
+      await this.s3.upload(params).promise();
+      uploadedFileUrls.push(uniqueFileName); // Здесь мы используем uploadResult.Location
     }
 
     return uploadedFileUrls;
