@@ -187,6 +187,10 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DownloadingMatchesScalarFieldEnum = {
+  id: 'id'
+};
+
 exports.Prisma.MatchScalarFieldEnum = {
   id: 'id',
   type: 'type',
@@ -395,6 +399,7 @@ exports.Prisma.ModelName = {
   Notifications: 'Notifications',
   Token: 'Token',
   SteamUser: 'SteamUser',
+  DownloadingMatches: 'DownloadingMatches',
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',
   MapRanks: 'MapRanks',

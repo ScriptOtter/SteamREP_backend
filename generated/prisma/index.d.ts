@@ -39,6 +39,11 @@ export type Token = $Result.DefaultSelection<Prisma.$TokenPayload>
  */
 export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
 /**
+ * Model DownloadingMatches
+ * 
+ */
+export type DownloadingMatches = $Result.DefaultSelection<Prisma.$DownloadingMatchesPayload>
+/**
  * Model Match
  * 
  */
@@ -352,6 +357,16 @@ export class PrismaClient<
     * ```
     */
   get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.downloadingMatches`: Exposes CRUD operations for the **DownloadingMatches** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DownloadingMatches
+    * const downloadingMatches = await prisma.downloadingMatches.findMany()
+    * ```
+    */
+  get downloadingMatches(): Prisma.DownloadingMatchesDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.match`: Exposes CRUD operations for the **Match** model.
@@ -937,6 +952,7 @@ export namespace Prisma {
     Notifications: 'Notifications',
     Token: 'Token',
     SteamUser: 'SteamUser',
+    DownloadingMatches: 'DownloadingMatches',
     Match: 'Match',
     GeneralPlayerStatistics: 'GeneralPlayerStatistics',
     MapRanks: 'MapRanks',
@@ -969,7 +985,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "steamUser" | "match" | "generalPlayerStatistics" | "mapRanks" | "mapStats" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "steamUser" | "downloadingMatches" | "match" | "generalPlayerStatistics" | "mapRanks" | "mapStats" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1340,6 +1356,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SteamUserCountArgs<ExtArgs>
             result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
+          }
+        }
+      }
+      DownloadingMatches: {
+        payload: Prisma.$DownloadingMatchesPayload<ExtArgs>
+        fields: Prisma.DownloadingMatchesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DownloadingMatchesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DownloadingMatchesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          findFirst: {
+            args: Prisma.DownloadingMatchesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DownloadingMatchesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          findMany: {
+            args: Prisma.DownloadingMatchesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>[]
+          }
+          create: {
+            args: Prisma.DownloadingMatchesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          createMany: {
+            args: Prisma.DownloadingMatchesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DownloadingMatchesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>[]
+          }
+          delete: {
+            args: Prisma.DownloadingMatchesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          update: {
+            args: Prisma.DownloadingMatchesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          deleteMany: {
+            args: Prisma.DownloadingMatchesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DownloadingMatchesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DownloadingMatchesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>[]
+          }
+          upsert: {
+            args: Prisma.DownloadingMatchesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DownloadingMatchesPayload>
+          }
+          aggregate: {
+            args: Prisma.DownloadingMatchesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDownloadingMatches>
+          }
+          groupBy: {
+            args: Prisma.DownloadingMatchesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DownloadingMatchesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DownloadingMatchesCountArgs<ExtArgs>
+            result: $Utils.Optional<DownloadingMatchesCountAggregateOutputType> | number
           }
         }
       }
@@ -2476,6 +2566,7 @@ export namespace Prisma {
     notifications?: NotificationsOmit
     token?: TokenOmit
     steamUser?: SteamUserOmit
+    downloadingMatches?: DownloadingMatchesOmit
     match?: MatchOmit
     generalPlayerStatistics?: GeneralPlayerStatisticsOmit
     mapRanks?: MapRanksOmit
@@ -8993,6 +9084,949 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SteamUserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DownloadingMatches
+   */
+
+  export type AggregateDownloadingMatches = {
+    _count: DownloadingMatchesCountAggregateOutputType | null
+    _min: DownloadingMatchesMinAggregateOutputType | null
+    _max: DownloadingMatchesMaxAggregateOutputType | null
+  }
+
+  export type DownloadingMatchesMinAggregateOutputType = {
+    id: string | null
+  }
+
+  export type DownloadingMatchesMaxAggregateOutputType = {
+    id: string | null
+  }
+
+  export type DownloadingMatchesCountAggregateOutputType = {
+    id: number
+    _all: number
+  }
+
+
+  export type DownloadingMatchesMinAggregateInputType = {
+    id?: true
+  }
+
+  export type DownloadingMatchesMaxAggregateInputType = {
+    id?: true
+  }
+
+  export type DownloadingMatchesCountAggregateInputType = {
+    id?: true
+    _all?: true
+  }
+
+  export type DownloadingMatchesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DownloadingMatches to aggregate.
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DownloadingMatches to fetch.
+     */
+    orderBy?: DownloadingMatchesOrderByWithRelationInput | DownloadingMatchesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DownloadingMatchesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DownloadingMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DownloadingMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DownloadingMatches
+    **/
+    _count?: true | DownloadingMatchesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DownloadingMatchesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DownloadingMatchesMaxAggregateInputType
+  }
+
+  export type GetDownloadingMatchesAggregateType<T extends DownloadingMatchesAggregateArgs> = {
+        [P in keyof T & keyof AggregateDownloadingMatches]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDownloadingMatches[P]>
+      : GetScalarType<T[P], AggregateDownloadingMatches[P]>
+  }
+
+
+
+
+  export type DownloadingMatchesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DownloadingMatchesWhereInput
+    orderBy?: DownloadingMatchesOrderByWithAggregationInput | DownloadingMatchesOrderByWithAggregationInput[]
+    by: DownloadingMatchesScalarFieldEnum[] | DownloadingMatchesScalarFieldEnum
+    having?: DownloadingMatchesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DownloadingMatchesCountAggregateInputType | true
+    _min?: DownloadingMatchesMinAggregateInputType
+    _max?: DownloadingMatchesMaxAggregateInputType
+  }
+
+  export type DownloadingMatchesGroupByOutputType = {
+    id: string
+    _count: DownloadingMatchesCountAggregateOutputType | null
+    _min: DownloadingMatchesMinAggregateOutputType | null
+    _max: DownloadingMatchesMaxAggregateOutputType | null
+  }
+
+  type GetDownloadingMatchesGroupByPayload<T extends DownloadingMatchesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DownloadingMatchesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DownloadingMatchesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DownloadingMatchesGroupByOutputType[P]>
+            : GetScalarType<T[P], DownloadingMatchesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DownloadingMatchesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["downloadingMatches"]>
+
+  export type DownloadingMatchesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["downloadingMatches"]>
+
+  export type DownloadingMatchesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+  }, ExtArgs["result"]["downloadingMatches"]>
+
+  export type DownloadingMatchesSelectScalar = {
+    id?: boolean
+  }
+
+  export type DownloadingMatchesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id", ExtArgs["result"]["downloadingMatches"]>
+
+  export type $DownloadingMatchesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DownloadingMatches"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+    }, ExtArgs["result"]["downloadingMatches"]>
+    composites: {}
+  }
+
+  type DownloadingMatchesGetPayload<S extends boolean | null | undefined | DownloadingMatchesDefaultArgs> = $Result.GetResult<Prisma.$DownloadingMatchesPayload, S>
+
+  type DownloadingMatchesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DownloadingMatchesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DownloadingMatchesCountAggregateInputType | true
+    }
+
+  export interface DownloadingMatchesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DownloadingMatches'], meta: { name: 'DownloadingMatches' } }
+    /**
+     * Find zero or one DownloadingMatches that matches the filter.
+     * @param {DownloadingMatchesFindUniqueArgs} args - Arguments to find a DownloadingMatches
+     * @example
+     * // Get one DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DownloadingMatchesFindUniqueArgs>(args: SelectSubset<T, DownloadingMatchesFindUniqueArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DownloadingMatches that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DownloadingMatchesFindUniqueOrThrowArgs} args - Arguments to find a DownloadingMatches
+     * @example
+     * // Get one DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DownloadingMatchesFindUniqueOrThrowArgs>(args: SelectSubset<T, DownloadingMatchesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DownloadingMatches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesFindFirstArgs} args - Arguments to find a DownloadingMatches
+     * @example
+     * // Get one DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DownloadingMatchesFindFirstArgs>(args?: SelectSubset<T, DownloadingMatchesFindFirstArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DownloadingMatches that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesFindFirstOrThrowArgs} args - Arguments to find a DownloadingMatches
+     * @example
+     * // Get one DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DownloadingMatchesFindFirstOrThrowArgs>(args?: SelectSubset<T, DownloadingMatchesFindFirstOrThrowArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DownloadingMatches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findMany()
+     * 
+     * // Get first 10 DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const downloadingMatchesWithIdOnly = await prisma.downloadingMatches.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DownloadingMatchesFindManyArgs>(args?: SelectSubset<T, DownloadingMatchesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DownloadingMatches.
+     * @param {DownloadingMatchesCreateArgs} args - Arguments to create a DownloadingMatches.
+     * @example
+     * // Create one DownloadingMatches
+     * const DownloadingMatches = await prisma.downloadingMatches.create({
+     *   data: {
+     *     // ... data to create a DownloadingMatches
+     *   }
+     * })
+     * 
+     */
+    create<T extends DownloadingMatchesCreateArgs>(args: SelectSubset<T, DownloadingMatchesCreateArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DownloadingMatches.
+     * @param {DownloadingMatchesCreateManyArgs} args - Arguments to create many DownloadingMatches.
+     * @example
+     * // Create many DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DownloadingMatchesCreateManyArgs>(args?: SelectSubset<T, DownloadingMatchesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DownloadingMatches and returns the data saved in the database.
+     * @param {DownloadingMatchesCreateManyAndReturnArgs} args - Arguments to create many DownloadingMatches.
+     * @example
+     * // Create many DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DownloadingMatches and only return the `id`
+     * const downloadingMatchesWithIdOnly = await prisma.downloadingMatches.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DownloadingMatchesCreateManyAndReturnArgs>(args?: SelectSubset<T, DownloadingMatchesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DownloadingMatches.
+     * @param {DownloadingMatchesDeleteArgs} args - Arguments to delete one DownloadingMatches.
+     * @example
+     * // Delete one DownloadingMatches
+     * const DownloadingMatches = await prisma.downloadingMatches.delete({
+     *   where: {
+     *     // ... filter to delete one DownloadingMatches
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DownloadingMatchesDeleteArgs>(args: SelectSubset<T, DownloadingMatchesDeleteArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DownloadingMatches.
+     * @param {DownloadingMatchesUpdateArgs} args - Arguments to update one DownloadingMatches.
+     * @example
+     * // Update one DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DownloadingMatchesUpdateArgs>(args: SelectSubset<T, DownloadingMatchesUpdateArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DownloadingMatches.
+     * @param {DownloadingMatchesDeleteManyArgs} args - Arguments to filter DownloadingMatches to delete.
+     * @example
+     * // Delete a few DownloadingMatches
+     * const { count } = await prisma.downloadingMatches.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DownloadingMatchesDeleteManyArgs>(args?: SelectSubset<T, DownloadingMatchesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DownloadingMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DownloadingMatchesUpdateManyArgs>(args: SelectSubset<T, DownloadingMatchesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DownloadingMatches and returns the data updated in the database.
+     * @param {DownloadingMatchesUpdateManyAndReturnArgs} args - Arguments to update many DownloadingMatches.
+     * @example
+     * // Update many DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DownloadingMatches and only return the `id`
+     * const downloadingMatchesWithIdOnly = await prisma.downloadingMatches.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DownloadingMatchesUpdateManyAndReturnArgs>(args: SelectSubset<T, DownloadingMatchesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DownloadingMatches.
+     * @param {DownloadingMatchesUpsertArgs} args - Arguments to update or create a DownloadingMatches.
+     * @example
+     * // Update or create a DownloadingMatches
+     * const downloadingMatches = await prisma.downloadingMatches.upsert({
+     *   create: {
+     *     // ... data to create a DownloadingMatches
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DownloadingMatches we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DownloadingMatchesUpsertArgs>(args: SelectSubset<T, DownloadingMatchesUpsertArgs<ExtArgs>>): Prisma__DownloadingMatchesClient<$Result.GetResult<Prisma.$DownloadingMatchesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DownloadingMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesCountArgs} args - Arguments to filter DownloadingMatches to count.
+     * @example
+     * // Count the number of DownloadingMatches
+     * const count = await prisma.downloadingMatches.count({
+     *   where: {
+     *     // ... the filter for the DownloadingMatches we want to count
+     *   }
+     * })
+    **/
+    count<T extends DownloadingMatchesCountArgs>(
+      args?: Subset<T, DownloadingMatchesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DownloadingMatchesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DownloadingMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DownloadingMatchesAggregateArgs>(args: Subset<T, DownloadingMatchesAggregateArgs>): Prisma.PrismaPromise<GetDownloadingMatchesAggregateType<T>>
+
+    /**
+     * Group by DownloadingMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DownloadingMatchesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DownloadingMatchesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DownloadingMatchesGroupByArgs['orderBy'] }
+        : { orderBy?: DownloadingMatchesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DownloadingMatchesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDownloadingMatchesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DownloadingMatches model
+   */
+  readonly fields: DownloadingMatchesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DownloadingMatches.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DownloadingMatchesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DownloadingMatches model
+   */
+  interface DownloadingMatchesFieldRefs {
+    readonly id: FieldRef<"DownloadingMatches", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DownloadingMatches findUnique
+   */
+  export type DownloadingMatchesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter, which DownloadingMatches to fetch.
+     */
+    where: DownloadingMatchesWhereUniqueInput
+  }
+
+  /**
+   * DownloadingMatches findUniqueOrThrow
+   */
+  export type DownloadingMatchesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter, which DownloadingMatches to fetch.
+     */
+    where: DownloadingMatchesWhereUniqueInput
+  }
+
+  /**
+   * DownloadingMatches findFirst
+   */
+  export type DownloadingMatchesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter, which DownloadingMatches to fetch.
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DownloadingMatches to fetch.
+     */
+    orderBy?: DownloadingMatchesOrderByWithRelationInput | DownloadingMatchesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DownloadingMatches.
+     */
+    cursor?: DownloadingMatchesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DownloadingMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DownloadingMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DownloadingMatches.
+     */
+    distinct?: DownloadingMatchesScalarFieldEnum | DownloadingMatchesScalarFieldEnum[]
+  }
+
+  /**
+   * DownloadingMatches findFirstOrThrow
+   */
+  export type DownloadingMatchesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter, which DownloadingMatches to fetch.
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DownloadingMatches to fetch.
+     */
+    orderBy?: DownloadingMatchesOrderByWithRelationInput | DownloadingMatchesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DownloadingMatches.
+     */
+    cursor?: DownloadingMatchesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DownloadingMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DownloadingMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DownloadingMatches.
+     */
+    distinct?: DownloadingMatchesScalarFieldEnum | DownloadingMatchesScalarFieldEnum[]
+  }
+
+  /**
+   * DownloadingMatches findMany
+   */
+  export type DownloadingMatchesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter, which DownloadingMatches to fetch.
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DownloadingMatches to fetch.
+     */
+    orderBy?: DownloadingMatchesOrderByWithRelationInput | DownloadingMatchesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DownloadingMatches.
+     */
+    cursor?: DownloadingMatchesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DownloadingMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DownloadingMatches.
+     */
+    skip?: number
+    distinct?: DownloadingMatchesScalarFieldEnum | DownloadingMatchesScalarFieldEnum[]
+  }
+
+  /**
+   * DownloadingMatches create
+   */
+  export type DownloadingMatchesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * The data needed to create a DownloadingMatches.
+     */
+    data: XOR<DownloadingMatchesCreateInput, DownloadingMatchesUncheckedCreateInput>
+  }
+
+  /**
+   * DownloadingMatches createMany
+   */
+  export type DownloadingMatchesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DownloadingMatches.
+     */
+    data: DownloadingMatchesCreateManyInput | DownloadingMatchesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DownloadingMatches createManyAndReturn
+   */
+  export type DownloadingMatchesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * The data used to create many DownloadingMatches.
+     */
+    data: DownloadingMatchesCreateManyInput | DownloadingMatchesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DownloadingMatches update
+   */
+  export type DownloadingMatchesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * The data needed to update a DownloadingMatches.
+     */
+    data: XOR<DownloadingMatchesUpdateInput, DownloadingMatchesUncheckedUpdateInput>
+    /**
+     * Choose, which DownloadingMatches to update.
+     */
+    where: DownloadingMatchesWhereUniqueInput
+  }
+
+  /**
+   * DownloadingMatches updateMany
+   */
+  export type DownloadingMatchesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DownloadingMatches.
+     */
+    data: XOR<DownloadingMatchesUpdateManyMutationInput, DownloadingMatchesUncheckedUpdateManyInput>
+    /**
+     * Filter which DownloadingMatches to update
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * Limit how many DownloadingMatches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DownloadingMatches updateManyAndReturn
+   */
+  export type DownloadingMatchesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * The data used to update DownloadingMatches.
+     */
+    data: XOR<DownloadingMatchesUpdateManyMutationInput, DownloadingMatchesUncheckedUpdateManyInput>
+    /**
+     * Filter which DownloadingMatches to update
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * Limit how many DownloadingMatches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DownloadingMatches upsert
+   */
+  export type DownloadingMatchesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * The filter to search for the DownloadingMatches to update in case it exists.
+     */
+    where: DownloadingMatchesWhereUniqueInput
+    /**
+     * In case the DownloadingMatches found by the `where` argument doesn't exist, create a new DownloadingMatches with this data.
+     */
+    create: XOR<DownloadingMatchesCreateInput, DownloadingMatchesUncheckedCreateInput>
+    /**
+     * In case the DownloadingMatches was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DownloadingMatchesUpdateInput, DownloadingMatchesUncheckedUpdateInput>
+  }
+
+  /**
+   * DownloadingMatches delete
+   */
+  export type DownloadingMatchesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
+    /**
+     * Filter which DownloadingMatches to delete.
+     */
+    where: DownloadingMatchesWhereUniqueInput
+  }
+
+  /**
+   * DownloadingMatches deleteMany
+   */
+  export type DownloadingMatchesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DownloadingMatches to delete
+     */
+    where?: DownloadingMatchesWhereInput
+    /**
+     * Limit how many DownloadingMatches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DownloadingMatches without action
+   */
+  export type DownloadingMatchesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DownloadingMatches
+     */
+    select?: DownloadingMatchesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DownloadingMatches
+     */
+    omit?: DownloadingMatchesOmit<ExtArgs> | null
   }
 
 
@@ -24936,6 +25970,13 @@ export namespace Prisma {
   export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
 
 
+  export const DownloadingMatchesScalarFieldEnum: {
+    id: 'id'
+  };
+
+  export type DownloadingMatchesScalarFieldEnum = (typeof DownloadingMatchesScalarFieldEnum)[keyof typeof DownloadingMatchesScalarFieldEnum]
+
+
   export const MatchScalarFieldEnum: {
     id: 'id',
     type: 'type',
@@ -25747,6 +26788,38 @@ export namespace Prisma {
     gameAuthenticationCode?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
+  }
+
+  export type DownloadingMatchesWhereInput = {
+    AND?: DownloadingMatchesWhereInput | DownloadingMatchesWhereInput[]
+    OR?: DownloadingMatchesWhereInput[]
+    NOT?: DownloadingMatchesWhereInput | DownloadingMatchesWhereInput[]
+    id?: StringFilter<"DownloadingMatches"> | string
+  }
+
+  export type DownloadingMatchesOrderByWithRelationInput = {
+    id?: SortOrder
+  }
+
+  export type DownloadingMatchesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DownloadingMatchesWhereInput | DownloadingMatchesWhereInput[]
+    OR?: DownloadingMatchesWhereInput[]
+    NOT?: DownloadingMatchesWhereInput | DownloadingMatchesWhereInput[]
+  }, "id" | "id">
+
+  export type DownloadingMatchesOrderByWithAggregationInput = {
+    id?: SortOrder
+    _count?: DownloadingMatchesCountOrderByAggregateInput
+    _max?: DownloadingMatchesMaxOrderByAggregateInput
+    _min?: DownloadingMatchesMinOrderByAggregateInput
+  }
+
+  export type DownloadingMatchesScalarWhereWithAggregatesInput = {
+    AND?: DownloadingMatchesScalarWhereWithAggregatesInput | DownloadingMatchesScalarWhereWithAggregatesInput[]
+    OR?: DownloadingMatchesScalarWhereWithAggregatesInput[]
+    NOT?: DownloadingMatchesScalarWhereWithAggregatesInput | DownloadingMatchesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DownloadingMatches"> | string
   }
 
   export type MatchWhereInput = {
@@ -27287,6 +28360,34 @@ export namespace Prisma {
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DownloadingMatchesCreateInput = {
+    id: string
+  }
+
+  export type DownloadingMatchesUncheckedCreateInput = {
+    id: string
+  }
+
+  export type DownloadingMatchesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DownloadingMatchesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DownloadingMatchesCreateManyInput = {
+    id: string
+  }
+
+  export type DownloadingMatchesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DownloadingMatchesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
   }
 
   export type MatchCreateInput = {
@@ -28924,6 +30025,18 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type DownloadingMatchesCountOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DownloadingMatchesMaxOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type DownloadingMatchesMinOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type EnumMatchTypeFilter<$PrismaModel = never> = {

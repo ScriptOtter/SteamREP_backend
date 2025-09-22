@@ -26,13 +26,16 @@ import { TrackingUsersModule } from 'src/modules/tracking-users/tracking-users.m
 import { UserController } from 'src/modules/user/user.controller';
 import { UserService } from 'src/modules/user/user.service';
 import { PrismaModule } from 'src/prisma/prisma.module';
-
+import { ScheduleModule } from '@nestjs/schedule';
 import { ProtectedController } from 'src/protected.controller';
 import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
+import { CronModule } from 'src/modules/cron/cron.module';
+import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ ignoreEnvFile: !IS_DEV_ENV, isGlobal: true }),
+    ScheduleModule.forRoot(),
     JwtModule.register({
       global: true,
     }),
@@ -46,6 +49,8 @@ import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
     NotificationsModule,
     VerificationModule,
     TrackingUsersModule,
+    CronModule,
+    DownloadDemoModule,
     //GCModule,
     PasswordRecoveryModule,
     //MatchModule,

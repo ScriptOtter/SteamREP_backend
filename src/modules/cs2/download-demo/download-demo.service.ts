@@ -1,39 +1,112 @@
 import { Injectable } from '@nestjs/common';
-import { createWriteStream } from 'fs';
-import { join } from 'path';
+import { ConfigService } from '@nestjs/config';
+import { S3 } from 'aws-sdk';
 import axios from 'axios';
 import * as https from 'https';
+import { STEAM_API } from 'src/modules/steam/steam-api';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { PassThrough } from 'stream';
 import bz2 from 'unbzip2-stream';
-import { promisify } from 'util';
-import { exec } from 'child_process';
-const execPromise = promisify(exec);
+import { GCService } from '../steam-information/gc.service';
+
 @Injectable()
 export class DownloadDemoService {
-  public async downloadDemo(url: string, name: string): Promise<string> {
-    const filePath = join('src/modules/cs2/demo-analyse/demo/' + name + '.dem');
+  private s3: S3;
+  public constructor(
+    private readonly configService: ConfigService,
+    private readonly prismaService: PrismaService,
+    private readonly gc: GCService,
+  ) {
+    this.s3 = new S3({
+      accessKeyId: this.configService.getOrThrow<string>('S3_ACCESS_KEY'),
+      secretAccessKey: this.configService.getOrThrow<string>('S3_SECRET_KEY'),
+      endpoint: this.configService.getOrThrow<string>('S3_ENDPOINT'),
+      s3ForcePathStyle: true,
+    });
+  }
 
-    const writer = createWriteStream(filePath);
-
+  public async downloadDemo(url: string, name: string): Promise<void> {
     const agent = new https.Agent({ minVersion: 'TLSv1.3' });
-    const response = await axios.get(url, {
-      responseType: 'stream',
-      httpsAgent: agent,
-    });
-    console.log(filePath, 'Скачка');
-    const bunzip = bz2();
-    response.data.pipe(bunzip).pipe(writer);
-
-    return new Promise((resolve, reject) => {
-      writer.on('finish', () => {
-        console.log('Скачали');
-
-        resolve(filePath);
-        return filePath;
+    const demoName = `${name}.dem`;
+    try {
+      const response = await axios.get(url, {
+        responseType: 'stream',
+        httpsAgent: agent,
       });
-      writer.on('error', () => {
-        console.log('не скачали');
-        reject;
+      await this.prismaService.downloadingMatches.create({
+        data: { id: demoName },
       });
+
+      const bunzip = bz2();
+      const passThrough = new PassThrough();
+      const params: S3.PutObjectRequest = {
+        Bucket: this.configService.getOrThrow<string>('S3_DEMOS_BUCKET_NAME'),
+        Key: demoName,
+        Body: response.data.pipe(bunzip).pipe(passThrough),
+        ContentType: 'dem',
+      };
+
+      await this.s3
+        .upload(params)
+        .promise()
+        .then((e) => {
+          console.log(e, '\n Downloading ended!');
+        });
+    } catch (e) {}
+  }
+
+  async isCurrentMatchExists(sharedCode: string) {
+    return Boolean(
+      await this.prismaService.match.findFirst({ where: { sharedCode } }),
+    );
+  }
+
+  async getHistoryMatches(steamid: string) {
+    let matchResults = [];
+    let matchData;
+    let sharedCode;
+
+    const lastMatch = await this.prismaService.match.findMany({
+      where: { participants: { some: { id: steamid } } },
+      orderBy: { createdAt: 'desc' },
     });
+
+    if (lastMatch[0]) {
+      sharedCode = lastMatch[0].sharedCode;
+    } else {
+      sharedCode = (
+        await this.prismaService.steamUser.findUnique({
+          where: { id: steamid },
+        })
+      )?.sharedCode;
+    }
+    if (sharedCode) {
+      const match = await this.prismaService.downloadingMatches.findUnique({
+        where: { id: `${sharedCode}.dem` },
+      });
+      if (match) {
+        console.log('Demo downloaded! Waiting analyze');
+        return;
+      }
+      matchData = await this.gc.getMatchInfoFromSharedCode(sharedCode);
+    }
+    const matchExists = await this.isCurrentMatchExists(sharedCode);
+    if (matchExists) {
+      const steamidkey = (
+        await this.prismaService.steamUser.findUnique({
+          where: { id: steamid },
+        })
+      )?.gameAuthenticationCode;
+      let res = await axios.get(
+        STEAM_API.GetNextMatchSharingCode +
+          `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
+      );
+
+      sharedCode = res?.data?.result?.nextcode;
+    }
+    const rounds = matchData?.roundstatsall;
+    const mapUrl = rounds?.length ? rounds[rounds.length - 1]?.map : null;
+    console.log(mapUrl);
+    if (mapUrl) await this.downloadDemo(mapUrl, sharedCode);
   }
 }

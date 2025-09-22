@@ -11,6 +11,6 @@ export class MatchController {
     @Param('steamid') steamid: string,
     @Res() res: Response,
   ) {
-    return this.matchService.getHistoryMatches(steamid, res);
+    //return this.matchService.getHistoryMatches(steamid, res);
   }
 }

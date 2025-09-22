@@ -17,11 +17,8 @@ export class GCController {
   }
 
   @Get('matchdata')
-  async getMatchInfoFromSharedCode(
-    @Body() dto: { sharedCode: string },
-    @Res() res: Response,
-  ) {
+  async getMatchInfoFromSharedCode(@Body() dto: { sharedCode: string }) {
     const { sharedCode } = dto;
-    return this.cs.getMatchInfoFromSharedCode(sharedCode, res);
+    return this.cs.getMatchInfoFromSharedCode(sharedCode);
   }
 }

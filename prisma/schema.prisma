@@ -124,6 +124,10 @@ model SteamUser {
   @@map("steam_user")
   
 }
+model DownloadingMatches {
+  id String @id @unique
+}
+
 model Match {
   id String @id @unique
   type MatchType

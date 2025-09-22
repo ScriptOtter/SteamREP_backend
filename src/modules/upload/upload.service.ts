@@ -11,30 +11,28 @@ export class UploadService {
     this.s3 = new S3({
       accessKeyId: this.configService.getOrThrow<string>('S3_ACCESS_KEY'),
       secretAccessKey: this.configService.getOrThrow<string>('S3_SECRET_KEY'),
-      endpoint: this.configService.getOrThrow<string>('S3_ENDPOINT'), // Если используется кастомный endpoint
-      s3ForcePathStyle: true, // Убедитесь, что это установлено в true для некоторых кастомных S3
+      endpoint: this.configService.getOrThrow<string>('S3_ENDPOINT'),
+      s3ForcePathStyle: true,
     });
   }
   async uploadFiles(files: Express.Multer.File[]): Promise<string[]> {
-    const uploadedFileUrls: string[] = []; // Убедитесь, что тип указан
+    const uploadedFileUrls: string[] = [];
 
     for (const file of files) {
-      // Конвертация изображения в WebP
       const webpBuffer = await sharp(file.buffer, { animated: true })
-        .webp() // Настройте качество по вашему усмотрению
+        .webp()
         .toBuffer();
 
       const uniqueFileName = `${uuidv4()}.webp`;
       const params: S3.PutObjectRequest = {
-        Bucket: this.configService.getOrThrow<string>('S3_BUCKET_NAME'),
+        Bucket: this.configService.getOrThrow<string>('S3_IMAGES_BUCKET_NAME'),
         Key: uniqueFileName,
         Body: webpBuffer,
         ContentType: 'image/webp',
       };
 
-      // Здесь мы явно указываем тип результата
       await this.s3.upload(params).promise();
-      uploadedFileUrls.push(uniqueFileName); // Здесь мы используем uploadResult.Location
+      uploadedFileUrls.push(uniqueFileName);
     }
 
     return uploadedFileUrls;

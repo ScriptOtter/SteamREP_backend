@@ -8,20 +8,28 @@ export class GCService {
   constructor(private readonly configService: ConfigService) {}
 
   async getAccountInformation(steamid: string, res: Response) {
-    const response = await axios.get(
-      this.configService.getOrThrow<string>('CS2_GC_URL') +
+    const response = await axios.post(
+      this.configService.getOrThrow<string>('STEAMREP_GC') +
         `/userdata/${steamid}`,
+      { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
+      { withCredentials: true },
     );
     console.log(response.data);
     return res.json(response.data);
   }
 
-  async getMatchInfoFromSharedCode(sharedCode: string, res: Response) {
-    const response = await axios.get(
-      this.configService.getOrThrow<string>('CS2_GC_URL') +
-        `/matchdata/${sharedCode}`,
-    );
+  async getMatchInfoFromSharedCode(sharedCode: string) {
+    try {
+      const response = await axios.post(
+        this.configService.getOrThrow<string>('STEAMREP_GC') +
+          `/matchdata/${sharedCode}`,
+        { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
+        { withCredentials: true },
+      );
 
-    return response.data;
+      return response.data;
+    } catch (e) {
+      console.log('Match not found!');
+    }
   }
 }
