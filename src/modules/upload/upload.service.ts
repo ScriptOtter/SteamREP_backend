@@ -17,36 +17,42 @@ export class UploadService {
   }
   async uploadFiles(files: Express.Multer.File[]): Promise<string[]> {
     const uploadedFileUrls: string[] = [];
+    try {
+      for (const file of files) {
+        const webpBuffer = await sharp(file.buffer, { animated: true })
+          .webp()
+          .toBuffer();
 
-    for (const file of files) {
-      const webpBuffer = await sharp(file.buffer, { animated: true })
-        .webp()
-        .toBuffer();
+        const uniqueFileName = `${uuidv4()}.webp`;
+        const params: S3.PutObjectRequest = {
+          Bucket: this.configService.getOrThrow<string>(
+            'S3_IMAGES_BUCKET_NAME',
+          ),
+          Key: uniqueFileName,
+          Body: webpBuffer,
+          ContentType: 'image/webp',
+        };
 
-      const uniqueFileName = `${uuidv4()}.webp`;
-      const params: S3.PutObjectRequest = {
-        Bucket: this.configService.getOrThrow<string>('S3_IMAGES_BUCKET_NAME'),
-        Key: uniqueFileName,
-        Body: webpBuffer,
-        ContentType: 'image/webp',
-      };
+        await this.s3.upload(params).promise();
+        uploadedFileUrls.push(uniqueFileName);
+      }
 
-      await this.s3.upload(params).promise();
-      uploadedFileUrls.push(uniqueFileName);
+      return uploadedFileUrls;
+    } catch (e) {
+      console.log(e);
+      return [];
     }
-
-    return uploadedFileUrls;
   }
 
   async deleteImageFromS3(key) {
+    console.log(key);
     const params = {
-      Bucket: this.configService.getOrThrow<string>('S3_BUCKET_NAME'),
+      Bucket: this.configService.getOrThrow<string>('S3_IMAGES_BUCKET_NAME'),
       Key: key,
     };
 
     try {
-      const data = await this.s3.deleteObject(params).promise();
-      console.log('Image deleted successfully:', data);
+      await this.s3.deleteObject(params).promise();
     } catch (error) {
       console.error('Error deleting image:', error);
     }

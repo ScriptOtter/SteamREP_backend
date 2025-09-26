@@ -181,6 +181,7 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   lastUpdateSteamInformation: 'lastUpdateSteamInformation',
   viewers: 'viewers',
   userId: 'userId',
+  isGettedGeneralPlayerStatistics: 'isGettedGeneralPlayerStatistics',
   sharedCode: 'sharedCode',
   gameAuthenticationCode: 'gameAuthenticationCode',
   createdAt: 'createdAt',
@@ -207,26 +208,23 @@ exports.Prisma.MatchScalarFieldEnum = {
 
 exports.Prisma.GeneralPlayerStatisticsScalarFieldEnum = {
   id: 'id',
-  userId: 'userId'
+  userId: 'userId',
+  wingman: 'wingman',
+  premier: 'premier',
+  faceit: 'faceit',
+  faceit_elo: 'faceit_elo',
+  TotalMatches: 'TotalMatches',
+  winrate: 'winrate',
+  inGameSinse: 'inGameSinse',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.MapRanksScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  rank: 'rank',
   playerId: 'playerId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.MapStatsScalarFieldEnum = {
-  id: 'id',
-  total_matches: 'total_matches',
-  win_matches: 'win_matches',
-  ct_total_rounds: 'ct_total_rounds',
-  ct_win_rounds: 'ct_win_rounds',
-  t_total_rounds: 't_total_rounds',
-  t_win_rounds: 't_win_rounds',
-  mapId: 'mapId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -265,10 +263,7 @@ exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
   mvps: 'mvps',
   crosshair_code: 'crosshair_code',
   player_color: 'player_color',
-  rank_if_win: 'rank_if_win',
   rank: 'rank',
-  rank_if_loss: 'rank_if_loss',
-  rank_if_tie: 'rank_if_tie',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -282,6 +277,7 @@ exports.Prisma.SteamUserBansScalarFieldEnum = {
   vacBanned: 'vacBanned',
   vacBans: 'vacBans',
   csBan: 'csBan',
+  cs_banned_since: 'cs_banned_since',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -403,7 +399,6 @@ exports.Prisma.ModelName = {
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',
   MapRanks: 'MapRanks',
-  MapStats: 'MapStats',
   WeaponStats: 'WeaponStats',
   Hit: 'Hit',
   PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',

@@ -59,11 +59,6 @@ export type GeneralPlayerStatistics = $Result.DefaultSelection<Prisma.$GeneralPl
  */
 export type MapRanks = $Result.DefaultSelection<Prisma.$MapRanksPayload>
 /**
- * Model MapStats
- * 
- */
-export type MapStats = $Result.DefaultSelection<Prisma.$MapStatsPayload>
-/**
  * Model WeaponStats
  * 
  */
@@ -397,16 +392,6 @@ export class PrismaClient<
     * ```
     */
   get mapRanks(): Prisma.MapRanksDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.mapStats`: Exposes CRUD operations for the **MapStats** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more MapStats
-    * const mapStats = await prisma.mapStats.findMany()
-    * ```
-    */
-  get mapStats(): Prisma.MapStatsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.weaponStats`: Exposes CRUD operations for the **WeaponStats** model.
@@ -956,7 +941,6 @@ export namespace Prisma {
     Match: 'Match',
     GeneralPlayerStatistics: 'GeneralPlayerStatistics',
     MapRanks: 'MapRanks',
-    MapStats: 'MapStats',
     WeaponStats: 'WeaponStats',
     Hit: 'Hit',
     PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',
@@ -985,7 +969,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "steamUser" | "downloadingMatches" | "match" | "generalPlayerStatistics" | "mapRanks" | "mapStats" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "steamUser" | "downloadingMatches" | "match" | "generalPlayerStatistics" | "mapRanks" | "weaponStats" | "hit" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1652,80 +1636,6 @@ export namespace Prisma {
           count: {
             args: Prisma.MapRanksCountArgs<ExtArgs>
             result: $Utils.Optional<MapRanksCountAggregateOutputType> | number
-          }
-        }
-      }
-      MapStats: {
-        payload: Prisma.$MapStatsPayload<ExtArgs>
-        fields: Prisma.MapStatsFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.MapStatsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.MapStatsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          findFirst: {
-            args: Prisma.MapStatsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.MapStatsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          findMany: {
-            args: Prisma.MapStatsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>[]
-          }
-          create: {
-            args: Prisma.MapStatsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          createMany: {
-            args: Prisma.MapStatsCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.MapStatsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>[]
-          }
-          delete: {
-            args: Prisma.MapStatsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          update: {
-            args: Prisma.MapStatsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          deleteMany: {
-            args: Prisma.MapStatsDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.MapStatsUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.MapStatsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>[]
-          }
-          upsert: {
-            args: Prisma.MapStatsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MapStatsPayload>
-          }
-          aggregate: {
-            args: Prisma.MapStatsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMapStats>
-          }
-          groupBy: {
-            args: Prisma.MapStatsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MapStatsGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.MapStatsCountArgs<ExtArgs>
-            result: $Utils.Optional<MapStatsCountAggregateOutputType> | number
           }
         }
       }
@@ -2570,7 +2480,6 @@ export namespace Prisma {
     match?: MatchOmit
     generalPlayerStatistics?: GeneralPlayerStatisticsOmit
     mapRanks?: MapRanksOmit
-    mapStats?: MapStatsOmit
     weaponStats?: WeaponStatsOmit
     hit?: HitOmit
     playerStatisticsInMatch?: PlayerStatisticsInMatchOmit
@@ -2876,37 +2785,6 @@ export namespace Prisma {
    */
   export type GeneralPlayerStatisticsCountOutputTypeCountWeaponStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WeaponStatsWhereInput
-  }
-
-
-  /**
-   * Count Type MapRanksCountOutputType
-   */
-
-  export type MapRanksCountOutputType = {
-    mapStat: number
-  }
-
-  export type MapRanksCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mapStat?: boolean | MapRanksCountOutputTypeCountMapStatArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * MapRanksCountOutputType without action
-   */
-  export type MapRanksCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapRanksCountOutputType
-     */
-    select?: MapRanksCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * MapRanksCountOutputType without action
-   */
-  export type MapRanksCountOutputTypeCountMapStatArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MapStatsWhereInput
   }
 
 
@@ -7682,6 +7560,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | null
     viewers: number | null
     userId: string | null
+    isGettedGeneralPlayerStatistics: boolean | null
     sharedCode: string | null
     gameAuthenticationCode: string | null
     createdAt: Date | null
@@ -7703,6 +7582,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | null
     viewers: number | null
     userId: string | null
+    isGettedGeneralPlayerStatistics: boolean | null
     sharedCode: string | null
     gameAuthenticationCode: string | null
     createdAt: Date | null
@@ -7724,6 +7604,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: number
     viewers: number
     userId: number
+    isGettedGeneralPlayerStatistics: number
     sharedCode: number
     gameAuthenticationCode: number
     createdAt: number
@@ -7755,6 +7636,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: true
     viewers?: true
     userId?: true
+    isGettedGeneralPlayerStatistics?: true
     sharedCode?: true
     gameAuthenticationCode?: true
     createdAt?: true
@@ -7776,6 +7658,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: true
     viewers?: true
     userId?: true
+    isGettedGeneralPlayerStatistics?: true
     sharedCode?: true
     gameAuthenticationCode?: true
     createdAt?: true
@@ -7797,6 +7680,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: true
     viewers?: true
     userId?: true
+    isGettedGeneralPlayerStatistics?: true
     sharedCode?: true
     gameAuthenticationCode?: true
     createdAt?: true
@@ -7905,6 +7789,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date
     viewers: number
     userId: string | null
+    isGettedGeneralPlayerStatistics: boolean
     sharedCode: string | null
     gameAuthenticationCode: string | null
     createdAt: Date
@@ -7945,6 +7830,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: boolean
     viewers?: boolean
     userId?: boolean
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: boolean
     gameAuthenticationCode?: boolean
     createdAt?: boolean
@@ -7974,6 +7860,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: boolean
     viewers?: boolean
     userId?: boolean
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: boolean
     gameAuthenticationCode?: boolean
     createdAt?: boolean
@@ -7996,6 +7883,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: boolean
     viewers?: boolean
     userId?: boolean
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: boolean
     gameAuthenticationCode?: boolean
     createdAt?: boolean
@@ -8018,13 +7906,14 @@ export namespace Prisma {
     lastUpdateSteamInformation?: boolean
     viewers?: boolean
     userId?: boolean
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: boolean
     gameAuthenticationCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "level" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "lastUpdateSteamInformation" | "viewers" | "userId" | "sharedCode" | "gameAuthenticationCode" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
+  export type SteamUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personaName" | "profileUrl" | "avatar" | "realname" | "level" | "timeCreated" | "steamId2" | "steamId3" | "steamIdHex" | "countryCode" | "lastUpdateSteamInformation" | "viewers" | "userId" | "isGettedGeneralPlayerStatistics" | "sharedCode" | "gameAuthenticationCode" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUser"]>
   export type SteamUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | SteamUser$userArgs<ExtArgs>
     steamUserBans?: boolean | SteamUser$steamUserBansArgs<ExtArgs>
@@ -8068,6 +7957,7 @@ export namespace Prisma {
       lastUpdateSteamInformation: Date
       viewers: number
       userId: string | null
+      isGettedGeneralPlayerStatistics: boolean
       sharedCode: string | null
       gameAuthenticationCode: string | null
       createdAt: Date
@@ -8516,6 +8406,7 @@ export namespace Prisma {
     readonly lastUpdateSteamInformation: FieldRef<"SteamUser", 'DateTime'>
     readonly viewers: FieldRef<"SteamUser", 'Int'>
     readonly userId: FieldRef<"SteamUser", 'String'>
+    readonly isGettedGeneralPlayerStatistics: FieldRef<"SteamUser", 'Boolean'>
     readonly sharedCode: FieldRef<"SteamUser", 'String'>
     readonly gameAuthenticationCode: FieldRef<"SteamUser", 'String'>
     readonly createdAt: FieldRef<"SteamUser", 'DateTime'>
@@ -11212,40 +11103,132 @@ export namespace Prisma {
 
   export type AggregateGeneralPlayerStatistics = {
     _count: GeneralPlayerStatisticsCountAggregateOutputType | null
+    _avg: GeneralPlayerStatisticsAvgAggregateOutputType | null
+    _sum: GeneralPlayerStatisticsSumAggregateOutputType | null
     _min: GeneralPlayerStatisticsMinAggregateOutputType | null
     _max: GeneralPlayerStatisticsMaxAggregateOutputType | null
+  }
+
+  export type GeneralPlayerStatisticsAvgAggregateOutputType = {
+    wingman: number | null
+    premier: number | null
+    faceit: number | null
+    faceit_elo: number | null
+    TotalMatches: number | null
+    winrate: Decimal | null
+  }
+
+  export type GeneralPlayerStatisticsSumAggregateOutputType = {
+    wingman: number | null
+    premier: number | null
+    faceit: number | null
+    faceit_elo: number | null
+    TotalMatches: number | null
+    winrate: Decimal | null
   }
 
   export type GeneralPlayerStatisticsMinAggregateOutputType = {
     id: string | null
     userId: string | null
+    wingman: number | null
+    premier: number | null
+    faceit: number | null
+    faceit_elo: number | null
+    TotalMatches: number | null
+    winrate: Decimal | null
+    inGameSinse: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type GeneralPlayerStatisticsMaxAggregateOutputType = {
     id: string | null
     userId: string | null
+    wingman: number | null
+    premier: number | null
+    faceit: number | null
+    faceit_elo: number | null
+    TotalMatches: number | null
+    winrate: Decimal | null
+    inGameSinse: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type GeneralPlayerStatisticsCountAggregateOutputType = {
     id: number
     userId: number
+    wingman: number
+    premier: number
+    faceit: number
+    faceit_elo: number
+    TotalMatches: number
+    winrate: number
+    inGameSinse: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
+  export type GeneralPlayerStatisticsAvgAggregateInputType = {
+    wingman?: true
+    premier?: true
+    faceit?: true
+    faceit_elo?: true
+    TotalMatches?: true
+    winrate?: true
+  }
+
+  export type GeneralPlayerStatisticsSumAggregateInputType = {
+    wingman?: true
+    premier?: true
+    faceit?: true
+    faceit_elo?: true
+    TotalMatches?: true
+    winrate?: true
+  }
+
   export type GeneralPlayerStatisticsMinAggregateInputType = {
     id?: true
     userId?: true
+    wingman?: true
+    premier?: true
+    faceit?: true
+    faceit_elo?: true
+    TotalMatches?: true
+    winrate?: true
+    inGameSinse?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type GeneralPlayerStatisticsMaxAggregateInputType = {
     id?: true
     userId?: true
+    wingman?: true
+    premier?: true
+    faceit?: true
+    faceit_elo?: true
+    TotalMatches?: true
+    winrate?: true
+    inGameSinse?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type GeneralPlayerStatisticsCountAggregateInputType = {
     id?: true
     userId?: true
+    wingman?: true
+    premier?: true
+    faceit?: true
+    faceit_elo?: true
+    TotalMatches?: true
+    winrate?: true
+    inGameSinse?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -11287,6 +11270,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: GeneralPlayerStatisticsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GeneralPlayerStatisticsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: GeneralPlayerStatisticsMinAggregateInputType
@@ -11317,6 +11312,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: GeneralPlayerStatisticsCountAggregateInputType | true
+    _avg?: GeneralPlayerStatisticsAvgAggregateInputType
+    _sum?: GeneralPlayerStatisticsSumAggregateInputType
     _min?: GeneralPlayerStatisticsMinAggregateInputType
     _max?: GeneralPlayerStatisticsMaxAggregateInputType
   }
@@ -11324,7 +11321,18 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsGroupByOutputType = {
     id: string
     userId: string
+    wingman: number | null
+    premier: number | null
+    faceit: number | null
+    faceit_elo: number | null
+    TotalMatches: number | null
+    winrate: Decimal | null
+    inGameSinse: Date | null
+    createdAt: Date
+    updatedAt: Date
     _count: GeneralPlayerStatisticsCountAggregateOutputType | null
+    _avg: GeneralPlayerStatisticsAvgAggregateOutputType | null
+    _sum: GeneralPlayerStatisticsSumAggregateOutputType | null
     _min: GeneralPlayerStatisticsMinAggregateOutputType | null
     _max: GeneralPlayerStatisticsMaxAggregateOutputType | null
   }
@@ -11346,6 +11354,15 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    wingman?: boolean
+    premier?: boolean
+    faceit?: boolean
+    faceit_elo?: boolean
+    TotalMatches?: boolean
+    winrate?: boolean
+    inGameSinse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
     MapRanks?: boolean | GeneralPlayerStatistics$MapRanksArgs<ExtArgs>
     WeaponStats?: boolean | GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs>
@@ -11355,21 +11372,48 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    wingman?: boolean
+    premier?: boolean
+    faceit?: boolean
+    faceit_elo?: boolean
+    TotalMatches?: boolean
+    winrate?: boolean
+    inGameSinse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generalPlayerStatistics"]>
 
   export type GeneralPlayerStatisticsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
+    wingman?: boolean
+    premier?: boolean
+    faceit?: boolean
+    faceit_elo?: boolean
+    TotalMatches?: boolean
+    winrate?: boolean
+    inGameSinse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generalPlayerStatistics"]>
 
   export type GeneralPlayerStatisticsSelectScalar = {
     id?: boolean
     userId?: boolean
+    wingman?: boolean
+    premier?: boolean
+    faceit?: boolean
+    faceit_elo?: boolean
+    TotalMatches?: boolean
+    winrate?: boolean
+    inGameSinse?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type GeneralPlayerStatisticsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId", ExtArgs["result"]["generalPlayerStatistics"]>
+  export type GeneralPlayerStatisticsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "wingman" | "premier" | "faceit" | "faceit_elo" | "TotalMatches" | "winrate" | "inGameSinse" | "createdAt" | "updatedAt", ExtArgs["result"]["generalPlayerStatistics"]>
   export type GeneralPlayerStatisticsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
     MapRanks?: boolean | GeneralPlayerStatistics$MapRanksArgs<ExtArgs>
@@ -11393,6 +11437,15 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
+      wingman: number | null
+      premier: number | null
+      faceit: number | null
+      faceit_elo: number | null
+      TotalMatches: number | null
+      winrate: Prisma.Decimal | null
+      inGameSinse: Date | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["generalPlayerStatistics"]>
     composites: {}
   }
@@ -11821,6 +11874,15 @@ export namespace Prisma {
   interface GeneralPlayerStatisticsFieldRefs {
     readonly id: FieldRef<"GeneralPlayerStatistics", 'String'>
     readonly userId: FieldRef<"GeneralPlayerStatistics", 'String'>
+    readonly wingman: FieldRef<"GeneralPlayerStatistics", 'Int'>
+    readonly premier: FieldRef<"GeneralPlayerStatistics", 'Int'>
+    readonly faceit: FieldRef<"GeneralPlayerStatistics", 'Int'>
+    readonly faceit_elo: FieldRef<"GeneralPlayerStatistics", 'Int'>
+    readonly TotalMatches: FieldRef<"GeneralPlayerStatistics", 'Int'>
+    readonly winrate: FieldRef<"GeneralPlayerStatistics", 'Decimal'>
+    readonly inGameSinse: FieldRef<"GeneralPlayerStatistics", 'DateTime'>
+    readonly createdAt: FieldRef<"GeneralPlayerStatistics", 'DateTime'>
+    readonly updatedAt: FieldRef<"GeneralPlayerStatistics", 'DateTime'>
   }
     
 
@@ -12289,13 +12351,24 @@ export namespace Prisma {
 
   export type AggregateMapRanks = {
     _count: MapRanksCountAggregateOutputType | null
+    _avg: MapRanksAvgAggregateOutputType | null
+    _sum: MapRanksSumAggregateOutputType | null
     _min: MapRanksMinAggregateOutputType | null
     _max: MapRanksMaxAggregateOutputType | null
+  }
+
+  export type MapRanksAvgAggregateOutputType = {
+    rank: number | null
+  }
+
+  export type MapRanksSumAggregateOutputType = {
+    rank: number | null
   }
 
   export type MapRanksMinAggregateOutputType = {
     id: string | null
     name: string | null
+    rank: number | null
     playerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12304,6 +12377,7 @@ export namespace Prisma {
   export type MapRanksMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    rank: number | null
     playerId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12312,6 +12386,7 @@ export namespace Prisma {
   export type MapRanksCountAggregateOutputType = {
     id: number
     name: number
+    rank: number
     playerId: number
     createdAt: number
     updatedAt: number
@@ -12319,9 +12394,18 @@ export namespace Prisma {
   }
 
 
+  export type MapRanksAvgAggregateInputType = {
+    rank?: true
+  }
+
+  export type MapRanksSumAggregateInputType = {
+    rank?: true
+  }
+
   export type MapRanksMinAggregateInputType = {
     id?: true
     name?: true
+    rank?: true
     playerId?: true
     createdAt?: true
     updatedAt?: true
@@ -12330,6 +12414,7 @@ export namespace Prisma {
   export type MapRanksMaxAggregateInputType = {
     id?: true
     name?: true
+    rank?: true
     playerId?: true
     createdAt?: true
     updatedAt?: true
@@ -12338,6 +12423,7 @@ export namespace Prisma {
   export type MapRanksCountAggregateInputType = {
     id?: true
     name?: true
+    rank?: true
     playerId?: true
     createdAt?: true
     updatedAt?: true
@@ -12382,6 +12468,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MapRanksAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MapRanksSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MapRanksMinAggregateInputType
@@ -12412,6 +12510,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MapRanksCountAggregateInputType | true
+    _avg?: MapRanksAvgAggregateInputType
+    _sum?: MapRanksSumAggregateInputType
     _min?: MapRanksMinAggregateInputType
     _max?: MapRanksMaxAggregateInputType
   }
@@ -12419,10 +12519,13 @@ export namespace Prisma {
   export type MapRanksGroupByOutputType = {
     id: string
     name: string
+    rank: number
     playerId: string
     createdAt: Date
     updatedAt: Date
     _count: MapRanksCountAggregateOutputType | null
+    _avg: MapRanksAvgAggregateOutputType | null
+    _sum: MapRanksSumAggregateOutputType | null
     _min: MapRanksMinAggregateOutputType | null
     _max: MapRanksMaxAggregateOutputType | null
   }
@@ -12444,17 +12547,17 @@ export namespace Prisma {
   export type MapRanksSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    rank?: boolean
     playerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    mapStat?: boolean | MapRanks$mapStatArgs<ExtArgs>
     generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
-    _count?: boolean | MapRanksCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mapRanks"]>
 
   export type MapRanksSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    rank?: boolean
     playerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12464,6 +12567,7 @@ export namespace Prisma {
   export type MapRanksSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    rank?: boolean
     playerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12473,16 +12577,15 @@ export namespace Prisma {
   export type MapRanksSelectScalar = {
     id?: boolean
     name?: boolean
+    rank?: boolean
     playerId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MapRanksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "playerId" | "createdAt" | "updatedAt", ExtArgs["result"]["mapRanks"]>
+  export type MapRanksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "rank" | "playerId" | "createdAt" | "updatedAt", ExtArgs["result"]["mapRanks"]>
   export type MapRanksInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    mapStat?: boolean | MapRanks$mapStatArgs<ExtArgs>
     generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
-    _count?: boolean | MapRanksCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MapRanksIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
@@ -12494,12 +12597,12 @@ export namespace Prisma {
   export type $MapRanksPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MapRanks"
     objects: {
-      mapStat: Prisma.$MapStatsPayload<ExtArgs>[]
       generalPlayerStatistics: Prisma.$GeneralPlayerStatisticsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      rank: number
       playerId: string
       createdAt: Date
       updatedAt: Date
@@ -12897,7 +13000,6 @@ export namespace Prisma {
    */
   export interface Prisma__MapRanksClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    mapStat<T extends MapRanks$mapStatArgs<ExtArgs> = {}>(args?: Subset<T, MapRanks$mapStatArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     generalPlayerStatistics<T extends GeneralPlayerStatisticsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GeneralPlayerStatisticsDefaultArgs<ExtArgs>>): Prisma__GeneralPlayerStatisticsClient<$Result.GetResult<Prisma.$GeneralPlayerStatisticsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12930,6 +13032,7 @@ export namespace Prisma {
   interface MapRanksFieldRefs {
     readonly id: FieldRef<"MapRanks", 'String'>
     readonly name: FieldRef<"MapRanks", 'String'>
+    readonly rank: FieldRef<"MapRanks", 'Int'>
     readonly playerId: FieldRef<"MapRanks", 'String'>
     readonly createdAt: FieldRef<"MapRanks", 'DateTime'>
     readonly updatedAt: FieldRef<"MapRanks", 'DateTime'>
@@ -13329,30 +13432,6 @@ export namespace Prisma {
   }
 
   /**
-   * MapRanks.mapStat
-   */
-  export type MapRanks$mapStatArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    where?: MapStatsWhereInput
-    orderBy?: MapStatsOrderByWithRelationInput | MapStatsOrderByWithRelationInput[]
-    cursor?: MapStatsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MapStatsScalarFieldEnum | MapStatsScalarFieldEnum[]
-  }
-
-  /**
    * MapRanks without action
    */
   export type MapRanksDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13368,1183 +13447,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MapRanksInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model MapStats
-   */
-
-  export type AggregateMapStats = {
-    _count: MapStatsCountAggregateOutputType | null
-    _avg: MapStatsAvgAggregateOutputType | null
-    _sum: MapStatsSumAggregateOutputType | null
-    _min: MapStatsMinAggregateOutputType | null
-    _max: MapStatsMaxAggregateOutputType | null
-  }
-
-  export type MapStatsAvgAggregateOutputType = {
-    total_matches: number | null
-    win_matches: number | null
-    ct_total_rounds: number | null
-    ct_win_rounds: number | null
-    t_total_rounds: number | null
-    t_win_rounds: number | null
-  }
-
-  export type MapStatsSumAggregateOutputType = {
-    total_matches: number | null
-    win_matches: number | null
-    ct_total_rounds: number | null
-    ct_win_rounds: number | null
-    t_total_rounds: number | null
-    t_win_rounds: number | null
-  }
-
-  export type MapStatsMinAggregateOutputType = {
-    id: string | null
-    total_matches: number | null
-    win_matches: number | null
-    ct_total_rounds: number | null
-    ct_win_rounds: number | null
-    t_total_rounds: number | null
-    t_win_rounds: number | null
-    mapId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type MapStatsMaxAggregateOutputType = {
-    id: string | null
-    total_matches: number | null
-    win_matches: number | null
-    ct_total_rounds: number | null
-    ct_win_rounds: number | null
-    t_total_rounds: number | null
-    t_win_rounds: number | null
-    mapId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type MapStatsCountAggregateOutputType = {
-    id: number
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    mapId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type MapStatsAvgAggregateInputType = {
-    total_matches?: true
-    win_matches?: true
-    ct_total_rounds?: true
-    ct_win_rounds?: true
-    t_total_rounds?: true
-    t_win_rounds?: true
-  }
-
-  export type MapStatsSumAggregateInputType = {
-    total_matches?: true
-    win_matches?: true
-    ct_total_rounds?: true
-    ct_win_rounds?: true
-    t_total_rounds?: true
-    t_win_rounds?: true
-  }
-
-  export type MapStatsMinAggregateInputType = {
-    id?: true
-    total_matches?: true
-    win_matches?: true
-    ct_total_rounds?: true
-    ct_win_rounds?: true
-    t_total_rounds?: true
-    t_win_rounds?: true
-    mapId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type MapStatsMaxAggregateInputType = {
-    id?: true
-    total_matches?: true
-    win_matches?: true
-    ct_total_rounds?: true
-    ct_win_rounds?: true
-    t_total_rounds?: true
-    t_win_rounds?: true
-    mapId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type MapStatsCountAggregateInputType = {
-    id?: true
-    total_matches?: true
-    win_matches?: true
-    ct_total_rounds?: true
-    ct_win_rounds?: true
-    t_total_rounds?: true
-    t_win_rounds?: true
-    mapId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type MapStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MapStats to aggregate.
-     */
-    where?: MapStatsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MapStats to fetch.
-     */
-    orderBy?: MapStatsOrderByWithRelationInput | MapStatsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: MapStatsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MapStats from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MapStats.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned MapStats
-    **/
-    _count?: true | MapStatsCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: MapStatsAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MapStatsSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MapStatsMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MapStatsMaxAggregateInputType
-  }
-
-  export type GetMapStatsAggregateType<T extends MapStatsAggregateArgs> = {
-        [P in keyof T & keyof AggregateMapStats]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMapStats[P]>
-      : GetScalarType<T[P], AggregateMapStats[P]>
-  }
-
-
-
-
-  export type MapStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MapStatsWhereInput
-    orderBy?: MapStatsOrderByWithAggregationInput | MapStatsOrderByWithAggregationInput[]
-    by: MapStatsScalarFieldEnum[] | MapStatsScalarFieldEnum
-    having?: MapStatsScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MapStatsCountAggregateInputType | true
-    _avg?: MapStatsAvgAggregateInputType
-    _sum?: MapStatsSumAggregateInputType
-    _min?: MapStatsMinAggregateInputType
-    _max?: MapStatsMaxAggregateInputType
-  }
-
-  export type MapStatsGroupByOutputType = {
-    id: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    mapId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: MapStatsCountAggregateOutputType | null
-    _avg: MapStatsAvgAggregateOutputType | null
-    _sum: MapStatsSumAggregateOutputType | null
-    _min: MapStatsMinAggregateOutputType | null
-    _max: MapStatsMaxAggregateOutputType | null
-  }
-
-  type GetMapStatsGroupByPayload<T extends MapStatsGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MapStatsGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MapStatsGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MapStatsGroupByOutputType[P]>
-            : GetScalarType<T[P], MapStatsGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type MapStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    total_matches?: boolean
-    win_matches?: boolean
-    ct_total_rounds?: boolean
-    ct_win_rounds?: boolean
-    t_total_rounds?: boolean
-    t_win_rounds?: boolean
-    mapId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["mapStats"]>
-
-  export type MapStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    total_matches?: boolean
-    win_matches?: boolean
-    ct_total_rounds?: boolean
-    ct_win_rounds?: boolean
-    t_total_rounds?: boolean
-    t_win_rounds?: boolean
-    mapId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["mapStats"]>
-
-  export type MapStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    total_matches?: boolean
-    win_matches?: boolean
-    ct_total_rounds?: boolean
-    ct_win_rounds?: boolean
-    t_total_rounds?: boolean
-    t_win_rounds?: boolean
-    mapId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["mapStats"]>
-
-  export type MapStatsSelectScalar = {
-    id?: boolean
-    total_matches?: boolean
-    win_matches?: boolean
-    ct_total_rounds?: boolean
-    ct_win_rounds?: boolean
-    t_total_rounds?: boolean
-    t_win_rounds?: boolean
-    mapId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type MapStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "total_matches" | "win_matches" | "ct_total_rounds" | "ct_win_rounds" | "t_total_rounds" | "t_win_rounds" | "mapId" | "createdAt" | "updatedAt", ExtArgs["result"]["mapStats"]>
-  export type MapStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }
-  export type MapStatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }
-  export type MapStatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    MapRanks?: boolean | MapRanksDefaultArgs<ExtArgs>
-  }
-
-  export type $MapStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MapStats"
-    objects: {
-      MapRanks: Prisma.$MapRanksPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      total_matches: number
-      win_matches: number
-      ct_total_rounds: number
-      ct_win_rounds: number
-      t_total_rounds: number
-      t_win_rounds: number
-      mapId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["mapStats"]>
-    composites: {}
-  }
-
-  type MapStatsGetPayload<S extends boolean | null | undefined | MapStatsDefaultArgs> = $Result.GetResult<Prisma.$MapStatsPayload, S>
-
-  type MapStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MapStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MapStatsCountAggregateInputType | true
-    }
-
-  export interface MapStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MapStats'], meta: { name: 'MapStats' } }
-    /**
-     * Find zero or one MapStats that matches the filter.
-     * @param {MapStatsFindUniqueArgs} args - Arguments to find a MapStats
-     * @example
-     * // Get one MapStats
-     * const mapStats = await prisma.mapStats.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends MapStatsFindUniqueArgs>(args: SelectSubset<T, MapStatsFindUniqueArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one MapStats that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {MapStatsFindUniqueOrThrowArgs} args - Arguments to find a MapStats
-     * @example
-     * // Get one MapStats
-     * const mapStats = await prisma.mapStats.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends MapStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, MapStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MapStats that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsFindFirstArgs} args - Arguments to find a MapStats
-     * @example
-     * // Get one MapStats
-     * const mapStats = await prisma.mapStats.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends MapStatsFindFirstArgs>(args?: SelectSubset<T, MapStatsFindFirstArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MapStats that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsFindFirstOrThrowArgs} args - Arguments to find a MapStats
-     * @example
-     * // Get one MapStats
-     * const mapStats = await prisma.mapStats.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends MapStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, MapStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more MapStats that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all MapStats
-     * const mapStats = await prisma.mapStats.findMany()
-     * 
-     * // Get first 10 MapStats
-     * const mapStats = await prisma.mapStats.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const mapStatsWithIdOnly = await prisma.mapStats.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends MapStatsFindManyArgs>(args?: SelectSubset<T, MapStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a MapStats.
-     * @param {MapStatsCreateArgs} args - Arguments to create a MapStats.
-     * @example
-     * // Create one MapStats
-     * const MapStats = await prisma.mapStats.create({
-     *   data: {
-     *     // ... data to create a MapStats
-     *   }
-     * })
-     * 
-     */
-    create<T extends MapStatsCreateArgs>(args: SelectSubset<T, MapStatsCreateArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many MapStats.
-     * @param {MapStatsCreateManyArgs} args - Arguments to create many MapStats.
-     * @example
-     * // Create many MapStats
-     * const mapStats = await prisma.mapStats.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends MapStatsCreateManyArgs>(args?: SelectSubset<T, MapStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many MapStats and returns the data saved in the database.
-     * @param {MapStatsCreateManyAndReturnArgs} args - Arguments to create many MapStats.
-     * @example
-     * // Create many MapStats
-     * const mapStats = await prisma.mapStats.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many MapStats and only return the `id`
-     * const mapStatsWithIdOnly = await prisma.mapStats.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends MapStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, MapStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a MapStats.
-     * @param {MapStatsDeleteArgs} args - Arguments to delete one MapStats.
-     * @example
-     * // Delete one MapStats
-     * const MapStats = await prisma.mapStats.delete({
-     *   where: {
-     *     // ... filter to delete one MapStats
-     *   }
-     * })
-     * 
-     */
-    delete<T extends MapStatsDeleteArgs>(args: SelectSubset<T, MapStatsDeleteArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one MapStats.
-     * @param {MapStatsUpdateArgs} args - Arguments to update one MapStats.
-     * @example
-     * // Update one MapStats
-     * const mapStats = await prisma.mapStats.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends MapStatsUpdateArgs>(args: SelectSubset<T, MapStatsUpdateArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more MapStats.
-     * @param {MapStatsDeleteManyArgs} args - Arguments to filter MapStats to delete.
-     * @example
-     * // Delete a few MapStats
-     * const { count } = await prisma.mapStats.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends MapStatsDeleteManyArgs>(args?: SelectSubset<T, MapStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MapStats.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many MapStats
-     * const mapStats = await prisma.mapStats.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends MapStatsUpdateManyArgs>(args: SelectSubset<T, MapStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MapStats and returns the data updated in the database.
-     * @param {MapStatsUpdateManyAndReturnArgs} args - Arguments to update many MapStats.
-     * @example
-     * // Update many MapStats
-     * const mapStats = await prisma.mapStats.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more MapStats and only return the `id`
-     * const mapStatsWithIdOnly = await prisma.mapStats.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends MapStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, MapStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one MapStats.
-     * @param {MapStatsUpsertArgs} args - Arguments to update or create a MapStats.
-     * @example
-     * // Update or create a MapStats
-     * const mapStats = await prisma.mapStats.upsert({
-     *   create: {
-     *     // ... data to create a MapStats
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the MapStats we want to update
-     *   }
-     * })
-     */
-    upsert<T extends MapStatsUpsertArgs>(args: SelectSubset<T, MapStatsUpsertArgs<ExtArgs>>): Prisma__MapStatsClient<$Result.GetResult<Prisma.$MapStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of MapStats.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsCountArgs} args - Arguments to filter MapStats to count.
-     * @example
-     * // Count the number of MapStats
-     * const count = await prisma.mapStats.count({
-     *   where: {
-     *     // ... the filter for the MapStats we want to count
-     *   }
-     * })
-    **/
-    count<T extends MapStatsCountArgs>(
-      args?: Subset<T, MapStatsCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MapStatsCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a MapStats.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MapStatsAggregateArgs>(args: Subset<T, MapStatsAggregateArgs>): Prisma.PrismaPromise<GetMapStatsAggregateType<T>>
-
-    /**
-     * Group by MapStats.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MapStatsGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends MapStatsGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MapStatsGroupByArgs['orderBy'] }
-        : { orderBy?: MapStatsGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, MapStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMapStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the MapStats model
-   */
-  readonly fields: MapStatsFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for MapStats.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__MapStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    MapRanks<T extends MapRanksDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MapRanksDefaultArgs<ExtArgs>>): Prisma__MapRanksClient<$Result.GetResult<Prisma.$MapRanksPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the MapStats model
-   */
-  interface MapStatsFieldRefs {
-    readonly id: FieldRef<"MapStats", 'String'>
-    readonly total_matches: FieldRef<"MapStats", 'Int'>
-    readonly win_matches: FieldRef<"MapStats", 'Int'>
-    readonly ct_total_rounds: FieldRef<"MapStats", 'Int'>
-    readonly ct_win_rounds: FieldRef<"MapStats", 'Int'>
-    readonly t_total_rounds: FieldRef<"MapStats", 'Int'>
-    readonly t_win_rounds: FieldRef<"MapStats", 'Int'>
-    readonly mapId: FieldRef<"MapStats", 'String'>
-    readonly createdAt: FieldRef<"MapStats", 'DateTime'>
-    readonly updatedAt: FieldRef<"MapStats", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * MapStats findUnique
-   */
-  export type MapStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter, which MapStats to fetch.
-     */
-    where: MapStatsWhereUniqueInput
-  }
-
-  /**
-   * MapStats findUniqueOrThrow
-   */
-  export type MapStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter, which MapStats to fetch.
-     */
-    where: MapStatsWhereUniqueInput
-  }
-
-  /**
-   * MapStats findFirst
-   */
-  export type MapStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter, which MapStats to fetch.
-     */
-    where?: MapStatsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MapStats to fetch.
-     */
-    orderBy?: MapStatsOrderByWithRelationInput | MapStatsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MapStats.
-     */
-    cursor?: MapStatsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MapStats from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MapStats.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MapStats.
-     */
-    distinct?: MapStatsScalarFieldEnum | MapStatsScalarFieldEnum[]
-  }
-
-  /**
-   * MapStats findFirstOrThrow
-   */
-  export type MapStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter, which MapStats to fetch.
-     */
-    where?: MapStatsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MapStats to fetch.
-     */
-    orderBy?: MapStatsOrderByWithRelationInput | MapStatsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MapStats.
-     */
-    cursor?: MapStatsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MapStats from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MapStats.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MapStats.
-     */
-    distinct?: MapStatsScalarFieldEnum | MapStatsScalarFieldEnum[]
-  }
-
-  /**
-   * MapStats findMany
-   */
-  export type MapStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter, which MapStats to fetch.
-     */
-    where?: MapStatsWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MapStats to fetch.
-     */
-    orderBy?: MapStatsOrderByWithRelationInput | MapStatsOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing MapStats.
-     */
-    cursor?: MapStatsWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MapStats from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MapStats.
-     */
-    skip?: number
-    distinct?: MapStatsScalarFieldEnum | MapStatsScalarFieldEnum[]
-  }
-
-  /**
-   * MapStats create
-   */
-  export type MapStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * The data needed to create a MapStats.
-     */
-    data: XOR<MapStatsCreateInput, MapStatsUncheckedCreateInput>
-  }
-
-  /**
-   * MapStats createMany
-   */
-  export type MapStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many MapStats.
-     */
-    data: MapStatsCreateManyInput | MapStatsCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * MapStats createManyAndReturn
-   */
-  export type MapStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * The data used to create many MapStats.
-     */
-    data: MapStatsCreateManyInput | MapStatsCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * MapStats update
-   */
-  export type MapStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * The data needed to update a MapStats.
-     */
-    data: XOR<MapStatsUpdateInput, MapStatsUncheckedUpdateInput>
-    /**
-     * Choose, which MapStats to update.
-     */
-    where: MapStatsWhereUniqueInput
-  }
-
-  /**
-   * MapStats updateMany
-   */
-  export type MapStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update MapStats.
-     */
-    data: XOR<MapStatsUpdateManyMutationInput, MapStatsUncheckedUpdateManyInput>
-    /**
-     * Filter which MapStats to update
-     */
-    where?: MapStatsWhereInput
-    /**
-     * Limit how many MapStats to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * MapStats updateManyAndReturn
-   */
-  export type MapStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * The data used to update MapStats.
-     */
-    data: XOR<MapStatsUpdateManyMutationInput, MapStatsUncheckedUpdateManyInput>
-    /**
-     * Filter which MapStats to update
-     */
-    where?: MapStatsWhereInput
-    /**
-     * Limit how many MapStats to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * MapStats upsert
-   */
-  export type MapStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * The filter to search for the MapStats to update in case it exists.
-     */
-    where: MapStatsWhereUniqueInput
-    /**
-     * In case the MapStats found by the `where` argument doesn't exist, create a new MapStats with this data.
-     */
-    create: XOR<MapStatsCreateInput, MapStatsUncheckedCreateInput>
-    /**
-     * In case the MapStats was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<MapStatsUpdateInput, MapStatsUncheckedUpdateInput>
-  }
-
-  /**
-   * MapStats delete
-   */
-  export type MapStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
-    /**
-     * Filter which MapStats to delete.
-     */
-    where: MapStatsWhereUniqueInput
-  }
-
-  /**
-   * MapStats deleteMany
-   */
-  export type MapStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MapStats to delete
-     */
-    where?: MapStatsWhereInput
-    /**
-     * Limit how many MapStats to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * MapStats without action
-   */
-  export type MapStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MapStats
-     */
-    select?: MapStatsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MapStats
-     */
-    omit?: MapStatsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MapStatsInclude<ExtArgs> | null
   }
 
 
@@ -16795,10 +15697,7 @@ export namespace Prisma {
     objective_total: number | null
     utility_damage_total: number | null
     mvps: number | null
-    rank_if_win: number | null
     rank: number | null
-    rank_if_loss: number | null
-    rank_if_tie: number | null
   }
 
   export type PlayerStatisticsInMatchSumAggregateOutputType = {
@@ -16814,10 +15713,7 @@ export namespace Prisma {
     objective_total: number | null
     utility_damage_total: number | null
     mvps: number | null
-    rank_if_win: number | null
     rank: number | null
-    rank_if_loss: number | null
-    rank_if_tie: number | null
   }
 
   export type PlayerStatisticsInMatchMinAggregateOutputType = {
@@ -16838,10 +15734,7 @@ export namespace Prisma {
     mvps: number | null
     crosshair_code: string | null
     player_color: string | null
-    rank_if_win: number | null
     rank: number | null
-    rank_if_loss: number | null
-    rank_if_tie: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -16864,10 +15757,7 @@ export namespace Prisma {
     mvps: number | null
     crosshair_code: string | null
     player_color: string | null
-    rank_if_win: number | null
     rank: number | null
-    rank_if_loss: number | null
-    rank_if_tie: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -16890,10 +15780,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: number
     player_color: number
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -16913,10 +15800,7 @@ export namespace Prisma {
     objective_total?: true
     utility_damage_total?: true
     mvps?: true
-    rank_if_win?: true
     rank?: true
-    rank_if_loss?: true
-    rank_if_tie?: true
   }
 
   export type PlayerStatisticsInMatchSumAggregateInputType = {
@@ -16932,10 +15816,7 @@ export namespace Prisma {
     objective_total?: true
     utility_damage_total?: true
     mvps?: true
-    rank_if_win?: true
     rank?: true
-    rank_if_loss?: true
-    rank_if_tie?: true
   }
 
   export type PlayerStatisticsInMatchMinAggregateInputType = {
@@ -16956,10 +15837,7 @@ export namespace Prisma {
     mvps?: true
     crosshair_code?: true
     player_color?: true
-    rank_if_win?: true
     rank?: true
-    rank_if_loss?: true
-    rank_if_tie?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -16982,10 +15860,7 @@ export namespace Prisma {
     mvps?: true
     crosshair_code?: true
     player_color?: true
-    rank_if_win?: true
     rank?: true
-    rank_if_loss?: true
-    rank_if_tie?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -17008,10 +15883,7 @@ export namespace Prisma {
     mvps?: true
     crosshair_code?: true
     player_color?: true
-    rank_if_win?: true
     rank?: true
-    rank_if_loss?: true
-    rank_if_tie?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -17121,10 +15993,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt: Date
     updatedAt: Date
     _count: PlayerStatisticsInMatchCountAggregateOutputType | null
@@ -17166,10 +16035,7 @@ export namespace Prisma {
     mvps?: boolean
     crosshair_code?: boolean
     player_color?: boolean
-    rank_if_win?: boolean
     rank?: boolean
-    rank_if_loss?: boolean
-    rank_if_tie?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steamUser?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -17194,10 +16060,7 @@ export namespace Prisma {
     mvps?: boolean
     crosshair_code?: boolean
     player_color?: boolean
-    rank_if_win?: boolean
     rank?: boolean
-    rank_if_loss?: boolean
-    rank_if_tie?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steamUser?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -17222,10 +16085,7 @@ export namespace Prisma {
     mvps?: boolean
     crosshair_code?: boolean
     player_color?: boolean
-    rank_if_win?: boolean
     rank?: boolean
-    rank_if_loss?: boolean
-    rank_if_tie?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steamUser?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -17250,15 +16110,12 @@ export namespace Prisma {
     mvps?: boolean
     crosshair_code?: boolean
     player_color?: boolean
-    rank_if_win?: boolean
     rank?: boolean
-    rank_if_loss?: boolean
-    rank_if_tie?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PlayerStatisticsInMatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "matchId" | "kills_total" | "deaths_total" | "assists_total" | "headshot_kills_total" | "ace_rounds_total" | "k4_rounds_total" | "k3_rounds_total" | "k2_rounds_total" | "damage_total" | "objective_total" | "utility_damage_total" | "mvps" | "crosshair_code" | "player_color" | "rank_if_win" | "rank" | "rank_if_loss" | "rank_if_tie" | "createdAt" | "updatedAt", ExtArgs["result"]["playerStatisticsInMatch"]>
+  export type PlayerStatisticsInMatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "matchId" | "kills_total" | "deaths_total" | "assists_total" | "headshot_kills_total" | "ace_rounds_total" | "k4_rounds_total" | "k3_rounds_total" | "k2_rounds_total" | "damage_total" | "objective_total" | "utility_damage_total" | "mvps" | "crosshair_code" | "player_color" | "rank" | "createdAt" | "updatedAt", ExtArgs["result"]["playerStatisticsInMatch"]>
   export type PlayerStatisticsInMatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     steamUser?: boolean | SteamUserDefaultArgs<ExtArgs>
     match?: boolean | MatchDefaultArgs<ExtArgs>
@@ -17296,10 +16153,7 @@ export namespace Prisma {
       mvps: number
       crosshair_code: string
       player_color: string
-      rank_if_win: number
       rank: number
-      rank_if_loss: number
-      rank_if_tie: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["playerStatisticsInMatch"]>
@@ -17744,10 +16598,7 @@ export namespace Prisma {
     readonly mvps: FieldRef<"PlayerStatisticsInMatch", 'Int'>
     readonly crosshair_code: FieldRef<"PlayerStatisticsInMatch", 'String'>
     readonly player_color: FieldRef<"PlayerStatisticsInMatch", 'String'>
-    readonly rank_if_win: FieldRef<"PlayerStatisticsInMatch", 'Int'>
     readonly rank: FieldRef<"PlayerStatisticsInMatch", 'Int'>
-    readonly rank_if_loss: FieldRef<"PlayerStatisticsInMatch", 'Int'>
-    readonly rank_if_tie: FieldRef<"PlayerStatisticsInMatch", 'Int'>
     readonly createdAt: FieldRef<"PlayerStatisticsInMatch", 'DateTime'>
     readonly updatedAt: FieldRef<"PlayerStatisticsInMatch", 'DateTime'>
   }
@@ -18197,6 +17048,7 @@ export namespace Prisma {
     vacBanned: boolean | null
     vacBans: number | null
     csBan: boolean | null
+    cs_banned_since: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18210,6 +17062,7 @@ export namespace Prisma {
     vacBanned: boolean | null
     vacBans: number | null
     csBan: boolean | null
+    cs_banned_since: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -18223,6 +17076,7 @@ export namespace Prisma {
     vacBanned: number
     vacBans: number
     csBan: number
+    cs_banned_since: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -18250,6 +17104,7 @@ export namespace Prisma {
     vacBanned?: true
     vacBans?: true
     csBan?: true
+    cs_banned_since?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18263,6 +17118,7 @@ export namespace Prisma {
     vacBanned?: true
     vacBans?: true
     csBan?: true
+    cs_banned_since?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -18276,6 +17132,7 @@ export namespace Prisma {
     vacBanned?: true
     vacBans?: true
     csBan?: true
+    cs_banned_since?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -18376,6 +17233,7 @@ export namespace Prisma {
     vacBanned: boolean | null
     vacBans: number | null
     csBan: boolean
+    cs_banned_since: Date | null
     createdAt: Date
     updatedAt: Date
     _count: SteamUserBansCountAggregateOutputType | null
@@ -18408,6 +17266,7 @@ export namespace Prisma {
     vacBanned?: boolean
     vacBans?: boolean
     csBan?: boolean
+    cs_banned_since?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -18422,6 +17281,7 @@ export namespace Prisma {
     vacBanned?: boolean
     vacBans?: boolean
     csBan?: boolean
+    cs_banned_since?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -18436,6 +17296,7 @@ export namespace Prisma {
     vacBanned?: boolean
     vacBans?: boolean
     csBan?: boolean
+    cs_banned_since?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
@@ -18450,11 +17311,12 @@ export namespace Prisma {
     vacBanned?: boolean
     vacBans?: boolean
     csBan?: boolean
+    cs_banned_since?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SteamUserBansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "communityBanned" | "daysSinceLastBan" | "economyBan" | "gameBans" | "vacBanned" | "vacBans" | "csBan" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUserBans"]>
+  export type SteamUserBansOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "communityBanned" | "daysSinceLastBan" | "economyBan" | "gameBans" | "vacBanned" | "vacBans" | "csBan" | "cs_banned_since" | "createdAt" | "updatedAt", ExtArgs["result"]["steamUserBans"]>
   export type SteamUserBansInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
   }
@@ -18479,6 +17341,7 @@ export namespace Prisma {
       vacBanned: boolean | null
       vacBans: number | null
       csBan: boolean
+      cs_banned_since: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["steamUserBans"]>
@@ -18913,6 +17776,7 @@ export namespace Prisma {
     readonly vacBanned: FieldRef<"SteamUserBans", 'Boolean'>
     readonly vacBans: FieldRef<"SteamUserBans", 'Int'>
     readonly csBan: FieldRef<"SteamUserBans", 'Boolean'>
+    readonly cs_banned_since: FieldRef<"SteamUserBans", 'DateTime'>
     readonly createdAt: FieldRef<"SteamUserBans", 'DateTime'>
     readonly updatedAt: FieldRef<"SteamUserBans", 'DateTime'>
   }
@@ -25961,6 +24825,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: 'lastUpdateSteamInformation',
     viewers: 'viewers',
     userId: 'userId',
+    isGettedGeneralPlayerStatistics: 'isGettedGeneralPlayerStatistics',
     sharedCode: 'sharedCode',
     gameAuthenticationCode: 'gameAuthenticationCode',
     createdAt: 'createdAt',
@@ -25996,7 +24861,16 @@ export namespace Prisma {
 
   export const GeneralPlayerStatisticsScalarFieldEnum: {
     id: 'id',
-    userId: 'userId'
+    userId: 'userId',
+    wingman: 'wingman',
+    premier: 'premier',
+    faceit: 'faceit',
+    faceit_elo: 'faceit_elo',
+    TotalMatches: 'TotalMatches',
+    winrate: 'winrate',
+    inGameSinse: 'inGameSinse',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type GeneralPlayerStatisticsScalarFieldEnum = (typeof GeneralPlayerStatisticsScalarFieldEnum)[keyof typeof GeneralPlayerStatisticsScalarFieldEnum]
@@ -26005,28 +24879,13 @@ export namespace Prisma {
   export const MapRanksScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    rank: 'rank',
     playerId: 'playerId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type MapRanksScalarFieldEnum = (typeof MapRanksScalarFieldEnum)[keyof typeof MapRanksScalarFieldEnum]
-
-
-  export const MapStatsScalarFieldEnum: {
-    id: 'id',
-    total_matches: 'total_matches',
-    win_matches: 'win_matches',
-    ct_total_rounds: 'ct_total_rounds',
-    ct_win_rounds: 'ct_win_rounds',
-    t_total_rounds: 't_total_rounds',
-    t_win_rounds: 't_win_rounds',
-    mapId: 'mapId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type MapStatsScalarFieldEnum = (typeof MapStatsScalarFieldEnum)[keyof typeof MapStatsScalarFieldEnum]
 
 
   export const WeaponStatsScalarFieldEnum: {
@@ -26069,10 +24928,7 @@ export namespace Prisma {
     mvps: 'mvps',
     crosshair_code: 'crosshair_code',
     player_color: 'player_color',
-    rank_if_win: 'rank_if_win',
     rank: 'rank',
-    rank_if_loss: 'rank_if_loss',
-    rank_if_tie: 'rank_if_tie',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -26089,6 +24945,7 @@ export namespace Prisma {
     vacBanned: 'vacBanned',
     vacBans: 'vacBans',
     csBan: 'csBan',
+    cs_banned_since: 'cs_banned_since',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -26316,6 +25173,20 @@ export namespace Prisma {
    * Reference to a field of type 'MatchType[]'
    */
   export type ListEnumMatchTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatchType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -26668,6 +25539,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFilter<"SteamUser"> | Date | string
     viewers?: IntFilter<"SteamUser"> | number
     userId?: StringNullableFilter<"SteamUser"> | string | null
+    isGettedGeneralPlayerStatistics?: BoolFilter<"SteamUser"> | boolean
     sharedCode?: StringNullableFilter<"SteamUser"> | string | null
     gameAuthenticationCode?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
@@ -26696,6 +25568,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: SortOrder
     viewers?: SortOrder
     userId?: SortOrderInput | SortOrder
+    isGettedGeneralPlayerStatistics?: SortOrder
     sharedCode?: SortOrderInput | SortOrder
     gameAuthenticationCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -26727,6 +25600,7 @@ export namespace Prisma {
     countryCode?: StringNullableFilter<"SteamUser"> | string | null
     lastUpdateSteamInformation?: DateTimeFilter<"SteamUser"> | Date | string
     viewers?: IntFilter<"SteamUser"> | number
+    isGettedGeneralPlayerStatistics?: BoolFilter<"SteamUser"> | boolean
     sharedCode?: StringNullableFilter<"SteamUser"> | string | null
     gameAuthenticationCode?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
@@ -26755,6 +25629,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: SortOrder
     viewers?: SortOrder
     userId?: SortOrderInput | SortOrder
+    isGettedGeneralPlayerStatistics?: SortOrder
     sharedCode?: SortOrderInput | SortOrder
     gameAuthenticationCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -26784,6 +25659,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
     viewers?: IntWithAggregatesFilter<"SteamUser"> | number
     userId?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
+    isGettedGeneralPlayerStatistics?: BoolWithAggregatesFilter<"SteamUser"> | boolean
     sharedCode?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     gameAuthenticationCode?: StringNullableWithAggregatesFilter<"SteamUser"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
@@ -26916,6 +25792,15 @@ export namespace Prisma {
     NOT?: GeneralPlayerStatisticsWhereInput | GeneralPlayerStatisticsWhereInput[]
     id?: StringFilter<"GeneralPlayerStatistics"> | string
     userId?: StringFilter<"GeneralPlayerStatistics"> | string
+    wingman?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    premier?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    faceit?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    faceit_elo?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    TotalMatches?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    winrate?: DecimalNullableFilter<"GeneralPlayerStatistics"> | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: DateTimeNullableFilter<"GeneralPlayerStatistics"> | Date | string | null
+    createdAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
+    updatedAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
     MapRanks?: MapRanksListRelationFilter
     WeaponStats?: WeaponStatsListRelationFilter
@@ -26924,6 +25809,15 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
+    wingman?: SortOrderInput | SortOrder
+    premier?: SortOrderInput | SortOrder
+    faceit?: SortOrderInput | SortOrder
+    faceit_elo?: SortOrderInput | SortOrder
+    TotalMatches?: SortOrderInput | SortOrder
+    winrate?: SortOrderInput | SortOrder
+    inGameSinse?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     steam?: SteamUserOrderByWithRelationInput
     MapRanks?: MapRanksOrderByRelationAggregateInput
     WeaponStats?: WeaponStatsOrderByRelationAggregateInput
@@ -26935,6 +25829,15 @@ export namespace Prisma {
     AND?: GeneralPlayerStatisticsWhereInput | GeneralPlayerStatisticsWhereInput[]
     OR?: GeneralPlayerStatisticsWhereInput[]
     NOT?: GeneralPlayerStatisticsWhereInput | GeneralPlayerStatisticsWhereInput[]
+    wingman?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    premier?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    faceit?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    faceit_elo?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    TotalMatches?: IntNullableFilter<"GeneralPlayerStatistics"> | number | null
+    winrate?: DecimalNullableFilter<"GeneralPlayerStatistics"> | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: DateTimeNullableFilter<"GeneralPlayerStatistics"> | Date | string | null
+    createdAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
+    updatedAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
     MapRanks?: MapRanksListRelationFilter
     WeaponStats?: WeaponStatsListRelationFilter
@@ -26943,9 +25846,20 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
+    wingman?: SortOrderInput | SortOrder
+    premier?: SortOrderInput | SortOrder
+    faceit?: SortOrderInput | SortOrder
+    faceit_elo?: SortOrderInput | SortOrder
+    TotalMatches?: SortOrderInput | SortOrder
+    winrate?: SortOrderInput | SortOrder
+    inGameSinse?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: GeneralPlayerStatisticsCountOrderByAggregateInput
+    _avg?: GeneralPlayerStatisticsAvgOrderByAggregateInput
     _max?: GeneralPlayerStatisticsMaxOrderByAggregateInput
     _min?: GeneralPlayerStatisticsMinOrderByAggregateInput
+    _sum?: GeneralPlayerStatisticsSumOrderByAggregateInput
   }
 
   export type GeneralPlayerStatisticsScalarWhereWithAggregatesInput = {
@@ -26954,6 +25868,15 @@ export namespace Prisma {
     NOT?: GeneralPlayerStatisticsScalarWhereWithAggregatesInput | GeneralPlayerStatisticsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"GeneralPlayerStatistics"> | string
     userId?: StringWithAggregatesFilter<"GeneralPlayerStatistics"> | string
+    wingman?: IntNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | number | null
+    premier?: IntNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | number | null
+    faceit?: IntNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | number | null
+    faceit_elo?: IntNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | number | null
+    TotalMatches?: IntNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | number | null
+    winrate?: DecimalNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: DateTimeNullableWithAggregatesFilter<"GeneralPlayerStatistics"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"GeneralPlayerStatistics"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"GeneralPlayerStatistics"> | Date | string
   }
 
   export type MapRanksWhereInput = {
@@ -26962,20 +25885,20 @@ export namespace Prisma {
     NOT?: MapRanksWhereInput | MapRanksWhereInput[]
     id?: StringFilter<"MapRanks"> | string
     name?: StringFilter<"MapRanks"> | string
+    rank?: IntFilter<"MapRanks"> | number
     playerId?: StringFilter<"MapRanks"> | string
     createdAt?: DateTimeFilter<"MapRanks"> | Date | string
     updatedAt?: DateTimeFilter<"MapRanks"> | Date | string
-    mapStat?: MapStatsListRelationFilter
     generalPlayerStatistics?: XOR<GeneralPlayerStatisticsScalarRelationFilter, GeneralPlayerStatisticsWhereInput>
   }
 
   export type MapRanksOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    rank?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    mapStat?: MapStatsOrderByRelationAggregateInput
     generalPlayerStatistics?: GeneralPlayerStatisticsOrderByWithRelationInput
   }
 
@@ -26985,22 +25908,25 @@ export namespace Prisma {
     OR?: MapRanksWhereInput[]
     NOT?: MapRanksWhereInput | MapRanksWhereInput[]
     name?: StringFilter<"MapRanks"> | string
+    rank?: IntFilter<"MapRanks"> | number
     playerId?: StringFilter<"MapRanks"> | string
     createdAt?: DateTimeFilter<"MapRanks"> | Date | string
     updatedAt?: DateTimeFilter<"MapRanks"> | Date | string
-    mapStat?: MapStatsListRelationFilter
     generalPlayerStatistics?: XOR<GeneralPlayerStatisticsScalarRelationFilter, GeneralPlayerStatisticsWhereInput>
   }, "id" | "id">
 
   export type MapRanksOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    rank?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MapRanksCountOrderByAggregateInput
+    _avg?: MapRanksAvgOrderByAggregateInput
     _max?: MapRanksMaxOrderByAggregateInput
     _min?: MapRanksMinOrderByAggregateInput
+    _sum?: MapRanksSumOrderByAggregateInput
   }
 
   export type MapRanksScalarWhereWithAggregatesInput = {
@@ -27009,91 +25935,10 @@ export namespace Prisma {
     NOT?: MapRanksScalarWhereWithAggregatesInput | MapRanksScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MapRanks"> | string
     name?: StringWithAggregatesFilter<"MapRanks"> | string
+    rank?: IntWithAggregatesFilter<"MapRanks"> | number
     playerId?: StringWithAggregatesFilter<"MapRanks"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MapRanks"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MapRanks"> | Date | string
-  }
-
-  export type MapStatsWhereInput = {
-    AND?: MapStatsWhereInput | MapStatsWhereInput[]
-    OR?: MapStatsWhereInput[]
-    NOT?: MapStatsWhereInput | MapStatsWhereInput[]
-    id?: StringFilter<"MapStats"> | string
-    total_matches?: IntFilter<"MapStats"> | number
-    win_matches?: IntFilter<"MapStats"> | number
-    ct_total_rounds?: IntFilter<"MapStats"> | number
-    ct_win_rounds?: IntFilter<"MapStats"> | number
-    t_total_rounds?: IntFilter<"MapStats"> | number
-    t_win_rounds?: IntFilter<"MapStats"> | number
-    mapId?: StringFilter<"MapStats"> | string
-    createdAt?: DateTimeFilter<"MapStats"> | Date | string
-    updatedAt?: DateTimeFilter<"MapStats"> | Date | string
-    MapRanks?: XOR<MapRanksScalarRelationFilter, MapRanksWhereInput>
-  }
-
-  export type MapStatsOrderByWithRelationInput = {
-    id?: SortOrder
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-    mapId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    MapRanks?: MapRanksOrderByWithRelationInput
-  }
-
-  export type MapStatsWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: MapStatsWhereInput | MapStatsWhereInput[]
-    OR?: MapStatsWhereInput[]
-    NOT?: MapStatsWhereInput | MapStatsWhereInput[]
-    total_matches?: IntFilter<"MapStats"> | number
-    win_matches?: IntFilter<"MapStats"> | number
-    ct_total_rounds?: IntFilter<"MapStats"> | number
-    ct_win_rounds?: IntFilter<"MapStats"> | number
-    t_total_rounds?: IntFilter<"MapStats"> | number
-    t_win_rounds?: IntFilter<"MapStats"> | number
-    mapId?: StringFilter<"MapStats"> | string
-    createdAt?: DateTimeFilter<"MapStats"> | Date | string
-    updatedAt?: DateTimeFilter<"MapStats"> | Date | string
-    MapRanks?: XOR<MapRanksScalarRelationFilter, MapRanksWhereInput>
-  }, "id" | "id">
-
-  export type MapStatsOrderByWithAggregationInput = {
-    id?: SortOrder
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-    mapId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: MapStatsCountOrderByAggregateInput
-    _avg?: MapStatsAvgOrderByAggregateInput
-    _max?: MapStatsMaxOrderByAggregateInput
-    _min?: MapStatsMinOrderByAggregateInput
-    _sum?: MapStatsSumOrderByAggregateInput
-  }
-
-  export type MapStatsScalarWhereWithAggregatesInput = {
-    AND?: MapStatsScalarWhereWithAggregatesInput | MapStatsScalarWhereWithAggregatesInput[]
-    OR?: MapStatsScalarWhereWithAggregatesInput[]
-    NOT?: MapStatsScalarWhereWithAggregatesInput | MapStatsScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"MapStats"> | string
-    total_matches?: IntWithAggregatesFilter<"MapStats"> | number
-    win_matches?: IntWithAggregatesFilter<"MapStats"> | number
-    ct_total_rounds?: IntWithAggregatesFilter<"MapStats"> | number
-    ct_win_rounds?: IntWithAggregatesFilter<"MapStats"> | number
-    t_total_rounds?: IntWithAggregatesFilter<"MapStats"> | number
-    t_win_rounds?: IntWithAggregatesFilter<"MapStats"> | number
-    mapId?: StringWithAggregatesFilter<"MapStats"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"MapStats"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"MapStats"> | Date | string
   }
 
   export type WeaponStatsWhereInput = {
@@ -27234,10 +26079,7 @@ export namespace Prisma {
     mvps?: IntFilter<"PlayerStatisticsInMatch"> | number
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
-    rank_if_win?: IntFilter<"PlayerStatisticsInMatch"> | number
     rank?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_loss?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_tie?: IntFilter<"PlayerStatisticsInMatch"> | number
     createdAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
     updatedAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
     steamUser?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -27262,10 +26104,7 @@ export namespace Prisma {
     mvps?: SortOrder
     crosshair_code?: SortOrder
     player_color?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     steamUser?: SteamUserOrderByWithRelationInput
@@ -27294,10 +26133,7 @@ export namespace Prisma {
     mvps?: IntFilter<"PlayerStatisticsInMatch"> | number
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
-    rank_if_win?: IntFilter<"PlayerStatisticsInMatch"> | number
     rank?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_loss?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_tie?: IntFilter<"PlayerStatisticsInMatch"> | number
     createdAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
     updatedAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
     steamUser?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -27322,10 +26158,7 @@ export namespace Prisma {
     mvps?: SortOrder
     crosshair_code?: SortOrder
     player_color?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PlayerStatisticsInMatchCountOrderByAggregateInput
@@ -27356,10 +26189,7 @@ export namespace Prisma {
     mvps?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
     crosshair_code?: StringWithAggregatesFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringWithAggregatesFilter<"PlayerStatisticsInMatch"> | string
-    rank_if_win?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
     rank?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_loss?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_tie?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
     createdAt?: DateTimeWithAggregatesFilter<"PlayerStatisticsInMatch"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PlayerStatisticsInMatch"> | Date | string
   }
@@ -27376,6 +26206,7 @@ export namespace Prisma {
     vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
     csBan?: BoolFilter<"SteamUserBans"> | boolean
+    cs_banned_since?: DateTimeNullableFilter<"SteamUserBans"> | Date | string | null
     createdAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -27390,6 +26221,7 @@ export namespace Prisma {
     vacBanned?: SortOrderInput | SortOrder
     vacBans?: SortOrderInput | SortOrder
     csBan?: SortOrder
+    cs_banned_since?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     steam?: SteamUserOrderByWithRelationInput
@@ -27407,6 +26239,7 @@ export namespace Prisma {
     vacBanned?: BoolNullableFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableFilter<"SteamUserBans"> | number | null
     csBan?: BoolFilter<"SteamUserBans"> | boolean
+    cs_banned_since?: DateTimeNullableFilter<"SteamUserBans"> | Date | string | null
     createdAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeFilter<"SteamUserBans"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
@@ -27421,6 +26254,7 @@ export namespace Prisma {
     vacBanned?: SortOrderInput | SortOrder
     vacBans?: SortOrderInput | SortOrder
     csBan?: SortOrder
+    cs_banned_since?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SteamUserBansCountOrderByAggregateInput
@@ -27442,6 +26276,7 @@ export namespace Prisma {
     vacBanned?: BoolNullableWithAggregatesFilter<"SteamUserBans"> | boolean | null
     vacBans?: IntNullableWithAggregatesFilter<"SteamUserBans"> | number | null
     csBan?: BoolWithAggregatesFilter<"SteamUserBans"> | boolean
+    cs_banned_since?: DateTimeNullableWithAggregatesFilter<"SteamUserBans"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
   }
@@ -28206,6 +27041,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -28234,6 +27070,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -28260,6 +27097,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28288,6 +27126,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28315,6 +27154,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -28335,6 +27175,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28356,6 +27197,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28498,6 +27340,15 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsCreateInput = {
     id?: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
     MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
     WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
@@ -28506,12 +27357,30 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedCreateInput = {
     id?: string
     userId: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
     WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
     MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
     WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
@@ -28520,6 +27389,15 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
     WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
@@ -28527,56 +27405,84 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsCreateManyInput = {
     id?: string
     userId: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type GeneralPlayerStatisticsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GeneralPlayerStatisticsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MapRanksCreateInput = {
     id?: string
     name: string
+    rank: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    mapStat?: MapStatsCreateNestedManyWithoutMapRanksInput
     generalPlayerStatistics: GeneralPlayerStatisticsCreateNestedOneWithoutMapRanksInput
   }
 
   export type MapRanksUncheckedCreateInput = {
     id?: string
     name: string
+    rank: number
     playerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    mapStat?: MapStatsUncheckedCreateNestedManyWithoutMapRanksInput
   }
 
   export type MapRanksUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mapStat?: MapStatsUpdateManyWithoutMapRanksNestedInput
     generalPlayerStatistics?: GeneralPlayerStatisticsUpdateOneRequiredWithoutMapRanksNestedInput
   }
 
   export type MapRanksUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     playerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mapStat?: MapStatsUncheckedUpdateManyWithoutMapRanksNestedInput
   }
 
   export type MapRanksCreateManyInput = {
     id?: string
     name: string
+    rank: number
     playerId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28585,6 +27491,7 @@ export namespace Prisma {
   export type MapRanksUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28592,97 +27499,8 @@ export namespace Prisma {
   export type MapRanksUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     playerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MapStatsCreateInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    MapRanks: MapRanksCreateNestedOneWithoutMapStatInput
-  }
-
-  export type MapStatsUncheckedCreateInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    mapId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapStatsUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    MapRanks?: MapRanksUpdateOneRequiredWithoutMapStatNestedInput
-  }
-
-  export type MapStatsUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    mapId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MapStatsCreateManyInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    mapId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapStatsUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MapStatsUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    mapId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28817,10 +27635,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
     steamUser: SteamUserCreateNestedOneWithoutPlayerStatisticsInMatchInput
@@ -28845,10 +27660,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28869,10 +27681,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steamUser?: SteamUserUpdateOneRequiredWithoutPlayerStatisticsInMatchNestedInput
@@ -28897,10 +27706,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28923,10 +27729,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28947,10 +27750,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28973,10 +27773,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28989,6 +27786,7 @@ export namespace Prisma {
     vacBanned?: boolean | null
     vacBans?: number | null
     csBan?: boolean
+    cs_banned_since?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutSteamUserBansInput
@@ -29003,6 +27801,7 @@ export namespace Prisma {
     vacBanned?: boolean | null
     vacBans?: number | null
     csBan?: boolean
+    cs_banned_since?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29015,6 +27814,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput
@@ -29029,6 +27829,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29042,6 +27843,7 @@ export namespace Prisma {
     vacBanned?: boolean | null
     vacBans?: number | null
     csBan?: boolean
+    cs_banned_since?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -29054,6 +27856,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29067,6 +27870,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -29955,6 +28759,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: SortOrder
     viewers?: SortOrder
     userId?: SortOrder
+    isGettedGeneralPlayerStatistics?: SortOrder
     sharedCode?: SortOrder
     gameAuthenticationCode?: SortOrder
     createdAt?: SortOrder
@@ -29980,6 +28785,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: SortOrder
     viewers?: SortOrder
     userId?: SortOrder
+    isGettedGeneralPlayerStatistics?: SortOrder
     sharedCode?: SortOrder
     gameAuthenticationCode?: SortOrder
     createdAt?: SortOrder
@@ -30001,6 +28807,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: SortOrder
     viewers?: SortOrder
     userId?: SortOrder
+    isGettedGeneralPlayerStatistics?: SortOrder
     sharedCode?: SortOrder
     gameAuthenticationCode?: SortOrder
     createdAt?: SortOrder
@@ -30108,6 +28915,28 @@ export namespace Prisma {
     _max?: NestedEnumMatchTypeFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type SteamUserScalarRelationFilter = {
     is?: SteamUserWhereInput
     isNot?: SteamUserWhereInput
@@ -30136,22 +28965,93 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    wingman?: SortOrder
+    premier?: SortOrder
+    faceit?: SortOrder
+    faceit_elo?: SortOrder
+    TotalMatches?: SortOrder
+    winrate?: SortOrder
+    inGameSinse?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GeneralPlayerStatisticsAvgOrderByAggregateInput = {
+    wingman?: SortOrder
+    premier?: SortOrder
+    faceit?: SortOrder
+    faceit_elo?: SortOrder
+    TotalMatches?: SortOrder
+    winrate?: SortOrder
   }
 
   export type GeneralPlayerStatisticsMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    wingman?: SortOrder
+    premier?: SortOrder
+    faceit?: SortOrder
+    faceit_elo?: SortOrder
+    TotalMatches?: SortOrder
+    winrate?: SortOrder
+    inGameSinse?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type GeneralPlayerStatisticsMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+    wingman?: SortOrder
+    premier?: SortOrder
+    faceit?: SortOrder
+    faceit_elo?: SortOrder
+    TotalMatches?: SortOrder
+    winrate?: SortOrder
+    inGameSinse?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type MapStatsListRelationFilter = {
-    every?: MapStatsWhereInput
-    some?: MapStatsWhereInput
-    none?: MapStatsWhereInput
+  export type GeneralPlayerStatisticsSumOrderByAggregateInput = {
+    wingman?: SortOrder
+    premier?: SortOrder
+    faceit?: SortOrder
+    faceit_elo?: SortOrder
+    TotalMatches?: SortOrder
+    winrate?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type GeneralPlayerStatisticsScalarRelationFilter = {
@@ -30159,21 +29059,23 @@ export namespace Prisma {
     isNot?: GeneralPlayerStatisticsWhereInput
   }
 
-  export type MapStatsOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type MapRanksCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    rank?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
+  export type MapRanksAvgOrderByAggregateInput = {
+    rank?: SortOrder
+  }
+
   export type MapRanksMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    rank?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -30182,71 +29084,14 @@ export namespace Prisma {
   export type MapRanksMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    rank?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type MapRanksScalarRelationFilter = {
-    is?: MapRanksWhereInput
-    isNot?: MapRanksWhereInput
-  }
-
-  export type MapStatsCountOrderByAggregateInput = {
-    id?: SortOrder
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-    mapId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type MapStatsAvgOrderByAggregateInput = {
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-  }
-
-  export type MapStatsMaxOrderByAggregateInput = {
-    id?: SortOrder
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-    mapId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type MapStatsMinOrderByAggregateInput = {
-    id?: SortOrder
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
-    mapId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type MapStatsSumOrderByAggregateInput = {
-    total_matches?: SortOrder
-    win_matches?: SortOrder
-    ct_total_rounds?: SortOrder
-    ct_win_rounds?: SortOrder
-    t_total_rounds?: SortOrder
-    t_win_rounds?: SortOrder
+  export type MapRanksSumOrderByAggregateInput = {
+    rank?: SortOrder
   }
 
   export type HitListRelationFilter = {
@@ -30360,10 +29205,7 @@ export namespace Prisma {
     mvps?: SortOrder
     crosshair_code?: SortOrder
     player_color?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30381,10 +29223,7 @@ export namespace Prisma {
     objective_total?: SortOrder
     utility_damage_total?: SortOrder
     mvps?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
   }
 
   export type PlayerStatisticsInMatchMaxOrderByAggregateInput = {
@@ -30405,10 +29244,7 @@ export namespace Prisma {
     mvps?: SortOrder
     crosshair_code?: SortOrder
     player_color?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30431,10 +29267,7 @@ export namespace Prisma {
     mvps?: SortOrder
     crosshair_code?: SortOrder
     player_color?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30452,26 +29285,12 @@ export namespace Prisma {
     objective_total?: SortOrder
     utility_damage_total?: SortOrder
     mvps?: SortOrder
-    rank_if_win?: SortOrder
     rank?: SortOrder
-    rank_if_loss?: SortOrder
-    rank_if_tie?: SortOrder
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type SteamUserBansCountOrderByAggregateInput = {
@@ -30483,6 +29302,7 @@ export namespace Prisma {
     vacBanned?: SortOrder
     vacBans?: SortOrder
     csBan?: SortOrder
+    cs_banned_since?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30502,6 +29322,7 @@ export namespace Prisma {
     vacBanned?: SortOrder
     vacBans?: SortOrder
     csBan?: SortOrder
+    cs_banned_since?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30515,6 +29336,7 @@ export namespace Prisma {
     vacBanned?: SortOrder
     vacBans?: SortOrder
     csBan?: SortOrder
+    cs_banned_since?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -30531,22 +29353,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type LinksInProfileCountOrderByAggregateInput = {
@@ -31557,6 +30363,22 @@ export namespace Prisma {
     connect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
   export type SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput = {
     create?: XOR<SteamUserCreateWithoutGeneralPlayerStatisticsInput, SteamUserUncheckedCreateWithoutGeneralPlayerStatisticsInput>
     connectOrCreate?: SteamUserCreateOrConnectWithoutGeneralPlayerStatisticsInput
@@ -31621,38 +30443,10 @@ export namespace Prisma {
     deleteMany?: WeaponStatsScalarWhereInput | WeaponStatsScalarWhereInput[]
   }
 
-  export type MapStatsCreateNestedManyWithoutMapRanksInput = {
-    create?: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput> | MapStatsCreateWithoutMapRanksInput[] | MapStatsUncheckedCreateWithoutMapRanksInput[]
-    connectOrCreate?: MapStatsCreateOrConnectWithoutMapRanksInput | MapStatsCreateOrConnectWithoutMapRanksInput[]
-    createMany?: MapStatsCreateManyMapRanksInputEnvelope
-    connect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-  }
-
   export type GeneralPlayerStatisticsCreateNestedOneWithoutMapRanksInput = {
     create?: XOR<GeneralPlayerStatisticsCreateWithoutMapRanksInput, GeneralPlayerStatisticsUncheckedCreateWithoutMapRanksInput>
     connectOrCreate?: GeneralPlayerStatisticsCreateOrConnectWithoutMapRanksInput
     connect?: GeneralPlayerStatisticsWhereUniqueInput
-  }
-
-  export type MapStatsUncheckedCreateNestedManyWithoutMapRanksInput = {
-    create?: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput> | MapStatsCreateWithoutMapRanksInput[] | MapStatsUncheckedCreateWithoutMapRanksInput[]
-    connectOrCreate?: MapStatsCreateOrConnectWithoutMapRanksInput | MapStatsCreateOrConnectWithoutMapRanksInput[]
-    createMany?: MapStatsCreateManyMapRanksInputEnvelope
-    connect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-  }
-
-  export type MapStatsUpdateManyWithoutMapRanksNestedInput = {
-    create?: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput> | MapStatsCreateWithoutMapRanksInput[] | MapStatsUncheckedCreateWithoutMapRanksInput[]
-    connectOrCreate?: MapStatsCreateOrConnectWithoutMapRanksInput | MapStatsCreateOrConnectWithoutMapRanksInput[]
-    upsert?: MapStatsUpsertWithWhereUniqueWithoutMapRanksInput | MapStatsUpsertWithWhereUniqueWithoutMapRanksInput[]
-    createMany?: MapStatsCreateManyMapRanksInputEnvelope
-    set?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    disconnect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    delete?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    connect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    update?: MapStatsUpdateWithWhereUniqueWithoutMapRanksInput | MapStatsUpdateWithWhereUniqueWithoutMapRanksInput[]
-    updateMany?: MapStatsUpdateManyWithWhereWithoutMapRanksInput | MapStatsUpdateManyWithWhereWithoutMapRanksInput[]
-    deleteMany?: MapStatsScalarWhereInput | MapStatsScalarWhereInput[]
   }
 
   export type GeneralPlayerStatisticsUpdateOneRequiredWithoutMapRanksNestedInput = {
@@ -31661,34 +30455,6 @@ export namespace Prisma {
     upsert?: GeneralPlayerStatisticsUpsertWithoutMapRanksInput
     connect?: GeneralPlayerStatisticsWhereUniqueInput
     update?: XOR<XOR<GeneralPlayerStatisticsUpdateToOneWithWhereWithoutMapRanksInput, GeneralPlayerStatisticsUpdateWithoutMapRanksInput>, GeneralPlayerStatisticsUncheckedUpdateWithoutMapRanksInput>
-  }
-
-  export type MapStatsUncheckedUpdateManyWithoutMapRanksNestedInput = {
-    create?: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput> | MapStatsCreateWithoutMapRanksInput[] | MapStatsUncheckedCreateWithoutMapRanksInput[]
-    connectOrCreate?: MapStatsCreateOrConnectWithoutMapRanksInput | MapStatsCreateOrConnectWithoutMapRanksInput[]
-    upsert?: MapStatsUpsertWithWhereUniqueWithoutMapRanksInput | MapStatsUpsertWithWhereUniqueWithoutMapRanksInput[]
-    createMany?: MapStatsCreateManyMapRanksInputEnvelope
-    set?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    disconnect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    delete?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    connect?: MapStatsWhereUniqueInput | MapStatsWhereUniqueInput[]
-    update?: MapStatsUpdateWithWhereUniqueWithoutMapRanksInput | MapStatsUpdateWithWhereUniqueWithoutMapRanksInput[]
-    updateMany?: MapStatsUpdateManyWithWhereWithoutMapRanksInput | MapStatsUpdateManyWithWhereWithoutMapRanksInput[]
-    deleteMany?: MapStatsScalarWhereInput | MapStatsScalarWhereInput[]
-  }
-
-  export type MapRanksCreateNestedOneWithoutMapStatInput = {
-    create?: XOR<MapRanksCreateWithoutMapStatInput, MapRanksUncheckedCreateWithoutMapStatInput>
-    connectOrCreate?: MapRanksCreateOrConnectWithoutMapStatInput
-    connect?: MapRanksWhereUniqueInput
-  }
-
-  export type MapRanksUpdateOneRequiredWithoutMapStatNestedInput = {
-    create?: XOR<MapRanksCreateWithoutMapStatInput, MapRanksUncheckedCreateWithoutMapStatInput>
-    connectOrCreate?: MapRanksCreateOrConnectWithoutMapStatInput
-    upsert?: MapRanksUpsertWithoutMapStatInput
-    connect?: MapRanksWhereUniqueInput
-    update?: XOR<XOR<MapRanksUpdateToOneWithWhereWithoutMapStatInput, MapRanksUpdateWithoutMapStatInput>, MapRanksUncheckedUpdateWithoutMapStatInput>
   }
 
   export type GeneralPlayerStatisticsCreateNestedOneWithoutWeaponStatsInput = {
@@ -31797,14 +30563,6 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type SteamUserUpdateOneRequiredWithoutSteamUserBansNestedInput = {
@@ -32293,17 +31051,15 @@ export namespace Prisma {
     _max?: NestedEnumMatchTypeFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -32331,6 +31087,35 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type TokenCreateWithoutUserInput = {
@@ -32460,6 +31245,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -32486,6 +31272,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -32760,6 +31547,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32786,6 +31574,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -33281,6 +32070,7 @@ export namespace Prisma {
     vacBanned?: boolean | null
     vacBans?: number | null
     csBan?: boolean
+    cs_banned_since?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33293,6 +32083,7 @@ export namespace Prisma {
     vacBanned?: boolean | null
     vacBans?: number | null
     csBan?: boolean
+    cs_banned_since?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33413,10 +32204,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
     match: MatchCreateNestedOneWithoutPlayersStatisticInput
@@ -33439,10 +32227,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33459,12 +32244,30 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsCreateWithoutSteamInput = {
     id?: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
     WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUncheckedCreateWithoutSteamInput = {
     id?: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
     WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
@@ -33548,6 +32351,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33560,6 +32364,7 @@ export namespace Prisma {
     vacBanned?: NullableBoolFieldUpdateOperationsInput | boolean | null
     vacBans?: NullableIntFieldUpdateOperationsInput | number | null
     csBan?: BoolFieldUpdateOperationsInput | boolean
+    cs_banned_since?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -33666,10 +32471,7 @@ export namespace Prisma {
     mvps?: IntFilter<"PlayerStatisticsInMatch"> | number
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
-    rank_if_win?: IntFilter<"PlayerStatisticsInMatch"> | number
     rank?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_loss?: IntFilter<"PlayerStatisticsInMatch"> | number
-    rank_if_tie?: IntFilter<"PlayerStatisticsInMatch"> | number
     createdAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
     updatedAt?: DateTimeFilter<"PlayerStatisticsInMatch"> | Date | string
   }
@@ -33687,12 +32489,30 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsUpdateWithoutSteamInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
     WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type GeneralPlayerStatisticsUncheckedUpdateWithoutSteamInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
     WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
@@ -33711,6 +32531,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -33738,6 +32559,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -33770,10 +32592,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
     steamUser: SteamUserCreateNestedOneWithoutPlayerStatisticsInMatchInput
@@ -33796,10 +32615,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -33848,6 +32664,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFilter<"SteamUser"> | Date | string
     viewers?: IntFilter<"SteamUser"> | number
     userId?: StringNullableFilter<"SteamUser"> | string | null
+    isGettedGeneralPlayerStatistics?: BoolFilter<"SteamUser"> | boolean
     sharedCode?: StringNullableFilter<"SteamUser"> | string | null
     gameAuthenticationCode?: StringNullableFilter<"SteamUser"> | string | null
     createdAt?: DateTimeFilter<"SteamUser"> | Date | string
@@ -33884,6 +32701,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -33911,6 +32729,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -33930,17 +32749,17 @@ export namespace Prisma {
   export type MapRanksCreateWithoutGeneralPlayerStatisticsInput = {
     id?: string
     name: string
+    rank: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    mapStat?: MapStatsCreateNestedManyWithoutMapRanksInput
   }
 
   export type MapRanksUncheckedCreateWithoutGeneralPlayerStatisticsInput = {
     id?: string
     name: string
+    rank: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    mapStat?: MapStatsUncheckedCreateNestedManyWithoutMapRanksInput
   }
 
   export type MapRanksCreateOrConnectWithoutGeneralPlayerStatisticsInput = {
@@ -34002,6 +32821,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34029,6 +32849,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34062,6 +32883,7 @@ export namespace Prisma {
     NOT?: MapRanksScalarWhereInput | MapRanksScalarWhereInput[]
     id?: StringFilter<"MapRanks"> | string
     name?: StringFilter<"MapRanks"> | string
+    rank?: IntFilter<"MapRanks"> | number
     playerId?: StringFilter<"MapRanks"> | string
     createdAt?: DateTimeFilter<"MapRanks"> | Date | string
     updatedAt?: DateTimeFilter<"MapRanks"> | Date | string
@@ -34093,42 +32915,17 @@ export namespace Prisma {
     userId?: StringFilter<"WeaponStats"> | string
   }
 
-  export type MapStatsCreateWithoutMapRanksInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapStatsUncheckedCreateWithoutMapRanksInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapStatsCreateOrConnectWithoutMapRanksInput = {
-    where: MapStatsWhereUniqueInput
-    create: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput>
-  }
-
-  export type MapStatsCreateManyMapRanksInputEnvelope = {
-    data: MapStatsCreateManyMapRanksInput | MapStatsCreateManyMapRanksInput[]
-    skipDuplicates?: boolean
-  }
-
   export type GeneralPlayerStatisticsCreateWithoutMapRanksInput = {
     id?: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
     WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
@@ -34136,44 +32933,21 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedCreateWithoutMapRanksInput = {
     id?: string
     userId: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsCreateOrConnectWithoutMapRanksInput = {
     where: GeneralPlayerStatisticsWhereUniqueInput
     create: XOR<GeneralPlayerStatisticsCreateWithoutMapRanksInput, GeneralPlayerStatisticsUncheckedCreateWithoutMapRanksInput>
-  }
-
-  export type MapStatsUpsertWithWhereUniqueWithoutMapRanksInput = {
-    where: MapStatsWhereUniqueInput
-    update: XOR<MapStatsUpdateWithoutMapRanksInput, MapStatsUncheckedUpdateWithoutMapRanksInput>
-    create: XOR<MapStatsCreateWithoutMapRanksInput, MapStatsUncheckedCreateWithoutMapRanksInput>
-  }
-
-  export type MapStatsUpdateWithWhereUniqueWithoutMapRanksInput = {
-    where: MapStatsWhereUniqueInput
-    data: XOR<MapStatsUpdateWithoutMapRanksInput, MapStatsUncheckedUpdateWithoutMapRanksInput>
-  }
-
-  export type MapStatsUpdateManyWithWhereWithoutMapRanksInput = {
-    where: MapStatsScalarWhereInput
-    data: XOR<MapStatsUpdateManyMutationInput, MapStatsUncheckedUpdateManyWithoutMapRanksInput>
-  }
-
-  export type MapStatsScalarWhereInput = {
-    AND?: MapStatsScalarWhereInput | MapStatsScalarWhereInput[]
-    OR?: MapStatsScalarWhereInput[]
-    NOT?: MapStatsScalarWhereInput | MapStatsScalarWhereInput[]
-    id?: StringFilter<"MapStats"> | string
-    total_matches?: IntFilter<"MapStats"> | number
-    win_matches?: IntFilter<"MapStats"> | number
-    ct_total_rounds?: IntFilter<"MapStats"> | number
-    ct_win_rounds?: IntFilter<"MapStats"> | number
-    t_total_rounds?: IntFilter<"MapStats"> | number
-    t_win_rounds?: IntFilter<"MapStats"> | number
-    mapId?: StringFilter<"MapStats"> | string
-    createdAt?: DateTimeFilter<"MapStats"> | Date | string
-    updatedAt?: DateTimeFilter<"MapStats"> | Date | string
   }
 
   export type GeneralPlayerStatisticsUpsertWithoutMapRanksInput = {
@@ -34189,6 +32963,15 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsUpdateWithoutMapRanksInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
     WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
@@ -34196,59 +32979,29 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedUpdateWithoutMapRanksInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
-  }
-
-  export type MapRanksCreateWithoutMapStatInput = {
-    id?: string
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    generalPlayerStatistics: GeneralPlayerStatisticsCreateNestedOneWithoutMapRanksInput
-  }
-
-  export type MapRanksUncheckedCreateWithoutMapStatInput = {
-    id?: string
-    name: string
-    playerId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapRanksCreateOrConnectWithoutMapStatInput = {
-    where: MapRanksWhereUniqueInput
-    create: XOR<MapRanksCreateWithoutMapStatInput, MapRanksUncheckedCreateWithoutMapStatInput>
-  }
-
-  export type MapRanksUpsertWithoutMapStatInput = {
-    update: XOR<MapRanksUpdateWithoutMapStatInput, MapRanksUncheckedUpdateWithoutMapStatInput>
-    create: XOR<MapRanksCreateWithoutMapStatInput, MapRanksUncheckedCreateWithoutMapStatInput>
-    where?: MapRanksWhereInput
-  }
-
-  export type MapRanksUpdateToOneWithWhereWithoutMapStatInput = {
-    where?: MapRanksWhereInput
-    data: XOR<MapRanksUpdateWithoutMapStatInput, MapRanksUncheckedUpdateWithoutMapStatInput>
-  }
-
-  export type MapRanksUpdateWithoutMapStatInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    generalPlayerStatistics?: GeneralPlayerStatisticsUpdateOneRequiredWithoutMapRanksNestedInput
-  }
-
-  export type MapRanksUncheckedUpdateWithoutMapStatInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    playerId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GeneralPlayerStatisticsCreateWithoutWeaponStatsInput = {
     id?: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
     MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
@@ -34256,6 +33009,15 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput = {
     id?: string
     userId: string
+    wingman?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    winrate?: Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
@@ -34303,6 +33065,15 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsUpdateWithoutWeaponStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
     MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
@@ -34310,6 +33081,15 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsUncheckedUpdateWithoutWeaponStatsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    winrate?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
@@ -34399,6 +33179,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -34426,6 +33207,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -34502,6 +33284,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34529,6 +33312,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34595,6 +33379,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -34622,6 +33407,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -34663,6 +33449,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34690,6 +33477,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34892,6 +33680,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -34919,6 +33708,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -35042,6 +33832,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35069,6 +33860,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35299,6 +34091,7 @@ export namespace Prisma {
     countryCode?: string | null
     lastUpdateSteamInformation: Date | string
     viewers?: number
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -35326,6 +34119,7 @@ export namespace Prisma {
     lastUpdateSteamInformation: Date | string
     viewers?: number
     userId?: string | null
+    isGettedGeneralPlayerStatistics?: boolean
     sharedCode?: string | null
     gameAuthenticationCode?: string | null
     createdAt?: Date | string
@@ -35450,6 +34244,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35477,6 +34272,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -35959,10 +34755,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36085,10 +34878,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     match?: MatchUpdateOneRequiredWithoutPlayersStatisticNestedInput
@@ -36111,10 +34901,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36136,10 +34923,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36161,10 +34945,7 @@ export namespace Prisma {
     mvps: number
     crosshair_code: string
     player_color: string
-    rank_if_win: number
     rank: number
-    rank_if_loss: number
-    rank_if_tie: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36183,6 +34964,7 @@ export namespace Prisma {
     countryCode?: NullableStringFieldUpdateOperationsInput | string | null
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36210,6 +34992,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36236,6 +35019,7 @@ export namespace Prisma {
     lastUpdateSteamInformation?: DateTimeFieldUpdateOperationsInput | Date | string
     viewers?: IntFieldUpdateOperationsInput | number
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGettedGeneralPlayerStatistics?: BoolFieldUpdateOperationsInput | boolean
     sharedCode?: NullableStringFieldUpdateOperationsInput | string | null
     gameAuthenticationCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36258,10 +35042,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steamUser?: SteamUserUpdateOneRequiredWithoutPlayerStatisticsInMatchNestedInput
@@ -36284,10 +35065,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36309,10 +35087,7 @@ export namespace Prisma {
     mvps?: IntFieldUpdateOperationsInput | number
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
-    rank_if_win?: IntFieldUpdateOperationsInput | number
     rank?: IntFieldUpdateOperationsInput | number
-    rank_if_loss?: IntFieldUpdateOperationsInput | number
-    rank_if_tie?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36320,6 +35095,7 @@ export namespace Prisma {
   export type MapRanksCreateManyGeneralPlayerStatisticsInput = {
     id?: string
     name: string
+    rank: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -36333,22 +35109,23 @@ export namespace Prisma {
   export type MapRanksUpdateWithoutGeneralPlayerStatisticsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mapStat?: MapStatsUpdateManyWithoutMapRanksNestedInput
   }
 
   export type MapRanksUncheckedUpdateWithoutGeneralPlayerStatisticsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    mapStat?: MapStatsUncheckedUpdateManyWithoutMapRanksNestedInput
   }
 
   export type MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36371,54 +35148,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fire?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type MapStatsCreateManyMapRanksInput = {
-    id?: string
-    total_matches: number
-    win_matches: number
-    ct_total_rounds: number
-    ct_win_rounds: number
-    t_total_rounds: number
-    t_win_rounds: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MapStatsUpdateWithoutMapRanksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MapStatsUncheckedUpdateWithoutMapRanksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MapStatsUncheckedUpdateManyWithoutMapRanksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    total_matches?: IntFieldUpdateOperationsInput | number
-    win_matches?: IntFieldUpdateOperationsInput | number
-    ct_total_rounds?: IntFieldUpdateOperationsInput | number
-    ct_win_rounds?: IntFieldUpdateOperationsInput | number
-    t_total_rounds?: IntFieldUpdateOperationsInput | number
-    t_win_rounds?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type HitCreateManyWeaponInput = {

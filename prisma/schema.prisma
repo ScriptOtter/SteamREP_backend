@@ -103,7 +103,7 @@ model SteamUser {
 
   viewers Int @default(1)
 
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [userId], references: [id])
   userId String? @unique @map("user_id")
 
   steamUserBans SteamUserBans? @relation
@@ -113,7 +113,7 @@ model SteamUser {
   matches Match[]
   playerStatisticsInMatch PlayerStatisticsInMatch[] 
   generalPlayerStatistics GeneralPlayerStatistics?
-
+  isGettedGeneralPlayerStatistics Boolean @default(false)
   sharedCode String? @map("shared_code")
   gameAuthenticationCode String? @map("game_authentification_code")
 
@@ -151,44 +151,32 @@ model GeneralPlayerStatistics {
   id String @unique @id @default(cuid())
   steam SteamUser @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique
-
   MapRanks MapRanks[]
-  
-  WeaponStats WeaponStats[] 
+  wingman Int?
+  premier Int?
+  faceit Int?
+  faceit_elo Int?
+  TotalMatches Int?
+  winrate Decimal?
+  inGameSinse DateTime?
 
+  WeaponStats WeaponStats[]
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 }
 
 model MapRanks {
   id String @unique @id @default(cuid())
   name String
+  rank Int
   
-  mapStat MapStats[]
-  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id])
+  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id],onDelete: Cascade)
   playerId String
-
 
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   @@map("map_ranks")
-}
-
-model MapStats {
-  id String @unique @id @default(cuid())
-  total_matches Int
-  win_matches Int
-
-  ct_total_rounds Int
-  ct_win_rounds Int
-
-  t_total_rounds Int
-  t_win_rounds Int
-
-  mapId String
-  MapRanks       MapRanks   @relation(fields: [mapId], references: [id])
-
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  @@map("map_stats")
 }
 
 model WeaponStats {
@@ -234,11 +222,8 @@ model PlayerStatisticsInMatch {
   crosshair_code String   
   player_color String
 
-  rank_if_win Int
   rank Int
-  rank_if_loss Int
-  rank_if_tie Int
-  
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -257,6 +242,7 @@ model SteamUserBans {
   vacBanned Boolean? @default(false)
   vacBans Int? 
   csBan Boolean @default(false)
+  cs_banned_since DateTime?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 }

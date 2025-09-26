@@ -61,8 +61,7 @@ export class DownloadDemoService {
     );
   }
 
-  async getHistoryMatches(steamid: string) {
-    let matchResults = [];
+  async searchLatestMatch(steamid: string) {
     let matchData;
     let sharedCode;
 
@@ -85,7 +84,7 @@ export class DownloadDemoService {
         where: { id: `${sharedCode}.dem` },
       });
       if (match) {
-        console.log('Demo downloaded! Waiting analyze');
+        console.log(`${sharedCode}.dem for ${steamid} waiting analyze`);
         return;
       }
       matchData = await this.gc.getMatchInfoFromSharedCode(sharedCode);
@@ -101,7 +100,7 @@ export class DownloadDemoService {
         STEAM_API.GetNextMatchSharingCode +
           `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
       );
-
+      console.log(res);
       sharedCode = res?.data?.result?.nextcode;
     }
     const rounds = matchData?.roundstatsall;

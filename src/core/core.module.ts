@@ -3,25 +3,14 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { PasswordRecoveryModule } from 'src/modules/auth/password-recovery/password-recovery.module';
-import { VerificationController } from 'src/modules/auth/verification/verification.controller';
 import { VerificationModule } from 'src/modules/auth/verification/verification.module';
-
-import { VerificationService } from 'src/modules/auth/verification/verification.service';
 import { CommentModule } from 'src/modules/comment/comment.module';
-
-import { MatchModule } from 'src/modules/cs2/match/match.module';
-import { GCModule } from 'src/modules/cs2/steam-information/gc.module';
-
 import { MailModule } from 'src/modules/libs/mail/mail.module';
-import { NotificationsController } from 'src/modules/notifications/notifications.controller';
 import { NotificationsModule } from 'src/modules/notifications/notifications.module';
-import { NotificationsService } from 'src/modules/notifications/notifications.service';
 import { ReportUserModule } from 'src/modules/report_user/report-user.module';
 import { SocialLinksModule } from 'src/modules/social_links/social-links.module';
 import { SocialLinksService } from 'src/modules/social_links/social-links.service';
-import { SteamPrismaService } from 'src/modules/steam/steam-prisma.service';
 import { SteamModule } from 'src/modules/steam/steam.module';
-import { SteamOAuth } from 'src/modules/steam/steam.oauth';
 import { TrackingUsersModule } from 'src/modules/tracking-users/tracking-users.module';
 import { UserController } from 'src/modules/user/user.controller';
 import { UserService } from 'src/modules/user/user.service';
@@ -31,6 +20,7 @@ import { ProtectedController } from 'src/protected.controller';
 import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
 import { CronModule } from 'src/modules/cron/cron.module';
 import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.module';
+import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-statistics/general-player-statistics.module';
 
 @Module({
   imports: [
@@ -51,9 +41,8 @@ import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.
     TrackingUsersModule,
     CronModule,
     DownloadDemoModule,
-    //GCModule,
+    GeneralPlayerStatisticsModule,
     PasswordRecoveryModule,
-    //MatchModule,
   ],
   controllers: [UserController, ProtectedController],
   providers: [UserService, SocialLinksService],

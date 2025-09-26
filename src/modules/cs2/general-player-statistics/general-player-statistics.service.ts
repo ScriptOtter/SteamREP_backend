@@ -1,0 +1,157 @@
+import { Injectable } from '@nestjs/common';
+import axios, { AxiosResponse } from 'axios';
+import { SteamPrismaService } from 'src/modules/steam/steam-prisma.service';
+
+import { PrismaService } from 'src/prisma/prisma.service';
+import { LeetifyProfile } from 'src/shared/utils/interfaces/leetify.interface';
+
+@Injectable()
+export class GeneralPlayerStatisticsService {
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly steamPrismaService: SteamPrismaService,
+  ) {}
+
+  private async getInitialRanks(steamid: string): Promise<void> {
+    try {
+      const findGenStats =
+        await this.prismaService.generalPlayerStatistics.findFirst({
+          where: { userId: steamid },
+        });
+      if (findGenStats) {
+        return;
+      }
+      const genStats = await this.prismaService.generalPlayerStatistics.create({
+        data: { steam: { connect: { id: steamid } } },
+      });
+
+      const leetify: AxiosResponse<LeetifyProfile> = await axios.get(
+        `https://api-public.cs-prod.leetify.com/v3/profile?steam64_id=${steamid}`,
+      );
+
+      leetify.data.ranks.competitive.forEach(async (map) => {
+        await this.prismaService.mapRanks.create({
+          data: { name: map.map_name, rank: map.rank, playerId: genStats.id },
+        });
+      });
+      const { winrate, total_matches, first_match_date } = leetify.data;
+      const { premier, faceit, faceit_elo, wingman } = leetify.data.ranks;
+      await this.prismaService.generalPlayerStatistics.update({
+        where: { userId: steamid },
+        data: {
+          premier,
+          faceit,
+          faceit_elo,
+          wingman,
+          winrate,
+          TotalMatches: total_matches,
+          inGameSinse: first_match_date,
+        },
+      });
+
+      const { platform, banned_since } = leetify.data.bans[0];
+      if (platform === 'matchmaking') {
+        await this.prismaService.steamUserBans.update({
+          where: { id: steamid },
+          data: { csBan: true, cs_banned_since: banned_since },
+        });
+      }
+
+      await this.prismaService.steamUser.update({
+        where: { id: steamid },
+        data: { isGettedGeneralPlayerStatistics: true },
+      });
+      console.log(`CS2 data - ${steamid} updated!`);
+    } catch (e) {
+      console.log('Leetify user not found');
+      return;
+    }
+  }
+  private async updateCS2StatsFromLeetify(steamid: string) {
+    try {
+      const leetify: AxiosResponse<LeetifyProfile> = await axios.get(
+        `https://api-public.cs-prod.leetify.com/v3/profile?steam64_id=${steamid}`,
+      );
+      leetify.data.ranks.competitive.forEach(async (map) => {
+        await this.prismaService.mapRanks.updateMany({
+          where: { playerId: steamid },
+          data: { name: map.map_name, rank: map.rank },
+        });
+      });
+      const { winrate, total_matches, first_match_date } = leetify.data;
+      const { premier, faceit, faceit_elo, wingman } = leetify.data.ranks;
+      await this.prismaService.generalPlayerStatistics.update({
+        where: { userId: steamid },
+        data: {
+          premier,
+          faceit,
+          faceit_elo,
+          wingman,
+          winrate,
+          TotalMatches: total_matches,
+          inGameSinse: first_match_date,
+        },
+      });
+      const { platform, banned_since } = leetify.data.bans[0];
+      if (platform === 'matchmaking') {
+        await this.prismaService.steamUserBans.update({
+          where: { id: steamid },
+          data: { csBan: true, cs_banned_since: banned_since },
+        });
+      }
+      return true;
+    } catch (e) {
+      console.log(e);
+      return 'Error';
+    }
+  }
+
+  public async getCS2Stats(steamid: string) {
+    try {
+      const user = await this.prismaService.steamUser.findUnique({
+        where: { id: steamid },
+      });
+      if (!user) await this.steamPrismaService.createSteamUser(steamid);
+      const genStat =
+        await this.prismaService.generalPlayerStatistics.findFirst({
+          where: { userId: steamid },
+        });
+      if (!genStat) await this.getInitialRanks(steamid);
+      if (
+        genStat &&
+        new Date().getTime() - new Date(genStat.updatedAt).getTime() >=
+          7 * 24 * 60 * 60 * 1000
+      ) {
+        await this.updateCS2StatsFromLeetify(steamid);
+      }
+
+      const stats = await this.prismaService.generalPlayerStatistics.findFirst({
+        where: { userId: steamid },
+        select: {
+          faceit: true,
+          faceit_elo: true,
+          premier: true,
+          wingman: true,
+          TotalMatches: true,
+          winrate: true,
+          inGameSinse: true,
+          updatedAt: true,
+          MapRanks: {
+            select: { name: true, rank: true, updatedAt: true },
+            orderBy: { rank: 'desc' },
+          },
+          WeaponStats: true,
+          steam: {
+            select: {
+              steamUserBans: { select: { csBan: true, cs_banned_since: true } },
+            },
+          },
+        },
+      });
+      if (!stats) return [];
+      return stats;
+    } catch (e) {
+      return e;
+    }
+  }
+}

@@ -148,7 +148,7 @@ export class CommentService {
       }
       if (comment.images) {
         const imagePromises = comment.images.map(async (image) => {
-          this.S3.deleteImageFromS3(image.url.split('/')[4]);
+          this.S3.deleteImageFromS3(image.url);
           return this.prisma.images.deleteMany({
             where: { id: image.id },
           });
@@ -198,7 +198,7 @@ export class CommentService {
 
         if (removeImages) {
           const imagePromises = removeImages.map(async (image) => {
-            this.S3.deleteImageFromS3(image.url.split('/')[4]);
+            this.S3.deleteImageFromS3(image.url);
             return this.prisma.images.deleteMany({
               where: { id: image.id },
             });

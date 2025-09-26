@@ -25,6 +25,9 @@ export class CronService {
       return user.sharedCode && user.gameAuthenticationCode;
     });
     if (cs2users)
-      cs2users.forEach((user) => this.downloadDemo.getHistoryMatches(user.id));
+      cs2users.forEach((user) => {
+        console.log(`Searching new cs2 .demo for ${user.id}`);
+        this.downloadDemo.searchLatestMatch(user.id);
+      });
   }
 }

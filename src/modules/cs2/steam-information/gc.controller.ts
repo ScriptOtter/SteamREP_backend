@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 
 import { Response } from 'express';
 import { GCService } from './gc.service';
@@ -7,7 +7,7 @@ import { GCService } from './gc.service';
 export class GCController {
   constructor(private readonly cs: GCService) {}
 
-  @Get('userdata')
+  @Post('userdata')
   async getAccountInformation(
     @Body() dto: { steamid: string },
     @Res() res: Response,

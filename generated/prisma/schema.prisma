@@ -103,19 +103,19 @@ model SteamUser {
 
   viewers Int @default(1)
 
-  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User?   @relation(fields: [userId], references: [id])
   userId String? @unique @map("user_id")
 
   steamUserBans       SteamUserBans? @relation
   commentsAsRecipient Comment[]      @relation()
   reportsAsRecipient  ReportUser[]   @relation()
 
-  matches                 Match[]
-  playerStatisticsInMatch PlayerStatisticsInMatch[]
-  generalPlayerStatistics GeneralPlayerStatistics?
-
-  sharedCode             String? @map("shared_code")
-  gameAuthenticationCode String? @map("game_authentification_code")
+  matches                         Match[]
+  playerStatisticsInMatch         PlayerStatisticsInMatch[]
+  generalPlayerStatistics         GeneralPlayerStatistics?
+  isGettedGeneralPlayerStatistics Boolean                   @default(false)
+  sharedCode                      String?                   @map("shared_code")
+  gameAuthenticationCode          String?                   @map("game_authentification_code")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -148,47 +148,32 @@ model Match {
 }
 
 model GeneralPlayerStatistics {
-  id     String    @id @unique @default(cuid())
-  steam  SteamUser @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String    @unique
-
-  MapRanks MapRanks[]
-
+  id          String        @id @unique @default(cuid())
+  steam       SteamUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String        @unique
+  MapRanks    MapRanks[]
+  wingman     Int?
+  premier     Int?
+  faceit      Int?
+  faceit_elo  Int?
   WeaponStats WeaponStats[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model MapRanks {
   id   String @id @unique @default(cuid())
   name String
+  rank Int
 
-  mapStat                 MapStats[]
-  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id])
+  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id], onDelete: Cascade)
   playerId                String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("map_ranks")
-}
-
-model MapStats {
-  id            String @id @unique @default(cuid())
-  total_matches Int
-  win_matches   Int
-
-  ct_total_rounds Int
-  ct_win_rounds   Int
-
-  t_total_rounds Int
-  t_win_rounds   Int
-
-  mapId    String
-  MapRanks MapRanks @relation(fields: [mapId], references: [id])
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("map_stats")
 }
 
 model WeaponStats {
@@ -234,10 +219,7 @@ model PlayerStatisticsInMatch {
   crosshair_code       String
   player_color         String
 
-  rank_if_win  Int
-  rank         Int
-  rank_if_loss Int
-  rank_if_tie  Int
+  rank Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
