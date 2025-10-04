@@ -194,6 +194,11 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MatchAnalyzedScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.MatchForAnalysisScalarFieldEnum = {
   sharedCode: 'sharedCode',
   matchId: 'matchId',
@@ -438,6 +443,7 @@ exports.Prisma.ModelName = {
   Token: 'Token',
   StackDownloadingMatches: 'StackDownloadingMatches',
   SteamUser: 'SteamUser',
+  MatchAnalyzed: 'MatchAnalyzed',
   MatchForAnalysis: 'MatchForAnalysis',
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',

@@ -127,6 +127,11 @@ model SteamUser {
   @@map("steam_user")
   
 }
+
+model MatchAnalyzed {
+  id String @id @unique
+  createdAt   DateTime @default(now()) @map("created_at")
+}
 model MatchForAnalysis {
   sharedCode String @id @unique
   matchId String 

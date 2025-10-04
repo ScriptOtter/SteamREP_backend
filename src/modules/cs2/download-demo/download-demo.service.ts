@@ -42,7 +42,7 @@ export class DownloadDemoService {
   public async downloadDemo(demo: IDemo): Promise<void> {
     const agent = new https.Agent({ minVersion: 'TLSv1.3' });
     const demoName = `${demo.sharedCode}.dem`;
-
+    this.logger.log(`${demo.sharedCode}.dem is downloading to the system!`);
     try {
       await this.prismaService.stackDownloadingMatches.create({
         data: { id: demo.sharedCode },
@@ -157,6 +157,14 @@ export class DownloadDemoService {
       });
     if (downloadingStack) {
       this.logger.log(`${sharedCode}.dem downloading now...`);
+      this.getNewSharedCode(steamid, sharedCode);
+      return;
+    }
+    const matchAnalyzed = await this.prismaService.matchAnalyzed.findUnique({
+      where: { id: sharedCode },
+    });
+    if (matchAnalyzed) {
+      this.logger.log(`${sharedCode}.dem already analyzed.`);
       this.getNewSharedCode(steamid, sharedCode);
       return;
     }
