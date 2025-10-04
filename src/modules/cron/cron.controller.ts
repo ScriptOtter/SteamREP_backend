@@ -8,12 +8,11 @@ export class CronController {
   private readonly logger = new Logger('🖥️     Cron Operation   🖥️  ');
   @Cron('1 * * * * *')
   public async clearPrisma() {
-    console.log('Чистим бд');
     return this.cronService.clearPrisma();
   }
-  @Cron('15 * * * * *')
+  @Cron('1 * * * * *')
   public async downloadCS2Demos() {
-    this.logger.log('Searching new CS2 demos for users SteamRep.help');
+    this.logger.log('Searching new CS2 matches for users SteamRep.help');
     return this.cronService.downloadCS2Demos();
   }
 }

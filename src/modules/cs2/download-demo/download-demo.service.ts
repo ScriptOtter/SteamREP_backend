@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3 } from 'aws-sdk';
 import axios from 'axios';
@@ -8,10 +8,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { PassThrough } from 'stream';
 import bz2 from 'unbzip2-stream';
 import { GCService } from '../steam-information/gc.service';
+import { formatUnixTime } from 'src/shared/utils/formatUnixTime';
+import { formatTime } from 'src/shared/utils/formatTime';
+
+export interface IDemo {
+  steamid: string;
+  sharedCode: string;
+  matchid: string;
+  matchtime: number;
+  url: string;
+  match_duration: number;
+  match_result: number;
+  score: string;
+}
 
 @Injectable()
 export class DownloadDemoService {
   private s3: S3;
+  private readonly logger = new Logger('Download Demo Service');
   public constructor(
     private readonly configService: ConfigService,
     private readonly prismaService: PrismaService,
@@ -25,17 +39,27 @@ export class DownloadDemoService {
     });
   }
 
-  public async downloadDemo(url: string, name: string): Promise<void> {
+  public async downloadDemo(demo: IDemo): Promise<void> {
     const agent = new https.Agent({ minVersion: 'TLSv1.3' });
-    const demoName = `${name}.dem`;
+    const demoName = `${demo.sharedCode}.dem`;
+
     try {
-      const response = await axios.get(url, {
+      await this.prismaService.stackDownloadingMatches.create({
+        data: { id: demo.sharedCode },
+      });
+      const checkResurs = await axios.get(demo.url, {
+        method: 'HEAD',
+      });
+      if (checkResurs.status !== 200) return;
+
+      const response = await axios.get(demo.url, {
         responseType: 'stream',
         httpsAgent: agent,
       });
-      await this.prismaService.downloadingMatches.create({
-        data: { id: demoName },
-      });
+
+      if (!response) {
+        this.logger.log(`Failed to download demo ${demo.sharedCode}`);
+      }
 
       const bunzip = bz2();
       const passThrough = new PassThrough();
@@ -49,10 +73,38 @@ export class DownloadDemoService {
       await this.s3
         .upload(params)
         .promise()
-        .then((e) => {
-          console.log(e, '\n Downloading ended!');
+        .then(async () => {
+          const match = await this.prismaService.matchForAnalysis.create({
+            data: {
+              sharedCode: demo.sharedCode,
+              date: formatUnixTime(demo.matchtime),
+              demoUrl: demo.url,
+              duration: formatTime(demo.match_duration),
+              matchId: demo.matchid,
+              score: demo.score,
+            },
+          });
+          await this.prismaService.stackDownloadingMatches.delete({
+            where: { id: demo.sharedCode },
+          });
+          this.logger.log(
+            `${match.sharedCode}.dem successfully loaded into the system!`,
+          );
+        })
+        .catch((err) => {
+          err.code == 'TimeoutError';
+          console.log(err);
+          return;
         });
-    } catch (e) {}
+    } catch (e) {
+      this.getNewSharedCode(demo.steamid, demo.sharedCode);
+      await this.prismaService.stackDownloadingMatches.delete({
+        where: { id: demo.sharedCode },
+      });
+      this.logger.error(
+        `Failed loaded demo into the system! Searching new match for ${demo.steamid}`,
+      );
+    }
   }
 
   async isCurrentMatchExists(sharedCode: string) {
@@ -61,51 +113,95 @@ export class DownloadDemoService {
     );
   }
 
-  async searchLatestMatch(steamid: string) {
-    let matchData;
-    let sharedCode;
+  private async getNewSharedCode(steamid: string, sharedCode: string) {
+    const steamidkey = (
+      await this.prismaService.steamUser.findUnique({
+        where: { id: steamid },
+      })
+    )?.gameAuthenticationCode;
+    let res = await axios.get(
+      STEAM_API.GetNextMatchSharingCode +
+        `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
+    );
 
-    const lastMatch = await this.prismaService.match.findMany({
-      where: { participants: { some: { id: steamid } } },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    if (lastMatch[0]) {
-      sharedCode = lastMatch[0].sharedCode;
-    } else {
-      sharedCode = (
-        await this.prismaService.steamUser.findUnique({
-          where: { id: steamid },
-        })
-      )?.sharedCode;
-    }
-    if (sharedCode) {
-      const match = await this.prismaService.downloadingMatches.findUnique({
-        where: { id: `${sharedCode}.dem` },
+    sharedCode = res?.data?.result?.nextcode;
+    if (sharedCode === 'n/a') {
+      await this.prismaService.steamUser.update({
+        where: { id: steamid },
+        data: { sharedCodeError: new Date() },
       });
-      if (match) {
-        console.log(`${sharedCode}.dem for ${steamid} waiting analyze`);
-        return;
-      }
-      matchData = await this.gc.getMatchInfoFromSharedCode(sharedCode);
+      this.logger.error(
+        `For player ${steamid}, tracking was stopped for 15 minutes.`,
+      );
+    } else {
+      this.logger.log(
+        `A new match has been found for player ${steamid}: ${sharedCode}`,
+      );
+      await this.prismaService.steamUser.update({
+        where: { id: steamid },
+        data: { sharedCode },
+      });
+    }
+  }
+  async searchLatestMatch(steamid: string) {
+    let sharedCode = (
+      await this.prismaService.steamUser.findUnique({
+        where: { id: steamid },
+      })
+    )?.sharedCode;
+
+    if (!sharedCode) return;
+    const downloadingStack =
+      await this.prismaService.stackDownloadingMatches.findUnique({
+        where: { id: sharedCode },
+      });
+    if (downloadingStack) {
+      this.logger.log(`${sharedCode}.dem downloading now...`);
+      this.getNewSharedCode(steamid, sharedCode);
+      return;
+    }
+    const match = await this.prismaService.matchForAnalysis.findUnique({
+      where: { sharedCode: sharedCode },
+    });
+    if (match) {
+      this.logger.log(`${sharedCode}.dem waiting analyze.`);
+      this.getNewSharedCode(steamid, sharedCode);
+      return;
     }
     const matchExists = await this.isCurrentMatchExists(sharedCode);
     if (matchExists) {
-      const steamidkey = (
-        await this.prismaService.steamUser.findUnique({
-          where: { id: steamid },
-        })
-      )?.gameAuthenticationCode;
-      let res = await axios.get(
-        STEAM_API.GetNextMatchSharingCode +
-          `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
-      );
-      console.log(res);
-      sharedCode = res?.data?.result?.nextcode;
+      this.logger.warn(`${sharedCode}.dem already contained in DB!`);
+      this.getNewSharedCode(steamid, sharedCode);
+      return;
     }
+
+    const matchData = await this.gc.getMatchInfoFromSharedCode(sharedCode);
+
     const rounds = matchData?.roundstatsall;
-    const mapUrl = rounds?.length ? rounds[rounds.length - 1]?.map : null;
-    console.log(mapUrl);
-    if (mapUrl) await this.downloadDemo(mapUrl, sharedCode);
+    const matchid: string = matchData?.matchid;
+    const matchtime: number = matchData?.matchtime;
+    const url: string = rounds?.length ? rounds[rounds.length - 1]?.map : null;
+
+    const score: string = rounds?.length
+      ? `${rounds[rounds.length - 1]?.team_scores[0]}:${rounds[rounds.length - 1]?.team_scores[1]}`
+      : 'null';
+    const match_duration: number = rounds?.length
+      ? rounds[rounds.length - 1]?.match_duration
+      : null;
+    const match_result: number = rounds?.length
+      ? rounds[rounds.length - 1]?.match_result
+      : null;
+
+    if (url)
+      await this.downloadDemo({
+        steamid,
+        sharedCode,
+        matchid,
+        matchtime,
+        url,
+        match_duration,
+        match_result,
+        score,
+      });
   }
 }

@@ -4,7 +4,7 @@ const methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 //import * as cookieParser from 'cookie-parser';
 import cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
+
 import * as bodyParser from 'body-parser';
 import { ConfigService } from '@nestjs/config';
 
@@ -21,9 +21,6 @@ async function bootstrap() {
     credentials: true,
     allowedHeaders:
       'Content-Type, Authorization, SteamREP_accessToken,  SteamREP_refreshToken',
-  });
-  app.useStaticAssets(join('./static/images'), {
-    prefix: '/api/static/',
   });
 
   await app.listen(4000);

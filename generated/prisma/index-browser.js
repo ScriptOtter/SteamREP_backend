@@ -166,6 +166,11 @@ exports.Prisma.TokenScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StackDownloadingMatchesScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SteamUserScalarFieldEnum = {
   id: 'id',
   personaName: 'personaName',
@@ -183,25 +188,35 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   userId: 'userId',
   isGettedGeneralPlayerStatistics: 'isGettedGeneralPlayerStatistics',
   sharedCode: 'sharedCode',
+  sharedCodeError: 'sharedCodeError',
   gameAuthenticationCode: 'gameAuthenticationCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.DownloadingMatchesScalarFieldEnum = {
-  id: 'id'
+exports.Prisma.MatchForAnalysisScalarFieldEnum = {
+  sharedCode: 'sharedCode',
+  matchId: 'matchId',
+  date: 'date',
+  demoUrl: 'demoUrl',
+  score: 'score',
+  duration: 'duration',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.MatchScalarFieldEnum = {
   id: 'id',
   type: 'type',
-  matchId: 'matchId',
   score: 'score',
+  parsedMatch: 'parsedMatch',
+  kill_stats: 'kill_stats',
   date: 'date',
   sharedCode: 'sharedCode',
-  replay: 'replay',
-  result: 'result',
+  demoUrl: 'demoUrl',
   duration: 'duration',
+  region: 'region',
+  map: 'map',
+  avg_rank: 'avg_rank',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -210,11 +225,13 @@ exports.Prisma.GeneralPlayerStatisticsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   wingman: 'wingman',
+  wingmanMathes: 'wingmanMathes',
+  wingmanWins: 'wingmanWins',
   premier: 'premier',
   faceit: 'faceit',
   faceit_elo: 'faceit_elo',
   TotalMatches: 'TotalMatches',
-  winrate: 'winrate',
+  wins: 'wins',
   inGameSinse: 'inGameSinse',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -247,8 +264,9 @@ exports.Prisma.HitScalarFieldEnum = {
 
 exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   matchId: 'matchId',
+  steamid: 'steamid',
+  name: 'name',
   kills_total: 'kills_total',
   deaths_total: 'deaths_total',
   assists_total: 'assists_total',
@@ -256,14 +274,23 @@ exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
   ace_rounds_total: 'ace_rounds_total',
   k4_rounds_total: 'k4_rounds_total',
   k3_rounds_total: 'k3_rounds_total',
-  k2_rounds_total: 'k2_rounds_total',
   damage_total: 'damage_total',
-  objective_total: 'objective_total',
-  utility_damage_total: 'utility_damage_total',
   mvps: 'mvps',
   crosshair_code: 'crosshair_code',
   player_color: 'player_color',
+  team: 'team',
+  clutchV2: 'clutchV2',
+  clutchV3: 'clutchV3',
+  clutchV4: 'clutchV4',
+  clutchV5: 'clutchV5',
+  utility_damage_total: 'utility_damage_total',
   rank: 'rank',
+  score: 'score',
+  comp_wins: 'comp_wins',
+  team_surrendered: 'team_surrendered',
+  team_score_first_half: 'team_score_first_half',
+  team_score_second_half: 'team_score_second_half',
+  isSuspicious: 'isSuspicious',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -344,6 +371,15 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -352,6 +388,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
   NOT_ACTIVE: 'NOT_ACTIVE',
@@ -394,8 +436,9 @@ exports.Prisma.ModelName = {
   TrackingUser: 'TrackingUser',
   Notifications: 'Notifications',
   Token: 'Token',
+  StackDownloadingMatches: 'StackDownloadingMatches',
   SteamUser: 'SteamUser',
-  DownloadingMatches: 'DownloadingMatches',
+  MatchForAnalysis: 'MatchForAnalysis',
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',
   MapRanks: 'MapRanks',

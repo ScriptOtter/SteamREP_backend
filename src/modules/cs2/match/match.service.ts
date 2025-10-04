@@ -4,7 +4,7 @@ import { STEAM_API } from 'src/modules/steam/steam-api';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GCService } from '../steam-information/gc.service';
 import { Response } from 'express';
-import { DemoAnalyseService } from '../demo-analyse/demo-analyse.service';
+
 import { DownloadDemoService } from '../download-demo/download-demo.service';
 
 @Injectable()

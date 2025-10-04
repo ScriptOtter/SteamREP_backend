@@ -29,7 +29,7 @@ export class TrackingUsersService {
         userId: userId,
         name: steamUser?.personaName || ' ',
         steamid: id,
-        avatar: steamUser.avatar,
+        avatar: steamUser.avatar || '',
       },
     });
     if (!trackingUser) {

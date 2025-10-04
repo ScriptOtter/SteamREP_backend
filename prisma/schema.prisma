@@ -83,16 +83,19 @@ model Token {
   @@map("tokens")
 }
 
-
+model StackDownloadingMatches {
+  id String @unique
+  createdAt   DateTime @default(now()) @map("created_at")
+}
 
 model SteamUser {
   id String @unique @id
-  personaName String @map("persona_name")
-  profileUrl String @map("profile_url")
-  avatar String
+  personaName String? @map("persona_name")
+  profileUrl String? @map("profile_url")
+  avatar String?
   realname String?
   level String?
-  timeCreated String @map("time_created")
+  timeCreated String? @map("time_created")
 
   steamId2 String?
   steamId3 String?
@@ -111,10 +114,10 @@ model SteamUser {
   reportsAsRecipient ReportUser [] @relation()
 
   matches Match[]
-  playerStatisticsInMatch PlayerStatisticsInMatch[] 
   generalPlayerStatistics GeneralPlayerStatistics?
   isGettedGeneralPlayerStatistics Boolean @default(false)
   sharedCode String? @map("shared_code")
+  sharedCodeError DateTime?
   gameAuthenticationCode String? @map("game_authentification_code")
 
 
@@ -124,8 +127,15 @@ model SteamUser {
   @@map("steam_user")
   
 }
-model DownloadingMatches {
-  id String @id @unique
+model MatchForAnalysis {
+  sharedCode String @id @unique
+  matchId String 
+  date String 
+  demoUrl String
+  score String
+  duration String
+
+  createdAt   DateTime @default(now()) @map("created_at")
 }
 
 model Match {
@@ -134,14 +144,18 @@ model Match {
   
   participants SteamUser[]
   playersStatistic PlayerStatisticsInMatch[] 
-
-  matchId String @unique
   score String
-  date DateTime 
+  parsedMatch Json
+  kill_stats Json?
+  date String 
   sharedCode String @unique @map("shared_code")
-  replay String
-  result Boolean @default(true)
+  demoUrl String
+
   duration String
+  region String
+  map String
+  avg_rank Int
+
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   @@map("matches")
@@ -153,11 +167,13 @@ model GeneralPlayerStatistics {
   userId String @unique
   MapRanks MapRanks[]
   wingman Int?
+  wingmanMathes Int?
+  wingmanWins Int?
   premier Int?
   faceit Int?
   faceit_elo Int?
   TotalMatches Int?
-  winrate Decimal?
+  wins Int?
   inGameSinse DateTime?
 
   WeaponStats WeaponStats[]
@@ -184,7 +200,7 @@ model WeaponStats {
   name       String
   fire       Int
   userId     String
-  generalPlayerStatistics       GeneralPlayerStatistics     @relation(fields: [userId], references: [id])
+  generalPlayerStatistics       GeneralPlayerStatistics     @relation(fields: [userId], references: [id], onDelete: Cascade)
   hits       Hit[]
 }
 
@@ -195,18 +211,16 @@ model Hit {
   hits          Int
   totalDamage   Int
   kills         Int
-  weapon       WeaponStats   @relation(fields: [weaponId], references: [id])
+  weapon       WeaponStats   @relation(fields: [weaponId], references: [id], onDelete: Cascade)
 }
 
 model PlayerStatisticsInMatch {
   id        String     @id @default(uuid())
 
-  steamUser      SteamUser  @relation(fields: [userId], references: [id])
-  match     Match @relation(fields: [matchId], references: [id])
-
-  userId    String @map("user_id")
+  match     Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
   matchId   String
-
+  steamid String
+  name String?
   kills_total Int
   deaths_total Int
   assists_total Int
@@ -214,20 +228,29 @@ model PlayerStatisticsInMatch {
   ace_rounds_total Int
   k4_rounds_total Int
   k3_rounds_total Int
-  k2_rounds_total Int
   damage_total Int
-  objective_total Int
-  utility_damage_total Int
   mvps Int
   crosshair_code String   
   player_color String
+  team Int?
+  clutchV2 Int @default(0)
+  clutchV3 Int @default(0)
+  clutchV4 Int @default(0)
+  clutchV5 Int @default(0)
 
+  utility_damage_total Int
+  
   rank Int
-
+  score Int
+  comp_wins Int
+  team_surrendered Boolean @default(false)
+  team_score_first_half Int
+  team_score_second_half Int
+  isSuspicious Boolean @default(false)
+  
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  @@unique([userId, matchId]) 
   @@map("player_statistics_in_match")
 }
 

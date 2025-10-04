@@ -23,8 +23,22 @@ export class GCService {
       const response = await axios.post(
         this.configService.getOrThrow<string>('STEAMREP_GC') +
           `/matchdata/${sharedCode}`,
-        { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
-        { withCredentials: true },
+        {
+          token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN'),
+          match: Math.random(),
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+            Expires: '0',
+          },
+          params: {
+            _: Date.now(),
+            random: Math.random(),
+          },
+        },
       );
 
       return response.data;
