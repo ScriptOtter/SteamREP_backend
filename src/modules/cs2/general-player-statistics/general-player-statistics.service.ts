@@ -169,20 +169,7 @@ export class GeneralPlayerStatisticsService {
             select: { name: true, rank: true, updatedAt: true },
             orderBy: { rank: 'desc' },
           },
-          WeaponStats: {
-            select: {
-              name: true,
-              fire: true,
-              hits: {
-                select: {
-                  hits: true,
-                  hitLocation: true,
-                  kills: true,
-                  totalDamage: true,
-                },
-              },
-            },
-          },
+
           steam: {
             select: {
               steamUserBans: { select: { csBan: true, cs_banned_since: true } },

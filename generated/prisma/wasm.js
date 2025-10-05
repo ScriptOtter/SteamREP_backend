@@ -251,22 +251,6 @@ exports.Prisma.MapRanksScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.WeaponStatsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  fire: 'fire',
-  userId: 'userId'
-};
-
-exports.Prisma.HitScalarFieldEnum = {
-  id: 'id',
-  weaponId: 'weaponId',
-  hitLocation: 'hitLocation',
-  hits: 'hits',
-  totalDamage: 'totalDamage',
-  kills: 'kills'
-};
-
 exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
   id: 'id',
   matchId: 'matchId',
@@ -448,8 +432,6 @@ exports.Prisma.ModelName = {
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',
   MapRanks: 'MapRanks',
-  WeaponStats: 'WeaponStats',
-  Hit: 'Hit',
   PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',
   SteamUserBans: 'SteamUserBans',
   LinksInProfile: 'LinksInProfile',
