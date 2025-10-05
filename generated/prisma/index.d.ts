@@ -44,11 +44,6 @@ export type StackDownloadingMatches = $Result.DefaultSelection<Prisma.$StackDown
  */
 export type SteamUser = $Result.DefaultSelection<Prisma.$SteamUserPayload>
 /**
- * Model MatchAnalyzed
- * 
- */
-export type MatchAnalyzed = $Result.DefaultSelection<Prisma.$MatchAnalyzedPayload>
-/**
  * Model MatchForAnalysis
  * 
  */
@@ -154,7 +149,17 @@ export const TokenType: {
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
 
 
+export const MatchResult: {
+  WIN: 'WIN',
+  LOSE: 'LOSE',
+  DRAW: 'DRAW'
+};
+
+export type MatchResult = (typeof MatchResult)[keyof typeof MatchResult]
+
+
 export const MatchType: {
+  ERROR: 'ERROR',
   MATCHMAKING: 'MATCHMAKING',
   PREMIER: 'PREMIER',
   WINGMAN: 'WINGMAN',
@@ -180,6 +185,10 @@ export const AdditionalRole: typeof $Enums.AdditionalRole
 export type TokenType = $Enums.TokenType
 
 export const TokenType: typeof $Enums.TokenType
+
+export type MatchResult = $Enums.MatchResult
+
+export const MatchResult: typeof $Enums.MatchResult
 
 export type MatchType = $Enums.MatchType
 
@@ -362,16 +371,6 @@ export class PrismaClient<
     * ```
     */
   get steamUser(): Prisma.SteamUserDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.matchAnalyzed`: Exposes CRUD operations for the **MatchAnalyzed** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more MatchAnalyzeds
-    * const matchAnalyzeds = await prisma.matchAnalyzed.findMany()
-    * ```
-    */
-  get matchAnalyzed(): Prisma.MatchAnalyzedDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.matchForAnalysis`: Exposes CRUD operations for the **MatchForAnalysis** model.
@@ -938,7 +937,6 @@ export namespace Prisma {
     Token: 'Token',
     StackDownloadingMatches: 'StackDownloadingMatches',
     SteamUser: 'SteamUser',
-    MatchAnalyzed: 'MatchAnalyzed',
     MatchForAnalysis: 'MatchForAnalysis',
     Match: 'Match',
     GeneralPlayerStatistics: 'GeneralPlayerStatistics',
@@ -969,7 +967,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchAnalyzed" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1414,80 +1412,6 @@ export namespace Prisma {
           count: {
             args: Prisma.SteamUserCountArgs<ExtArgs>
             result: $Utils.Optional<SteamUserCountAggregateOutputType> | number
-          }
-        }
-      }
-      MatchAnalyzed: {
-        payload: Prisma.$MatchAnalyzedPayload<ExtArgs>
-        fields: Prisma.MatchAnalyzedFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.MatchAnalyzedFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.MatchAnalyzedFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          findFirst: {
-            args: Prisma.MatchAnalyzedFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.MatchAnalyzedFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          findMany: {
-            args: Prisma.MatchAnalyzedFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>[]
-          }
-          create: {
-            args: Prisma.MatchAnalyzedCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          createMany: {
-            args: Prisma.MatchAnalyzedCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.MatchAnalyzedCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>[]
-          }
-          delete: {
-            args: Prisma.MatchAnalyzedDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          update: {
-            args: Prisma.MatchAnalyzedUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          deleteMany: {
-            args: Prisma.MatchAnalyzedDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.MatchAnalyzedUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.MatchAnalyzedUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>[]
-          }
-          upsert: {
-            args: Prisma.MatchAnalyzedUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MatchAnalyzedPayload>
-          }
-          aggregate: {
-            args: Prisma.MatchAnalyzedAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMatchAnalyzed>
-          }
-          groupBy: {
-            args: Prisma.MatchAnalyzedGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MatchAnalyzedGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.MatchAnalyzedCountArgs<ExtArgs>
-            result: $Utils.Optional<MatchAnalyzedCountAggregateOutputType> | number
           }
         }
       }
@@ -2477,7 +2401,6 @@ export namespace Prisma {
     token?: TokenOmit
     stackDownloadingMatches?: StackDownloadingMatchesOmit
     steamUser?: SteamUserOmit
-    matchAnalyzed?: MatchAnalyzedOmit
     matchForAnalysis?: MatchForAnalysisOmit
     match?: MatchOmit
     generalPlayerStatistics?: GeneralPlayerStatisticsOmit
@@ -9871,962 +9794,6 @@ export namespace Prisma {
 
 
   /**
-   * Model MatchAnalyzed
-   */
-
-  export type AggregateMatchAnalyzed = {
-    _count: MatchAnalyzedCountAggregateOutputType | null
-    _min: MatchAnalyzedMinAggregateOutputType | null
-    _max: MatchAnalyzedMaxAggregateOutputType | null
-  }
-
-  export type MatchAnalyzedMinAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-  }
-
-  export type MatchAnalyzedMaxAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-  }
-
-  export type MatchAnalyzedCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type MatchAnalyzedMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-  }
-
-  export type MatchAnalyzedMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-  }
-
-  export type MatchAnalyzedCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type MatchAnalyzedAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MatchAnalyzed to aggregate.
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MatchAnalyzeds to fetch.
-     */
-    orderBy?: MatchAnalyzedOrderByWithRelationInput | MatchAnalyzedOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: MatchAnalyzedWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MatchAnalyzeds from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MatchAnalyzeds.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned MatchAnalyzeds
-    **/
-    _count?: true | MatchAnalyzedCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MatchAnalyzedMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MatchAnalyzedMaxAggregateInputType
-  }
-
-  export type GetMatchAnalyzedAggregateType<T extends MatchAnalyzedAggregateArgs> = {
-        [P in keyof T & keyof AggregateMatchAnalyzed]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMatchAnalyzed[P]>
-      : GetScalarType<T[P], AggregateMatchAnalyzed[P]>
-  }
-
-
-
-
-  export type MatchAnalyzedGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MatchAnalyzedWhereInput
-    orderBy?: MatchAnalyzedOrderByWithAggregationInput | MatchAnalyzedOrderByWithAggregationInput[]
-    by: MatchAnalyzedScalarFieldEnum[] | MatchAnalyzedScalarFieldEnum
-    having?: MatchAnalyzedScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MatchAnalyzedCountAggregateInputType | true
-    _min?: MatchAnalyzedMinAggregateInputType
-    _max?: MatchAnalyzedMaxAggregateInputType
-  }
-
-  export type MatchAnalyzedGroupByOutputType = {
-    id: string
-    createdAt: Date
-    _count: MatchAnalyzedCountAggregateOutputType | null
-    _min: MatchAnalyzedMinAggregateOutputType | null
-    _max: MatchAnalyzedMaxAggregateOutputType | null
-  }
-
-  type GetMatchAnalyzedGroupByPayload<T extends MatchAnalyzedGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MatchAnalyzedGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MatchAnalyzedGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MatchAnalyzedGroupByOutputType[P]>
-            : GetScalarType<T[P], MatchAnalyzedGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type MatchAnalyzedSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["matchAnalyzed"]>
-
-  export type MatchAnalyzedSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["matchAnalyzed"]>
-
-  export type MatchAnalyzedSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    createdAt?: boolean
-  }, ExtArgs["result"]["matchAnalyzed"]>
-
-  export type MatchAnalyzedSelectScalar = {
-    id?: boolean
-    createdAt?: boolean
-  }
-
-  export type MatchAnalyzedOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt", ExtArgs["result"]["matchAnalyzed"]>
-
-  export type $MatchAnalyzedPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MatchAnalyzed"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      createdAt: Date
-    }, ExtArgs["result"]["matchAnalyzed"]>
-    composites: {}
-  }
-
-  type MatchAnalyzedGetPayload<S extends boolean | null | undefined | MatchAnalyzedDefaultArgs> = $Result.GetResult<Prisma.$MatchAnalyzedPayload, S>
-
-  type MatchAnalyzedCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MatchAnalyzedFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MatchAnalyzedCountAggregateInputType | true
-    }
-
-  export interface MatchAnalyzedDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MatchAnalyzed'], meta: { name: 'MatchAnalyzed' } }
-    /**
-     * Find zero or one MatchAnalyzed that matches the filter.
-     * @param {MatchAnalyzedFindUniqueArgs} args - Arguments to find a MatchAnalyzed
-     * @example
-     * // Get one MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends MatchAnalyzedFindUniqueArgs>(args: SelectSubset<T, MatchAnalyzedFindUniqueArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one MatchAnalyzed that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {MatchAnalyzedFindUniqueOrThrowArgs} args - Arguments to find a MatchAnalyzed
-     * @example
-     * // Get one MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends MatchAnalyzedFindUniqueOrThrowArgs>(args: SelectSubset<T, MatchAnalyzedFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MatchAnalyzed that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedFindFirstArgs} args - Arguments to find a MatchAnalyzed
-     * @example
-     * // Get one MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends MatchAnalyzedFindFirstArgs>(args?: SelectSubset<T, MatchAnalyzedFindFirstArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MatchAnalyzed that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedFindFirstOrThrowArgs} args - Arguments to find a MatchAnalyzed
-     * @example
-     * // Get one MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends MatchAnalyzedFindFirstOrThrowArgs>(args?: SelectSubset<T, MatchAnalyzedFindFirstOrThrowArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more MatchAnalyzeds that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all MatchAnalyzeds
-     * const matchAnalyzeds = await prisma.matchAnalyzed.findMany()
-     * 
-     * // Get first 10 MatchAnalyzeds
-     * const matchAnalyzeds = await prisma.matchAnalyzed.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const matchAnalyzedWithIdOnly = await prisma.matchAnalyzed.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends MatchAnalyzedFindManyArgs>(args?: SelectSubset<T, MatchAnalyzedFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a MatchAnalyzed.
-     * @param {MatchAnalyzedCreateArgs} args - Arguments to create a MatchAnalyzed.
-     * @example
-     * // Create one MatchAnalyzed
-     * const MatchAnalyzed = await prisma.matchAnalyzed.create({
-     *   data: {
-     *     // ... data to create a MatchAnalyzed
-     *   }
-     * })
-     * 
-     */
-    create<T extends MatchAnalyzedCreateArgs>(args: SelectSubset<T, MatchAnalyzedCreateArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many MatchAnalyzeds.
-     * @param {MatchAnalyzedCreateManyArgs} args - Arguments to create many MatchAnalyzeds.
-     * @example
-     * // Create many MatchAnalyzeds
-     * const matchAnalyzed = await prisma.matchAnalyzed.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends MatchAnalyzedCreateManyArgs>(args?: SelectSubset<T, MatchAnalyzedCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many MatchAnalyzeds and returns the data saved in the database.
-     * @param {MatchAnalyzedCreateManyAndReturnArgs} args - Arguments to create many MatchAnalyzeds.
-     * @example
-     * // Create many MatchAnalyzeds
-     * const matchAnalyzed = await prisma.matchAnalyzed.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many MatchAnalyzeds and only return the `id`
-     * const matchAnalyzedWithIdOnly = await prisma.matchAnalyzed.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends MatchAnalyzedCreateManyAndReturnArgs>(args?: SelectSubset<T, MatchAnalyzedCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a MatchAnalyzed.
-     * @param {MatchAnalyzedDeleteArgs} args - Arguments to delete one MatchAnalyzed.
-     * @example
-     * // Delete one MatchAnalyzed
-     * const MatchAnalyzed = await prisma.matchAnalyzed.delete({
-     *   where: {
-     *     // ... filter to delete one MatchAnalyzed
-     *   }
-     * })
-     * 
-     */
-    delete<T extends MatchAnalyzedDeleteArgs>(args: SelectSubset<T, MatchAnalyzedDeleteArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one MatchAnalyzed.
-     * @param {MatchAnalyzedUpdateArgs} args - Arguments to update one MatchAnalyzed.
-     * @example
-     * // Update one MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends MatchAnalyzedUpdateArgs>(args: SelectSubset<T, MatchAnalyzedUpdateArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more MatchAnalyzeds.
-     * @param {MatchAnalyzedDeleteManyArgs} args - Arguments to filter MatchAnalyzeds to delete.
-     * @example
-     * // Delete a few MatchAnalyzeds
-     * const { count } = await prisma.matchAnalyzed.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends MatchAnalyzedDeleteManyArgs>(args?: SelectSubset<T, MatchAnalyzedDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MatchAnalyzeds.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many MatchAnalyzeds
-     * const matchAnalyzed = await prisma.matchAnalyzed.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends MatchAnalyzedUpdateManyArgs>(args: SelectSubset<T, MatchAnalyzedUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MatchAnalyzeds and returns the data updated in the database.
-     * @param {MatchAnalyzedUpdateManyAndReturnArgs} args - Arguments to update many MatchAnalyzeds.
-     * @example
-     * // Update many MatchAnalyzeds
-     * const matchAnalyzed = await prisma.matchAnalyzed.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more MatchAnalyzeds and only return the `id`
-     * const matchAnalyzedWithIdOnly = await prisma.matchAnalyzed.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends MatchAnalyzedUpdateManyAndReturnArgs>(args: SelectSubset<T, MatchAnalyzedUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one MatchAnalyzed.
-     * @param {MatchAnalyzedUpsertArgs} args - Arguments to update or create a MatchAnalyzed.
-     * @example
-     * // Update or create a MatchAnalyzed
-     * const matchAnalyzed = await prisma.matchAnalyzed.upsert({
-     *   create: {
-     *     // ... data to create a MatchAnalyzed
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the MatchAnalyzed we want to update
-     *   }
-     * })
-     */
-    upsert<T extends MatchAnalyzedUpsertArgs>(args: SelectSubset<T, MatchAnalyzedUpsertArgs<ExtArgs>>): Prisma__MatchAnalyzedClient<$Result.GetResult<Prisma.$MatchAnalyzedPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of MatchAnalyzeds.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedCountArgs} args - Arguments to filter MatchAnalyzeds to count.
-     * @example
-     * // Count the number of MatchAnalyzeds
-     * const count = await prisma.matchAnalyzed.count({
-     *   where: {
-     *     // ... the filter for the MatchAnalyzeds we want to count
-     *   }
-     * })
-    **/
-    count<T extends MatchAnalyzedCountArgs>(
-      args?: Subset<T, MatchAnalyzedCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MatchAnalyzedCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a MatchAnalyzed.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MatchAnalyzedAggregateArgs>(args: Subset<T, MatchAnalyzedAggregateArgs>): Prisma.PrismaPromise<GetMatchAnalyzedAggregateType<T>>
-
-    /**
-     * Group by MatchAnalyzed.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MatchAnalyzedGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends MatchAnalyzedGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MatchAnalyzedGroupByArgs['orderBy'] }
-        : { orderBy?: MatchAnalyzedGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, MatchAnalyzedGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMatchAnalyzedGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the MatchAnalyzed model
-   */
-  readonly fields: MatchAnalyzedFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for MatchAnalyzed.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__MatchAnalyzedClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the MatchAnalyzed model
-   */
-  interface MatchAnalyzedFieldRefs {
-    readonly id: FieldRef<"MatchAnalyzed", 'String'>
-    readonly createdAt: FieldRef<"MatchAnalyzed", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * MatchAnalyzed findUnique
-   */
-  export type MatchAnalyzedFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter, which MatchAnalyzed to fetch.
-     */
-    where: MatchAnalyzedWhereUniqueInput
-  }
-
-  /**
-   * MatchAnalyzed findUniqueOrThrow
-   */
-  export type MatchAnalyzedFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter, which MatchAnalyzed to fetch.
-     */
-    where: MatchAnalyzedWhereUniqueInput
-  }
-
-  /**
-   * MatchAnalyzed findFirst
-   */
-  export type MatchAnalyzedFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter, which MatchAnalyzed to fetch.
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MatchAnalyzeds to fetch.
-     */
-    orderBy?: MatchAnalyzedOrderByWithRelationInput | MatchAnalyzedOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MatchAnalyzeds.
-     */
-    cursor?: MatchAnalyzedWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MatchAnalyzeds from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MatchAnalyzeds.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MatchAnalyzeds.
-     */
-    distinct?: MatchAnalyzedScalarFieldEnum | MatchAnalyzedScalarFieldEnum[]
-  }
-
-  /**
-   * MatchAnalyzed findFirstOrThrow
-   */
-  export type MatchAnalyzedFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter, which MatchAnalyzed to fetch.
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MatchAnalyzeds to fetch.
-     */
-    orderBy?: MatchAnalyzedOrderByWithRelationInput | MatchAnalyzedOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MatchAnalyzeds.
-     */
-    cursor?: MatchAnalyzedWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MatchAnalyzeds from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MatchAnalyzeds.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MatchAnalyzeds.
-     */
-    distinct?: MatchAnalyzedScalarFieldEnum | MatchAnalyzedScalarFieldEnum[]
-  }
-
-  /**
-   * MatchAnalyzed findMany
-   */
-  export type MatchAnalyzedFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter, which MatchAnalyzeds to fetch.
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MatchAnalyzeds to fetch.
-     */
-    orderBy?: MatchAnalyzedOrderByWithRelationInput | MatchAnalyzedOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing MatchAnalyzeds.
-     */
-    cursor?: MatchAnalyzedWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MatchAnalyzeds from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MatchAnalyzeds.
-     */
-    skip?: number
-    distinct?: MatchAnalyzedScalarFieldEnum | MatchAnalyzedScalarFieldEnum[]
-  }
-
-  /**
-   * MatchAnalyzed create
-   */
-  export type MatchAnalyzedCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * The data needed to create a MatchAnalyzed.
-     */
-    data: XOR<MatchAnalyzedCreateInput, MatchAnalyzedUncheckedCreateInput>
-  }
-
-  /**
-   * MatchAnalyzed createMany
-   */
-  export type MatchAnalyzedCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many MatchAnalyzeds.
-     */
-    data: MatchAnalyzedCreateManyInput | MatchAnalyzedCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * MatchAnalyzed createManyAndReturn
-   */
-  export type MatchAnalyzedCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * The data used to create many MatchAnalyzeds.
-     */
-    data: MatchAnalyzedCreateManyInput | MatchAnalyzedCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * MatchAnalyzed update
-   */
-  export type MatchAnalyzedUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * The data needed to update a MatchAnalyzed.
-     */
-    data: XOR<MatchAnalyzedUpdateInput, MatchAnalyzedUncheckedUpdateInput>
-    /**
-     * Choose, which MatchAnalyzed to update.
-     */
-    where: MatchAnalyzedWhereUniqueInput
-  }
-
-  /**
-   * MatchAnalyzed updateMany
-   */
-  export type MatchAnalyzedUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update MatchAnalyzeds.
-     */
-    data: XOR<MatchAnalyzedUpdateManyMutationInput, MatchAnalyzedUncheckedUpdateManyInput>
-    /**
-     * Filter which MatchAnalyzeds to update
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * Limit how many MatchAnalyzeds to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * MatchAnalyzed updateManyAndReturn
-   */
-  export type MatchAnalyzedUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * The data used to update MatchAnalyzeds.
-     */
-    data: XOR<MatchAnalyzedUpdateManyMutationInput, MatchAnalyzedUncheckedUpdateManyInput>
-    /**
-     * Filter which MatchAnalyzeds to update
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * Limit how many MatchAnalyzeds to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * MatchAnalyzed upsert
-   */
-  export type MatchAnalyzedUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * The filter to search for the MatchAnalyzed to update in case it exists.
-     */
-    where: MatchAnalyzedWhereUniqueInput
-    /**
-     * In case the MatchAnalyzed found by the `where` argument doesn't exist, create a new MatchAnalyzed with this data.
-     */
-    create: XOR<MatchAnalyzedCreateInput, MatchAnalyzedUncheckedCreateInput>
-    /**
-     * In case the MatchAnalyzed was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<MatchAnalyzedUpdateInput, MatchAnalyzedUncheckedUpdateInput>
-  }
-
-  /**
-   * MatchAnalyzed delete
-   */
-  export type MatchAnalyzedDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-    /**
-     * Filter which MatchAnalyzed to delete.
-     */
-    where: MatchAnalyzedWhereUniqueInput
-  }
-
-  /**
-   * MatchAnalyzed deleteMany
-   */
-  export type MatchAnalyzedDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MatchAnalyzeds to delete
-     */
-    where?: MatchAnalyzedWhereInput
-    /**
-     * Limit how many MatchAnalyzeds to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * MatchAnalyzed without action
-   */
-  export type MatchAnalyzedDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MatchAnalyzed
-     */
-    select?: MatchAnalyzedSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MatchAnalyzed
-     */
-    omit?: MatchAnalyzedOmit<ExtArgs> | null
-  }
-
-
-  /**
    * Model MatchForAnalysis
    */
 
@@ -10843,6 +9810,7 @@ export namespace Prisma {
     demoUrl: string | null
     score: string | null
     duration: string | null
+    playerId: string | null
     createdAt: Date | null
   }
 
@@ -10853,6 +9821,7 @@ export namespace Prisma {
     demoUrl: string | null
     score: string | null
     duration: string | null
+    playerId: string | null
     createdAt: Date | null
   }
 
@@ -10863,6 +9832,7 @@ export namespace Prisma {
     demoUrl: number
     score: number
     duration: number
+    playerId: number
     createdAt: number
     _all: number
   }
@@ -10875,6 +9845,7 @@ export namespace Prisma {
     demoUrl?: true
     score?: true
     duration?: true
+    playerId?: true
     createdAt?: true
   }
 
@@ -10885,6 +9856,7 @@ export namespace Prisma {
     demoUrl?: true
     score?: true
     duration?: true
+    playerId?: true
     createdAt?: true
   }
 
@@ -10895,6 +9867,7 @@ export namespace Prisma {
     demoUrl?: true
     score?: true
     duration?: true
+    playerId?: true
     createdAt?: true
     _all?: true
   }
@@ -10978,6 +9951,7 @@ export namespace Prisma {
     demoUrl: string
     score: string
     duration: string
+    playerId: string
     createdAt: Date
     _count: MatchForAnalysisCountAggregateOutputType | null
     _min: MatchForAnalysisMinAggregateOutputType | null
@@ -11005,6 +9979,7 @@ export namespace Prisma {
     demoUrl?: boolean
     score?: boolean
     duration?: boolean
+    playerId?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["matchForAnalysis"]>
 
@@ -11015,6 +9990,7 @@ export namespace Prisma {
     demoUrl?: boolean
     score?: boolean
     duration?: boolean
+    playerId?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["matchForAnalysis"]>
 
@@ -11025,6 +10001,7 @@ export namespace Prisma {
     demoUrl?: boolean
     score?: boolean
     duration?: boolean
+    playerId?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["matchForAnalysis"]>
 
@@ -11035,10 +10012,11 @@ export namespace Prisma {
     demoUrl?: boolean
     score?: boolean
     duration?: boolean
+    playerId?: boolean
     createdAt?: boolean
   }
 
-  export type MatchForAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"sharedCode" | "matchId" | "date" | "demoUrl" | "score" | "duration" | "createdAt", ExtArgs["result"]["matchForAnalysis"]>
+  export type MatchForAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"sharedCode" | "matchId" | "date" | "demoUrl" | "score" | "duration" | "playerId" | "createdAt", ExtArgs["result"]["matchForAnalysis"]>
 
   export type $MatchForAnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MatchForAnalysis"
@@ -11050,6 +10028,7 @@ export namespace Prisma {
       demoUrl: string
       score: string
       duration: string
+      playerId: string
       createdAt: Date
     }, ExtArgs["result"]["matchForAnalysis"]>
     composites: {}
@@ -11480,6 +10459,7 @@ export namespace Prisma {
     readonly demoUrl: FieldRef<"MatchForAnalysis", 'String'>
     readonly score: FieldRef<"MatchForAnalysis", 'String'>
     readonly duration: FieldRef<"MatchForAnalysis", 'String'>
+    readonly playerId: FieldRef<"MatchForAnalysis", 'String'>
     readonly createdAt: FieldRef<"MatchForAnalysis", 'DateTime'>
   }
     
@@ -15522,6 +14502,7 @@ export namespace Prisma {
     crosshair_code: string | null
     player_color: string | null
     team: number | null
+    result: $Enums.MatchResult | null
     clutchV2: number | null
     clutchV3: number | null
     clutchV4: number | null
@@ -15555,6 +14536,7 @@ export namespace Prisma {
     crosshair_code: string | null
     player_color: string | null
     team: number | null
+    result: $Enums.MatchResult | null
     clutchV2: number | null
     clutchV3: number | null
     clutchV4: number | null
@@ -15588,6 +14570,7 @@ export namespace Prisma {
     crosshair_code: number
     player_color: number
     team: number
+    result: number
     clutchV2: number
     clutchV3: number
     clutchV4: number
@@ -15669,6 +14652,7 @@ export namespace Prisma {
     crosshair_code?: true
     player_color?: true
     team?: true
+    result?: true
     clutchV2?: true
     clutchV3?: true
     clutchV4?: true
@@ -15702,6 +14686,7 @@ export namespace Prisma {
     crosshair_code?: true
     player_color?: true
     team?: true
+    result?: true
     clutchV2?: true
     clutchV3?: true
     clutchV4?: true
@@ -15735,6 +14720,7 @@ export namespace Prisma {
     crosshair_code?: true
     player_color?: true
     team?: true
+    result?: true
     clutchV2?: true
     clutchV3?: true
     clutchV4?: true
@@ -15855,6 +14841,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team: number | null
+    result: $Enums.MatchResult
     clutchV2: number
     clutchV3: number
     clutchV4: number
@@ -15907,6 +14894,7 @@ export namespace Prisma {
     crosshair_code?: boolean
     player_color?: boolean
     team?: boolean
+    result?: boolean
     clutchV2?: boolean
     clutchV3?: boolean
     clutchV4?: boolean
@@ -15941,6 +14929,7 @@ export namespace Prisma {
     crosshair_code?: boolean
     player_color?: boolean
     team?: boolean
+    result?: boolean
     clutchV2?: boolean
     clutchV3?: boolean
     clutchV4?: boolean
@@ -15975,6 +14964,7 @@ export namespace Prisma {
     crosshair_code?: boolean
     player_color?: boolean
     team?: boolean
+    result?: boolean
     clutchV2?: boolean
     clutchV3?: boolean
     clutchV4?: boolean
@@ -16009,6 +14999,7 @@ export namespace Prisma {
     crosshair_code?: boolean
     player_color?: boolean
     team?: boolean
+    result?: boolean
     clutchV2?: boolean
     clutchV3?: boolean
     clutchV4?: boolean
@@ -16025,7 +15016,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PlayerStatisticsInMatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matchId" | "steamid" | "name" | "kills_total" | "deaths_total" | "assists_total" | "headshot_kills_total" | "ace_rounds_total" | "k4_rounds_total" | "k3_rounds_total" | "damage_total" | "mvps" | "crosshair_code" | "player_color" | "team" | "clutchV2" | "clutchV3" | "clutchV4" | "clutchV5" | "utility_damage_total" | "rank" | "score" | "comp_wins" | "team_surrendered" | "team_score_first_half" | "team_score_second_half" | "isSuspicious" | "createdAt" | "updatedAt", ExtArgs["result"]["playerStatisticsInMatch"]>
+  export type PlayerStatisticsInMatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matchId" | "steamid" | "name" | "kills_total" | "deaths_total" | "assists_total" | "headshot_kills_total" | "ace_rounds_total" | "k4_rounds_total" | "k3_rounds_total" | "damage_total" | "mvps" | "crosshair_code" | "player_color" | "team" | "result" | "clutchV2" | "clutchV3" | "clutchV4" | "clutchV5" | "utility_damage_total" | "rank" | "score" | "comp_wins" | "team_surrendered" | "team_score_first_half" | "team_score_second_half" | "isSuspicious" | "createdAt" | "updatedAt", ExtArgs["result"]["playerStatisticsInMatch"]>
   export type PlayerStatisticsInMatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     match?: boolean | MatchDefaultArgs<ExtArgs>
   }
@@ -16058,6 +15049,7 @@ export namespace Prisma {
       crosshair_code: string
       player_color: string
       team: number | null
+      result: $Enums.MatchResult
       clutchV2: number
       clutchV3: number
       clutchV4: number
@@ -16512,6 +15504,7 @@ export namespace Prisma {
     readonly crosshair_code: FieldRef<"PlayerStatisticsInMatch", 'String'>
     readonly player_color: FieldRef<"PlayerStatisticsInMatch", 'String'>
     readonly team: FieldRef<"PlayerStatisticsInMatch", 'Int'>
+    readonly result: FieldRef<"PlayerStatisticsInMatch", 'MatchResult'>
     readonly clutchV2: FieldRef<"PlayerStatisticsInMatch", 'Int'>
     readonly clutchV3: FieldRef<"PlayerStatisticsInMatch", 'Int'>
     readonly clutchV4: FieldRef<"PlayerStatisticsInMatch", 'Int'>
@@ -24769,14 +23762,6 @@ export namespace Prisma {
   export type SteamUserScalarFieldEnum = (typeof SteamUserScalarFieldEnum)[keyof typeof SteamUserScalarFieldEnum]
 
 
-  export const MatchAnalyzedScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt'
-  };
-
-  export type MatchAnalyzedScalarFieldEnum = (typeof MatchAnalyzedScalarFieldEnum)[keyof typeof MatchAnalyzedScalarFieldEnum]
-
-
   export const MatchForAnalysisScalarFieldEnum: {
     sharedCode: 'sharedCode',
     matchId: 'matchId',
@@ -24784,6 +23769,7 @@ export namespace Prisma {
     demoUrl: 'demoUrl',
     score: 'score',
     duration: 'duration',
+    playerId: 'playerId',
     createdAt: 'createdAt'
   };
 
@@ -24858,6 +23844,7 @@ export namespace Prisma {
     crosshair_code: 'crosshair_code',
     player_color: 'player_color',
     team: 'team',
+    result: 'result',
     clutchV2: 'clutchV2',
     clutchV3: 'clutchV3',
     clutchV4: 'clutchV4',
@@ -25152,6 +24139,20 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'MatchResult'
+   */
+  export type EnumMatchResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatchResult'>
+    
+
+
+  /**
+   * Reference to a field of type 'MatchResult[]'
+   */
+  export type ListEnumMatchResultFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MatchResult[]'>
     
 
 
@@ -25670,43 +24671,6 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUser"> | Date | string
   }
 
-  export type MatchAnalyzedWhereInput = {
-    AND?: MatchAnalyzedWhereInput | MatchAnalyzedWhereInput[]
-    OR?: MatchAnalyzedWhereInput[]
-    NOT?: MatchAnalyzedWhereInput | MatchAnalyzedWhereInput[]
-    id?: StringFilter<"MatchAnalyzed"> | string
-    createdAt?: DateTimeFilter<"MatchAnalyzed"> | Date | string
-  }
-
-  export type MatchAnalyzedOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type MatchAnalyzedWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: MatchAnalyzedWhereInput | MatchAnalyzedWhereInput[]
-    OR?: MatchAnalyzedWhereInput[]
-    NOT?: MatchAnalyzedWhereInput | MatchAnalyzedWhereInput[]
-    createdAt?: DateTimeFilter<"MatchAnalyzed"> | Date | string
-  }, "id" | "id">
-
-  export type MatchAnalyzedOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    _count?: MatchAnalyzedCountOrderByAggregateInput
-    _max?: MatchAnalyzedMaxOrderByAggregateInput
-    _min?: MatchAnalyzedMinOrderByAggregateInput
-  }
-
-  export type MatchAnalyzedScalarWhereWithAggregatesInput = {
-    AND?: MatchAnalyzedScalarWhereWithAggregatesInput | MatchAnalyzedScalarWhereWithAggregatesInput[]
-    OR?: MatchAnalyzedScalarWhereWithAggregatesInput[]
-    NOT?: MatchAnalyzedScalarWhereWithAggregatesInput | MatchAnalyzedScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"MatchAnalyzed"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"MatchAnalyzed"> | Date | string
-  }
-
   export type MatchForAnalysisWhereInput = {
     AND?: MatchForAnalysisWhereInput | MatchForAnalysisWhereInput[]
     OR?: MatchForAnalysisWhereInput[]
@@ -25717,6 +24681,7 @@ export namespace Prisma {
     demoUrl?: StringFilter<"MatchForAnalysis"> | string
     score?: StringFilter<"MatchForAnalysis"> | string
     duration?: StringFilter<"MatchForAnalysis"> | string
+    playerId?: StringFilter<"MatchForAnalysis"> | string
     createdAt?: DateTimeFilter<"MatchForAnalysis"> | Date | string
   }
 
@@ -25727,6 +24692,7 @@ export namespace Prisma {
     demoUrl?: SortOrder
     score?: SortOrder
     duration?: SortOrder
+    playerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -25740,6 +24706,7 @@ export namespace Prisma {
     demoUrl?: StringFilter<"MatchForAnalysis"> | string
     score?: StringFilter<"MatchForAnalysis"> | string
     duration?: StringFilter<"MatchForAnalysis"> | string
+    playerId?: StringFilter<"MatchForAnalysis"> | string
     createdAt?: DateTimeFilter<"MatchForAnalysis"> | Date | string
   }, "sharedCode" | "sharedCode">
 
@@ -25750,6 +24717,7 @@ export namespace Prisma {
     demoUrl?: SortOrder
     score?: SortOrder
     duration?: SortOrder
+    playerId?: SortOrder
     createdAt?: SortOrder
     _count?: MatchForAnalysisCountOrderByAggregateInput
     _max?: MatchForAnalysisMaxOrderByAggregateInput
@@ -25766,6 +24734,7 @@ export namespace Prisma {
     demoUrl?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     score?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     duration?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
+    playerId?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MatchForAnalysis"> | Date | string
   }
 
@@ -26056,6 +25025,7 @@ export namespace Prisma {
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
     team?: IntNullableFilter<"PlayerStatisticsInMatch"> | number | null
+    result?: EnumMatchResultFilter<"PlayerStatisticsInMatch"> | $Enums.MatchResult
     clutchV2?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV3?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV4?: IntFilter<"PlayerStatisticsInMatch"> | number
@@ -26090,6 +25060,7 @@ export namespace Prisma {
     crosshair_code?: SortOrder
     player_color?: SortOrder
     team?: SortOrderInput | SortOrder
+    result?: SortOrder
     clutchV2?: SortOrder
     clutchV3?: SortOrder
     clutchV4?: SortOrder
@@ -26127,6 +25098,7 @@ export namespace Prisma {
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
     team?: IntNullableFilter<"PlayerStatisticsInMatch"> | number | null
+    result?: EnumMatchResultFilter<"PlayerStatisticsInMatch"> | $Enums.MatchResult
     clutchV2?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV3?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV4?: IntFilter<"PlayerStatisticsInMatch"> | number
@@ -26161,6 +25133,7 @@ export namespace Prisma {
     crosshair_code?: SortOrder
     player_color?: SortOrder
     team?: SortOrderInput | SortOrder
+    result?: SortOrder
     clutchV2?: SortOrder
     clutchV3?: SortOrder
     clutchV4?: SortOrder
@@ -26202,6 +25175,7 @@ export namespace Prisma {
     crosshair_code?: StringWithAggregatesFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringWithAggregatesFilter<"PlayerStatisticsInMatch"> | string
     team?: IntNullableWithAggregatesFilter<"PlayerStatisticsInMatch"> | number | null
+    result?: EnumMatchResultWithAggregatesFilter<"PlayerStatisticsInMatch"> | $Enums.MatchResult
     clutchV2?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
     clutchV3?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
     clutchV4?: IntWithAggregatesFilter<"PlayerStatisticsInMatch"> | number
@@ -27266,41 +26240,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MatchAnalyzedCreateInput = {
-    id: string
-    createdAt?: Date | string
-  }
-
-  export type MatchAnalyzedUncheckedCreateInput = {
-    id: string
-    createdAt?: Date | string
-  }
-
-  export type MatchAnalyzedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MatchAnalyzedUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MatchAnalyzedCreateManyInput = {
-    id: string
-    createdAt?: Date | string
-  }
-
-  export type MatchAnalyzedUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MatchAnalyzedUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type MatchForAnalysisCreateInput = {
     sharedCode: string
     matchId: string
@@ -27308,6 +26247,7 @@ export namespace Prisma {
     demoUrl: string
     score: string
     duration: string
+    playerId: string
     createdAt?: Date | string
   }
 
@@ -27318,6 +26258,7 @@ export namespace Prisma {
     demoUrl: string
     score: string
     duration: string
+    playerId: string
     createdAt?: Date | string
   }
 
@@ -27328,6 +26269,7 @@ export namespace Prisma {
     demoUrl?: StringFieldUpdateOperationsInput | string
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27338,6 +26280,7 @@ export namespace Prisma {
     demoUrl?: StringFieldUpdateOperationsInput | string
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27348,6 +26291,7 @@ export namespace Prisma {
     demoUrl: string
     score: string
     duration: string
+    playerId: string
     createdAt?: Date | string
   }
 
@@ -27358,6 +26302,7 @@ export namespace Prisma {
     demoUrl?: StringFieldUpdateOperationsInput | string
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27368,6 +26313,7 @@ export namespace Prisma {
     demoUrl?: StringFieldUpdateOperationsInput | string
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
+    playerId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27691,6 +26637,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -27725,6 +26672,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -27757,6 +26705,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -27791,6 +26740,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -27824,6 +26774,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -27856,6 +26807,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -27889,6 +26841,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -28969,21 +27922,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type MatchAnalyzedCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type MatchAnalyzedMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type MatchAnalyzedMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-  }
-
   export type MatchForAnalysisCountOrderByAggregateInput = {
     sharedCode?: SortOrder
     matchId?: SortOrder
@@ -28991,6 +27929,7 @@ export namespace Prisma {
     demoUrl?: SortOrder
     score?: SortOrder
     duration?: SortOrder
+    playerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29001,6 +27940,7 @@ export namespace Prisma {
     demoUrl?: SortOrder
     score?: SortOrder
     duration?: SortOrder
+    playerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29011,6 +27951,7 @@ export namespace Prisma {
     demoUrl?: SortOrder
     score?: SortOrder
     duration?: SortOrder
+    playerId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -29356,6 +28297,13 @@ export namespace Prisma {
     rank?: SortOrder
   }
 
+  export type EnumMatchResultFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatchResult | EnumMatchResultFieldRefInput<$PrismaModel>
+    in?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatchResultFilter<$PrismaModel> | $Enums.MatchResult
+  }
+
   export type MatchScalarRelationFilter = {
     is?: MatchWhereInput
     isNot?: MatchWhereInput
@@ -29378,6 +28326,7 @@ export namespace Prisma {
     crosshair_code?: SortOrder
     player_color?: SortOrder
     team?: SortOrder
+    result?: SortOrder
     clutchV2?: SortOrder
     clutchV3?: SortOrder
     clutchV4?: SortOrder
@@ -29434,6 +28383,7 @@ export namespace Prisma {
     crosshair_code?: SortOrder
     player_color?: SortOrder
     team?: SortOrder
+    result?: SortOrder
     clutchV2?: SortOrder
     clutchV3?: SortOrder
     clutchV4?: SortOrder
@@ -29467,6 +28417,7 @@ export namespace Prisma {
     crosshair_code?: SortOrder
     player_color?: SortOrder
     team?: SortOrder
+    result?: SortOrder
     clutchV2?: SortOrder
     clutchV3?: SortOrder
     clutchV4?: SortOrder
@@ -29504,6 +28455,16 @@ export namespace Prisma {
     comp_wins?: SortOrder
     team_score_first_half?: SortOrder
     team_score_second_half?: SortOrder
+  }
+
+  export type EnumMatchResultWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatchResult | EnumMatchResultFieldRefInput<$PrismaModel>
+    in?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatchResultWithAggregatesFilter<$PrismaModel> | $Enums.MatchResult
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMatchResultFilter<$PrismaModel>
+    _max?: NestedEnumMatchResultFilter<$PrismaModel>
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -30589,6 +29550,10 @@ export namespace Prisma {
     connect?: MatchWhereUniqueInput
   }
 
+  export type EnumMatchResultFieldUpdateOperationsInput = {
+    set?: $Enums.MatchResult
+  }
+
   export type MatchUpdateOneRequiredWithoutPlayersStatisticNestedInput = {
     create?: XOR<MatchCreateWithoutPlayersStatisticInput, MatchUncheckedCreateWithoutPlayersStatisticInput>
     connectOrCreate?: MatchCreateOrConnectWithoutPlayersStatisticInput
@@ -31164,6 +30129,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumMatchResultFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatchResult | EnumMatchResultFieldRefInput<$PrismaModel>
+    in?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatchResultFilter<$PrismaModel> | $Enums.MatchResult
+  }
+
+  export type NestedEnumMatchResultWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MatchResult | EnumMatchResultFieldRefInput<$PrismaModel>
+    in?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MatchResult[] | ListEnumMatchResultFieldRefInput<$PrismaModel>
+    not?: NestedEnumMatchResultWithAggregatesFilter<$PrismaModel> | $Enums.MatchResult
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMatchResultFilter<$PrismaModel>
+    _max?: NestedEnumMatchResultFilter<$PrismaModel>
   }
 
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
@@ -32570,6 +31552,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -32602,6 +31585,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -32706,6 +31690,7 @@ export namespace Prisma {
     crosshair_code?: StringFilter<"PlayerStatisticsInMatch"> | string
     player_color?: StringFilter<"PlayerStatisticsInMatch"> | string
     team?: IntNullableFilter<"PlayerStatisticsInMatch"> | number | null
+    result?: EnumMatchResultFilter<"PlayerStatisticsInMatch"> | $Enums.MatchResult
     clutchV2?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV3?: IntFilter<"PlayerStatisticsInMatch"> | number
     clutchV4?: IntFilter<"PlayerStatisticsInMatch"> | number
@@ -34568,6 +33553,7 @@ export namespace Prisma {
     crosshair_code: string
     player_color: string
     team?: number | null
+    result: $Enums.MatchResult
     clutchV2?: number
     clutchV3?: number
     clutchV4?: number
@@ -34677,6 +33663,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -34709,6 +33696,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number
@@ -34741,6 +33729,7 @@ export namespace Prisma {
     crosshair_code?: StringFieldUpdateOperationsInput | string
     player_color?: StringFieldUpdateOperationsInput | string
     team?: NullableIntFieldUpdateOperationsInput | number | null
+    result?: EnumMatchResultFieldUpdateOperationsInput | $Enums.MatchResult
     clutchV2?: IntFieldUpdateOperationsInput | number
     clutchV3?: IntFieldUpdateOperationsInput | number
     clutchV4?: IntFieldUpdateOperationsInput | number

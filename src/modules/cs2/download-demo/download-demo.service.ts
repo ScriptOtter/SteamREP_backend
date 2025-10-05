@@ -42,9 +42,7 @@ export class DownloadDemoService {
   public async downloadDemo(demo: IDemo): Promise<void> {
     const agent = new https.Agent({ minVersion: 'TLSv1.3' });
     const demoName = `${demo.sharedCode}.dem`;
-    this.logger.log(
-      `A match was found for the ${demo.steamid}. ${demo.sharedCode} downloading to the system...`,
-    );
+    this.logger.log(`Downloading demo for ${demo.steamid}...`);
     try {
       await this.prismaService.stackDownloadingMatches.create({
         data: { id: demo.sharedCode },
@@ -84,6 +82,7 @@ export class DownloadDemoService {
               duration: formatTime(demo.match_duration),
               matchId: demo.matchid,
               score: demo.score,
+              playerId: demo.steamid,
             },
           });
           await this.prismaService.stackDownloadingMatches.delete({
@@ -171,14 +170,7 @@ export class DownloadDemoService {
       this.getNewSharedCode(steamid, sharedCode);
       return;
     }
-    const matchAnalyzed = await this.prismaService.matchAnalyzed.findUnique({
-      where: { id: sharedCode },
-    });
-    if (matchAnalyzed) {
-      this.logger.log(`${sharedCode}.dem already analyzed.`);
-      this.getNewSharedCode(steamid, sharedCode);
-      return;
-    }
+
     const matchExists = await this.isCurrentMatchExists(sharedCode);
     if (matchExists) {
       this.logger.warn(`${sharedCode}.dem already contained in DB!`);

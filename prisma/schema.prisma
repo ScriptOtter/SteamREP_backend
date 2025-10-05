@@ -128,10 +128,6 @@ model SteamUser {
   
 }
 
-model MatchAnalyzed {
-  id String @id @unique
-  createdAt   DateTime @default(now()) @map("created_at")
-}
 model MatchForAnalysis {
   sharedCode String @id @unique
   matchId String 
@@ -139,7 +135,7 @@ model MatchForAnalysis {
   demoUrl String
   score String
   duration String
-
+  playerId String
   createdAt   DateTime @default(now()) @map("created_at")
 }
 
@@ -218,6 +214,7 @@ model PlayerStatisticsInMatch {
   crosshair_code String   
   player_color String
   team Int?
+  result MatchResult
   clutchV2 Int @default(0)
   clutchV3 Int @default(0)
   clutchV4 Int @default(0)
@@ -364,7 +361,14 @@ enum UserRole {
   TELEGRAM_VERIFY
  }
 
+enum MatchResult {
+  WIN
+  LOSE
+  DRAW
+}
+
  enum MatchType {
+  ERROR
   MATCHMAKING
   PREMIER
   WINGMAN

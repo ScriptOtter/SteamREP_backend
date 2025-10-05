@@ -194,11 +194,6 @@ exports.Prisma.SteamUserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.MatchAnalyzedScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.MatchForAnalysisScalarFieldEnum = {
   sharedCode: 'sharedCode',
   matchId: 'matchId',
@@ -206,6 +201,7 @@ exports.Prisma.MatchForAnalysisScalarFieldEnum = {
   demoUrl: 'demoUrl',
   score: 'score',
   duration: 'duration',
+  playerId: 'playerId',
   createdAt: 'createdAt'
 };
 
@@ -268,6 +264,7 @@ exports.Prisma.PlayerStatisticsInMatchScalarFieldEnum = {
   crosshair_code: 'crosshair_code',
   player_color: 'player_color',
   team: 'team',
+  result: 'result',
   clutchV2: 'clutchV2',
   clutchV3: 'clutchV3',
   clutchV4: 'clutchV4',
@@ -414,10 +411,17 @@ exports.TokenType = exports.$Enums.TokenType = {
 };
 
 exports.MatchType = exports.$Enums.MatchType = {
+  ERROR: 'ERROR',
   MATCHMAKING: 'MATCHMAKING',
   PREMIER: 'PREMIER',
   WINGMAN: 'WINGMAN',
   FACEIT: 'FACEIT'
+};
+
+exports.MatchResult = exports.$Enums.MatchResult = {
+  WIN: 'WIN',
+  LOSE: 'LOSE',
+  DRAW: 'DRAW'
 };
 
 exports.Prisma.ModelName = {
@@ -427,7 +431,6 @@ exports.Prisma.ModelName = {
   Token: 'Token',
   StackDownloadingMatches: 'StackDownloadingMatches',
   SteamUser: 'SteamUser',
-  MatchAnalyzed: 'MatchAnalyzed',
   MatchForAnalysis: 'MatchForAnalysis',
   Match: 'Match',
   GeneralPlayerStatistics: 'GeneralPlayerStatistics',

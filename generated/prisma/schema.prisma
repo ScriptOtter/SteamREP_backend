@@ -128,20 +128,15 @@ model SteamUser {
   @@map("steam_user")
 }
 
-model MatchAnalyzed {
-  id        String   @id @unique
-  createdAt DateTime @default(now()) @map("created_at")
-}
-
 model MatchForAnalysis {
-  sharedCode String @id @unique
+  sharedCode String   @id @unique
   matchId    String
   date       String
   demoUrl    String
   score      String
   duration   String
-
-  createdAt DateTime @default(now()) @map("created_at")
+  playerId   String
+  createdAt  DateTime @default(now()) @map("created_at")
 }
 
 model Match {
@@ -204,7 +199,7 @@ model MapRanks {
 model PlayerStatisticsInMatch {
   id String @id @default(uuid())
 
-  match                Match   @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  match                Match       @relation(fields: [matchId], references: [id], onDelete: Cascade)
   matchId              String
   steamid              String
   name                 String?
@@ -220,10 +215,11 @@ model PlayerStatisticsInMatch {
   crosshair_code       String
   player_color         String
   team                 Int?
-  clutchV2             Int     @default(0)
-  clutchV3             Int     @default(0)
-  clutchV4             Int     @default(0)
-  clutchV5             Int     @default(0)
+  result               MatchResult
+  clutchV2             Int         @default(0)
+  clutchV3             Int         @default(0)
+  clutchV4             Int         @default(0)
+  clutchV5             Int         @default(0)
 
   utility_damage_total Int
 
@@ -367,7 +363,14 @@ enum TokenType {
   TELEGRAM_VERIFY
 }
 
+enum MatchResult {
+  WIN
+  LOSE
+  DRAW
+}
+
 enum MatchType {
+  ERROR
   MATCHMAKING
   PREMIER
   WINGMAN
