@@ -16,7 +16,7 @@ export class MatchService {
       include: {
         playersStatistic: { where: { steamid } },
       },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { dateUnix: 'desc' },
     });
     res.json(matches);
   }
