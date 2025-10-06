@@ -6,16 +6,18 @@ import { Response } from 'express';
 @Injectable()
 export class GCService {
   constructor(private readonly configService: ConfigService) {}
-
   async getAccountInformation(steamid: string, res: Response) {
-    const response = await axios.post(
-      this.configService.getOrThrow<string>('STEAMREP_GC') +
-        `/userdata/${steamid}`,
-      { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
-      { withCredentials: true },
-    );
-    console.log(response.data);
-    return res.json(response.data);
+    try {
+      const response = await axios.post(
+        this.configService.getOrThrow<string>('STEAMREP_GC') +
+          `/userdata/${steamid}`,
+        { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
+        { withCredentials: true },
+      );
+      return res.json(response.data);
+    } catch (e) {
+      console.log(e, 'getAccountInformation');
+    }
   }
 
   async getMatchInfoFromSharedCode(sharedCode: string) {
@@ -36,14 +38,13 @@ export class GCService {
           },
           params: {
             _: Date.now(),
-            random: Math.random(),
           },
         },
       );
 
       return response.data;
     } catch (e) {
-      console.log('Match not found!');
+      console.log(e, 'getMatchInfoFromSharedCode');
     }
   }
 }

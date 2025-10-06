@@ -21,6 +21,7 @@ import { IS_DEV_ENV } from 'src/shared/utils/is-dev';
 import { CronModule } from 'src/modules/cron/cron.module';
 import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.module';
 import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-statistics/general-player-statistics.module';
+import { MatchModule } from 'src/modules/cs2/match/match.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-st
     DownloadDemoModule,
     GeneralPlayerStatisticsModule,
     PasswordRecoveryModule,
+    MatchModule,
   ],
   controllers: [UserController, ProtectedController],
   providers: [UserService, SocialLinksService],
