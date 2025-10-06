@@ -133,6 +133,7 @@ model MatchForAnalysis {
   matchId    String
   date       String
   demoUrl    String
+  dateUnix   Int
   score      String
   duration   String
   playerId   String
@@ -149,6 +150,7 @@ model Match {
   parsedMatch      Json
   kill_stats       Json?
   date             String
+  dateUnix         Int
   sharedCode       String                    @unique @map("shared_code")
   demoUrl          String
 

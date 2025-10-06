@@ -9799,8 +9799,18 @@ export namespace Prisma {
 
   export type AggregateMatchForAnalysis = {
     _count: MatchForAnalysisCountAggregateOutputType | null
+    _avg: MatchForAnalysisAvgAggregateOutputType | null
+    _sum: MatchForAnalysisSumAggregateOutputType | null
     _min: MatchForAnalysisMinAggregateOutputType | null
     _max: MatchForAnalysisMaxAggregateOutputType | null
+  }
+
+  export type MatchForAnalysisAvgAggregateOutputType = {
+    dateUnix: number | null
+  }
+
+  export type MatchForAnalysisSumAggregateOutputType = {
+    dateUnix: number | null
   }
 
   export type MatchForAnalysisMinAggregateOutputType = {
@@ -9808,6 +9818,7 @@ export namespace Prisma {
     matchId: string | null
     date: string | null
     demoUrl: string | null
+    dateUnix: number | null
     score: string | null
     duration: string | null
     playerId: string | null
@@ -9819,6 +9830,7 @@ export namespace Prisma {
     matchId: string | null
     date: string | null
     demoUrl: string | null
+    dateUnix: number | null
     score: string | null
     duration: string | null
     playerId: string | null
@@ -9830,6 +9842,7 @@ export namespace Prisma {
     matchId: number
     date: number
     demoUrl: number
+    dateUnix: number
     score: number
     duration: number
     playerId: number
@@ -9838,11 +9851,20 @@ export namespace Prisma {
   }
 
 
+  export type MatchForAnalysisAvgAggregateInputType = {
+    dateUnix?: true
+  }
+
+  export type MatchForAnalysisSumAggregateInputType = {
+    dateUnix?: true
+  }
+
   export type MatchForAnalysisMinAggregateInputType = {
     sharedCode?: true
     matchId?: true
     date?: true
     demoUrl?: true
+    dateUnix?: true
     score?: true
     duration?: true
     playerId?: true
@@ -9854,6 +9876,7 @@ export namespace Prisma {
     matchId?: true
     date?: true
     demoUrl?: true
+    dateUnix?: true
     score?: true
     duration?: true
     playerId?: true
@@ -9865,6 +9888,7 @@ export namespace Prisma {
     matchId?: true
     date?: true
     demoUrl?: true
+    dateUnix?: true
     score?: true
     duration?: true
     playerId?: true
@@ -9910,6 +9934,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MatchForAnalysisAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MatchForAnalysisSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MatchForAnalysisMinAggregateInputType
@@ -9940,6 +9976,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MatchForAnalysisCountAggregateInputType | true
+    _avg?: MatchForAnalysisAvgAggregateInputType
+    _sum?: MatchForAnalysisSumAggregateInputType
     _min?: MatchForAnalysisMinAggregateInputType
     _max?: MatchForAnalysisMaxAggregateInputType
   }
@@ -9949,11 +9987,14 @@ export namespace Prisma {
     matchId: string
     date: string
     demoUrl: string
+    dateUnix: number
     score: string
     duration: string
     playerId: string
     createdAt: Date
     _count: MatchForAnalysisCountAggregateOutputType | null
+    _avg: MatchForAnalysisAvgAggregateOutputType | null
+    _sum: MatchForAnalysisSumAggregateOutputType | null
     _min: MatchForAnalysisMinAggregateOutputType | null
     _max: MatchForAnalysisMaxAggregateOutputType | null
   }
@@ -9977,6 +10018,7 @@ export namespace Prisma {
     matchId?: boolean
     date?: boolean
     demoUrl?: boolean
+    dateUnix?: boolean
     score?: boolean
     duration?: boolean
     playerId?: boolean
@@ -9988,6 +10030,7 @@ export namespace Prisma {
     matchId?: boolean
     date?: boolean
     demoUrl?: boolean
+    dateUnix?: boolean
     score?: boolean
     duration?: boolean
     playerId?: boolean
@@ -9999,6 +10042,7 @@ export namespace Prisma {
     matchId?: boolean
     date?: boolean
     demoUrl?: boolean
+    dateUnix?: boolean
     score?: boolean
     duration?: boolean
     playerId?: boolean
@@ -10010,13 +10054,14 @@ export namespace Prisma {
     matchId?: boolean
     date?: boolean
     demoUrl?: boolean
+    dateUnix?: boolean
     score?: boolean
     duration?: boolean
     playerId?: boolean
     createdAt?: boolean
   }
 
-  export type MatchForAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"sharedCode" | "matchId" | "date" | "demoUrl" | "score" | "duration" | "playerId" | "createdAt", ExtArgs["result"]["matchForAnalysis"]>
+  export type MatchForAnalysisOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"sharedCode" | "matchId" | "date" | "demoUrl" | "dateUnix" | "score" | "duration" | "playerId" | "createdAt", ExtArgs["result"]["matchForAnalysis"]>
 
   export type $MatchForAnalysisPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MatchForAnalysis"
@@ -10026,6 +10071,7 @@ export namespace Prisma {
       matchId: string
       date: string
       demoUrl: string
+      dateUnix: number
       score: string
       duration: string
       playerId: string
@@ -10457,6 +10503,7 @@ export namespace Prisma {
     readonly matchId: FieldRef<"MatchForAnalysis", 'String'>
     readonly date: FieldRef<"MatchForAnalysis", 'String'>
     readonly demoUrl: FieldRef<"MatchForAnalysis", 'String'>
+    readonly dateUnix: FieldRef<"MatchForAnalysis", 'Int'>
     readonly score: FieldRef<"MatchForAnalysis", 'String'>
     readonly duration: FieldRef<"MatchForAnalysis", 'String'>
     readonly playerId: FieldRef<"MatchForAnalysis", 'String'>
@@ -10840,10 +10887,12 @@ export namespace Prisma {
   }
 
   export type MatchAvgAggregateOutputType = {
+    dateUnix: number | null
     avg_rank: number | null
   }
 
   export type MatchSumAggregateOutputType = {
+    dateUnix: number | null
     avg_rank: number | null
   }
 
@@ -10852,6 +10901,7 @@ export namespace Prisma {
     type: $Enums.MatchType | null
     score: string | null
     date: string | null
+    dateUnix: number | null
     sharedCode: string | null
     demoUrl: string | null
     duration: string | null
@@ -10867,6 +10917,7 @@ export namespace Prisma {
     type: $Enums.MatchType | null
     score: string | null
     date: string | null
+    dateUnix: number | null
     sharedCode: string | null
     demoUrl: string | null
     duration: string | null
@@ -10884,6 +10935,7 @@ export namespace Prisma {
     parsedMatch: number
     kill_stats: number
     date: number
+    dateUnix: number
     sharedCode: number
     demoUrl: number
     duration: number
@@ -10897,10 +10949,12 @@ export namespace Prisma {
 
 
   export type MatchAvgAggregateInputType = {
+    dateUnix?: true
     avg_rank?: true
   }
 
   export type MatchSumAggregateInputType = {
+    dateUnix?: true
     avg_rank?: true
   }
 
@@ -10909,6 +10963,7 @@ export namespace Prisma {
     type?: true
     score?: true
     date?: true
+    dateUnix?: true
     sharedCode?: true
     demoUrl?: true
     duration?: true
@@ -10924,6 +10979,7 @@ export namespace Prisma {
     type?: true
     score?: true
     date?: true
+    dateUnix?: true
     sharedCode?: true
     demoUrl?: true
     duration?: true
@@ -10941,6 +10997,7 @@ export namespace Prisma {
     parsedMatch?: true
     kill_stats?: true
     date?: true
+    dateUnix?: true
     sharedCode?: true
     demoUrl?: true
     duration?: true
@@ -11045,6 +11102,7 @@ export namespace Prisma {
     parsedMatch: JsonValue
     kill_stats: JsonValue | null
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -11081,6 +11139,7 @@ export namespace Prisma {
     parsedMatch?: boolean
     kill_stats?: boolean
     date?: boolean
+    dateUnix?: boolean
     sharedCode?: boolean
     demoUrl?: boolean
     duration?: boolean
@@ -11101,6 +11160,7 @@ export namespace Prisma {
     parsedMatch?: boolean
     kill_stats?: boolean
     date?: boolean
+    dateUnix?: boolean
     sharedCode?: boolean
     demoUrl?: boolean
     duration?: boolean
@@ -11118,6 +11178,7 @@ export namespace Prisma {
     parsedMatch?: boolean
     kill_stats?: boolean
     date?: boolean
+    dateUnix?: boolean
     sharedCode?: boolean
     demoUrl?: boolean
     duration?: boolean
@@ -11135,6 +11196,7 @@ export namespace Prisma {
     parsedMatch?: boolean
     kill_stats?: boolean
     date?: boolean
+    dateUnix?: boolean
     sharedCode?: boolean
     demoUrl?: boolean
     duration?: boolean
@@ -11145,7 +11207,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type MatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "score" | "parsedMatch" | "kill_stats" | "date" | "sharedCode" | "demoUrl" | "duration" | "region" | "map" | "avg_rank" | "createdAt" | "updatedAt", ExtArgs["result"]["match"]>
+  export type MatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "score" | "parsedMatch" | "kill_stats" | "date" | "dateUnix" | "sharedCode" | "demoUrl" | "duration" | "region" | "map" | "avg_rank" | "createdAt" | "updatedAt", ExtArgs["result"]["match"]>
   export type MatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     participants?: boolean | Match$participantsArgs<ExtArgs>
     playersStatistic?: boolean | Match$playersStatisticArgs<ExtArgs>
@@ -11167,6 +11229,7 @@ export namespace Prisma {
       parsedMatch: Prisma.JsonValue
       kill_stats: Prisma.JsonValue | null
       date: string
+      dateUnix: number
       sharedCode: string
       demoUrl: string
       duration: string
@@ -11606,6 +11669,7 @@ export namespace Prisma {
     readonly parsedMatch: FieldRef<"Match", 'Json'>
     readonly kill_stats: FieldRef<"Match", 'Json'>
     readonly date: FieldRef<"Match", 'String'>
+    readonly dateUnix: FieldRef<"Match", 'Int'>
     readonly sharedCode: FieldRef<"Match", 'String'>
     readonly demoUrl: FieldRef<"Match", 'String'>
     readonly duration: FieldRef<"Match", 'String'>
@@ -23767,6 +23831,7 @@ export namespace Prisma {
     matchId: 'matchId',
     date: 'date',
     demoUrl: 'demoUrl',
+    dateUnix: 'dateUnix',
     score: 'score',
     duration: 'duration',
     playerId: 'playerId',
@@ -23783,6 +23848,7 @@ export namespace Prisma {
     parsedMatch: 'parsedMatch',
     kill_stats: 'kill_stats',
     date: 'date',
+    dateUnix: 'dateUnix',
     sharedCode: 'sharedCode',
     demoUrl: 'demoUrl',
     duration: 'duration',
@@ -24679,6 +24745,7 @@ export namespace Prisma {
     matchId?: StringFilter<"MatchForAnalysis"> | string
     date?: StringFilter<"MatchForAnalysis"> | string
     demoUrl?: StringFilter<"MatchForAnalysis"> | string
+    dateUnix?: IntFilter<"MatchForAnalysis"> | number
     score?: StringFilter<"MatchForAnalysis"> | string
     duration?: StringFilter<"MatchForAnalysis"> | string
     playerId?: StringFilter<"MatchForAnalysis"> | string
@@ -24690,6 +24757,7 @@ export namespace Prisma {
     matchId?: SortOrder
     date?: SortOrder
     demoUrl?: SortOrder
+    dateUnix?: SortOrder
     score?: SortOrder
     duration?: SortOrder
     playerId?: SortOrder
@@ -24704,6 +24772,7 @@ export namespace Prisma {
     matchId?: StringFilter<"MatchForAnalysis"> | string
     date?: StringFilter<"MatchForAnalysis"> | string
     demoUrl?: StringFilter<"MatchForAnalysis"> | string
+    dateUnix?: IntFilter<"MatchForAnalysis"> | number
     score?: StringFilter<"MatchForAnalysis"> | string
     duration?: StringFilter<"MatchForAnalysis"> | string
     playerId?: StringFilter<"MatchForAnalysis"> | string
@@ -24715,13 +24784,16 @@ export namespace Prisma {
     matchId?: SortOrder
     date?: SortOrder
     demoUrl?: SortOrder
+    dateUnix?: SortOrder
     score?: SortOrder
     duration?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
     _count?: MatchForAnalysisCountOrderByAggregateInput
+    _avg?: MatchForAnalysisAvgOrderByAggregateInput
     _max?: MatchForAnalysisMaxOrderByAggregateInput
     _min?: MatchForAnalysisMinOrderByAggregateInput
+    _sum?: MatchForAnalysisSumOrderByAggregateInput
   }
 
   export type MatchForAnalysisScalarWhereWithAggregatesInput = {
@@ -24732,6 +24804,7 @@ export namespace Prisma {
     matchId?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     date?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     demoUrl?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
+    dateUnix?: IntWithAggregatesFilter<"MatchForAnalysis"> | number
     score?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     duration?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
     playerId?: StringWithAggregatesFilter<"MatchForAnalysis"> | string
@@ -24748,6 +24821,7 @@ export namespace Prisma {
     parsedMatch?: JsonFilter<"Match">
     kill_stats?: JsonNullableFilter<"Match">
     date?: StringFilter<"Match"> | string
+    dateUnix?: IntFilter<"Match"> | number
     sharedCode?: StringFilter<"Match"> | string
     demoUrl?: StringFilter<"Match"> | string
     duration?: StringFilter<"Match"> | string
@@ -24767,6 +24841,7 @@ export namespace Prisma {
     parsedMatch?: SortOrder
     kill_stats?: SortOrderInput | SortOrder
     date?: SortOrder
+    dateUnix?: SortOrder
     sharedCode?: SortOrder
     demoUrl?: SortOrder
     duration?: SortOrder
@@ -24790,6 +24865,7 @@ export namespace Prisma {
     parsedMatch?: JsonFilter<"Match">
     kill_stats?: JsonNullableFilter<"Match">
     date?: StringFilter<"Match"> | string
+    dateUnix?: IntFilter<"Match"> | number
     demoUrl?: StringFilter<"Match"> | string
     duration?: StringFilter<"Match"> | string
     region?: StringFilter<"Match"> | string
@@ -24808,6 +24884,7 @@ export namespace Prisma {
     parsedMatch?: SortOrder
     kill_stats?: SortOrderInput | SortOrder
     date?: SortOrder
+    dateUnix?: SortOrder
     sharedCode?: SortOrder
     demoUrl?: SortOrder
     duration?: SortOrder
@@ -24833,6 +24910,7 @@ export namespace Prisma {
     parsedMatch?: JsonWithAggregatesFilter<"Match">
     kill_stats?: JsonNullableWithAggregatesFilter<"Match">
     date?: StringWithAggregatesFilter<"Match"> | string
+    dateUnix?: IntWithAggregatesFilter<"Match"> | number
     sharedCode?: StringWithAggregatesFilter<"Match"> | string
     demoUrl?: StringWithAggregatesFilter<"Match"> | string
     duration?: StringWithAggregatesFilter<"Match"> | string
@@ -26245,6 +26323,7 @@ export namespace Prisma {
     matchId: string
     date: string
     demoUrl: string
+    dateUnix: number
     score: string
     duration: string
     playerId: string
@@ -26256,6 +26335,7 @@ export namespace Prisma {
     matchId: string
     date: string
     demoUrl: string
+    dateUnix: number
     score: string
     duration: string
     playerId: string
@@ -26267,6 +26347,7 @@ export namespace Prisma {
     matchId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
@@ -26278,6 +26359,7 @@ export namespace Prisma {
     matchId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
@@ -26289,6 +26371,7 @@ export namespace Prisma {
     matchId: string
     date: string
     demoUrl: string
+    dateUnix: number
     score: string
     duration: string
     playerId: string
@@ -26300,6 +26383,7 @@ export namespace Prisma {
     matchId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
@@ -26311,6 +26395,7 @@ export namespace Prisma {
     matchId?: StringFieldUpdateOperationsInput | string
     date?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     score?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
     playerId?: StringFieldUpdateOperationsInput | string
@@ -26324,6 +26409,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -26343,6 +26429,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -26362,6 +26449,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -26381,6 +26469,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -26400,6 +26489,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -26417,6 +26507,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -26434,6 +26525,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -27927,10 +28019,15 @@ export namespace Prisma {
     matchId?: SortOrder
     date?: SortOrder
     demoUrl?: SortOrder
+    dateUnix?: SortOrder
     score?: SortOrder
     duration?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type MatchForAnalysisAvgOrderByAggregateInput = {
+    dateUnix?: SortOrder
   }
 
   export type MatchForAnalysisMaxOrderByAggregateInput = {
@@ -27938,6 +28035,7 @@ export namespace Prisma {
     matchId?: SortOrder
     date?: SortOrder
     demoUrl?: SortOrder
+    dateUnix?: SortOrder
     score?: SortOrder
     duration?: SortOrder
     playerId?: SortOrder
@@ -27949,10 +28047,15 @@ export namespace Prisma {
     matchId?: SortOrder
     date?: SortOrder
     demoUrl?: SortOrder
+    dateUnix?: SortOrder
     score?: SortOrder
     duration?: SortOrder
     playerId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type MatchForAnalysisSumOrderByAggregateInput = {
+    dateUnix?: SortOrder
   }
 
   export type EnumMatchTypeFilter<$PrismaModel = never> = {
@@ -28035,6 +28138,7 @@ export namespace Prisma {
     parsedMatch?: SortOrder
     kill_stats?: SortOrder
     date?: SortOrder
+    dateUnix?: SortOrder
     sharedCode?: SortOrder
     demoUrl?: SortOrder
     duration?: SortOrder
@@ -28046,6 +28150,7 @@ export namespace Prisma {
   }
 
   export type MatchAvgOrderByAggregateInput = {
+    dateUnix?: SortOrder
     avg_rank?: SortOrder
   }
 
@@ -28054,6 +28159,7 @@ export namespace Prisma {
     type?: SortOrder
     score?: SortOrder
     date?: SortOrder
+    dateUnix?: SortOrder
     sharedCode?: SortOrder
     demoUrl?: SortOrder
     duration?: SortOrder
@@ -28069,6 +28175,7 @@ export namespace Prisma {
     type?: SortOrder
     score?: SortOrder
     date?: SortOrder
+    dateUnix?: SortOrder
     sharedCode?: SortOrder
     demoUrl?: SortOrder
     duration?: SortOrder
@@ -28080,6 +28187,7 @@ export namespace Prisma {
   }
 
   export type MatchSumOrderByAggregateInput = {
+    dateUnix?: SortOrder
     avg_rank?: SortOrder
   }
 
@@ -31203,6 +31311,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -31221,6 +31330,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -31424,6 +31534,7 @@ export namespace Prisma {
     parsedMatch?: JsonFilter<"Match">
     kill_stats?: JsonNullableFilter<"Match">
     date?: StringFilter<"Match"> | string
+    dateUnix?: IntFilter<"Match"> | number
     sharedCode?: StringFilter<"Match"> | string
     demoUrl?: StringFilter<"Match"> | string
     duration?: StringFilter<"Match"> | string
@@ -31972,6 +32083,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -31990,6 +32102,7 @@ export namespace Prisma {
     parsedMatch: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date: string
+    dateUnix: number
     sharedCode: string
     demoUrl: string
     duration: string
@@ -32024,6 +32137,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -32042,6 +32156,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -33491,6 +33606,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -33509,6 +33625,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string
@@ -33527,6 +33644,7 @@ export namespace Prisma {
     parsedMatch?: JsonNullValueInput | InputJsonValue
     kill_stats?: NullableJsonNullValueInput | InputJsonValue
     date?: StringFieldUpdateOperationsInput | string
+    dateUnix?: IntFieldUpdateOperationsInput | number
     sharedCode?: StringFieldUpdateOperationsInput | string
     demoUrl?: StringFieldUpdateOperationsInput | string
     duration?: StringFieldUpdateOperationsInput | string

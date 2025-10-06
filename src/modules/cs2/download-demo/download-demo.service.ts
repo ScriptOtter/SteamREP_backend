@@ -78,6 +78,7 @@ export class DownloadDemoService {
             data: {
               sharedCode: demo.sharedCode,
               date: formatUnixTime(demo.matchtime),
+              dateUnix: demo.matchtime,
               demoUrl: demo.url,
               duration: formatTime(demo.match_duration),
               matchId: demo.matchid,
