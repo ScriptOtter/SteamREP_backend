@@ -42,7 +42,7 @@ export class SteamController {
     res.redirect(
       this.steamOAuth.generate_redirect(
         process.env.SERVER_URL,
-        process.env.SERVER_URL + '/steam/auth',
+        process.env.SERVER_URL + 'steam/auth',
       ),
     );
   }
