@@ -22,6 +22,7 @@ import { CronModule } from 'src/modules/cron/cron.module';
 import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.module';
 import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-statistics/general-player-statistics.module';
 import { MatchModule } from 'src/modules/cs2/match/match.module';
+import { Cs2Module } from 'src/modules/cs2/cs2.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { MatchModule } from 'src/modules/cs2/match/match.module';
     GeneralPlayerStatisticsModule,
     PasswordRecoveryModule,
     MatchModule,
+    Cs2Module,
   ],
   controllers: [UserController, ProtectedController],
   providers: [UserService, SocialLinksService],

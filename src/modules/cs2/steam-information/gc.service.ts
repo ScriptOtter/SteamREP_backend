@@ -15,9 +15,7 @@ export class GCService {
         { withCredentials: true },
       );
       return res.json(response.data);
-    } catch (e) {
-      console.log(e, 'getAccountInformation');
-    }
+    } catch (e) {}
   }
 
   async getMatchInfoFromSharedCode(sharedCode: string) {
@@ -43,8 +41,6 @@ export class GCService {
       );
 
       return response.data;
-    } catch (e) {
-      console.log(e, 'getMatchInfoFromSharedCode');
-    }
+    } catch (e) {}
   }
 }

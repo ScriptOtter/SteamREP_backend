@@ -254,6 +254,11 @@ model SteamUserBans {
   updatedAt   DateTime @updatedAt @map("updated_at")
 }
 
+model vac {
+  number Int
+  createdAt DateTime @id @default(now()) @map("created_at")
+}
+
 model LinksInProfile {
   id String @unique @id @default(cuid())
   user User @relation(fields: [id], references: [id], onDelete: Cascade)
@@ -339,6 +344,8 @@ model Verdict {
 
   @@map("verdict")
 }
+
+
 
 enum UserRole {
   NOT_ACTIVE          // Обычный пользователь

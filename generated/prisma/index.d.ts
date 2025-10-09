@@ -74,6 +74,11 @@ export type PlayerStatisticsInMatch = $Result.DefaultSelection<Prisma.$PlayerSta
  */
 export type SteamUserBans = $Result.DefaultSelection<Prisma.$SteamUserBansPayload>
 /**
+ * Model vac
+ * 
+ */
+export type vac = $Result.DefaultSelection<Prisma.$vacPayload>
+/**
  * Model LinksInProfile
  * 
  */
@@ -431,6 +436,16 @@ export class PrismaClient<
     * ```
     */
   get steamUserBans(): Prisma.SteamUserBansDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.vac`: Exposes CRUD operations for the **vac** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Vacs
+    * const vacs = await prisma.vac.findMany()
+    * ```
+    */
+  get vac(): Prisma.vacDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.linksInProfile`: Exposes CRUD operations for the **LinksInProfile** model.
@@ -943,6 +958,7 @@ export namespace Prisma {
     MapRanks: 'MapRanks',
     PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',
     SteamUserBans: 'SteamUserBans',
+    vac: 'vac',
     LinksInProfile: 'LinksInProfile',
     Comment: 'Comment',
     Images: 'Images',
@@ -967,7 +983,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "vac" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1859,6 +1875,80 @@ export namespace Prisma {
           }
         }
       }
+      vac: {
+        payload: Prisma.$vacPayload<ExtArgs>
+        fields: Prisma.vacFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.vacFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.vacFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          findFirst: {
+            args: Prisma.vacFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.vacFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          findMany: {
+            args: Prisma.vacFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>[]
+          }
+          create: {
+            args: Prisma.vacCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          createMany: {
+            args: Prisma.vacCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.vacCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>[]
+          }
+          delete: {
+            args: Prisma.vacDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          update: {
+            args: Prisma.vacUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          deleteMany: {
+            args: Prisma.vacDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.vacUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.vacUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>[]
+          }
+          upsert: {
+            args: Prisma.vacUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$vacPayload>
+          }
+          aggregate: {
+            args: Prisma.VacAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVac>
+          }
+          groupBy: {
+            args: Prisma.vacGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VacGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.vacCountArgs<ExtArgs>
+            result: $Utils.Optional<VacCountAggregateOutputType> | number
+          }
+        }
+      }
       LinksInProfile: {
         payload: Prisma.$LinksInProfilePayload<ExtArgs>
         fields: Prisma.LinksInProfileFieldRefs
@@ -2407,6 +2497,7 @@ export namespace Prisma {
     mapRanks?: MapRanksOmit
     playerStatisticsInMatch?: PlayerStatisticsInMatchOmit
     steamUserBans?: SteamUserBansOmit
+    vac?: vacOmit
     linksInProfile?: LinksInProfileOmit
     comment?: CommentOmit
     images?: ImagesOmit
@@ -17176,6 +17267,996 @@ export namespace Prisma {
 
 
   /**
+   * Model vac
+   */
+
+  export type AggregateVac = {
+    _count: VacCountAggregateOutputType | null
+    _avg: VacAvgAggregateOutputType | null
+    _sum: VacSumAggregateOutputType | null
+    _min: VacMinAggregateOutputType | null
+    _max: VacMaxAggregateOutputType | null
+  }
+
+  export type VacAvgAggregateOutputType = {
+    number: number | null
+  }
+
+  export type VacSumAggregateOutputType = {
+    number: number | null
+  }
+
+  export type VacMinAggregateOutputType = {
+    number: number | null
+    createdAt: Date | null
+  }
+
+  export type VacMaxAggregateOutputType = {
+    number: number | null
+    createdAt: Date | null
+  }
+
+  export type VacCountAggregateOutputType = {
+    number: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type VacAvgAggregateInputType = {
+    number?: true
+  }
+
+  export type VacSumAggregateInputType = {
+    number?: true
+  }
+
+  export type VacMinAggregateInputType = {
+    number?: true
+    createdAt?: true
+  }
+
+  export type VacMaxAggregateInputType = {
+    number?: true
+    createdAt?: true
+  }
+
+  export type VacCountAggregateInputType = {
+    number?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type VacAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vac to aggregate.
+     */
+    where?: vacWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vacs to fetch.
+     */
+    orderBy?: vacOrderByWithRelationInput | vacOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: vacWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vacs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vacs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned vacs
+    **/
+    _count?: true | VacCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: VacAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: VacSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VacMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VacMaxAggregateInputType
+  }
+
+  export type GetVacAggregateType<T extends VacAggregateArgs> = {
+        [P in keyof T & keyof AggregateVac]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVac[P]>
+      : GetScalarType<T[P], AggregateVac[P]>
+  }
+
+
+
+
+  export type vacGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: vacWhereInput
+    orderBy?: vacOrderByWithAggregationInput | vacOrderByWithAggregationInput[]
+    by: VacScalarFieldEnum[] | VacScalarFieldEnum
+    having?: vacScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VacCountAggregateInputType | true
+    _avg?: VacAvgAggregateInputType
+    _sum?: VacSumAggregateInputType
+    _min?: VacMinAggregateInputType
+    _max?: VacMaxAggregateInputType
+  }
+
+  export type VacGroupByOutputType = {
+    number: number
+    createdAt: Date
+    _count: VacCountAggregateOutputType | null
+    _avg: VacAvgAggregateOutputType | null
+    _sum: VacSumAggregateOutputType | null
+    _min: VacMinAggregateOutputType | null
+    _max: VacMaxAggregateOutputType | null
+  }
+
+  type GetVacGroupByPayload<T extends vacGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VacGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VacGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VacGroupByOutputType[P]>
+            : GetScalarType<T[P], VacGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type vacSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    number?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["vac"]>
+
+  export type vacSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    number?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["vac"]>
+
+  export type vacSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    number?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["vac"]>
+
+  export type vacSelectScalar = {
+    number?: boolean
+    createdAt?: boolean
+  }
+
+  export type vacOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"number" | "createdAt", ExtArgs["result"]["vac"]>
+
+  export type $vacPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "vac"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      number: number
+      createdAt: Date
+    }, ExtArgs["result"]["vac"]>
+    composites: {}
+  }
+
+  type vacGetPayload<S extends boolean | null | undefined | vacDefaultArgs> = $Result.GetResult<Prisma.$vacPayload, S>
+
+  type vacCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<vacFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VacCountAggregateInputType | true
+    }
+
+  export interface vacDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['vac'], meta: { name: 'vac' } }
+    /**
+     * Find zero or one Vac that matches the filter.
+     * @param {vacFindUniqueArgs} args - Arguments to find a Vac
+     * @example
+     * // Get one Vac
+     * const vac = await prisma.vac.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends vacFindUniqueArgs>(args: SelectSubset<T, vacFindUniqueArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Vac that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {vacFindUniqueOrThrowArgs} args - Arguments to find a Vac
+     * @example
+     * // Get one Vac
+     * const vac = await prisma.vac.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends vacFindUniqueOrThrowArgs>(args: SelectSubset<T, vacFindUniqueOrThrowArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vac that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacFindFirstArgs} args - Arguments to find a Vac
+     * @example
+     * // Get one Vac
+     * const vac = await prisma.vac.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends vacFindFirstArgs>(args?: SelectSubset<T, vacFindFirstArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Vac that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacFindFirstOrThrowArgs} args - Arguments to find a Vac
+     * @example
+     * // Get one Vac
+     * const vac = await prisma.vac.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends vacFindFirstOrThrowArgs>(args?: SelectSubset<T, vacFindFirstOrThrowArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Vacs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Vacs
+     * const vacs = await prisma.vac.findMany()
+     * 
+     * // Get first 10 Vacs
+     * const vacs = await prisma.vac.findMany({ take: 10 })
+     * 
+     * // Only select the `number`
+     * const vacWithNumberOnly = await prisma.vac.findMany({ select: { number: true } })
+     * 
+     */
+    findMany<T extends vacFindManyArgs>(args?: SelectSubset<T, vacFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Vac.
+     * @param {vacCreateArgs} args - Arguments to create a Vac.
+     * @example
+     * // Create one Vac
+     * const Vac = await prisma.vac.create({
+     *   data: {
+     *     // ... data to create a Vac
+     *   }
+     * })
+     * 
+     */
+    create<T extends vacCreateArgs>(args: SelectSubset<T, vacCreateArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Vacs.
+     * @param {vacCreateManyArgs} args - Arguments to create many Vacs.
+     * @example
+     * // Create many Vacs
+     * const vac = await prisma.vac.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends vacCreateManyArgs>(args?: SelectSubset<T, vacCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Vacs and returns the data saved in the database.
+     * @param {vacCreateManyAndReturnArgs} args - Arguments to create many Vacs.
+     * @example
+     * // Create many Vacs
+     * const vac = await prisma.vac.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Vacs and only return the `number`
+     * const vacWithNumberOnly = await prisma.vac.createManyAndReturn({
+     *   select: { number: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends vacCreateManyAndReturnArgs>(args?: SelectSubset<T, vacCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Vac.
+     * @param {vacDeleteArgs} args - Arguments to delete one Vac.
+     * @example
+     * // Delete one Vac
+     * const Vac = await prisma.vac.delete({
+     *   where: {
+     *     // ... filter to delete one Vac
+     *   }
+     * })
+     * 
+     */
+    delete<T extends vacDeleteArgs>(args: SelectSubset<T, vacDeleteArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Vac.
+     * @param {vacUpdateArgs} args - Arguments to update one Vac.
+     * @example
+     * // Update one Vac
+     * const vac = await prisma.vac.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends vacUpdateArgs>(args: SelectSubset<T, vacUpdateArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Vacs.
+     * @param {vacDeleteManyArgs} args - Arguments to filter Vacs to delete.
+     * @example
+     * // Delete a few Vacs
+     * const { count } = await prisma.vac.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends vacDeleteManyArgs>(args?: SelectSubset<T, vacDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Vacs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Vacs
+     * const vac = await prisma.vac.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends vacUpdateManyArgs>(args: SelectSubset<T, vacUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Vacs and returns the data updated in the database.
+     * @param {vacUpdateManyAndReturnArgs} args - Arguments to update many Vacs.
+     * @example
+     * // Update many Vacs
+     * const vac = await prisma.vac.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Vacs and only return the `number`
+     * const vacWithNumberOnly = await prisma.vac.updateManyAndReturn({
+     *   select: { number: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends vacUpdateManyAndReturnArgs>(args: SelectSubset<T, vacUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Vac.
+     * @param {vacUpsertArgs} args - Arguments to update or create a Vac.
+     * @example
+     * // Update or create a Vac
+     * const vac = await prisma.vac.upsert({
+     *   create: {
+     *     // ... data to create a Vac
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Vac we want to update
+     *   }
+     * })
+     */
+    upsert<T extends vacUpsertArgs>(args: SelectSubset<T, vacUpsertArgs<ExtArgs>>): Prisma__vacClient<$Result.GetResult<Prisma.$vacPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Vacs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacCountArgs} args - Arguments to filter Vacs to count.
+     * @example
+     * // Count the number of Vacs
+     * const count = await prisma.vac.count({
+     *   where: {
+     *     // ... the filter for the Vacs we want to count
+     *   }
+     * })
+    **/
+    count<T extends vacCountArgs>(
+      args?: Subset<T, vacCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VacCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Vac.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VacAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VacAggregateArgs>(args: Subset<T, VacAggregateArgs>): Prisma.PrismaPromise<GetVacAggregateType<T>>
+
+    /**
+     * Group by Vac.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {vacGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends vacGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: vacGroupByArgs['orderBy'] }
+        : { orderBy?: vacGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, vacGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVacGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the vac model
+   */
+  readonly fields: vacFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for vac.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__vacClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the vac model
+   */
+  interface vacFieldRefs {
+    readonly number: FieldRef<"vac", 'Int'>
+    readonly createdAt: FieldRef<"vac", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * vac findUnique
+   */
+  export type vacFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter, which vac to fetch.
+     */
+    where: vacWhereUniqueInput
+  }
+
+  /**
+   * vac findUniqueOrThrow
+   */
+  export type vacFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter, which vac to fetch.
+     */
+    where: vacWhereUniqueInput
+  }
+
+  /**
+   * vac findFirst
+   */
+  export type vacFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter, which vac to fetch.
+     */
+    where?: vacWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vacs to fetch.
+     */
+    orderBy?: vacOrderByWithRelationInput | vacOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vacs.
+     */
+    cursor?: vacWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vacs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vacs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vacs.
+     */
+    distinct?: VacScalarFieldEnum | VacScalarFieldEnum[]
+  }
+
+  /**
+   * vac findFirstOrThrow
+   */
+  export type vacFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter, which vac to fetch.
+     */
+    where?: vacWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vacs to fetch.
+     */
+    orderBy?: vacOrderByWithRelationInput | vacOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for vacs.
+     */
+    cursor?: vacWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vacs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vacs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of vacs.
+     */
+    distinct?: VacScalarFieldEnum | VacScalarFieldEnum[]
+  }
+
+  /**
+   * vac findMany
+   */
+  export type vacFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter, which vacs to fetch.
+     */
+    where?: vacWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of vacs to fetch.
+     */
+    orderBy?: vacOrderByWithRelationInput | vacOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing vacs.
+     */
+    cursor?: vacWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` vacs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` vacs.
+     */
+    skip?: number
+    distinct?: VacScalarFieldEnum | VacScalarFieldEnum[]
+  }
+
+  /**
+   * vac create
+   */
+  export type vacCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * The data needed to create a vac.
+     */
+    data: XOR<vacCreateInput, vacUncheckedCreateInput>
+  }
+
+  /**
+   * vac createMany
+   */
+  export type vacCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many vacs.
+     */
+    data: vacCreateManyInput | vacCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * vac createManyAndReturn
+   */
+  export type vacCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * The data used to create many vacs.
+     */
+    data: vacCreateManyInput | vacCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * vac update
+   */
+  export type vacUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * The data needed to update a vac.
+     */
+    data: XOR<vacUpdateInput, vacUncheckedUpdateInput>
+    /**
+     * Choose, which vac to update.
+     */
+    where: vacWhereUniqueInput
+  }
+
+  /**
+   * vac updateMany
+   */
+  export type vacUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update vacs.
+     */
+    data: XOR<vacUpdateManyMutationInput, vacUncheckedUpdateManyInput>
+    /**
+     * Filter which vacs to update
+     */
+    where?: vacWhereInput
+    /**
+     * Limit how many vacs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * vac updateManyAndReturn
+   */
+  export type vacUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * The data used to update vacs.
+     */
+    data: XOR<vacUpdateManyMutationInput, vacUncheckedUpdateManyInput>
+    /**
+     * Filter which vacs to update
+     */
+    where?: vacWhereInput
+    /**
+     * Limit how many vacs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * vac upsert
+   */
+  export type vacUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * The filter to search for the vac to update in case it exists.
+     */
+    where: vacWhereUniqueInput
+    /**
+     * In case the vac found by the `where` argument doesn't exist, create a new vac with this data.
+     */
+    create: XOR<vacCreateInput, vacUncheckedCreateInput>
+    /**
+     * In case the vac was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<vacUpdateInput, vacUncheckedUpdateInput>
+  }
+
+  /**
+   * vac delete
+   */
+  export type vacDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+    /**
+     * Filter which vac to delete.
+     */
+    where: vacWhereUniqueInput
+  }
+
+  /**
+   * vac deleteMany
+   */
+  export type vacDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which vacs to delete
+     */
+    where?: vacWhereInput
+    /**
+     * Limit how many vacs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * vac without action
+   */
+  export type vacDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the vac
+     */
+    select?: vacSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the vac
+     */
+    omit?: vacOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model LinksInProfile
    */
 
@@ -23947,6 +25028,14 @@ export namespace Prisma {
   export type SteamUserBansScalarFieldEnum = (typeof SteamUserBansScalarFieldEnum)[keyof typeof SteamUserBansScalarFieldEnum]
 
 
+  export const VacScalarFieldEnum: {
+    number: 'number',
+    createdAt: 'createdAt'
+  };
+
+  export type VacScalarFieldEnum = (typeof VacScalarFieldEnum)[keyof typeof VacScalarFieldEnum]
+
+
   export const LinksInProfileScalarFieldEnum: {
     id: 'id',
     tradeLink: 'tradeLink',
@@ -25355,6 +26444,45 @@ export namespace Prisma {
     cs_banned_since?: DateTimeNullableWithAggregatesFilter<"SteamUserBans"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SteamUserBans"> | Date | string
+  }
+
+  export type vacWhereInput = {
+    AND?: vacWhereInput | vacWhereInput[]
+    OR?: vacWhereInput[]
+    NOT?: vacWhereInput | vacWhereInput[]
+    number?: IntFilter<"vac"> | number
+    createdAt?: DateTimeFilter<"vac"> | Date | string
+  }
+
+  export type vacOrderByWithRelationInput = {
+    number?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type vacWhereUniqueInput = Prisma.AtLeast<{
+    createdAt?: Date | string
+    AND?: vacWhereInput | vacWhereInput[]
+    OR?: vacWhereInput[]
+    NOT?: vacWhereInput | vacWhereInput[]
+    number?: IntFilter<"vac"> | number
+  }, "createdAt">
+
+  export type vacOrderByWithAggregationInput = {
+    number?: SortOrder
+    createdAt?: SortOrder
+    _count?: vacCountOrderByAggregateInput
+    _avg?: vacAvgOrderByAggregateInput
+    _max?: vacMaxOrderByAggregateInput
+    _min?: vacMinOrderByAggregateInput
+    _sum?: vacSumOrderByAggregateInput
+  }
+
+  export type vacScalarWhereWithAggregatesInput = {
+    AND?: vacScalarWhereWithAggregatesInput | vacScalarWhereWithAggregatesInput[]
+    OR?: vacScalarWhereWithAggregatesInput[]
+    NOT?: vacScalarWhereWithAggregatesInput | vacScalarWhereWithAggregatesInput[]
+    number?: IntWithAggregatesFilter<"vac"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"vac"> | Date | string
   }
 
   export type LinksInProfileWhereInput = {
@@ -27047,6 +28175,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type vacCreateInput = {
+    number: number
+    createdAt?: Date | string
+  }
+
+  export type vacUncheckedCreateInput = {
+    number: number
+    createdAt?: Date | string
+  }
+
+  export type vacUpdateInput = {
+    number?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type vacUncheckedUpdateInput = {
+    number?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type vacCreateManyInput = {
+    number: number
+    createdAt?: Date | string
+  }
+
+  export type vacUpdateManyMutationInput = {
+    number?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type vacUncheckedUpdateManyInput = {
+    number?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type LinksInProfileCreateInput = {
     tradeLink?: string | null
     twitch?: string | null
@@ -28640,6 +29803,29 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type vacCountOrderByAggregateInput = {
+    number?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type vacAvgOrderByAggregateInput = {
+    number?: SortOrder
+  }
+
+  export type vacMaxOrderByAggregateInput = {
+    number?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type vacMinOrderByAggregateInput = {
+    number?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type vacSumOrderByAggregateInput = {
+    number?: SortOrder
   }
 
   export type LinksInProfileCountOrderByAggregateInput = {

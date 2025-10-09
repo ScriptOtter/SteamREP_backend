@@ -297,6 +297,11 @@ exports.Prisma.SteamUserBansScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.VacScalarFieldEnum = {
+  number: 'number',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.LinksInProfileScalarFieldEnum = {
   id: 'id',
   tradeLink: 'tradeLink',
@@ -439,6 +444,7 @@ exports.Prisma.ModelName = {
   MapRanks: 'MapRanks',
   PlayerStatisticsInMatch: 'PlayerStatisticsInMatch',
   SteamUserBans: 'SteamUserBans',
+  vac: 'vac',
   LinksInProfile: 'LinksInProfile',
   Comment: 'Comment',
   Images: 'Images',

@@ -94,6 +94,39 @@ export class SteamPrismaService {
     }
   }
 
+  public async updateClearSteamAccount(id: string): Promise<void> {
+    try {
+      const random = (Math.random() * 100 - 24 * Math.random()).toString();
+      console.log('Updating: ', id);
+      console.time(`${id}${random}`);
+      const res = await this.steamService.getSteamUser(id);
+      const {
+        steamid,
+        personaname,
+        profileurl,
+        avatarfull,
+        realname,
+        timecreated,
+        loccountrycode,
+      } = res[0];
+
+      const steamUser = await this.prisma.steamUser.update({
+        where: { id: steamid },
+        data: {
+          personaName: personaname,
+          profileUrl: profileurl,
+          avatar: avatarfull,
+          realname: realname,
+          timeCreated: this.formatTimestampToDateString(timecreated),
+          countryCode: loccountrycode,
+          lastUpdateSteamInformation: new Date(),
+        },
+      });
+
+      console.timeEnd(`${id}${random}`);
+    } catch (e) {}
+  }
+
   public async updateSteamUserFromSteam(
     steamid: string,
   ): Promise<Partial<any> | null> {

@@ -32,7 +32,7 @@ export class GeneralPlayerStatisticsService {
 
       for (const map of leetify.data.ranks.competitive) {
         const mapRank = await this.prismaService.mapRanks.findFirst({
-          where: { name: map.map_name, rank: map.rank, playerId: genStats.id },
+          where: { name: map.map_name, playerId: genStats.id },
         });
 
         if (!mapRank) {
@@ -84,13 +84,18 @@ export class GeneralPlayerStatisticsService {
   }
   private async updateCS2StatsFromLeetify(steamid: string) {
     try {
+      const genStat =
+        await this.prismaService.generalPlayerStatistics.findFirst({
+          where: { userId: steamid },
+        });
+      if (!genStat) return;
       const leetify: AxiosResponse<LeetifyProfile> = await axios.get(
         `https://api-public.cs-prod.leetify.com/v3/profile?steam64_id=${steamid}`,
       );
       for (const map of leetify.data.ranks.competitive) {
         await this.prismaService.mapRanks.updateMany({
-          where: { playerId: steamid },
-          data: { name: map.map_name, rank: map.rank },
+          where: { playerId: genStat.id },
+          data: { name: map.map_name },
         });
       }
       const { first_match_date } = leetify.data;
