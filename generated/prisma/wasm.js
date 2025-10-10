@@ -5,13 +5,28 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const {
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientInitializationError,
+  PrismaClientValidationError,
+  getPrismaClient,
+  sqltag,
+  empty,
+  join,
+  raw,
+  skip,
   Decimal,
+  Debug,
   objectEnumValues,
   makeStrictEnum,
+  Extensions,
+  warnOnce,
+  defineDmmfProperty,
   Public,
   getRuntime,
-  skip
-} = require('./runtime/index-browser.js')
+  createParam,
+} = require('./runtime/wasm-engine-edge.js')
 
 
 const Prisma = {}
@@ -20,79 +35,35 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.15.0
- * Query Engine version: 85179d7826409ee107a6ba334b5e305ae3fba9fb
+ * Prisma Client JS version: 6.17.0
+ * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
  */
 Prisma.prismaVersion = {
-  client: "6.15.0",
-  engine: "85179d7826409ee107a6ba334b5e305ae3fba9fb"
+  client: "6.17.0",
+  engine: "c0aafc03b8ef6cdced8654b9a817999e02457d6a"
 }
 
-Prisma.PrismaClientKnownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientKnownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)};
-Prisma.PrismaClientUnknownRequestError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientUnknownRequestError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientRustPanicError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientRustPanicError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientInitializationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientInitializationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.PrismaClientValidationError = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`PrismaClientValidationError is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
+Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError
+Prisma.PrismaClientRustPanicError = PrismaClientRustPanicError
+Prisma.PrismaClientInitializationError = PrismaClientInitializationError
+Prisma.PrismaClientValidationError = PrismaClientValidationError
 Prisma.Decimal = Decimal
 
 /**
  * Re-export of sql-template-tag
  */
-Prisma.sql = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`sqltag is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.empty = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`empty is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.join = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`join is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.raw = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`raw is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.sql = sqltag
+Prisma.empty = empty
+Prisma.join = join
+Prisma.raw = raw
 Prisma.validator = Public.validator
 
 /**
 * Extensions
 */
-Prisma.getExtensionContext = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.getExtensionContext is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
-Prisma.defineExtension = () => {
-  const runtimeName = getRuntime().prettyName;
-  throw new Error(`Extensions.defineExtension is unable to run in this browser environment, or has been bundled for the browser (running in ${runtimeName}).
-In case this error is unexpected for you, please report it in https://pris.ly/prisma-prisma-bug-report`,
-)}
+Prisma.getExtensionContext = Extensions.getExtensionContext
+Prisma.defineExtension = Extensions.defineExtension
 
 /**
  * Shorthand utilities for JSON filtering
@@ -109,10 +80,11 @@ Prisma.NullTypes = {
 
 
 
+
+
 /**
  * Enums
  */
-
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
   ReadCommitted: 'ReadCommitted',
@@ -388,6 +360,14 @@ exports.Prisma.JsonNullValueFilter = {
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
+exports.NotificationType = exports.$Enums.NotificationType = {
+  SYSTEM: 'SYSTEM',
+  STANDARD: 'STANDARD',
+  COMMENT: 'COMMENT',
+  CS: 'CS',
+  SUBSCRIBE: 'SUBSCRIBE'
+};
+
 exports.UserRole = exports.$Enums.UserRole = {
   NOT_ACTIVE: 'NOT_ACTIVE',
   ACTIVE: 'ACTIVE',
@@ -403,18 +383,16 @@ exports.AdditionalRole = exports.$Enums.AdditionalRole = {
   CREATOR: 'CREATOR'
 };
 
-exports.NotificationType = exports.$Enums.NotificationType = {
-  SYSTEM: 'SYSTEM',
-  STANDARD: 'STANDARD',
-  COMMENT: 'COMMENT',
-  CS: 'CS',
-  SUBSCRIBE: 'SUBSCRIBE'
-};
-
 exports.TokenType = exports.$Enums.TokenType = {
   EMAIL_VERIFY: 'EMAIL_VERIFY',
   PASSWORD_RECOVERY: 'PASSWORD_RECOVERY',
   TELEGRAM_VERIFY: 'TELEGRAM_VERIFY'
+};
+
+exports.MatchResult = exports.$Enums.MatchResult = {
+  WIN: 'WIN',
+  LOSE: 'LOSE',
+  DRAW: 'DRAW'
 };
 
 exports.MatchType = exports.$Enums.MatchType = {
@@ -423,12 +401,6 @@ exports.MatchType = exports.$Enums.MatchType = {
   PREMIER: 'PREMIER',
   WINGMAN: 'WINGMAN',
   FACEIT: 'FACEIT'
-};
-
-exports.MatchResult = exports.$Enums.MatchResult = {
-  WIN: 'WIN',
-  LOSE: 'LOSE',
-  DRAW: 'DRAW'
 };
 
 exports.Prisma.ModelName = {
@@ -452,34 +424,82 @@ exports.Prisma.ModelName = {
   ReportUser: 'ReportUser',
   Verdict: 'Verdict'
 };
-
 /**
- * This is a stub Prisma Client that will error at runtime if called.
+ * Create the Client
  */
-class PrismaClient {
-  constructor() {
-    return new Proxy(this, {
-      get(target, prop) {
-        let message
-        const runtime = getRuntime()
-        if (runtime.isEdge) {
-          message = `PrismaClient is not configured to run in ${runtime.prettyName}. In order to run Prisma Client on edge runtime, either:
-- Use Prisma Accelerate: https://pris.ly/d/accelerate
-- Use Driver Adapters: https://pris.ly/d/driver-adapters
-`;
-        } else {
-          message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
-        }
-
-        message += `
-If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
-
-        throw new Error(message)
+const config = {
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client-js"
+    },
+    "output": {
+      "value": "C:\\Users\\gamec\\SteamREP_backend\\generated\\prisma",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "windows",
+        "native": true
       }
-    })
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "C:\\Users\\gamec\\SteamREP_backend\\prisma\\schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativeEnvPaths": {
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../.env"
+  },
+  "relativePath": "../../prisma",
+  "clientVersion": "6.17.0",
+  "engineVersion": "c0aafc03b8ef6cdced8654b9a817999e02457d6a",
+  "datasourceNames": [
+    "db"
+  ],
+  "activeProvider": "postgresql",
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": "DATABASE_URL",
+        "value": null
+      }
+    }
+  },
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       String  @id @unique @default(cuid())\n  email    String  @unique\n  username String  @unique\n  password String\n  avatar   String?\n\n  tokens           Token[]\n  notifications    Notifications[]\n  trackingUsers    TrackingUser[]\n  links            LinksInProfile? @relation\n  role             UserRole        @default(NOT_ACTIVE)\n  additionalRole   AdditionalRole  @default(MEMBER)\n  steamUser        SteamUser?      @relation\n  commentsAsAuthor Comment[]       @relation()\n  jwtTokens        JwtToken[]\n  reportUsers      ReportUser[]    @relation()\n  verdicts         Verdict[]       @relation()\n  isEmailVerified  Boolean         @default(false) @map(\"is_email_verified\")\n  isBanned         Boolean         @default(false) @map(\"is_banned\")\n  createdAt        DateTime        @default(now()) @map(\"created_at\")\n  updatedAt        DateTime        @updatedAt @map(\"updated_at\")\n\n  @@map(\"user\")\n}\n\nmodel TrackingUser {\n  id String @id @unique @default(uuid())\n\n  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId     String\n  name       String\n  steamid    String\n  dateBanned DateTime?\n  avatar     String\n  createdAt  DateTime  @default(now()) @map(\"created_at\")\n  updatedAt  DateTime  @updatedAt @map(\"updated_at\")\n}\n\nmodel Notifications {\n  id String @id @unique @default(uuid())\n\n  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId      String\n  type        NotificationType\n  title       String\n  description String?\n  isViewed    Boolean          @default(false)\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n\nenum NotificationType {\n  SYSTEM\n  STANDARD\n  COMMENT\n  CS\n  SUBSCRIBE\n}\n\nmodel Token {\n  id String @id @default(uuid())\n\n  token     String    @unique\n  type      TokenType\n  expiresIn DateTime  @map(\"expires_in\")\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String @map(\"user_id\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"tokens\")\n}\n\nmodel StackDownloadingMatches {\n  id        String   @unique\n  createdAt DateTime @default(now()) @map(\"created_at\")\n}\n\nmodel SteamUser {\n  id          String  @id @unique\n  personaName String? @map(\"persona_name\")\n  profileUrl  String? @map(\"profile_url\")\n  avatar      String?\n  realname    String?\n  level       String?\n  timeCreated String? @map(\"time_created\")\n\n  steamId2    String?\n  steamId3    String?\n  steamIdHex  String?\n  countryCode String?\n\n  lastUpdateSteamInformation DateTime\n\n  viewers Int @default(1)\n\n  user   User?   @relation(fields: [userId], references: [id])\n  userId String? @unique @map(\"user_id\")\n\n  steamUserBans       SteamUserBans? @relation\n  commentsAsRecipient Comment[]      @relation()\n  reportsAsRecipient  ReportUser[]   @relation()\n\n  matches                         Match[]\n  generalPlayerStatistics         GeneralPlayerStatistics?\n  isGettedGeneralPlayerStatistics Boolean                  @default(false)\n  sharedCode                      String?                  @map(\"shared_code\")\n  sharedCodeError                 DateTime?\n  gameAuthenticationCode          String?                  @map(\"game_authentification_code\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"steam_user\")\n}\n\nmodel MatchForAnalysis {\n  sharedCode String   @id @unique\n  matchId    String\n  date       String\n  demoUrl    String\n  dateUnix   Int\n  score      String\n  duration   String\n  playerId   String\n  createdAt  DateTime @default(now()) @map(\"created_at\")\n}\n\nmodel Match {\n  id   String    @id @unique\n  type MatchType\n\n  participants     SteamUser[]\n  playersStatistic PlayerStatisticsInMatch[]\n  score            String\n  parsedMatch      Json\n  kill_stats       Json?\n  date             String\n  dateUnix         Int\n  sharedCode       String                    @unique @map(\"shared_code\")\n  demoUrl          String\n\n  duration String\n  region   String\n  map      String\n  avg_rank Int\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"matches\")\n}\n\nmodel GeneralPlayerStatistics {\n  id            String     @id @unique @default(cuid())\n  steam         SteamUser  @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId        String     @unique\n  MapRanks      MapRanks[]\n  wingman       Int?\n  wingmanMathes Int?\n  wingmanWins   Int?\n  premier       Int?\n  faceit        Int?\n  faceit_elo    Int?\n  TotalMatches  Int?\n  wins          Int?\n  inGameSinse   DateTime?\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n\nmodel MapRanks {\n  id   String @id @unique @default(cuid())\n  name String\n  rank Int\n\n  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [playerId], references: [id], onDelete: Cascade)\n  playerId                String\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"map_ranks\")\n}\n\nmodel PlayerStatisticsInMatch {\n  id String @id @default(uuid())\n\n  match                Match       @relation(fields: [matchId], references: [id], onDelete: Cascade)\n  matchId              String\n  steamid              String\n  name                 String?\n  kills_total          Int\n  deaths_total         Int\n  assists_total        Int\n  headshot_kills_total Int\n  ace_rounds_total     Int\n  k4_rounds_total      Int\n  k3_rounds_total      Int\n  damage_total         Int\n  mvps                 Int\n  crosshair_code       String\n  player_color         String\n  team                 Int?\n  result               MatchResult\n  clutchV2             Int         @default(0)\n  clutchV3             Int         @default(0)\n  clutchV4             Int         @default(0)\n  clutchV5             Int         @default(0)\n\n  utility_damage_total Int\n\n  rank                   Int\n  score                  Int\n  comp_wins              Int\n  team_surrendered       Boolean @default(false)\n  team_score_first_half  Int\n  team_score_second_half Int\n  isSuspicious           Boolean @default(false)\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"player_statistics_in_match\")\n}\n\nmodel SteamUserBans {\n  id               String    @id @unique\n  steam            SteamUser @relation(fields: [id], references: [id], onDelete: Cascade)\n  communityBanned  Boolean?  @default(false)\n  daysSinceLastBan Int?\n  economyBan       String?\n  gameBans         Int?\n  vacBanned        Boolean?  @default(false)\n  vacBans          Int?\n  csBan            Boolean   @default(false)\n  cs_banned_since  DateTime?\n  createdAt        DateTime  @default(now()) @map(\"created_at\")\n  updatedAt        DateTime  @updatedAt @map(\"updated_at\")\n}\n\nmodel vac {\n  number    Int\n  createdAt DateTime @id @default(now()) @map(\"created_at\")\n}\n\nmodel LinksInProfile {\n  id        String  @id @unique @default(cuid())\n  user      User    @relation(fields: [id], references: [id], onDelete: Cascade)\n  tradeLink String?\n  twitch    String?\n  youtube   String?\n  telegram  String?\n  discord   String?\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n\nmodel Comment {\n  id      String   @id @unique @default(cuid())\n  content String\n  images  Images[]\n\n  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)\n  authorId    String    @map(\"author_id\")\n  recipient   SteamUser @relation(fields: [recipientId], references: [id], onDelete: Cascade)\n  recipientId String    @map(\"recipient_id\")\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"comment\")\n}\n\nmodel Images {\n  id        String   @id @unique @default(cuid())\n  url       String\n  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)\n  commentId String   @map(\"comment_id\")\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n}\n\nmodel JwtToken {\n  id           String @id @unique @default(cuid())\n  refreshToken String @map(\"refresh_token\")\n  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId       String\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"jwt_token\")\n}\n\nmodel ReportUser {\n  id          String  @id @unique @default(cuid())\n  youtubeLink String  @unique @map(\"youtube_link\")\n  demoLink    String?\n  comment     String?\n\n  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)\n  authorId String\n\n  recipient   SteamUser @relation(fields: [recipientId], references: [id], onDelete: Cascade)\n  recipientId String\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  verdicts Verdict[] @relation()\n\n  @@unique([authorId, recipientId])\n  @@map(\"report_user\")\n}\n\nmodel Verdict {\n  id       String     @id @unique @default(cuid())\n  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId   String\n  report   ReportUser @relation(fields: [reportId], references: [id], onDelete: Cascade)\n  reportId String\n  verdicts String[] // Массив строк для хранения вердиктов\n  comment  String?\n\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"verdict\")\n}\n\nenum UserRole {\n  NOT_ACTIVE // Обычный пользователь\n  ACTIVE // Верифицированный пользователь по почте\n  VERIFIED // Верифицированный пользователь по Steam\n  DISABLED\n\n  @@map(\"user_role\")\n}\n\nenum AdditionalRole {\n  MEMBER\n  DONOR\n  MODERATOR\n  ADMIN\n  CREATOR\n\n  @@map(\"additional_role\")\n}\n\nenum TokenType {\n  EMAIL_VERIFY\n  PASSWORD_RECOVERY\n  TELEGRAM_VERIFY\n}\n\nenum MatchResult {\n  WIN\n  LOSE\n  DRAW\n}\n\nenum MatchType {\n  ERROR\n  MATCHMAKING\n  PREMIER\n  WINGMAN\n  FACEIT\n}\n",
+  "inlineSchemaHash": "6cdd5b1c187265cf642a114fb31b13c026fcc2bdcc4d53a4673b41e42804add6",
+  "copyEngine": true
+}
+config.dirname = '/'
+
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tokens\",\"kind\":\"object\",\"type\":\"Token\",\"relationName\":\"TokenToUser\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"Notifications\",\"relationName\":\"NotificationsToUser\"},{\"name\":\"trackingUsers\",\"kind\":\"object\",\"type\":\"TrackingUser\",\"relationName\":\"TrackingUserToUser\"},{\"name\":\"links\",\"kind\":\"object\",\"type\":\"LinksInProfile\",\"relationName\":\"LinksInProfileToUser\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"additionalRole\",\"kind\":\"enum\",\"type\":\"AdditionalRole\"},{\"name\":\"steamUser\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"SteamUserToUser\"},{\"name\":\"commentsAsAuthor\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToUser\"},{\"name\":\"jwtTokens\",\"kind\":\"object\",\"type\":\"JwtToken\",\"relationName\":\"JwtTokenToUser\"},{\"name\":\"reportUsers\",\"kind\":\"object\",\"type\":\"ReportUser\",\"relationName\":\"ReportUserToUser\"},{\"name\":\"verdicts\",\"kind\":\"object\",\"type\":\"Verdict\",\"relationName\":\"UserToVerdict\"},{\"name\":\"isEmailVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\",\"dbName\":\"is_email_verified\"},{\"name\":\"isBanned\",\"kind\":\"scalar\",\"type\":\"Boolean\",\"dbName\":\"is_banned\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"user\"},\"TrackingUser\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TrackingUserToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steamid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateBanned\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"Notifications\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationsToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"NotificationType\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isViewed\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"Token\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"TokenType\"},{\"name\":\"expiresIn\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"expires_in\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"TokenToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"user_id\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"tokens\"},\"StackDownloadingMatches\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"}],\"dbName\":null},\"SteamUser\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"personaName\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"persona_name\"},{\"name\":\"profileUrl\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"profile_url\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"realname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"level\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timeCreated\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"time_created\"},{\"name\":\"steamId2\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steamId3\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steamIdHex\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"countryCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastUpdateSteamInformation\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"viewers\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"SteamUserToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"user_id\"},{\"name\":\"steamUserBans\",\"kind\":\"object\",\"type\":\"SteamUserBans\",\"relationName\":\"SteamUserToSteamUserBans\"},{\"name\":\"commentsAsRecipient\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToSteamUser\"},{\"name\":\"reportsAsRecipient\",\"kind\":\"object\",\"type\":\"ReportUser\",\"relationName\":\"ReportUserToSteamUser\"},{\"name\":\"matches\",\"kind\":\"object\",\"type\":\"Match\",\"relationName\":\"MatchToSteamUser\"},{\"name\":\"generalPlayerStatistics\",\"kind\":\"object\",\"type\":\"GeneralPlayerStatistics\",\"relationName\":\"GeneralPlayerStatisticsToSteamUser\"},{\"name\":\"isGettedGeneralPlayerStatistics\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"sharedCode\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"shared_code\"},{\"name\":\"sharedCodeError\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"gameAuthenticationCode\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"game_authentification_code\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"steam_user\"},\"MatchForAnalysis\":{\"fields\":[{\"name\":\"sharedCode\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"matchId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"demoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateUnix\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"}],\"dbName\":null},\"Match\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"MatchType\"},{\"name\":\"participants\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"MatchToSteamUser\"},{\"name\":\"playersStatistic\",\"kind\":\"object\",\"type\":\"PlayerStatisticsInMatch\",\"relationName\":\"MatchToPlayerStatisticsInMatch\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"parsedMatch\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"kill_stats\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dateUnix\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"sharedCode\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"shared_code\"},{\"name\":\"demoUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"duration\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"region\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"map\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avg_rank\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"matches\"},\"GeneralPlayerStatistics\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steam\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"GeneralPlayerStatisticsToSteamUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"MapRanks\",\"kind\":\"object\",\"type\":\"MapRanks\",\"relationName\":\"GeneralPlayerStatisticsToMapRanks\"},{\"name\":\"wingman\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"wingmanMathes\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"wingmanWins\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"premier\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"faceit\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"faceit_elo\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"TotalMatches\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"wins\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"inGameSinse\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"MapRanks\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rank\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"generalPlayerStatistics\",\"kind\":\"object\",\"type\":\"GeneralPlayerStatistics\",\"relationName\":\"GeneralPlayerStatisticsToMapRanks\"},{\"name\":\"playerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"map_ranks\"},\"PlayerStatisticsInMatch\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"match\",\"kind\":\"object\",\"type\":\"Match\",\"relationName\":\"MatchToPlayerStatisticsInMatch\"},{\"name\":\"matchId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steamid\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"kills_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"deaths_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"assists_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"headshot_kills_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"ace_rounds_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"k4_rounds_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"k3_rounds_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"damage_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"mvps\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"crosshair_code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"player_color\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"team\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"result\",\"kind\":\"enum\",\"type\":\"MatchResult\"},{\"name\":\"clutchV2\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"clutchV3\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"clutchV4\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"clutchV5\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"utility_damage_total\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rank\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"score\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"comp_wins\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"team_surrendered\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"team_score_first_half\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"team_score_second_half\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"isSuspicious\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"player_statistics_in_match\"},\"SteamUserBans\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"steam\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"SteamUserToSteamUserBans\"},{\"name\":\"communityBanned\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"daysSinceLastBan\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"economyBan\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gameBans\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"vacBanned\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"vacBans\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"csBan\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"cs_banned_since\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"vac\":{\"fields\":[{\"name\":\"number\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"}],\"dbName\":null},\"LinksInProfile\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"LinksInProfileToUser\"},{\"name\":\"tradeLink\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"twitch\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"youtube\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telegram\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discord\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"Comment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"images\",\"kind\":\"object\",\"type\":\"Images\",\"relationName\":\"CommentToImages\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"CommentToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"author_id\"},{\"name\":\"recipient\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"CommentToSteamUser\"},{\"name\":\"recipientId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"recipient_id\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"comment\"},\"Images\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"comment\",\"kind\":\"object\",\"type\":\"Comment\",\"relationName\":\"CommentToImages\"},{\"name\":\"commentId\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"comment_id\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":null},\"JwtToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"refreshToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"refresh_token\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"JwtTokenToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"jwt_token\"},\"ReportUser\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"youtubeLink\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"youtube_link\"},{\"name\":\"demoLink\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ReportUserToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"recipient\",\"kind\":\"object\",\"type\":\"SteamUser\",\"relationName\":\"ReportUserToSteamUser\"},{\"name\":\"recipientId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"verdicts\",\"kind\":\"object\",\"type\":\"Verdict\",\"relationName\":\"ReportUserToVerdict\"}],\"dbName\":\"report_user\"},\"Verdict\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToVerdict\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"report\",\"kind\":\"object\",\"type\":\"ReportUser\",\"relationName\":\"ReportUserToVerdict\"},{\"name\":\"reportId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"verdicts\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"comment\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"}],\"dbName\":\"verdict\"}},\"enums\":{},\"types\":{}}")
+defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
   }
 }
+config.compilerWasm = undefined
 
+config.injectableEdgeEnv = () => ({
+  parsed: {
+    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
+  }
+})
+
+if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
+  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
+}
+
+const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
-
 Object.assign(exports, Prisma)
+

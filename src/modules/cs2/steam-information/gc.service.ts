@@ -6,7 +6,7 @@ import { Response } from 'express';
 @Injectable()
 export class GCService {
   constructor(private readonly configService: ConfigService) {}
-  async getAccountInformation(steamid: string, res: Response) {
+  async getAccountInformation(steamid: string) {
     try {
       const response = await axios.post(
         this.configService.getOrThrow<string>('STEAMREP_GC') +
@@ -14,7 +14,7 @@ export class GCService {
         { token: this.configService.getOrThrow<string>('STEAMREP_GC_TOKEN') },
         { withCredentials: true },
       );
-      return res.json(response.data);
+      return response.data;
     } catch (e) {}
   }
 

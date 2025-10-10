@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { Response } from 'express';
 import { GCService } from './gc.service';
@@ -8,12 +8,9 @@ export class GCController {
   constructor(private readonly cs: GCService) {}
 
   @Post('userdata')
-  async getAccountInformation(
-    @Body() dto: { steamid: string },
-    @Res() res: Response,
-  ) {
+  async getAccountInformation(@Body() dto: { steamid: string }) {
     const { steamid } = dto;
-    return this.cs.getAccountInformation(steamid, res);
+    return this.cs.getAccountInformation(steamid);
   }
 
   @Get('matchdata')

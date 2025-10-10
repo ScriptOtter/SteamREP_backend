@@ -43,6 +43,8 @@ export class Cs2Service {
       throw new BadRequestException(
         'Steam account is not connected to the site',
       );
+    const isActiveGC = await this.gc.getAccountInformation(user.id);
+    if (!isActiveGC) throw new BadRequestException('Try again later!');
     if (user.sharedCode) return true;
     const match = await this.gc.getMatchInfoFromSharedCode(sharedCode);
 
@@ -80,6 +82,8 @@ export class Cs2Service {
         'Steam account is not connected to the site',
       );
     if (user.gameAuthenticationCode) return true;
+    const isActiveGC = await this.gc.getAccountInformation(user.id);
+    if (!isActiveGC) throw new BadRequestException('Try again later!');
     const sharedCode = user.sharedCode;
     if (!sharedCode) throw new BadRequestException('Share code not found.');
     try {
