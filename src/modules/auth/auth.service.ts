@@ -36,9 +36,9 @@ export class AuthService {
       throw new BadRequestException('Password do not match!');
 
     dto.email = dto.email.toLowerCase().trim();
-
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
     try {
+      const hashedPassword = await bcrypt.hash(dto.password, 10);
+
       const user = await this.prisma.user.create({
         data: {
           username: dto.username,
@@ -60,8 +60,8 @@ export class AuthService {
   }
 
   async loginUser(dto: LoginDto, res: Response): Promise<any> {
-    const user = await this.prisma.user.findUnique({
-      where: { username: dto.username },
+    const user = await this.prisma.user.findFirst({
+      where: { OR: [{ username: dto.username }, { email: dto.username }] },
       include: { steamUser: {} },
     });
     if (!user) {
