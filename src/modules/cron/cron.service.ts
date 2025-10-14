@@ -122,6 +122,7 @@ export class CronService {
         },
       });
     }
+    console.log('VACBansToday:', VACBansToday);
     await this.prismaService.vac.create({ data: { number: VACBansToday } });
   }
   delay(ms) {
