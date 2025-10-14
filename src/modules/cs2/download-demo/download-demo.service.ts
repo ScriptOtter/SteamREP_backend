@@ -116,33 +116,42 @@ export class DownloadDemoService {
   }
 
   private async getNewSharedCode(steamid: string, sharedCode: string) {
-    const steamidkey = (
-      await this.prismaService.steamUser.findUnique({
-        where: { id: steamid },
-      })
-    )?.gameAuthenticationCode;
-    let res = await axios.get(
-      STEAM_API.GetNextMatchSharingCode +
-        `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
-    );
+    try {
+      const steamidkey = (
+        await this.prismaService.steamUser.findUnique({
+          where: { id: steamid },
+        })
+      )?.gameAuthenticationCode;
+      let res = await axios.get(
+        STEAM_API.GetNextMatchSharingCode +
+          `?key=${process.env.STEAM_API}&steamid=${steamid}&steamidkey=${steamidkey}&knowncode=${sharedCode}`,
+      );
 
-    sharedCode = res?.data?.result?.nextcode;
-    if (sharedCode === 'n/a') {
-      await this.prismaService.steamUser.update({
-        where: { id: steamid },
-        data: { sharedCodeError: new Date() },
-      });
-      this.logger.error(
-        `For player ${steamid}, tracking was stopped for 15 minutes.`,
-      );
-    } else {
-      this.logger.log(
-        `A new match has been found for player ${steamid}: ${sharedCode}`,
-      );
-      await this.prismaService.steamUser.update({
-        where: { id: steamid },
-        data: { sharedCode },
-      });
+      sharedCode = res?.data?.result?.nextcode;
+      if (sharedCode === 'n/a') {
+        await this.prismaService.steamUser.update({
+          where: { id: steamid },
+          data: { sharedCodeError: new Date() },
+        });
+        this.logger.error(
+          `For player ${steamid}, tracking was stopped for 15 minutes.`,
+        );
+      } else {
+        this.logger.log(
+          `A new match has been found for player ${steamid}: ${sharedCode}`,
+        );
+        await this.prismaService.steamUser.update({
+          where: { id: steamid },
+          data: { sharedCode },
+        });
+      }
+    } catch (e) {
+      if (e.status === 412)
+        console.log(
+          'User ',
+          e.config.url.split('?')[1].split('&')[1].split('=')[1],
+          'баг скачивания 412',
+        );
     }
   }
   async searchLatestMatch(steamid: string) {
