@@ -45,7 +45,7 @@ export class GeneralPlayerStatisticsService {
           });
         }
       }
-      const { winrate, total_matches, first_match_date } = leetify.data;
+      const { first_match_date } = leetify.data;
       const { premier, faceit, faceit_elo, wingman } = leetify.data.ranks;
       const oldData =
         await this.prismaService.generalPlayerStatistics.findFirst({
@@ -94,10 +94,12 @@ export class GeneralPlayerStatisticsService {
       );
       for (const map of leetify.data.ranks.competitive) {
         await this.prismaService.mapRanks.updateMany({
-          where: { playerId: genStat.id },
-          data: { name: map.map_name },
+          where: { playerId: genStat.id, name: map.map_name },
+          data: { rank: map.rank },
         });
+        console.log(map);
       }
+      console.log('Update');
       const { first_match_date } = leetify.data;
       const { premier, faceit, faceit_elo, wingman } = leetify.data.ranks;
       const oldData =
@@ -139,13 +141,15 @@ export class GeneralPlayerStatisticsService {
       const genStat =
         await this.prismaService.generalPlayerStatistics.findFirst({
           where: { userId: steamid },
+          include: { MapRanks: true },
         });
       if (
         !genStat?.faceit ||
         !genStat.premier ||
         !genStat.faceit_elo ||
         !genStat.inGameSinse ||
-        !genStat.wingman
+        !genStat.wingman ||
+        genStat.MapRanks.toString() === ''
       )
         await this.getInitialRanks(steamid);
       if (
@@ -174,6 +178,7 @@ export class GeneralPlayerStatisticsService {
             select: { name: true, rank: true, updatedAt: true },
             orderBy: { rank: 'desc' },
           },
+          WeaponStats: { include: { hits: true } },
 
           steam: {
             select: {

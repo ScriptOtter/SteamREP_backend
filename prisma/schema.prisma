@@ -178,7 +178,7 @@ model GeneralPlayerStatistics {
   TotalMatches Int?
   wins Int?
   inGameSinse DateTime?
-
+ WeaponStats WeaponStats[] 
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 }
@@ -345,7 +345,24 @@ model Verdict {
   @@map("verdict")
 }
 
+model WeaponStats {
+  id         String   @id @default(cuid())
+  name       String
+  fire       Int
+  userId     String
+  generalPlayerStatistics       GeneralPlayerStatistics     @relation(fields: [userId], references: [id])
+  hits       Hit[]
+}
 
+model Hit {
+  id            String   @id @default(cuid())
+  weaponId      String
+  hitLocation    String
+  hits          Int
+  totalDamage   Int
+  kills         Int
+  weapon       WeaponStats   @relation(fields: [weaponId], references: [id])
+}
 
 enum UserRole {
   NOT_ACTIVE          // Обычный пользователь

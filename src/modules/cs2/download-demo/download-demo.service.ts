@@ -146,12 +146,13 @@ export class DownloadDemoService {
         });
       }
     } catch (e) {
-      if (e.status === 412)
-        console.log(
-          'User ',
-          e.config.url.split('?')[1].split('&')[1].split('=')[1],
-          'баг скачивания 412',
-        );
+      await this.prismaService.steamUser.update({
+        where: { id: steamid },
+        data: { sharedCodeError: new Date() },
+      });
+      this.logger.error(
+        `For player ${steamid}, tracking was stopped for 15 minutes.`,
+      );
     }
   }
   async searchLatestMatch(steamid: string) {

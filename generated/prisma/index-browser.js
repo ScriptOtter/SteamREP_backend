@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.17.0
- * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
+ * Prisma Client JS version: 6.18.0-integration-next.8
+ * Query Engine version: d3fc122f88ca3ce86f67a797debfb179a39ccf48
  */
 Prisma.prismaVersion = {
-  client: "6.17.0",
-  engine: "c0aafc03b8ef6cdced8654b9a817999e02457d6a"
+  client: "6.18.0-integration-next.8",
+  engine: "d3fc122f88ca3ce86f67a797debfb179a39ccf48"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -359,6 +359,22 @@ exports.Prisma.VerdictScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.WeaponStatsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  fire: 'fire',
+  userId: 'userId'
+};
+
+exports.Prisma.HitScalarFieldEnum = {
+  id: 'id',
+  weaponId: 'weaponId',
+  hitLocation: 'hitLocation',
+  hits: 'hits',
+  totalDamage: 'totalDamage',
+  kills: 'kills'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -450,7 +466,9 @@ exports.Prisma.ModelName = {
   Images: 'Images',
   JwtToken: 'JwtToken',
   ReportUser: 'ReportUser',
-  Verdict: 'Verdict'
+  Verdict: 'Verdict',
+  WeaponStats: 'WeaponStats',
+  Hit: 'Hit'
 };
 
 /**

@@ -108,6 +108,16 @@ export type ReportUser = $Result.DefaultSelection<Prisma.$ReportUserPayload>
  * 
  */
 export type Verdict = $Result.DefaultSelection<Prisma.$VerdictPayload>
+/**
+ * Model WeaponStats
+ * 
+ */
+export type WeaponStats = $Result.DefaultSelection<Prisma.$WeaponStatsPayload>
+/**
+ * Model Hit
+ * 
+ */
+export type Hit = $Result.DefaultSelection<Prisma.$HitPayload>
 
 /**
  * Enums
@@ -506,6 +516,26 @@ export class PrismaClient<
     * ```
     */
   get verdict(): Prisma.VerdictDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.weaponStats`: Exposes CRUD operations for the **WeaponStats** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WeaponStats
+    * const weaponStats = await prisma.weaponStats.findMany()
+    * ```
+    */
+  get weaponStats(): Prisma.WeaponStatsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.hit`: Exposes CRUD operations for the **Hit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Hits
+    * const hits = await prisma.hit.findMany()
+    * ```
+    */
+  get hit(): Prisma.HitDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -564,8 +594,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.17.0
-   * Query Engine version: c0aafc03b8ef6cdced8654b9a817999e02457d6a
+   * Prisma Client JS version: 6.18.0-integration-next.8
+   * Query Engine version: d3fc122f88ca3ce86f67a797debfb179a39ccf48
    */
   export type PrismaVersion = {
     client: string
@@ -578,6 +608,7 @@ export namespace Prisma {
    */
 
 
+  export import Bytes = runtime.Bytes
   export import JsonObject = runtime.JsonObject
   export import JsonArray = runtime.JsonArray
   export import JsonValue = runtime.JsonValue
@@ -964,7 +995,9 @@ export namespace Prisma {
     Images: 'Images',
     JwtToken: 'JwtToken',
     ReportUser: 'ReportUser',
-    Verdict: 'Verdict'
+    Verdict: 'Verdict',
+    WeaponStats: 'WeaponStats',
+    Hit: 'Hit'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -983,7 +1016,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "vac" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "vac" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict" | "weaponStats" | "hit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2393,6 +2426,154 @@ export namespace Prisma {
           }
         }
       }
+      WeaponStats: {
+        payload: Prisma.$WeaponStatsPayload<ExtArgs>
+        fields: Prisma.WeaponStatsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WeaponStatsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WeaponStatsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          findFirst: {
+            args: Prisma.WeaponStatsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WeaponStatsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          findMany: {
+            args: Prisma.WeaponStatsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>[]
+          }
+          create: {
+            args: Prisma.WeaponStatsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          createMany: {
+            args: Prisma.WeaponStatsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WeaponStatsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>[]
+          }
+          delete: {
+            args: Prisma.WeaponStatsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          update: {
+            args: Prisma.WeaponStatsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          deleteMany: {
+            args: Prisma.WeaponStatsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WeaponStatsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WeaponStatsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>[]
+          }
+          upsert: {
+            args: Prisma.WeaponStatsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WeaponStatsPayload>
+          }
+          aggregate: {
+            args: Prisma.WeaponStatsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWeaponStats>
+          }
+          groupBy: {
+            args: Prisma.WeaponStatsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WeaponStatsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WeaponStatsCountArgs<ExtArgs>
+            result: $Utils.Optional<WeaponStatsCountAggregateOutputType> | number
+          }
+        }
+      }
+      Hit: {
+        payload: Prisma.$HitPayload<ExtArgs>
+        fields: Prisma.HitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.HitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.HitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          findFirst: {
+            args: Prisma.HitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.HitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          findMany: {
+            args: Prisma.HitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>[]
+          }
+          create: {
+            args: Prisma.HitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          createMany: {
+            args: Prisma.HitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.HitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>[]
+          }
+          delete: {
+            args: Prisma.HitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          update: {
+            args: Prisma.HitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          deleteMany: {
+            args: Prisma.HitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.HitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.HitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>[]
+          }
+          upsert: {
+            args: Prisma.HitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$HitPayload>
+          }
+          aggregate: {
+            args: Prisma.HitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateHit>
+          }
+          groupBy: {
+            args: Prisma.HitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<HitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.HitCountArgs<ExtArgs>
+            result: $Utils.Optional<HitCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2425,10 +2606,6 @@ export namespace Prisma {
      * Overwrites the datasource url from your schema.prisma file
      */
     datasources?: Datasources
-    /**
-     * Overwrites the datasource url from your schema.prisma file
-     */
-    datasourceUrl?: string
     /**
      * @default "colorless"
      */
@@ -2508,6 +2685,8 @@ export namespace Prisma {
     jwtToken?: JwtTokenOmit
     reportUser?: ReportUserOmit
     verdict?: VerdictOmit
+    weaponStats?: WeaponStatsOmit
+    hit?: HitOmit
   }
 
   /* Types for Logging */
@@ -2763,10 +2942,12 @@ export namespace Prisma {
 
   export type GeneralPlayerStatisticsCountOutputType = {
     MapRanks: number
+    WeaponStats: number
   }
 
   export type GeneralPlayerStatisticsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     MapRanks?: boolean | GeneralPlayerStatisticsCountOutputTypeCountMapRanksArgs
+    WeaponStats?: boolean | GeneralPlayerStatisticsCountOutputTypeCountWeaponStatsArgs
   }
 
   // Custom InputTypes
@@ -2785,6 +2966,13 @@ export namespace Prisma {
    */
   export type GeneralPlayerStatisticsCountOutputTypeCountMapRanksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MapRanksWhereInput
+  }
+
+  /**
+   * GeneralPlayerStatisticsCountOutputType without action
+   */
+  export type GeneralPlayerStatisticsCountOutputTypeCountWeaponStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WeaponStatsWhereInput
   }
 
 
@@ -2847,6 +3035,37 @@ export namespace Prisma {
    */
   export type ReportUserCountOutputTypeCountVerdictsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VerdictWhereInput
+  }
+
+
+  /**
+   * Count Type WeaponStatsCountOutputType
+   */
+
+  export type WeaponStatsCountOutputType = {
+    hits: number
+  }
+
+  export type WeaponStatsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    hits?: boolean | WeaponStatsCountOutputTypeCountHitsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WeaponStatsCountOutputType without action
+   */
+  export type WeaponStatsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStatsCountOutputType
+     */
+    select?: WeaponStatsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WeaponStatsCountOutputType without action
+   */
+  export type WeaponStatsCountOutputTypeCountHitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HitWhereInput
   }
 
 
@@ -12519,6 +12738,7 @@ export namespace Prisma {
     updatedAt?: boolean
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
     MapRanks?: boolean | GeneralPlayerStatistics$MapRanksArgs<ExtArgs>
+    WeaponStats?: boolean | GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs>
     _count?: boolean | GeneralPlayerStatisticsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generalPlayerStatistics"]>
 
@@ -12576,6 +12796,7 @@ export namespace Prisma {
   export type GeneralPlayerStatisticsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     steam?: boolean | SteamUserDefaultArgs<ExtArgs>
     MapRanks?: boolean | GeneralPlayerStatistics$MapRanksArgs<ExtArgs>
+    WeaponStats?: boolean | GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs>
     _count?: boolean | GeneralPlayerStatisticsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GeneralPlayerStatisticsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12590,6 +12811,7 @@ export namespace Prisma {
     objects: {
       steam: Prisma.$SteamUserPayload<ExtArgs>
       MapRanks: Prisma.$MapRanksPayload<ExtArgs>[]
+      WeaponStats: Prisma.$WeaponStatsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -13001,6 +13223,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     steam<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     MapRanks<T extends GeneralPlayerStatistics$MapRanksArgs<ExtArgs> = {}>(args?: Subset<T, GeneralPlayerStatistics$MapRanksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MapRanksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    WeaponStats<T extends GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs> = {}>(args?: Subset<T, GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13460,6 +13683,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MapRanksScalarFieldEnum | MapRanksScalarFieldEnum[]
+  }
+
+  /**
+   * GeneralPlayerStatistics.WeaponStats
+   */
+  export type GeneralPlayerStatistics$WeaponStatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    where?: WeaponStatsWhereInput
+    orderBy?: WeaponStatsOrderByWithRelationInput | WeaponStatsOrderByWithRelationInput[]
+    cursor?: WeaponStatsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WeaponStatsScalarFieldEnum | WeaponStatsScalarFieldEnum[]
   }
 
   /**
@@ -24806,6 +25053,2228 @@ export namespace Prisma {
 
 
   /**
+   * Model WeaponStats
+   */
+
+  export type AggregateWeaponStats = {
+    _count: WeaponStatsCountAggregateOutputType | null
+    _avg: WeaponStatsAvgAggregateOutputType | null
+    _sum: WeaponStatsSumAggregateOutputType | null
+    _min: WeaponStatsMinAggregateOutputType | null
+    _max: WeaponStatsMaxAggregateOutputType | null
+  }
+
+  export type WeaponStatsAvgAggregateOutputType = {
+    fire: number | null
+  }
+
+  export type WeaponStatsSumAggregateOutputType = {
+    fire: number | null
+  }
+
+  export type WeaponStatsMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    fire: number | null
+    userId: string | null
+  }
+
+  export type WeaponStatsMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    fire: number | null
+    userId: string | null
+  }
+
+  export type WeaponStatsCountAggregateOutputType = {
+    id: number
+    name: number
+    fire: number
+    userId: number
+    _all: number
+  }
+
+
+  export type WeaponStatsAvgAggregateInputType = {
+    fire?: true
+  }
+
+  export type WeaponStatsSumAggregateInputType = {
+    fire?: true
+  }
+
+  export type WeaponStatsMinAggregateInputType = {
+    id?: true
+    name?: true
+    fire?: true
+    userId?: true
+  }
+
+  export type WeaponStatsMaxAggregateInputType = {
+    id?: true
+    name?: true
+    fire?: true
+    userId?: true
+  }
+
+  export type WeaponStatsCountAggregateInputType = {
+    id?: true
+    name?: true
+    fire?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type WeaponStatsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WeaponStats to aggregate.
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WeaponStats to fetch.
+     */
+    orderBy?: WeaponStatsOrderByWithRelationInput | WeaponStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WeaponStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WeaponStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WeaponStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WeaponStats
+    **/
+    _count?: true | WeaponStatsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WeaponStatsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WeaponStatsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WeaponStatsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WeaponStatsMaxAggregateInputType
+  }
+
+  export type GetWeaponStatsAggregateType<T extends WeaponStatsAggregateArgs> = {
+        [P in keyof T & keyof AggregateWeaponStats]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWeaponStats[P]>
+      : GetScalarType<T[P], AggregateWeaponStats[P]>
+  }
+
+
+
+
+  export type WeaponStatsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WeaponStatsWhereInput
+    orderBy?: WeaponStatsOrderByWithAggregationInput | WeaponStatsOrderByWithAggregationInput[]
+    by: WeaponStatsScalarFieldEnum[] | WeaponStatsScalarFieldEnum
+    having?: WeaponStatsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WeaponStatsCountAggregateInputType | true
+    _avg?: WeaponStatsAvgAggregateInputType
+    _sum?: WeaponStatsSumAggregateInputType
+    _min?: WeaponStatsMinAggregateInputType
+    _max?: WeaponStatsMaxAggregateInputType
+  }
+
+  export type WeaponStatsGroupByOutputType = {
+    id: string
+    name: string
+    fire: number
+    userId: string
+    _count: WeaponStatsCountAggregateOutputType | null
+    _avg: WeaponStatsAvgAggregateOutputType | null
+    _sum: WeaponStatsSumAggregateOutputType | null
+    _min: WeaponStatsMinAggregateOutputType | null
+    _max: WeaponStatsMaxAggregateOutputType | null
+  }
+
+  type GetWeaponStatsGroupByPayload<T extends WeaponStatsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WeaponStatsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WeaponStatsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WeaponStatsGroupByOutputType[P]>
+            : GetScalarType<T[P], WeaponStatsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WeaponStatsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    fire?: boolean
+    userId?: boolean
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+    hits?: boolean | WeaponStats$hitsArgs<ExtArgs>
+    _count?: boolean | WeaponStatsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["weaponStats"]>
+
+  export type WeaponStatsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    fire?: boolean
+    userId?: boolean
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["weaponStats"]>
+
+  export type WeaponStatsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    fire?: boolean
+    userId?: boolean
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["weaponStats"]>
+
+  export type WeaponStatsSelectScalar = {
+    id?: boolean
+    name?: boolean
+    fire?: boolean
+    userId?: boolean
+  }
+
+  export type WeaponStatsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "fire" | "userId", ExtArgs["result"]["weaponStats"]>
+  export type WeaponStatsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+    hits?: boolean | WeaponStats$hitsArgs<ExtArgs>
+    _count?: boolean | WeaponStatsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type WeaponStatsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+  }
+  export type WeaponStatsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generalPlayerStatistics?: boolean | GeneralPlayerStatisticsDefaultArgs<ExtArgs>
+  }
+
+  export type $WeaponStatsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WeaponStats"
+    objects: {
+      generalPlayerStatistics: Prisma.$GeneralPlayerStatisticsPayload<ExtArgs>
+      hits: Prisma.$HitPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      fire: number
+      userId: string
+    }, ExtArgs["result"]["weaponStats"]>
+    composites: {}
+  }
+
+  type WeaponStatsGetPayload<S extends boolean | null | undefined | WeaponStatsDefaultArgs> = $Result.GetResult<Prisma.$WeaponStatsPayload, S>
+
+  type WeaponStatsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WeaponStatsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WeaponStatsCountAggregateInputType | true
+    }
+
+  export interface WeaponStatsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WeaponStats'], meta: { name: 'WeaponStats' } }
+    /**
+     * Find zero or one WeaponStats that matches the filter.
+     * @param {WeaponStatsFindUniqueArgs} args - Arguments to find a WeaponStats
+     * @example
+     * // Get one WeaponStats
+     * const weaponStats = await prisma.weaponStats.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WeaponStatsFindUniqueArgs>(args: SelectSubset<T, WeaponStatsFindUniqueArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WeaponStats that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WeaponStatsFindUniqueOrThrowArgs} args - Arguments to find a WeaponStats
+     * @example
+     * // Get one WeaponStats
+     * const weaponStats = await prisma.weaponStats.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WeaponStatsFindUniqueOrThrowArgs>(args: SelectSubset<T, WeaponStatsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WeaponStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsFindFirstArgs} args - Arguments to find a WeaponStats
+     * @example
+     * // Get one WeaponStats
+     * const weaponStats = await prisma.weaponStats.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WeaponStatsFindFirstArgs>(args?: SelectSubset<T, WeaponStatsFindFirstArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WeaponStats that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsFindFirstOrThrowArgs} args - Arguments to find a WeaponStats
+     * @example
+     * // Get one WeaponStats
+     * const weaponStats = await prisma.weaponStats.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WeaponStatsFindFirstOrThrowArgs>(args?: SelectSubset<T, WeaponStatsFindFirstOrThrowArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WeaponStats that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WeaponStats
+     * const weaponStats = await prisma.weaponStats.findMany()
+     * 
+     * // Get first 10 WeaponStats
+     * const weaponStats = await prisma.weaponStats.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const weaponStatsWithIdOnly = await prisma.weaponStats.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WeaponStatsFindManyArgs>(args?: SelectSubset<T, WeaponStatsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WeaponStats.
+     * @param {WeaponStatsCreateArgs} args - Arguments to create a WeaponStats.
+     * @example
+     * // Create one WeaponStats
+     * const WeaponStats = await prisma.weaponStats.create({
+     *   data: {
+     *     // ... data to create a WeaponStats
+     *   }
+     * })
+     * 
+     */
+    create<T extends WeaponStatsCreateArgs>(args: SelectSubset<T, WeaponStatsCreateArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WeaponStats.
+     * @param {WeaponStatsCreateManyArgs} args - Arguments to create many WeaponStats.
+     * @example
+     * // Create many WeaponStats
+     * const weaponStats = await prisma.weaponStats.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WeaponStatsCreateManyArgs>(args?: SelectSubset<T, WeaponStatsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WeaponStats and returns the data saved in the database.
+     * @param {WeaponStatsCreateManyAndReturnArgs} args - Arguments to create many WeaponStats.
+     * @example
+     * // Create many WeaponStats
+     * const weaponStats = await prisma.weaponStats.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WeaponStats and only return the `id`
+     * const weaponStatsWithIdOnly = await prisma.weaponStats.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WeaponStatsCreateManyAndReturnArgs>(args?: SelectSubset<T, WeaponStatsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WeaponStats.
+     * @param {WeaponStatsDeleteArgs} args - Arguments to delete one WeaponStats.
+     * @example
+     * // Delete one WeaponStats
+     * const WeaponStats = await prisma.weaponStats.delete({
+     *   where: {
+     *     // ... filter to delete one WeaponStats
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WeaponStatsDeleteArgs>(args: SelectSubset<T, WeaponStatsDeleteArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WeaponStats.
+     * @param {WeaponStatsUpdateArgs} args - Arguments to update one WeaponStats.
+     * @example
+     * // Update one WeaponStats
+     * const weaponStats = await prisma.weaponStats.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WeaponStatsUpdateArgs>(args: SelectSubset<T, WeaponStatsUpdateArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WeaponStats.
+     * @param {WeaponStatsDeleteManyArgs} args - Arguments to filter WeaponStats to delete.
+     * @example
+     * // Delete a few WeaponStats
+     * const { count } = await prisma.weaponStats.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WeaponStatsDeleteManyArgs>(args?: SelectSubset<T, WeaponStatsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WeaponStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WeaponStats
+     * const weaponStats = await prisma.weaponStats.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WeaponStatsUpdateManyArgs>(args: SelectSubset<T, WeaponStatsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WeaponStats and returns the data updated in the database.
+     * @param {WeaponStatsUpdateManyAndReturnArgs} args - Arguments to update many WeaponStats.
+     * @example
+     * // Update many WeaponStats
+     * const weaponStats = await prisma.weaponStats.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WeaponStats and only return the `id`
+     * const weaponStatsWithIdOnly = await prisma.weaponStats.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WeaponStatsUpdateManyAndReturnArgs>(args: SelectSubset<T, WeaponStatsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WeaponStats.
+     * @param {WeaponStatsUpsertArgs} args - Arguments to update or create a WeaponStats.
+     * @example
+     * // Update or create a WeaponStats
+     * const weaponStats = await prisma.weaponStats.upsert({
+     *   create: {
+     *     // ... data to create a WeaponStats
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WeaponStats we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WeaponStatsUpsertArgs>(args: SelectSubset<T, WeaponStatsUpsertArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WeaponStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsCountArgs} args - Arguments to filter WeaponStats to count.
+     * @example
+     * // Count the number of WeaponStats
+     * const count = await prisma.weaponStats.count({
+     *   where: {
+     *     // ... the filter for the WeaponStats we want to count
+     *   }
+     * })
+    **/
+    count<T extends WeaponStatsCountArgs>(
+      args?: Subset<T, WeaponStatsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WeaponStatsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WeaponStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WeaponStatsAggregateArgs>(args: Subset<T, WeaponStatsAggregateArgs>): Prisma.PrismaPromise<GetWeaponStatsAggregateType<T>>
+
+    /**
+     * Group by WeaponStats.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WeaponStatsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WeaponStatsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WeaponStatsGroupByArgs['orderBy'] }
+        : { orderBy?: WeaponStatsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WeaponStatsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWeaponStatsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WeaponStats model
+   */
+  readonly fields: WeaponStatsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WeaponStats.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WeaponStatsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    generalPlayerStatistics<T extends GeneralPlayerStatisticsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GeneralPlayerStatisticsDefaultArgs<ExtArgs>>): Prisma__GeneralPlayerStatisticsClient<$Result.GetResult<Prisma.$GeneralPlayerStatisticsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    hits<T extends WeaponStats$hitsArgs<ExtArgs> = {}>(args?: Subset<T, WeaponStats$hitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WeaponStats model
+   */
+  interface WeaponStatsFieldRefs {
+    readonly id: FieldRef<"WeaponStats", 'String'>
+    readonly name: FieldRef<"WeaponStats", 'String'>
+    readonly fire: FieldRef<"WeaponStats", 'Int'>
+    readonly userId: FieldRef<"WeaponStats", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WeaponStats findUnique
+   */
+  export type WeaponStatsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which WeaponStats to fetch.
+     */
+    where: WeaponStatsWhereUniqueInput
+  }
+
+  /**
+   * WeaponStats findUniqueOrThrow
+   */
+  export type WeaponStatsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which WeaponStats to fetch.
+     */
+    where: WeaponStatsWhereUniqueInput
+  }
+
+  /**
+   * WeaponStats findFirst
+   */
+  export type WeaponStatsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which WeaponStats to fetch.
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WeaponStats to fetch.
+     */
+    orderBy?: WeaponStatsOrderByWithRelationInput | WeaponStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WeaponStats.
+     */
+    cursor?: WeaponStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WeaponStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WeaponStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WeaponStats.
+     */
+    distinct?: WeaponStatsScalarFieldEnum | WeaponStatsScalarFieldEnum[]
+  }
+
+  /**
+   * WeaponStats findFirstOrThrow
+   */
+  export type WeaponStatsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which WeaponStats to fetch.
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WeaponStats to fetch.
+     */
+    orderBy?: WeaponStatsOrderByWithRelationInput | WeaponStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WeaponStats.
+     */
+    cursor?: WeaponStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WeaponStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WeaponStats.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WeaponStats.
+     */
+    distinct?: WeaponStatsScalarFieldEnum | WeaponStatsScalarFieldEnum[]
+  }
+
+  /**
+   * WeaponStats findMany
+   */
+  export type WeaponStatsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter, which WeaponStats to fetch.
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WeaponStats to fetch.
+     */
+    orderBy?: WeaponStatsOrderByWithRelationInput | WeaponStatsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WeaponStats.
+     */
+    cursor?: WeaponStatsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WeaponStats from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WeaponStats.
+     */
+    skip?: number
+    distinct?: WeaponStatsScalarFieldEnum | WeaponStatsScalarFieldEnum[]
+  }
+
+  /**
+   * WeaponStats create
+   */
+  export type WeaponStatsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WeaponStats.
+     */
+    data: XOR<WeaponStatsCreateInput, WeaponStatsUncheckedCreateInput>
+  }
+
+  /**
+   * WeaponStats createMany
+   */
+  export type WeaponStatsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WeaponStats.
+     */
+    data: WeaponStatsCreateManyInput | WeaponStatsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WeaponStats createManyAndReturn
+   */
+  export type WeaponStatsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * The data used to create many WeaponStats.
+     */
+    data: WeaponStatsCreateManyInput | WeaponStatsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WeaponStats update
+   */
+  export type WeaponStatsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WeaponStats.
+     */
+    data: XOR<WeaponStatsUpdateInput, WeaponStatsUncheckedUpdateInput>
+    /**
+     * Choose, which WeaponStats to update.
+     */
+    where: WeaponStatsWhereUniqueInput
+  }
+
+  /**
+   * WeaponStats updateMany
+   */
+  export type WeaponStatsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WeaponStats.
+     */
+    data: XOR<WeaponStatsUpdateManyMutationInput, WeaponStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which WeaponStats to update
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * Limit how many WeaponStats to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WeaponStats updateManyAndReturn
+   */
+  export type WeaponStatsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * The data used to update WeaponStats.
+     */
+    data: XOR<WeaponStatsUpdateManyMutationInput, WeaponStatsUncheckedUpdateManyInput>
+    /**
+     * Filter which WeaponStats to update
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * Limit how many WeaponStats to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WeaponStats upsert
+   */
+  export type WeaponStatsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WeaponStats to update in case it exists.
+     */
+    where: WeaponStatsWhereUniqueInput
+    /**
+     * In case the WeaponStats found by the `where` argument doesn't exist, create a new WeaponStats with this data.
+     */
+    create: XOR<WeaponStatsCreateInput, WeaponStatsUncheckedCreateInput>
+    /**
+     * In case the WeaponStats was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WeaponStatsUpdateInput, WeaponStatsUncheckedUpdateInput>
+  }
+
+  /**
+   * WeaponStats delete
+   */
+  export type WeaponStatsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+    /**
+     * Filter which WeaponStats to delete.
+     */
+    where: WeaponStatsWhereUniqueInput
+  }
+
+  /**
+   * WeaponStats deleteMany
+   */
+  export type WeaponStatsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WeaponStats to delete
+     */
+    where?: WeaponStatsWhereInput
+    /**
+     * Limit how many WeaponStats to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WeaponStats.hits
+   */
+  export type WeaponStats$hitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    where?: HitWhereInput
+    orderBy?: HitOrderByWithRelationInput | HitOrderByWithRelationInput[]
+    cursor?: HitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: HitScalarFieldEnum | HitScalarFieldEnum[]
+  }
+
+  /**
+   * WeaponStats without action
+   */
+  export type WeaponStatsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WeaponStats
+     */
+    select?: WeaponStatsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WeaponStats
+     */
+    omit?: WeaponStatsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WeaponStatsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Hit
+   */
+
+  export type AggregateHit = {
+    _count: HitCountAggregateOutputType | null
+    _avg: HitAvgAggregateOutputType | null
+    _sum: HitSumAggregateOutputType | null
+    _min: HitMinAggregateOutputType | null
+    _max: HitMaxAggregateOutputType | null
+  }
+
+  export type HitAvgAggregateOutputType = {
+    hits: number | null
+    totalDamage: number | null
+    kills: number | null
+  }
+
+  export type HitSumAggregateOutputType = {
+    hits: number | null
+    totalDamage: number | null
+    kills: number | null
+  }
+
+  export type HitMinAggregateOutputType = {
+    id: string | null
+    weaponId: string | null
+    hitLocation: string | null
+    hits: number | null
+    totalDamage: number | null
+    kills: number | null
+  }
+
+  export type HitMaxAggregateOutputType = {
+    id: string | null
+    weaponId: string | null
+    hitLocation: string | null
+    hits: number | null
+    totalDamage: number | null
+    kills: number | null
+  }
+
+  export type HitCountAggregateOutputType = {
+    id: number
+    weaponId: number
+    hitLocation: number
+    hits: number
+    totalDamage: number
+    kills: number
+    _all: number
+  }
+
+
+  export type HitAvgAggregateInputType = {
+    hits?: true
+    totalDamage?: true
+    kills?: true
+  }
+
+  export type HitSumAggregateInputType = {
+    hits?: true
+    totalDamage?: true
+    kills?: true
+  }
+
+  export type HitMinAggregateInputType = {
+    id?: true
+    weaponId?: true
+    hitLocation?: true
+    hits?: true
+    totalDamage?: true
+    kills?: true
+  }
+
+  export type HitMaxAggregateInputType = {
+    id?: true
+    weaponId?: true
+    hitLocation?: true
+    hits?: true
+    totalDamage?: true
+    kills?: true
+  }
+
+  export type HitCountAggregateInputType = {
+    id?: true
+    weaponId?: true
+    hitLocation?: true
+    hits?: true
+    totalDamage?: true
+    kills?: true
+    _all?: true
+  }
+
+  export type HitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hit to aggregate.
+     */
+    where?: HitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hits to fetch.
+     */
+    orderBy?: HitOrderByWithRelationInput | HitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: HitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Hits
+    **/
+    _count?: true | HitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: HitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: HitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: HitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: HitMaxAggregateInputType
+  }
+
+  export type GetHitAggregateType<T extends HitAggregateArgs> = {
+        [P in keyof T & keyof AggregateHit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateHit[P]>
+      : GetScalarType<T[P], AggregateHit[P]>
+  }
+
+
+
+
+  export type HitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HitWhereInput
+    orderBy?: HitOrderByWithAggregationInput | HitOrderByWithAggregationInput[]
+    by: HitScalarFieldEnum[] | HitScalarFieldEnum
+    having?: HitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: HitCountAggregateInputType | true
+    _avg?: HitAvgAggregateInputType
+    _sum?: HitSumAggregateInputType
+    _min?: HitMinAggregateInputType
+    _max?: HitMaxAggregateInputType
+  }
+
+  export type HitGroupByOutputType = {
+    id: string
+    weaponId: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+    _count: HitCountAggregateOutputType | null
+    _avg: HitAvgAggregateOutputType | null
+    _sum: HitSumAggregateOutputType | null
+    _min: HitMinAggregateOutputType | null
+    _max: HitMaxAggregateOutputType | null
+  }
+
+  type GetHitGroupByPayload<T extends HitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<HitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof HitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], HitGroupByOutputType[P]>
+            : GetScalarType<T[P], HitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type HitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    weaponId?: boolean
+    hitLocation?: boolean
+    hits?: boolean
+    totalDamage?: boolean
+    kills?: boolean
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hit"]>
+
+  export type HitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    weaponId?: boolean
+    hitLocation?: boolean
+    hits?: boolean
+    totalDamage?: boolean
+    kills?: boolean
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hit"]>
+
+  export type HitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    weaponId?: boolean
+    hitLocation?: boolean
+    hits?: boolean
+    totalDamage?: boolean
+    kills?: boolean
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["hit"]>
+
+  export type HitSelectScalar = {
+    id?: boolean
+    weaponId?: boolean
+    hitLocation?: boolean
+    hits?: boolean
+    totalDamage?: boolean
+    kills?: boolean
+  }
+
+  export type HitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "weaponId" | "hitLocation" | "hits" | "totalDamage" | "kills", ExtArgs["result"]["hit"]>
+  export type HitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }
+  export type HitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }
+  export type HitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    weapon?: boolean | WeaponStatsDefaultArgs<ExtArgs>
+  }
+
+  export type $HitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Hit"
+    objects: {
+      weapon: Prisma.$WeaponStatsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      weaponId: string
+      hitLocation: string
+      hits: number
+      totalDamage: number
+      kills: number
+    }, ExtArgs["result"]["hit"]>
+    composites: {}
+  }
+
+  type HitGetPayload<S extends boolean | null | undefined | HitDefaultArgs> = $Result.GetResult<Prisma.$HitPayload, S>
+
+  type HitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<HitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: HitCountAggregateInputType | true
+    }
+
+  export interface HitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Hit'], meta: { name: 'Hit' } }
+    /**
+     * Find zero or one Hit that matches the filter.
+     * @param {HitFindUniqueArgs} args - Arguments to find a Hit
+     * @example
+     * // Get one Hit
+     * const hit = await prisma.hit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends HitFindUniqueArgs>(args: SelectSubset<T, HitFindUniqueArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Hit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {HitFindUniqueOrThrowArgs} args - Arguments to find a Hit
+     * @example
+     * // Get one Hit
+     * const hit = await prisma.hit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends HitFindUniqueOrThrowArgs>(args: SelectSubset<T, HitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitFindFirstArgs} args - Arguments to find a Hit
+     * @example
+     * // Get one Hit
+     * const hit = await prisma.hit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends HitFindFirstArgs>(args?: SelectSubset<T, HitFindFirstArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Hit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitFindFirstOrThrowArgs} args - Arguments to find a Hit
+     * @example
+     * // Get one Hit
+     * const hit = await prisma.hit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends HitFindFirstOrThrowArgs>(args?: SelectSubset<T, HitFindFirstOrThrowArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Hits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Hits
+     * const hits = await prisma.hit.findMany()
+     * 
+     * // Get first 10 Hits
+     * const hits = await prisma.hit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const hitWithIdOnly = await prisma.hit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends HitFindManyArgs>(args?: SelectSubset<T, HitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Hit.
+     * @param {HitCreateArgs} args - Arguments to create a Hit.
+     * @example
+     * // Create one Hit
+     * const Hit = await prisma.hit.create({
+     *   data: {
+     *     // ... data to create a Hit
+     *   }
+     * })
+     * 
+     */
+    create<T extends HitCreateArgs>(args: SelectSubset<T, HitCreateArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Hits.
+     * @param {HitCreateManyArgs} args - Arguments to create many Hits.
+     * @example
+     * // Create many Hits
+     * const hit = await prisma.hit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends HitCreateManyArgs>(args?: SelectSubset<T, HitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Hits and returns the data saved in the database.
+     * @param {HitCreateManyAndReturnArgs} args - Arguments to create many Hits.
+     * @example
+     * // Create many Hits
+     * const hit = await prisma.hit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Hits and only return the `id`
+     * const hitWithIdOnly = await prisma.hit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends HitCreateManyAndReturnArgs>(args?: SelectSubset<T, HitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Hit.
+     * @param {HitDeleteArgs} args - Arguments to delete one Hit.
+     * @example
+     * // Delete one Hit
+     * const Hit = await prisma.hit.delete({
+     *   where: {
+     *     // ... filter to delete one Hit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends HitDeleteArgs>(args: SelectSubset<T, HitDeleteArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Hit.
+     * @param {HitUpdateArgs} args - Arguments to update one Hit.
+     * @example
+     * // Update one Hit
+     * const hit = await prisma.hit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends HitUpdateArgs>(args: SelectSubset<T, HitUpdateArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Hits.
+     * @param {HitDeleteManyArgs} args - Arguments to filter Hits to delete.
+     * @example
+     * // Delete a few Hits
+     * const { count } = await prisma.hit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends HitDeleteManyArgs>(args?: SelectSubset<T, HitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Hits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Hits
+     * const hit = await prisma.hit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends HitUpdateManyArgs>(args: SelectSubset<T, HitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Hits and returns the data updated in the database.
+     * @param {HitUpdateManyAndReturnArgs} args - Arguments to update many Hits.
+     * @example
+     * // Update many Hits
+     * const hit = await prisma.hit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Hits and only return the `id`
+     * const hitWithIdOnly = await prisma.hit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends HitUpdateManyAndReturnArgs>(args: SelectSubset<T, HitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Hit.
+     * @param {HitUpsertArgs} args - Arguments to update or create a Hit.
+     * @example
+     * // Update or create a Hit
+     * const hit = await prisma.hit.upsert({
+     *   create: {
+     *     // ... data to create a Hit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Hit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends HitUpsertArgs>(args: SelectSubset<T, HitUpsertArgs<ExtArgs>>): Prisma__HitClient<$Result.GetResult<Prisma.$HitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Hits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitCountArgs} args - Arguments to filter Hits to count.
+     * @example
+     * // Count the number of Hits
+     * const count = await prisma.hit.count({
+     *   where: {
+     *     // ... the filter for the Hits we want to count
+     *   }
+     * })
+    **/
+    count<T extends HitCountArgs>(
+      args?: Subset<T, HitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], HitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Hit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends HitAggregateArgs>(args: Subset<T, HitAggregateArgs>): Prisma.PrismaPromise<GetHitAggregateType<T>>
+
+    /**
+     * Group by Hit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {HitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends HitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: HitGroupByArgs['orderBy'] }
+        : { orderBy?: HitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, HitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Hit model
+   */
+  readonly fields: HitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Hit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__HitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    weapon<T extends WeaponStatsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WeaponStatsDefaultArgs<ExtArgs>>): Prisma__WeaponStatsClient<$Result.GetResult<Prisma.$WeaponStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Hit model
+   */
+  interface HitFieldRefs {
+    readonly id: FieldRef<"Hit", 'String'>
+    readonly weaponId: FieldRef<"Hit", 'String'>
+    readonly hitLocation: FieldRef<"Hit", 'String'>
+    readonly hits: FieldRef<"Hit", 'Int'>
+    readonly totalDamage: FieldRef<"Hit", 'Int'>
+    readonly kills: FieldRef<"Hit", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Hit findUnique
+   */
+  export type HitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter, which Hit to fetch.
+     */
+    where: HitWhereUniqueInput
+  }
+
+  /**
+   * Hit findUniqueOrThrow
+   */
+  export type HitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter, which Hit to fetch.
+     */
+    where: HitWhereUniqueInput
+  }
+
+  /**
+   * Hit findFirst
+   */
+  export type HitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter, which Hit to fetch.
+     */
+    where?: HitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hits to fetch.
+     */
+    orderBy?: HitOrderByWithRelationInput | HitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hits.
+     */
+    cursor?: HitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hits.
+     */
+    distinct?: HitScalarFieldEnum | HitScalarFieldEnum[]
+  }
+
+  /**
+   * Hit findFirstOrThrow
+   */
+  export type HitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter, which Hit to fetch.
+     */
+    where?: HitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hits to fetch.
+     */
+    orderBy?: HitOrderByWithRelationInput | HitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Hits.
+     */
+    cursor?: HitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Hits.
+     */
+    distinct?: HitScalarFieldEnum | HitScalarFieldEnum[]
+  }
+
+  /**
+   * Hit findMany
+   */
+  export type HitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter, which Hits to fetch.
+     */
+    where?: HitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Hits to fetch.
+     */
+    orderBy?: HitOrderByWithRelationInput | HitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Hits.
+     */
+    cursor?: HitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Hits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Hits.
+     */
+    skip?: number
+    distinct?: HitScalarFieldEnum | HitScalarFieldEnum[]
+  }
+
+  /**
+   * Hit create
+   */
+  export type HitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Hit.
+     */
+    data: XOR<HitCreateInput, HitUncheckedCreateInput>
+  }
+
+  /**
+   * Hit createMany
+   */
+  export type HitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Hits.
+     */
+    data: HitCreateManyInput | HitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Hit createManyAndReturn
+   */
+  export type HitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * The data used to create many Hits.
+     */
+    data: HitCreateManyInput | HitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Hit update
+   */
+  export type HitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Hit.
+     */
+    data: XOR<HitUpdateInput, HitUncheckedUpdateInput>
+    /**
+     * Choose, which Hit to update.
+     */
+    where: HitWhereUniqueInput
+  }
+
+  /**
+   * Hit updateMany
+   */
+  export type HitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Hits.
+     */
+    data: XOR<HitUpdateManyMutationInput, HitUncheckedUpdateManyInput>
+    /**
+     * Filter which Hits to update
+     */
+    where?: HitWhereInput
+    /**
+     * Limit how many Hits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hit updateManyAndReturn
+   */
+  export type HitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * The data used to update Hits.
+     */
+    data: XOR<HitUpdateManyMutationInput, HitUncheckedUpdateManyInput>
+    /**
+     * Filter which Hits to update
+     */
+    where?: HitWhereInput
+    /**
+     * Limit how many Hits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Hit upsert
+   */
+  export type HitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Hit to update in case it exists.
+     */
+    where: HitWhereUniqueInput
+    /**
+     * In case the Hit found by the `where` argument doesn't exist, create a new Hit with this data.
+     */
+    create: XOR<HitCreateInput, HitUncheckedCreateInput>
+    /**
+     * In case the Hit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<HitUpdateInput, HitUncheckedUpdateInput>
+  }
+
+  /**
+   * Hit delete
+   */
+  export type HitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+    /**
+     * Filter which Hit to delete.
+     */
+    where: HitWhereUniqueInput
+  }
+
+  /**
+   * Hit deleteMany
+   */
+  export type HitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Hits to delete
+     */
+    where?: HitWhereInput
+    /**
+     * Limit how many Hits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Hit without action
+   */
+  export type HitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Hit
+     */
+    select?: HitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Hit
+     */
+    omit?: HitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: HitInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25113,6 +27582,28 @@ export namespace Prisma {
   };
 
   export type VerdictScalarFieldEnum = (typeof VerdictScalarFieldEnum)[keyof typeof VerdictScalarFieldEnum]
+
+
+  export const WeaponStatsScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    fire: 'fire',
+    userId: 'userId'
+  };
+
+  export type WeaponStatsScalarFieldEnum = (typeof WeaponStatsScalarFieldEnum)[keyof typeof WeaponStatsScalarFieldEnum]
+
+
+  export const HitScalarFieldEnum: {
+    id: 'id',
+    weaponId: 'weaponId',
+    hitLocation: 'hitLocation',
+    hits: 'hits',
+    totalDamage: 'totalDamage',
+    kills: 'kills'
+  };
+
+  export type HitScalarFieldEnum = (typeof HitScalarFieldEnum)[keyof typeof HitScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26033,6 +28524,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
     MapRanks?: MapRanksListRelationFilter
+    WeaponStats?: WeaponStatsListRelationFilter
   }
 
   export type GeneralPlayerStatisticsOrderByWithRelationInput = {
@@ -26051,6 +28543,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     steam?: SteamUserOrderByWithRelationInput
     MapRanks?: MapRanksOrderByRelationAggregateInput
+    WeaponStats?: WeaponStatsOrderByRelationAggregateInput
   }
 
   export type GeneralPlayerStatisticsWhereUniqueInput = Prisma.AtLeast<{
@@ -26072,6 +28565,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"GeneralPlayerStatistics"> | Date | string
     steam?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
     MapRanks?: MapRanksListRelationFilter
+    WeaponStats?: WeaponStatsListRelationFilter
   }, "id" | "id" | "userId">
 
   export type GeneralPlayerStatisticsOrderByWithAggregationInput = {
@@ -26880,6 +29374,123 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Verdict"> | Date | string
   }
 
+  export type WeaponStatsWhereInput = {
+    AND?: WeaponStatsWhereInput | WeaponStatsWhereInput[]
+    OR?: WeaponStatsWhereInput[]
+    NOT?: WeaponStatsWhereInput | WeaponStatsWhereInput[]
+    id?: StringFilter<"WeaponStats"> | string
+    name?: StringFilter<"WeaponStats"> | string
+    fire?: IntFilter<"WeaponStats"> | number
+    userId?: StringFilter<"WeaponStats"> | string
+    generalPlayerStatistics?: XOR<GeneralPlayerStatisticsScalarRelationFilter, GeneralPlayerStatisticsWhereInput>
+    hits?: HitListRelationFilter
+  }
+
+  export type WeaponStatsOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fire?: SortOrder
+    userId?: SortOrder
+    generalPlayerStatistics?: GeneralPlayerStatisticsOrderByWithRelationInput
+    hits?: HitOrderByRelationAggregateInput
+  }
+
+  export type WeaponStatsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WeaponStatsWhereInput | WeaponStatsWhereInput[]
+    OR?: WeaponStatsWhereInput[]
+    NOT?: WeaponStatsWhereInput | WeaponStatsWhereInput[]
+    name?: StringFilter<"WeaponStats"> | string
+    fire?: IntFilter<"WeaponStats"> | number
+    userId?: StringFilter<"WeaponStats"> | string
+    generalPlayerStatistics?: XOR<GeneralPlayerStatisticsScalarRelationFilter, GeneralPlayerStatisticsWhereInput>
+    hits?: HitListRelationFilter
+  }, "id">
+
+  export type WeaponStatsOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fire?: SortOrder
+    userId?: SortOrder
+    _count?: WeaponStatsCountOrderByAggregateInput
+    _avg?: WeaponStatsAvgOrderByAggregateInput
+    _max?: WeaponStatsMaxOrderByAggregateInput
+    _min?: WeaponStatsMinOrderByAggregateInput
+    _sum?: WeaponStatsSumOrderByAggregateInput
+  }
+
+  export type WeaponStatsScalarWhereWithAggregatesInput = {
+    AND?: WeaponStatsScalarWhereWithAggregatesInput | WeaponStatsScalarWhereWithAggregatesInput[]
+    OR?: WeaponStatsScalarWhereWithAggregatesInput[]
+    NOT?: WeaponStatsScalarWhereWithAggregatesInput | WeaponStatsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WeaponStats"> | string
+    name?: StringWithAggregatesFilter<"WeaponStats"> | string
+    fire?: IntWithAggregatesFilter<"WeaponStats"> | number
+    userId?: StringWithAggregatesFilter<"WeaponStats"> | string
+  }
+
+  export type HitWhereInput = {
+    AND?: HitWhereInput | HitWhereInput[]
+    OR?: HitWhereInput[]
+    NOT?: HitWhereInput | HitWhereInput[]
+    id?: StringFilter<"Hit"> | string
+    weaponId?: StringFilter<"Hit"> | string
+    hitLocation?: StringFilter<"Hit"> | string
+    hits?: IntFilter<"Hit"> | number
+    totalDamage?: IntFilter<"Hit"> | number
+    kills?: IntFilter<"Hit"> | number
+    weapon?: XOR<WeaponStatsScalarRelationFilter, WeaponStatsWhereInput>
+  }
+
+  export type HitOrderByWithRelationInput = {
+    id?: SortOrder
+    weaponId?: SortOrder
+    hitLocation?: SortOrder
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+    weapon?: WeaponStatsOrderByWithRelationInput
+  }
+
+  export type HitWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: HitWhereInput | HitWhereInput[]
+    OR?: HitWhereInput[]
+    NOT?: HitWhereInput | HitWhereInput[]
+    weaponId?: StringFilter<"Hit"> | string
+    hitLocation?: StringFilter<"Hit"> | string
+    hits?: IntFilter<"Hit"> | number
+    totalDamage?: IntFilter<"Hit"> | number
+    kills?: IntFilter<"Hit"> | number
+    weapon?: XOR<WeaponStatsScalarRelationFilter, WeaponStatsWhereInput>
+  }, "id">
+
+  export type HitOrderByWithAggregationInput = {
+    id?: SortOrder
+    weaponId?: SortOrder
+    hitLocation?: SortOrder
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+    _count?: HitCountOrderByAggregateInput
+    _avg?: HitAvgOrderByAggregateInput
+    _max?: HitMaxOrderByAggregateInput
+    _min?: HitMinOrderByAggregateInput
+    _sum?: HitSumOrderByAggregateInput
+  }
+
+  export type HitScalarWhereWithAggregatesInput = {
+    AND?: HitScalarWhereWithAggregatesInput | HitScalarWhereWithAggregatesInput[]
+    OR?: HitScalarWhereWithAggregatesInput[]
+    NOT?: HitScalarWhereWithAggregatesInput | HitScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Hit"> | string
+    weaponId?: StringWithAggregatesFilter<"Hit"> | string
+    hitLocation?: StringWithAggregatesFilter<"Hit"> | string
+    hits?: IntWithAggregatesFilter<"Hit"> | number
+    totalDamage?: IntWithAggregatesFilter<"Hit"> | number
+    kills?: IntWithAggregatesFilter<"Hit"> | number
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -27683,6 +30294,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
     MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
+    WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUncheckedCreateInput = {
@@ -27700,6 +30312,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
+    WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUpdateInput = {
@@ -27717,6 +30330,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
     MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+    WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type GeneralPlayerStatisticsUncheckedUpdateInput = {
@@ -27734,6 +30348,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+    WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type GeneralPlayerStatisticsCreateManyInput = {
@@ -28612,6 +31227,120 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WeaponStatsCreateInput = {
+    id?: string
+    name: string
+    fire: number
+    generalPlayerStatistics: GeneralPlayerStatisticsCreateNestedOneWithoutWeaponStatsInput
+    hits?: HitCreateNestedManyWithoutWeaponInput
+  }
+
+  export type WeaponStatsUncheckedCreateInput = {
+    id?: string
+    name: string
+    fire: number
+    userId: string
+    hits?: HitUncheckedCreateNestedManyWithoutWeaponInput
+  }
+
+  export type WeaponStatsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    generalPlayerStatistics?: GeneralPlayerStatisticsUpdateOneRequiredWithoutWeaponStatsNestedInput
+    hits?: HitUpdateManyWithoutWeaponNestedInput
+  }
+
+  export type WeaponStatsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    hits?: HitUncheckedUpdateManyWithoutWeaponNestedInput
+  }
+
+  export type WeaponStatsCreateManyInput = {
+    id?: string
+    name: string
+    fire: number
+    userId: string
+  }
+
+  export type WeaponStatsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type WeaponStatsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type HitCreateInput = {
+    id?: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+    weapon: WeaponStatsCreateNestedOneWithoutHitsInput
+  }
+
+  export type HitUncheckedCreateInput = {
+    id?: string
+    weaponId: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+  }
+
+  export type HitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+    weapon?: WeaponStatsUpdateOneRequiredWithoutHitsNestedInput
+  }
+
+  export type HitUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weaponId?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HitCreateManyInput = {
+    id?: string
+    weaponId: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+  }
+
+  export type HitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HitUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    weaponId?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -29442,7 +32171,17 @@ export namespace Prisma {
     none?: MapRanksWhereInput
   }
 
+  export type WeaponStatsListRelationFilter = {
+    every?: WeaponStatsWhereInput
+    some?: WeaponStatsWhereInput
+    none?: WeaponStatsWhereInput
+  }
+
   export type MapRanksOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WeaponStatsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -30032,6 +32771,89 @@ export namespace Prisma {
     comment?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type HitListRelationFilter = {
+    every?: HitWhereInput
+    some?: HitWhereInput
+    none?: HitWhereInput
+  }
+
+  export type HitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WeaponStatsCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fire?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type WeaponStatsAvgOrderByAggregateInput = {
+    fire?: SortOrder
+  }
+
+  export type WeaponStatsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fire?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type WeaponStatsMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    fire?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type WeaponStatsSumOrderByAggregateInput = {
+    fire?: SortOrder
+  }
+
+  export type WeaponStatsScalarRelationFilter = {
+    is?: WeaponStatsWhereInput
+    isNot?: WeaponStatsWhereInput
+  }
+
+  export type HitCountOrderByAggregateInput = {
+    id?: SortOrder
+    weaponId?: SortOrder
+    hitLocation?: SortOrder
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+  }
+
+  export type HitAvgOrderByAggregateInput = {
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+  }
+
+  export type HitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    weaponId?: SortOrder
+    hitLocation?: SortOrder
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+  }
+
+  export type HitMinOrderByAggregateInput = {
+    id?: SortOrder
+    weaponId?: SortOrder
+    hitLocation?: SortOrder
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
+  }
+
+  export type HitSumOrderByAggregateInput = {
+    hits?: SortOrder
+    totalDamage?: SortOrder
+    kills?: SortOrder
   }
 
   export type TokenCreateNestedManyWithoutUserInput = {
@@ -30777,11 +33599,25 @@ export namespace Prisma {
     connect?: MapRanksWhereUniqueInput | MapRanksWhereUniqueInput[]
   }
 
+  export type WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput = {
+    create?: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput> | WeaponStatsCreateWithoutGeneralPlayerStatisticsInput[] | WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput | WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
+    createMany?: WeaponStatsCreateManyGeneralPlayerStatisticsInputEnvelope
+    connect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+  }
+
   export type MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput = {
     create?: XOR<MapRanksCreateWithoutGeneralPlayerStatisticsInput, MapRanksUncheckedCreateWithoutGeneralPlayerStatisticsInput> | MapRanksCreateWithoutGeneralPlayerStatisticsInput[] | MapRanksUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
     connectOrCreate?: MapRanksCreateOrConnectWithoutGeneralPlayerStatisticsInput | MapRanksCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
     createMany?: MapRanksCreateManyGeneralPlayerStatisticsInputEnvelope
     connect?: MapRanksWhereUniqueInput | MapRanksWhereUniqueInput[]
+  }
+
+  export type WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput = {
+    create?: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput> | WeaponStatsCreateWithoutGeneralPlayerStatisticsInput[] | WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput | WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
+    createMany?: WeaponStatsCreateManyGeneralPlayerStatisticsInputEnvelope
+    connect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -30814,6 +33650,20 @@ export namespace Prisma {
     deleteMany?: MapRanksScalarWhereInput | MapRanksScalarWhereInput[]
   }
 
+  export type WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput = {
+    create?: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput> | WeaponStatsCreateWithoutGeneralPlayerStatisticsInput[] | WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput | WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
+    upsert?: WeaponStatsUpsertWithWhereUniqueWithoutGeneralPlayerStatisticsInput | WeaponStatsUpsertWithWhereUniqueWithoutGeneralPlayerStatisticsInput[]
+    createMany?: WeaponStatsCreateManyGeneralPlayerStatisticsInputEnvelope
+    set?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    disconnect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    delete?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    connect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    update?: WeaponStatsUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput | WeaponStatsUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput[]
+    updateMany?: WeaponStatsUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput | WeaponStatsUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput[]
+    deleteMany?: WeaponStatsScalarWhereInput | WeaponStatsScalarWhereInput[]
+  }
+
   export type MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput = {
     create?: XOR<MapRanksCreateWithoutGeneralPlayerStatisticsInput, MapRanksUncheckedCreateWithoutGeneralPlayerStatisticsInput> | MapRanksCreateWithoutGeneralPlayerStatisticsInput[] | MapRanksUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
     connectOrCreate?: MapRanksCreateOrConnectWithoutGeneralPlayerStatisticsInput | MapRanksCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
@@ -30826,6 +33676,20 @@ export namespace Prisma {
     update?: MapRanksUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput | MapRanksUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput[]
     updateMany?: MapRanksUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput | MapRanksUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput[]
     deleteMany?: MapRanksScalarWhereInput | MapRanksScalarWhereInput[]
+  }
+
+  export type WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput = {
+    create?: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput> | WeaponStatsCreateWithoutGeneralPlayerStatisticsInput[] | WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput[]
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput | WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput[]
+    upsert?: WeaponStatsUpsertWithWhereUniqueWithoutGeneralPlayerStatisticsInput | WeaponStatsUpsertWithWhereUniqueWithoutGeneralPlayerStatisticsInput[]
+    createMany?: WeaponStatsCreateManyGeneralPlayerStatisticsInputEnvelope
+    set?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    disconnect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    delete?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    connect?: WeaponStatsWhereUniqueInput | WeaponStatsWhereUniqueInput[]
+    update?: WeaponStatsUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput | WeaponStatsUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput[]
+    updateMany?: WeaponStatsUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput | WeaponStatsUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput[]
+    deleteMany?: WeaponStatsScalarWhereInput | WeaponStatsScalarWhereInput[]
   }
 
   export type GeneralPlayerStatisticsCreateNestedOneWithoutMapRanksInput = {
@@ -31095,6 +33959,76 @@ export namespace Prisma {
     upsert?: ReportUserUpsertWithoutVerdictsInput
     connect?: ReportUserWhereUniqueInput
     update?: XOR<XOR<ReportUserUpdateToOneWithWhereWithoutVerdictsInput, ReportUserUpdateWithoutVerdictsInput>, ReportUserUncheckedUpdateWithoutVerdictsInput>
+  }
+
+  export type GeneralPlayerStatisticsCreateNestedOneWithoutWeaponStatsInput = {
+    create?: XOR<GeneralPlayerStatisticsCreateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput>
+    connectOrCreate?: GeneralPlayerStatisticsCreateOrConnectWithoutWeaponStatsInput
+    connect?: GeneralPlayerStatisticsWhereUniqueInput
+  }
+
+  export type HitCreateNestedManyWithoutWeaponInput = {
+    create?: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput> | HitCreateWithoutWeaponInput[] | HitUncheckedCreateWithoutWeaponInput[]
+    connectOrCreate?: HitCreateOrConnectWithoutWeaponInput | HitCreateOrConnectWithoutWeaponInput[]
+    createMany?: HitCreateManyWeaponInputEnvelope
+    connect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+  }
+
+  export type HitUncheckedCreateNestedManyWithoutWeaponInput = {
+    create?: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput> | HitCreateWithoutWeaponInput[] | HitUncheckedCreateWithoutWeaponInput[]
+    connectOrCreate?: HitCreateOrConnectWithoutWeaponInput | HitCreateOrConnectWithoutWeaponInput[]
+    createMany?: HitCreateManyWeaponInputEnvelope
+    connect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+  }
+
+  export type GeneralPlayerStatisticsUpdateOneRequiredWithoutWeaponStatsNestedInput = {
+    create?: XOR<GeneralPlayerStatisticsCreateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput>
+    connectOrCreate?: GeneralPlayerStatisticsCreateOrConnectWithoutWeaponStatsInput
+    upsert?: GeneralPlayerStatisticsUpsertWithoutWeaponStatsInput
+    connect?: GeneralPlayerStatisticsWhereUniqueInput
+    update?: XOR<XOR<GeneralPlayerStatisticsUpdateToOneWithWhereWithoutWeaponStatsInput, GeneralPlayerStatisticsUpdateWithoutWeaponStatsInput>, GeneralPlayerStatisticsUncheckedUpdateWithoutWeaponStatsInput>
+  }
+
+  export type HitUpdateManyWithoutWeaponNestedInput = {
+    create?: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput> | HitCreateWithoutWeaponInput[] | HitUncheckedCreateWithoutWeaponInput[]
+    connectOrCreate?: HitCreateOrConnectWithoutWeaponInput | HitCreateOrConnectWithoutWeaponInput[]
+    upsert?: HitUpsertWithWhereUniqueWithoutWeaponInput | HitUpsertWithWhereUniqueWithoutWeaponInput[]
+    createMany?: HitCreateManyWeaponInputEnvelope
+    set?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    disconnect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    delete?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    connect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    update?: HitUpdateWithWhereUniqueWithoutWeaponInput | HitUpdateWithWhereUniqueWithoutWeaponInput[]
+    updateMany?: HitUpdateManyWithWhereWithoutWeaponInput | HitUpdateManyWithWhereWithoutWeaponInput[]
+    deleteMany?: HitScalarWhereInput | HitScalarWhereInput[]
+  }
+
+  export type HitUncheckedUpdateManyWithoutWeaponNestedInput = {
+    create?: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput> | HitCreateWithoutWeaponInput[] | HitUncheckedCreateWithoutWeaponInput[]
+    connectOrCreate?: HitCreateOrConnectWithoutWeaponInput | HitCreateOrConnectWithoutWeaponInput[]
+    upsert?: HitUpsertWithWhereUniqueWithoutWeaponInput | HitUpsertWithWhereUniqueWithoutWeaponInput[]
+    createMany?: HitCreateManyWeaponInputEnvelope
+    set?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    disconnect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    delete?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    connect?: HitWhereUniqueInput | HitWhereUniqueInput[]
+    update?: HitUpdateWithWhereUniqueWithoutWeaponInput | HitUpdateWithWhereUniqueWithoutWeaponInput[]
+    updateMany?: HitUpdateManyWithWhereWithoutWeaponInput | HitUpdateManyWithWhereWithoutWeaponInput[]
+    deleteMany?: HitScalarWhereInput | HitScalarWhereInput[]
+  }
+
+  export type WeaponStatsCreateNestedOneWithoutHitsInput = {
+    create?: XOR<WeaponStatsCreateWithoutHitsInput, WeaponStatsUncheckedCreateWithoutHitsInput>
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutHitsInput
+    connect?: WeaponStatsWhereUniqueInput
+  }
+
+  export type WeaponStatsUpdateOneRequiredWithoutHitsNestedInput = {
+    create?: XOR<WeaponStatsCreateWithoutHitsInput, WeaponStatsUncheckedCreateWithoutHitsInput>
+    connectOrCreate?: WeaponStatsCreateOrConnectWithoutHitsInput
+    upsert?: WeaponStatsUpsertWithoutHitsInput
+    connect?: WeaponStatsWhereUniqueInput
+    update?: XOR<XOR<WeaponStatsUpdateToOneWithWhereWithoutHitsInput, WeaponStatsUpdateWithoutHitsInput>, WeaponStatsUncheckedUpdateWithoutHitsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -32551,6 +35485,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
+    WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUncheckedCreateWithoutSteamInput = {
@@ -32567,6 +35502,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
+    WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsCreateOrConnectWithoutSteamInput = {
@@ -32760,6 +35696,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+    WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type GeneralPlayerStatisticsUncheckedUpdateWithoutSteamInput = {
@@ -32776,6 +35713,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+    WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type SteamUserCreateWithoutMatchesInput = {
@@ -33093,6 +36031,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WeaponStatsCreateWithoutGeneralPlayerStatisticsInput = {
+    id?: string
+    name: string
+    fire: number
+    hits?: HitCreateNestedManyWithoutWeaponInput
+  }
+
+  export type WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput = {
+    id?: string
+    name: string
+    fire: number
+    hits?: HitUncheckedCreateNestedManyWithoutWeaponInput
+  }
+
+  export type WeaponStatsCreateOrConnectWithoutGeneralPlayerStatisticsInput = {
+    where: WeaponStatsWhereUniqueInput
+    create: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput>
+  }
+
+  export type WeaponStatsCreateManyGeneralPlayerStatisticsInputEnvelope = {
+    data: WeaponStatsCreateManyGeneralPlayerStatisticsInput | WeaponStatsCreateManyGeneralPlayerStatisticsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SteamUserUpsertWithoutGeneralPlayerStatisticsInput = {
     update: XOR<SteamUserUpdateWithoutGeneralPlayerStatisticsInput, SteamUserUncheckedUpdateWithoutGeneralPlayerStatisticsInput>
     create: XOR<SteamUserCreateWithoutGeneralPlayerStatisticsInput, SteamUserUncheckedCreateWithoutGeneralPlayerStatisticsInput>
@@ -33186,6 +36148,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MapRanks"> | Date | string
   }
 
+  export type WeaponStatsUpsertWithWhereUniqueWithoutGeneralPlayerStatisticsInput = {
+    where: WeaponStatsWhereUniqueInput
+    update: XOR<WeaponStatsUpdateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedUpdateWithoutGeneralPlayerStatisticsInput>
+    create: XOR<WeaponStatsCreateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedCreateWithoutGeneralPlayerStatisticsInput>
+  }
+
+  export type WeaponStatsUpdateWithWhereUniqueWithoutGeneralPlayerStatisticsInput = {
+    where: WeaponStatsWhereUniqueInput
+    data: XOR<WeaponStatsUpdateWithoutGeneralPlayerStatisticsInput, WeaponStatsUncheckedUpdateWithoutGeneralPlayerStatisticsInput>
+  }
+
+  export type WeaponStatsUpdateManyWithWhereWithoutGeneralPlayerStatisticsInput = {
+    where: WeaponStatsScalarWhereInput
+    data: XOR<WeaponStatsUpdateManyMutationInput, WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsInput>
+  }
+
+  export type WeaponStatsScalarWhereInput = {
+    AND?: WeaponStatsScalarWhereInput | WeaponStatsScalarWhereInput[]
+    OR?: WeaponStatsScalarWhereInput[]
+    NOT?: WeaponStatsScalarWhereInput | WeaponStatsScalarWhereInput[]
+    id?: StringFilter<"WeaponStats"> | string
+    name?: StringFilter<"WeaponStats"> | string
+    fire?: IntFilter<"WeaponStats"> | number
+    userId?: StringFilter<"WeaponStats"> | string
+  }
+
   export type GeneralPlayerStatisticsCreateWithoutMapRanksInput = {
     id?: string
     wingman?: number | null
@@ -33200,6 +36188,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
+    WeaponStats?: WeaponStatsCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsUncheckedCreateWithoutMapRanksInput = {
@@ -33216,6 +36205,7 @@ export namespace Prisma {
     inGameSinse?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    WeaponStats?: WeaponStatsUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
   }
 
   export type GeneralPlayerStatisticsCreateOrConnectWithoutMapRanksInput = {
@@ -33248,6 +36238,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
+    WeaponStats?: WeaponStatsUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type GeneralPlayerStatisticsUncheckedUpdateWithoutMapRanksInput = {
@@ -33264,6 +36255,7 @@ export namespace Prisma {
     inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    WeaponStats?: WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
   }
 
   export type MatchCreateWithoutPlayersStatisticInput = {
@@ -34457,6 +37449,188 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type GeneralPlayerStatisticsCreateWithoutWeaponStatsInput = {
+    id?: string
+    wingman?: number | null
+    wingmanMathes?: number | null
+    wingmanWins?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    wins?: number | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    steam: SteamUserCreateNestedOneWithoutGeneralPlayerStatisticsInput
+    MapRanks?: MapRanksCreateNestedManyWithoutGeneralPlayerStatisticsInput
+  }
+
+  export type GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput = {
+    id?: string
+    userId: string
+    wingman?: number | null
+    wingmanMathes?: number | null
+    wingmanWins?: number | null
+    premier?: number | null
+    faceit?: number | null
+    faceit_elo?: number | null
+    TotalMatches?: number | null
+    wins?: number | null
+    inGameSinse?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    MapRanks?: MapRanksUncheckedCreateNestedManyWithoutGeneralPlayerStatisticsInput
+  }
+
+  export type GeneralPlayerStatisticsCreateOrConnectWithoutWeaponStatsInput = {
+    where: GeneralPlayerStatisticsWhereUniqueInput
+    create: XOR<GeneralPlayerStatisticsCreateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput>
+  }
+
+  export type HitCreateWithoutWeaponInput = {
+    id?: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+  }
+
+  export type HitUncheckedCreateWithoutWeaponInput = {
+    id?: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+  }
+
+  export type HitCreateOrConnectWithoutWeaponInput = {
+    where: HitWhereUniqueInput
+    create: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput>
+  }
+
+  export type HitCreateManyWeaponInputEnvelope = {
+    data: HitCreateManyWeaponInput | HitCreateManyWeaponInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GeneralPlayerStatisticsUpsertWithoutWeaponStatsInput = {
+    update: XOR<GeneralPlayerStatisticsUpdateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedUpdateWithoutWeaponStatsInput>
+    create: XOR<GeneralPlayerStatisticsCreateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedCreateWithoutWeaponStatsInput>
+    where?: GeneralPlayerStatisticsWhereInput
+  }
+
+  export type GeneralPlayerStatisticsUpdateToOneWithWhereWithoutWeaponStatsInput = {
+    where?: GeneralPlayerStatisticsWhereInput
+    data: XOR<GeneralPlayerStatisticsUpdateWithoutWeaponStatsInput, GeneralPlayerStatisticsUncheckedUpdateWithoutWeaponStatsInput>
+  }
+
+  export type GeneralPlayerStatisticsUpdateWithoutWeaponStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    wingmanMathes?: NullableIntFieldUpdateOperationsInput | number | null
+    wingmanWins?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    wins?: NullableIntFieldUpdateOperationsInput | number | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    steam?: SteamUserUpdateOneRequiredWithoutGeneralPlayerStatisticsNestedInput
+    MapRanks?: MapRanksUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+  }
+
+  export type GeneralPlayerStatisticsUncheckedUpdateWithoutWeaponStatsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    wingman?: NullableIntFieldUpdateOperationsInput | number | null
+    wingmanMathes?: NullableIntFieldUpdateOperationsInput | number | null
+    wingmanWins?: NullableIntFieldUpdateOperationsInput | number | null
+    premier?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit?: NullableIntFieldUpdateOperationsInput | number | null
+    faceit_elo?: NullableIntFieldUpdateOperationsInput | number | null
+    TotalMatches?: NullableIntFieldUpdateOperationsInput | number | null
+    wins?: NullableIntFieldUpdateOperationsInput | number | null
+    inGameSinse?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    MapRanks?: MapRanksUncheckedUpdateManyWithoutGeneralPlayerStatisticsNestedInput
+  }
+
+  export type HitUpsertWithWhereUniqueWithoutWeaponInput = {
+    where: HitWhereUniqueInput
+    update: XOR<HitUpdateWithoutWeaponInput, HitUncheckedUpdateWithoutWeaponInput>
+    create: XOR<HitCreateWithoutWeaponInput, HitUncheckedCreateWithoutWeaponInput>
+  }
+
+  export type HitUpdateWithWhereUniqueWithoutWeaponInput = {
+    where: HitWhereUniqueInput
+    data: XOR<HitUpdateWithoutWeaponInput, HitUncheckedUpdateWithoutWeaponInput>
+  }
+
+  export type HitUpdateManyWithWhereWithoutWeaponInput = {
+    where: HitScalarWhereInput
+    data: XOR<HitUpdateManyMutationInput, HitUncheckedUpdateManyWithoutWeaponInput>
+  }
+
+  export type HitScalarWhereInput = {
+    AND?: HitScalarWhereInput | HitScalarWhereInput[]
+    OR?: HitScalarWhereInput[]
+    NOT?: HitScalarWhereInput | HitScalarWhereInput[]
+    id?: StringFilter<"Hit"> | string
+    weaponId?: StringFilter<"Hit"> | string
+    hitLocation?: StringFilter<"Hit"> | string
+    hits?: IntFilter<"Hit"> | number
+    totalDamage?: IntFilter<"Hit"> | number
+    kills?: IntFilter<"Hit"> | number
+  }
+
+  export type WeaponStatsCreateWithoutHitsInput = {
+    id?: string
+    name: string
+    fire: number
+    generalPlayerStatistics: GeneralPlayerStatisticsCreateNestedOneWithoutWeaponStatsInput
+  }
+
+  export type WeaponStatsUncheckedCreateWithoutHitsInput = {
+    id?: string
+    name: string
+    fire: number
+    userId: string
+  }
+
+  export type WeaponStatsCreateOrConnectWithoutHitsInput = {
+    where: WeaponStatsWhereUniqueInput
+    create: XOR<WeaponStatsCreateWithoutHitsInput, WeaponStatsUncheckedCreateWithoutHitsInput>
+  }
+
+  export type WeaponStatsUpsertWithoutHitsInput = {
+    update: XOR<WeaponStatsUpdateWithoutHitsInput, WeaponStatsUncheckedUpdateWithoutHitsInput>
+    create: XOR<WeaponStatsCreateWithoutHitsInput, WeaponStatsUncheckedCreateWithoutHitsInput>
+    where?: WeaponStatsWhereInput
+  }
+
+  export type WeaponStatsUpdateToOneWithWhereWithoutHitsInput = {
+    where?: WeaponStatsWhereInput
+    data: XOR<WeaponStatsUpdateWithoutHitsInput, WeaponStatsUncheckedUpdateWithoutHitsInput>
+  }
+
+  export type WeaponStatsUpdateWithoutHitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    generalPlayerStatistics?: GeneralPlayerStatisticsUpdateOneRequiredWithoutWeaponStatsNestedInput
+  }
+
+  export type WeaponStatsUncheckedUpdateWithoutHitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TokenCreateManyUserInput = {
     id?: string
     token: string
@@ -35062,6 +38236,12 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type WeaponStatsCreateManyGeneralPlayerStatisticsInput = {
+    id?: string
+    name: string
+    fire: number
+  }
+
   export type MapRanksUpdateWithoutGeneralPlayerStatisticsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -35084,6 +38264,26 @@ export namespace Prisma {
     rank?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WeaponStatsUpdateWithoutGeneralPlayerStatisticsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    hits?: HitUpdateManyWithoutWeaponNestedInput
+  }
+
+  export type WeaponStatsUncheckedUpdateWithoutGeneralPlayerStatisticsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
+    hits?: HitUncheckedUpdateManyWithoutWeaponNestedInput
+  }
+
+  export type WeaponStatsUncheckedUpdateManyWithoutGeneralPlayerStatisticsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fire?: IntFieldUpdateOperationsInput | number
   }
 
   export type ImagesCreateManyCommentInput = {
@@ -35148,6 +38348,38 @@ export namespace Prisma {
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HitCreateManyWeaponInput = {
+    id?: string
+    hitLocation: string
+    hits: number
+    totalDamage: number
+    kills: number
+  }
+
+  export type HitUpdateWithoutWeaponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HitUncheckedUpdateWithoutWeaponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type HitUncheckedUpdateManyWithoutWeaponInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hitLocation?: StringFieldUpdateOperationsInput | string
+    hits?: IntFieldUpdateOperationsInput | number
+    totalDamage?: IntFieldUpdateOperationsInput | number
+    kills?: IntFieldUpdateOperationsInput | number
   }
 
 

@@ -101,4 +101,20 @@ export class Cs2Service {
       throw new BadRequestException('Authentication code not valid');
     }
   }
+
+  public async getLastMathes() {
+    return await this.prismaService.match.findMany({
+      where: { type: { not: 'ERROR' } },
+      select: {
+        avg_rank: true,
+        dateUnix: true,
+        id: true,
+        type: true,
+        score: true,
+        map: true,
+      },
+      take: 15,
+      orderBy: { dateUnix: 'desc' },
+    });
+  }
 }

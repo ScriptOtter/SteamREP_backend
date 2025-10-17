@@ -23,6 +23,7 @@ import { DownloadDemoModule } from 'src/modules/cs2/download-demo/download-demo.
 import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-statistics/general-player-statistics.module';
 import { MatchModule } from 'src/modules/cs2/match/match.module';
 import { Cs2Module } from 'src/modules/cs2/cs2.module';
+import { SocketModule } from 'src/socket/socket.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { Cs2Module } from 'src/modules/cs2/cs2.module';
     PasswordRecoveryModule,
     MatchModule,
     Cs2Module,
+    SocketModule,
   ],
   controllers: [UserController, ProtectedController],
   providers: [UserService, SocialLinksService],

@@ -166,9 +166,9 @@ model Match {
 }
 
 model GeneralPlayerStatistics {
-  id            String     @id @unique @default(cuid())
-  steam         SteamUser  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String     @unique
+  id            String        @id @unique @default(cuid())
+  steam         SteamUser     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String        @unique
   MapRanks      MapRanks[]
   wingman       Int?
   wingmanMathes Int?
@@ -179,9 +179,9 @@ model GeneralPlayerStatistics {
   TotalMatches  Int?
   wins          Int?
   inGameSinse   DateTime?
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  WeaponStats   WeaponStats[]
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
 }
 
 model MapRanks {
@@ -343,6 +343,25 @@ model Verdict {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("verdict")
+}
+
+model WeaponStats {
+  id                      String                  @id @default(cuid())
+  name                    String
+  fire                    Int
+  userId                  String
+  generalPlayerStatistics GeneralPlayerStatistics @relation(fields: [userId], references: [id])
+  hits                    Hit[]
+}
+
+model Hit {
+  id          String      @id @default(cuid())
+  weaponId    String
+  hitLocation String
+  hits        Int
+  totalDamage Int
+  kills       Int
+  weapon      WeaponStats @relation(fields: [weaponId], references: [id])
 }
 
 enum UserRole {

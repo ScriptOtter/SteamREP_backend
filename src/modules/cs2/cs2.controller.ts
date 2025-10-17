@@ -28,4 +28,9 @@ export class Cs2Controller {
   ) {
     return this.cs2Service.saveAuthenticationCode(req, dto.authenticationCode);
   }
+
+  @Get('getLastMatches')
+  public async getLastMathes() {
+    return this.cs2Service.getLastMathes();
+  }
 }
