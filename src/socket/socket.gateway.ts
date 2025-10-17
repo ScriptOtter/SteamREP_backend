@@ -7,8 +7,9 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { PrismaService } from 'src/prisma/prisma.service';
-
-@WebSocketGateway(80, { cors: { origin: '*' } })
+const port = Number(process.env.SOCKET_PORT);
+const origin = process.env.ALLOWED_ORIGIN;
+@WebSocketGateway(port, { cors: { origin: origin } })
 export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private intervalId;
   private connectedClients: Set<string>;
