@@ -11,7 +11,7 @@ export class CronController {
   public async clearPrisma() {
     return this.cronService.clearPrisma();
   }
-  //@Cron('1 * * * * *')
+  @Cron('1 * * * * *')
   public async downloadCS2Demos() {
     this.logger.log('Searching new CS2 matches for users SteamRep.help');
     return this.cronService.downloadCS2Demos();
