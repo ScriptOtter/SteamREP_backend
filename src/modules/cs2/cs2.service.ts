@@ -117,4 +117,37 @@ export class Cs2Service {
       orderBy: { dateUnix: 'desc' },
     });
   }
+
+  public async getAnalyzedMatches(page: number, limit: number) {
+    const skip = (page - 1) * limit;
+    const matches = await this.prismaService.match.findMany({
+      where: { type: { not: 'ERROR' } },
+      select: {
+        avg_rank: true,
+        dateUnix: true,
+        id: true,
+        type: true,
+        score: true,
+        map: true,
+        participants: true,
+        playersStatistic: true,
+      },
+      orderBy: { dateUnix: 'desc' },
+      take: limit,
+      skip,
+    });
+    const totalMatches = await this.prismaService.match.count();
+    return {
+      matches,
+      totalMatches,
+      totalPages: Math.ceil(totalMatches / limit),
+    };
+  }
+
+  public async getBans() {
+    return await this.prismaService.vac.findMany({
+      select: { createdAt: true, number: true },
+      orderBy: { createdAt: 'asc' },
+    });
+  }
 }

@@ -110,7 +110,7 @@ export class SteamPrismaService {
         loccountrycode,
       } = res[0];
 
-      const steamUser = await this.prisma.steamUser.update({
+      await this.prisma.steamUser.update({
         where: { id: steamid },
         data: {
           personaName: personaname,
@@ -119,7 +119,7 @@ export class SteamPrismaService {
           realname: realname,
           timeCreated: this.formatTimestampToDateString(timecreated),
           countryCode: loccountrycode,
-          lastUpdateSteamInformation: new Date(),
+          lastUpdateSteamInformation: new Date(new Date().getDate() - 1),
         },
       });
 

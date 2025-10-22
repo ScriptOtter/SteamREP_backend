@@ -79,7 +79,6 @@ export class CronService {
 
       await this.steamPrismaService.updateClearSteamAccount(users[index].id);
     }
-    // Функция для создания задержки
   }
 
   async vacChecker() {

@@ -6,7 +6,6 @@ import { Cron } from '@nestjs/schedule';
 export class CronController {
   constructor(private readonly cronService: CronService) {}
   private readonly logger = new Logger('🖥️     Cron Operation   🖥️  ');
-
   @Cron('1 * * * * *')
   public async clearPrisma() {
     return this.cronService.clearPrisma();
@@ -16,13 +15,11 @@ export class CronController {
     this.logger.log('Searching new CS2 matches for users SteamRep.help');
     return this.cronService.downloadCS2Demos();
   }
-
   @Cron('1 * * * * *')
   public async updateSteamProfile() {
     this.logger.log('Updating steam profiles');
     return this.cronService.updateSteamProfile();
   }
-
   @Cron('0 0 * * *')
   public async vacChecker() {
     this.logger.log('VAC Checker');

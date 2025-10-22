@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Cs2Service } from './cs2.service';
 import { Request } from 'express';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
@@ -32,5 +40,18 @@ export class Cs2Controller {
   @Get('getLastMatches')
   public async getLastMathes() {
     return this.cs2Service.getLastMathes();
+  }
+
+  @Get('analyzedMatches')
+  public async getAnalyzedMatches(
+    @Query('page') page: string,
+    @Query('limit') limit: string,
+  ) {
+    return this.cs2Service.getAnalyzedMatches(Number(page), Number(limit));
+  }
+
+  @Get('bans')
+  public async getBans() {
+    return this.cs2Service.getBans();
   }
 }
