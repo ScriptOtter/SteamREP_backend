@@ -19,7 +19,7 @@ import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { Request } from 'express';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FileExtensionInterceptor } from 'src/shared/Intercepters/file-type.interceptor';
-import { GetCommenttDto, ImagesDto } from './dto/get-comments.dto';
+import { GetCommenttDto } from './dto/get-comments.dto';
 
 @Controller('')
 export class CommentController {

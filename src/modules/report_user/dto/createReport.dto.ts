@@ -4,10 +4,10 @@ export class CreateReportDto {
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  youtubeLink: string;
+  youtubeLink?: string;
 
   @IsString()
-  demoLink: string;
+  demoLink?: string;
 
   @IsArray()
   @IsNotEmpty()

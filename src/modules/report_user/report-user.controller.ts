@@ -15,6 +15,7 @@ import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { CreateReportDto } from './dto/createReport.dto';
 import { Request, Response } from 'express';
 import { sendVerdictDto } from './dto/sendVerdict.dto';
+import { SteamVerificationGuard } from 'src/shared/Guards/steamVerification.guard';
 
 @Controller('')
 export class ReportUserController {
@@ -22,6 +23,7 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseGuards(SteamVerificationGuard)
   @Post('createReport')
   createReport(@Body() dto: CreateReportDto, @Req() req: Request) {
     return this.reportUserService.createReport(dto, req);
@@ -35,6 +37,7 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseGuards(SteamVerificationGuard)
   @Get('getMyVerdicts')
   getMyVerdicts(@Req() req: Request) {
     return this.reportUserService.getMyVerdicts(req);
@@ -42,6 +45,7 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseGuards(SteamVerificationGuard)
   @Get('getMyReports')
   getMyReports(@Req() req: Request) {
     return this.reportUserService.getMyReports(req);
@@ -55,6 +59,7 @@ export class ReportUserController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseGuards(SteamVerificationGuard)
   @Post('postVerdict/:id')
   sendVerdict(
     @Param('id') param: string,

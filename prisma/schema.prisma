@@ -311,7 +311,7 @@ model JwtToken {
 
 model ReportUser {
   id String   @unique @id @default(cuid())
-  youtubeLink String @unique @map("youtube_link")
+  youtubeLink String? @unique @map("youtube_link")
   demoLink String?
   comment String?
 

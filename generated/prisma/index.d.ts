@@ -22982,7 +22982,7 @@ export namespace Prisma {
 
   export type ReportUserGroupByOutputType = {
     id: string
-    youtubeLink: string
+    youtubeLink: string | null
     demoLink: string | null
     comment: string | null
     authorId: string
@@ -23085,7 +23085,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      youtubeLink: string
+      youtubeLink: string | null
       demoLink: string | null
       comment: string | null
       authorId: string
@@ -29234,7 +29234,7 @@ export namespace Prisma {
     OR?: ReportUserWhereInput[]
     NOT?: ReportUserWhereInput | ReportUserWhereInput[]
     id?: StringFilter<"ReportUser"> | string
-    youtubeLink?: StringFilter<"ReportUser"> | string
+    youtubeLink?: StringNullableFilter<"ReportUser"> | string | null
     demoLink?: StringNullableFilter<"ReportUser"> | string | null
     comment?: StringNullableFilter<"ReportUser"> | string | null
     authorId?: StringFilter<"ReportUser"> | string
@@ -29248,7 +29248,7 @@ export namespace Prisma {
 
   export type ReportUserOrderByWithRelationInput = {
     id?: SortOrder
-    youtubeLink?: SortOrder
+    youtubeLink?: SortOrderInput | SortOrder
     demoLink?: SortOrderInput | SortOrder
     comment?: SortOrderInput | SortOrder
     authorId?: SortOrder
@@ -29280,7 +29280,7 @@ export namespace Prisma {
 
   export type ReportUserOrderByWithAggregationInput = {
     id?: SortOrder
-    youtubeLink?: SortOrder
+    youtubeLink?: SortOrderInput | SortOrder
     demoLink?: SortOrderInput | SortOrder
     comment?: SortOrderInput | SortOrder
     authorId?: SortOrder
@@ -29297,7 +29297,7 @@ export namespace Prisma {
     OR?: ReportUserScalarWhereWithAggregatesInput[]
     NOT?: ReportUserScalarWhereWithAggregatesInput | ReportUserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ReportUser"> | string
-    youtubeLink?: StringWithAggregatesFilter<"ReportUser"> | string
+    youtubeLink?: StringNullableWithAggregatesFilter<"ReportUser"> | string | null
     demoLink?: StringNullableWithAggregatesFilter<"ReportUser"> | string | null
     comment?: StringNullableWithAggregatesFilter<"ReportUser"> | string | null
     authorId?: StringWithAggregatesFilter<"ReportUser"> | string
@@ -31082,7 +31082,7 @@ export namespace Prisma {
 
   export type ReportUserCreateInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     createdAt?: Date | string
@@ -31094,7 +31094,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedCreateInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     authorId: string
@@ -31106,7 +31106,7 @@ export namespace Prisma {
 
   export type ReportUserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31118,7 +31118,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
@@ -31130,7 +31130,7 @@ export namespace Prisma {
 
   export type ReportUserCreateManyInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     authorId: string
@@ -31141,7 +31141,7 @@ export namespace Prisma {
 
   export type ReportUserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31150,7 +31150,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
@@ -34619,7 +34619,7 @@ export namespace Prisma {
 
   export type ReportUserCreateWithoutAuthorInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     createdAt?: Date | string
@@ -34630,7 +34630,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedCreateWithoutAuthorInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     recipientId: string
@@ -34938,7 +34938,7 @@ export namespace Prisma {
     OR?: ReportUserScalarWhereInput[]
     NOT?: ReportUserScalarWhereInput | ReportUserScalarWhereInput[]
     id?: StringFilter<"ReportUser"> | string
-    youtubeLink?: StringFilter<"ReportUser"> | string
+    youtubeLink?: StringNullableFilter<"ReportUser"> | string | null
     demoLink?: StringNullableFilter<"ReportUser"> | string | null
     comment?: StringNullableFilter<"ReportUser"> | string | null
     authorId?: StringFilter<"ReportUser"> | string
@@ -35398,7 +35398,7 @@ export namespace Prisma {
 
   export type ReportUserCreateWithoutRecipientInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     createdAt?: Date | string
@@ -35409,7 +35409,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedCreateWithoutRecipientInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     authorId: string
@@ -37336,7 +37336,7 @@ export namespace Prisma {
 
   export type ReportUserCreateWithoutVerdictsInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     createdAt?: Date | string
@@ -37347,7 +37347,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedCreateWithoutVerdictsInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     authorId: string
@@ -37429,7 +37429,7 @@ export namespace Prisma {
 
   export type ReportUserUpdateWithoutVerdictsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37440,7 +37440,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateWithoutVerdictsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
@@ -37677,7 +37677,7 @@ export namespace Prisma {
 
   export type ReportUserCreateManyAuthorInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     recipientId: string
@@ -37830,7 +37830,7 @@ export namespace Prisma {
 
   export type ReportUserUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37841,7 +37841,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
@@ -37852,7 +37852,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     recipientId?: StringFieldUpdateOperationsInput | string
@@ -37897,7 +37897,7 @@ export namespace Prisma {
 
   export type ReportUserCreateManyRecipientInput = {
     id?: string
-    youtubeLink: string
+    youtubeLink?: string | null
     demoLink?: string | null
     comment?: string | null
     authorId: string
@@ -37933,7 +37933,7 @@ export namespace Prisma {
 
   export type ReportUserUpdateWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -37944,7 +37944,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string
@@ -37955,7 +37955,7 @@ export namespace Prisma {
 
   export type ReportUserUncheckedUpdateManyWithoutRecipientInput = {
     id?: StringFieldUpdateOperationsInput | string
-    youtubeLink?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: NullableStringFieldUpdateOperationsInput | string | null
     demoLink?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
     authorId?: StringFieldUpdateOperationsInput | string

@@ -18,7 +18,8 @@ export class ReportUserService {
   async createReport(dto: CreateReportDto, req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
     const recipientId = await this.steamService.getSteam64Id(dto.recipientId);
-    console.log(recipientId);
+    if (dto.demoLink?.trim() === '' || dto.youtubeLink?.trim() === '')
+      throw new BadRequestException('Please provide a link to YouTube or demo');
     try {
       const report = await this.prisma.reportUser.create({
         data: {
