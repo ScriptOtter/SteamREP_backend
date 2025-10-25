@@ -76,11 +76,17 @@ export class ReportUserService {
   }
 
   async getDemosWithoutVerdicts(req: Request): Promise<any> {
-    const userId = await this.tokenService.getIdFromToken(req);
+    let userId;
 
-    const demos = await this.prisma.reportUser.findMany({
+    if (req.cookies.refreshToken) {
+      userId = await this.tokenService.getIdFromToken(req);
+    } else userId = '';
+
+    console.log('asdfdasd23232', userId);
+    const reports = await this.prisma.reportUser.findMany({
       where: { verdicts: { every: { NOT: { userId: userId } } } },
       include: {
+        verdicts: { select: { verdicts: true } },
         author: {
           select: {
             steamUser: {
@@ -105,16 +111,16 @@ export class ReportUserService {
       orderBy: { createdAt: 'desc' },
     });
 
-    if (!demos) {
+    if (!reports) {
       throw new BadRequestException('Reload the page!');
     }
-    return demos;
+    return reports;
   }
 
   async getMyVerdicts(req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
 
-    const demos = await this.prisma.reportUser.findMany({
+    const reports = await this.prisma.reportUser.findMany({
       where: { verdicts: { some: { userId: userId } } },
       include: {
         verdicts: {
@@ -145,17 +151,17 @@ export class ReportUserService {
       orderBy: { createdAt: 'desc' },
     });
 
-    if (!demos) {
+    if (!reports) {
       throw new BadRequestException('Reload the page!');
     }
 
-    return demos;
+    return reports;
   }
 
   async getMyReports(req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
 
-    const demos = await this.prisma.reportUser.findMany({
+    const reports = await this.prisma.reportUser.findMany({
       where: { authorId: userId },
       include: {
         verdicts: {
@@ -186,10 +192,10 @@ export class ReportUserService {
       orderBy: { createdAt: 'desc' },
     });
 
-    if (!demos) {
+    if (!reports) {
       throw new BadRequestException('Reload the page!');
     }
-    return demos;
+    return reports;
   }
 
   async getSelectedReport(param: string): Promise<any> {
