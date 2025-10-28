@@ -13,7 +13,7 @@ export class GetCommenttDto {
   @IsNotEmpty({ message: 'Recipient is empty!' })
   recipient_id: string;
 
-  images: Array<Partial<ImagesDto>>;
+  images?: Array<Partial<ImagesDto>>;
   deletedImages: string[];
   @IsString({ message: 'Recipient must be string!' })
   @IsNotEmpty({ message: 'Recipient is empty!' })

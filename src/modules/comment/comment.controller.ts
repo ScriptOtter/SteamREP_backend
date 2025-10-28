@@ -20,6 +20,7 @@ import { Request } from 'express';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FileExtensionInterceptor } from 'src/shared/Intercepters/file-type.interceptor';
 import { GetCommenttDto } from './dto/get-comments.dto';
+import { FileUploadGuard } from 'src/shared/Guards/FileUploadGuard';
 
 @Controller('')
 export class CommentController {
@@ -27,6 +28,7 @@ export class CommentController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAccessGuard)
+  @UseGuards(FileUploadGuard)
   @UseInterceptors(FileExtensionInterceptor, FilesInterceptor('images'))
   @Post('comment/create/:id')
   createComment(

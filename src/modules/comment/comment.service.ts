@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
@@ -13,6 +14,22 @@ import { UploadService } from '../upload/upload.service';
 import { GetCommenttDto } from './dto/get-comments.dto';
 import { NotificationsService } from '../notifications/notifications.service';
 import { messageTemplates } from '../notifications/templates/message';
+
+const IMAGES_RULES = {
+  MEMBER: 1,
+  DONOR: 3,
+  MODERATOR: 3,
+  ADMIN: 3,
+  CREATOR: 100,
+};
+
+const COMMENTS_RULES = {
+  MEMBER: 1,
+  DONOR: 3,
+  MODERATOR: 3,
+  ADMIN: 3,
+  CREATOR: 100,
+};
 
 @Injectable()
 export class CommentService {
@@ -35,14 +52,38 @@ export class CommentService {
       throw new UnauthorizedException('User not found!');
     }
 
-    const steamid = async (id): Promise<string> => {
+    const steamid = async (id: string): Promise<string> => {
       if (await this.steamService.checkIsSteam64Id(id)) {
         return id;
       } else {
         return await this.steamService.getSteam64Id(id);
       }
     };
+
     try {
+      const userRole = await this.prisma.user.findFirst({
+        where: { id: userId },
+        select: { additionalRole: true },
+      });
+      if (!userRole) throw new UnauthorizedException('User not found!');
+
+      const findComment = await this.prisma.comment.findMany({
+        where: { authorId: userId, recipientId: await steamid(id) },
+      });
+      if (
+        findComment &&
+        findComment.length > COMMENTS_RULES[userRole.additionalRole]
+      )
+        throw new ForbiddenException(
+          `Your role can only leave ${COMMENTS_RULES[userRole.additionalRole]} comment per user`,
+        );
+      const fileCount = Array.isArray(files) ? files.length : 0; // Проверяем количество файлов
+
+      if (fileCount > IMAGES_RULES[userRole.additionalRole]) {
+        throw new ForbiddenException(
+          `You can upload more than ${IMAGES_RULES[userRole.additionalRole]} images`,
+        );
+      }
       const uploadedFiles = await this.S3.uploadFiles(files);
 
       if (!uploadedFiles) {
@@ -85,10 +126,8 @@ export class CommentService {
       );
       return comment;
     } catch (e) {
-      console.log(e);
-      throw new BadRequestException(
-        "You can't leave more than one comment. Please delete or edit your previous comment.",
-      );
+      console.log('aasdasd', e);
+      throw new BadRequestException(e);
     }
   }
 
@@ -214,11 +253,26 @@ export class CommentService {
       if (!comment) {
         throw new BadRequestException('Comment not updated!');
       }
+      const userRole = await this.prisma.user.findFirst({
+        where: { id: userId },
+        select: { additionalRole: true },
+      });
+      if (!userRole) throw new UnauthorizedException('User not found!');
+      const fileCount = Array.isArray(files) ? files.length : 1; // Проверяем количество файлов
+      const images = await this.prisma.images.findMany({
+        where: { commentId },
+      });
 
+      if (fileCount + images.length > IMAGES_RULES[userRole.additionalRole]) {
+        throw new ForbiddenException(
+          `You can upload more than ${IMAGES_RULES[userRole.additionalRole]} images`,
+        );
+      }
       const uploadedFiles = await this.S3.uploadFiles(files);
       if (!uploadedFiles) {
         throw new InternalServerErrorException('Failed to upload file!');
       }
+
       const imagePromises = uploadedFiles.map(async (image) => {
         return this.prisma.images.create({
           data: {
@@ -236,7 +290,7 @@ export class CommentService {
 
       return true;
     } catch (e) {
-      console.log('DELETE_COMMENT', e);
+      throw new BadRequestException(e);
     }
   }
 }
