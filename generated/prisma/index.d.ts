@@ -118,6 +118,11 @@ export type WeaponStats = $Result.DefaultSelection<Prisma.$WeaponStatsPayload>
  * 
  */
 export type Hit = $Result.DefaultSelection<Prisma.$HitPayload>
+/**
+ * Model ContentReports
+ * 
+ */
+export type ContentReports = $Result.DefaultSelection<Prisma.$ContentReportsPayload>
 
 /**
  * Enums
@@ -183,6 +188,14 @@ export const MatchType: {
 
 export type MatchType = (typeof MatchType)[keyof typeof MatchType]
 
+
+export const ContentReportType: {
+  COMMENT: 'COMMENT',
+  REPORT: 'REPORT'
+};
+
+export type ContentReportType = (typeof ContentReportType)[keyof typeof ContentReportType]
+
 }
 
 export type NotificationType = $Enums.NotificationType
@@ -208,6 +221,10 @@ export const MatchResult: typeof $Enums.MatchResult
 export type MatchType = $Enums.MatchType
 
 export const MatchType: typeof $Enums.MatchType
+
+export type ContentReportType = $Enums.ContentReportType
+
+export const ContentReportType: typeof $Enums.ContentReportType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -536,6 +553,16 @@ export class PrismaClient<
     * ```
     */
   get hit(): Prisma.HitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contentReports`: Exposes CRUD operations for the **ContentReports** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContentReports
+    * const contentReports = await prisma.contentReports.findMany()
+    * ```
+    */
+  get contentReports(): Prisma.ContentReportsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -997,7 +1024,8 @@ export namespace Prisma {
     ReportUser: 'ReportUser',
     Verdict: 'Verdict',
     WeaponStats: 'WeaponStats',
-    Hit: 'Hit'
+    Hit: 'Hit',
+    ContentReports: 'ContentReports'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1016,7 +1044,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "vac" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict" | "weaponStats" | "hit"
+      modelProps: "user" | "trackingUser" | "notifications" | "token" | "stackDownloadingMatches" | "steamUser" | "matchForAnalysis" | "match" | "generalPlayerStatistics" | "mapRanks" | "playerStatisticsInMatch" | "steamUserBans" | "vac" | "linksInProfile" | "comment" | "images" | "jwtToken" | "reportUser" | "verdict" | "weaponStats" | "hit" | "contentReports"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2574,6 +2602,80 @@ export namespace Prisma {
           }
         }
       }
+      ContentReports: {
+        payload: Prisma.$ContentReportsPayload<ExtArgs>
+        fields: Prisma.ContentReportsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContentReportsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContentReportsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          findFirst: {
+            args: Prisma.ContentReportsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContentReportsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          findMany: {
+            args: Prisma.ContentReportsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>[]
+          }
+          create: {
+            args: Prisma.ContentReportsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          createMany: {
+            args: Prisma.ContentReportsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContentReportsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>[]
+          }
+          delete: {
+            args: Prisma.ContentReportsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          update: {
+            args: Prisma.ContentReportsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContentReportsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContentReportsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContentReportsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContentReportsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContentReportsPayload>
+          }
+          aggregate: {
+            args: Prisma.ContentReportsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContentReports>
+          }
+          groupBy: {
+            args: Prisma.ContentReportsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContentReportsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContentReportsCountArgs<ExtArgs>
+            result: $Utils.Optional<ContentReportsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2687,6 +2789,7 @@ export namespace Prisma {
     verdict?: VerdictOmit
     weaponStats?: WeaponStatsOmit
     hit?: HitOmit
+    contentReports?: ContentReportsOmit
   }
 
   /* Types for Logging */
@@ -2774,6 +2877,7 @@ export namespace Prisma {
     jwtTokens: number
     reportUsers: number
     verdicts: number
+    contentReports: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2784,6 +2888,7 @@ export namespace Prisma {
     jwtTokens?: boolean | UserCountOutputTypeCountJwtTokensArgs
     reportUsers?: boolean | UserCountOutputTypeCountReportUsersArgs
     verdicts?: boolean | UserCountOutputTypeCountVerdictsArgs
+    contentReports?: boolean | UserCountOutputTypeCountContentReportsArgs
   }
 
   // Custom InputTypes
@@ -2844,6 +2949,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountVerdictsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VerdictWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountContentReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContentReportsWhereInput
   }
 
 
@@ -2982,10 +3094,12 @@ export namespace Prisma {
 
   export type CommentCountOutputType = {
     images: number
+    commentReport: number
   }
 
   export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | CommentCountOutputTypeCountImagesArgs
+    commentReport?: boolean | CommentCountOutputTypeCountCommentReportArgs
   }
 
   // Custom InputTypes
@@ -3006,16 +3120,25 @@ export namespace Prisma {
     where?: ImagesWhereInput
   }
 
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountCommentReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContentReportsWhereInput
+  }
+
 
   /**
    * Count Type ReportUserCountOutputType
    */
 
   export type ReportUserCountOutputType = {
+    contentReportId: number
     verdicts: number
   }
 
   export type ReportUserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contentReportId?: boolean | ReportUserCountOutputTypeCountContentReportIdArgs
     verdicts?: boolean | ReportUserCountOutputTypeCountVerdictsArgs
   }
 
@@ -3028,6 +3151,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the ReportUserCountOutputType
      */
     select?: ReportUserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ReportUserCountOutputType without action
+   */
+  export type ReportUserCountOutputTypeCountContentReportIdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContentReportsWhereInput
   }
 
   /**
@@ -3294,6 +3424,7 @@ export namespace Prisma {
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
     reportUsers?: boolean | User$reportUsersArgs<ExtArgs>
     verdicts?: boolean | User$verdictsArgs<ExtArgs>
+    contentReports?: boolean | User$contentReportsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3350,6 +3481,7 @@ export namespace Prisma {
     jwtTokens?: boolean | User$jwtTokensArgs<ExtArgs>
     reportUsers?: boolean | User$reportUsersArgs<ExtArgs>
     verdicts?: boolean | User$verdictsArgs<ExtArgs>
+    contentReports?: boolean | User$contentReportsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3367,6 +3499,7 @@ export namespace Prisma {
       jwtTokens: Prisma.$JwtTokenPayload<ExtArgs>[]
       reportUsers: Prisma.$ReportUserPayload<ExtArgs>[]
       verdicts: Prisma.$VerdictPayload<ExtArgs>[]
+      contentReports: Prisma.$ContentReportsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3783,6 +3916,7 @@ export namespace Prisma {
     jwtTokens<T extends User$jwtTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$jwtTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JwtTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportUsers<T extends User$reportUsersArgs<ExtArgs> = {}>(args?: Subset<T, User$reportUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReportUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     verdicts<T extends User$verdictsArgs<ExtArgs> = {}>(args?: Subset<T, User$verdictsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerdictPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contentReports<T extends User$contentReportsArgs<ExtArgs> = {}>(args?: Subset<T, User$contentReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4414,6 +4548,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VerdictScalarFieldEnum | VerdictScalarFieldEnum[]
+  }
+
+  /**
+   * User.contentReports
+   */
+  export type User$contentReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    where?: ContentReportsWhereInput
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    cursor?: ContentReportsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
   }
 
   /**
@@ -19779,6 +19937,7 @@ export namespace Prisma {
     images?: boolean | Comment$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    commentReport?: boolean | Comment$commentReportArgs<ExtArgs>
     _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
@@ -19818,6 +19977,7 @@ export namespace Prisma {
     images?: boolean | Comment$imagesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    commentReport?: boolean | Comment$commentReportArgs<ExtArgs>
     _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19835,6 +19995,7 @@ export namespace Prisma {
       images: Prisma.$ImagesPayload<ExtArgs>[]
       author: Prisma.$UserPayload<ExtArgs>
       recipient: Prisma.$SteamUserPayload<ExtArgs>
+      commentReport: Prisma.$ContentReportsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -20240,6 +20401,7 @@ export namespace Prisma {
     images<T extends Comment$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Comment$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recipient<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    commentReport<T extends Comment$commentReportArgs<ExtArgs> = {}>(args?: Subset<T, Comment$commentReportArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20692,6 +20854,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ImagesScalarFieldEnum | ImagesScalarFieldEnum[]
+  }
+
+  /**
+   * Comment.commentReport
+   */
+  export type Comment$commentReportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    where?: ContentReportsWhereInput
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    cursor?: ContentReportsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
   }
 
   /**
@@ -23019,6 +23205,7 @@ export namespace Prisma {
     updatedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    contentReportId?: boolean | ReportUser$contentReportIdArgs<ExtArgs>
     verdicts?: boolean | ReportUser$verdictsArgs<ExtArgs>
     _count?: boolean | ReportUserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["reportUser"]>
@@ -23064,6 +23251,7 @@ export namespace Prisma {
   export type ReportUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     recipient?: boolean | SteamUserDefaultArgs<ExtArgs>
+    contentReportId?: boolean | ReportUser$contentReportIdArgs<ExtArgs>
     verdicts?: boolean | ReportUser$verdictsArgs<ExtArgs>
     _count?: boolean | ReportUserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -23081,6 +23269,7 @@ export namespace Prisma {
     objects: {
       author: Prisma.$UserPayload<ExtArgs>
       recipient: Prisma.$SteamUserPayload<ExtArgs>
+      contentReportId: Prisma.$ContentReportsPayload<ExtArgs>[]
       verdicts: Prisma.$VerdictPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -23488,6 +23677,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     recipient<T extends SteamUserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SteamUserDefaultArgs<ExtArgs>>): Prisma__SteamUserClient<$Result.GetResult<Prisma.$SteamUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    contentReportId<T extends ReportUser$contentReportIdArgs<ExtArgs> = {}>(args?: Subset<T, ReportUser$contentReportIdArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     verdicts<T extends ReportUser$verdictsArgs<ExtArgs> = {}>(args?: Subset<T, ReportUser$verdictsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerdictPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -23919,6 +24109,30 @@ export namespace Prisma {
      * Limit how many ReportUsers to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ReportUser.contentReportId
+   */
+  export type ReportUser$contentReportIdArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    where?: ContentReportsWhereInput
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    cursor?: ContentReportsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
   }
 
   /**
@@ -27275,6 +27489,1170 @@ export namespace Prisma {
 
 
   /**
+   * Model ContentReports
+   */
+
+  export type AggregateContentReports = {
+    _count: ContentReportsCountAggregateOutputType | null
+    _min: ContentReportsMinAggregateOutputType | null
+    _max: ContentReportsMaxAggregateOutputType | null
+  }
+
+  export type ContentReportsMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    commentId: string | null
+    reportId: string | null
+    userComment: string | null
+    type: $Enums.ContentReportType | null
+    isResolved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContentReportsMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    commentId: string | null
+    reportId: string | null
+    userComment: string | null
+    type: $Enums.ContentReportType | null
+    isResolved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContentReportsCountAggregateOutputType = {
+    id: number
+    userId: number
+    commentId: number
+    reportId: number
+    userComment: number
+    type: number
+    isResolved: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ContentReportsMinAggregateInputType = {
+    id?: true
+    userId?: true
+    commentId?: true
+    reportId?: true
+    userComment?: true
+    type?: true
+    isResolved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContentReportsMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    commentId?: true
+    reportId?: true
+    userComment?: true
+    type?: true
+    isResolved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContentReportsCountAggregateInputType = {
+    id?: true
+    userId?: true
+    commentId?: true
+    reportId?: true
+    userComment?: true
+    type?: true
+    isResolved?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ContentReportsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContentReports to aggregate.
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContentReports to fetch.
+     */
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContentReportsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContentReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContentReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContentReports
+    **/
+    _count?: true | ContentReportsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContentReportsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContentReportsMaxAggregateInputType
+  }
+
+  export type GetContentReportsAggregateType<T extends ContentReportsAggregateArgs> = {
+        [P in keyof T & keyof AggregateContentReports]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContentReports[P]>
+      : GetScalarType<T[P], AggregateContentReports[P]>
+  }
+
+
+
+
+  export type ContentReportsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContentReportsWhereInput
+    orderBy?: ContentReportsOrderByWithAggregationInput | ContentReportsOrderByWithAggregationInput[]
+    by: ContentReportsScalarFieldEnum[] | ContentReportsScalarFieldEnum
+    having?: ContentReportsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContentReportsCountAggregateInputType | true
+    _min?: ContentReportsMinAggregateInputType
+    _max?: ContentReportsMaxAggregateInputType
+  }
+
+  export type ContentReportsGroupByOutputType = {
+    id: string
+    userId: string
+    commentId: string | null
+    reportId: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ContentReportsCountAggregateOutputType | null
+    _min: ContentReportsMinAggregateOutputType | null
+    _max: ContentReportsMaxAggregateOutputType | null
+  }
+
+  type GetContentReportsGroupByPayload<T extends ContentReportsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContentReportsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContentReportsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContentReportsGroupByOutputType[P]>
+            : GetScalarType<T[P], ContentReportsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContentReportsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    commentId?: boolean
+    reportId?: boolean
+    userComment?: boolean
+    type?: boolean
+    isResolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }, ExtArgs["result"]["contentReports"]>
+
+  export type ContentReportsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    commentId?: boolean
+    reportId?: boolean
+    userComment?: boolean
+    type?: boolean
+    isResolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }, ExtArgs["result"]["contentReports"]>
+
+  export type ContentReportsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    commentId?: boolean
+    reportId?: boolean
+    userComment?: boolean
+    type?: boolean
+    isResolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }, ExtArgs["result"]["contentReports"]>
+
+  export type ContentReportsSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    commentId?: boolean
+    reportId?: boolean
+    userComment?: boolean
+    type?: boolean
+    isResolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ContentReportsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "commentId" | "reportId" | "userComment" | "type" | "isResolved" | "createdAt" | "updatedAt", ExtArgs["result"]["contentReports"]>
+  export type ContentReportsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }
+  export type ContentReportsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }
+  export type ContentReportsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    comment?: boolean | ContentReports$commentArgs<ExtArgs>
+    report?: boolean | ContentReports$reportArgs<ExtArgs>
+  }
+
+  export type $ContentReportsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContentReports"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      comment: Prisma.$CommentPayload<ExtArgs> | null
+      report: Prisma.$ReportUserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      commentId: string | null
+      reportId: string | null
+      userComment: string
+      type: $Enums.ContentReportType
+      isResolved: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["contentReports"]>
+    composites: {}
+  }
+
+  type ContentReportsGetPayload<S extends boolean | null | undefined | ContentReportsDefaultArgs> = $Result.GetResult<Prisma.$ContentReportsPayload, S>
+
+  type ContentReportsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContentReportsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContentReportsCountAggregateInputType | true
+    }
+
+  export interface ContentReportsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContentReports'], meta: { name: 'ContentReports' } }
+    /**
+     * Find zero or one ContentReports that matches the filter.
+     * @param {ContentReportsFindUniqueArgs} args - Arguments to find a ContentReports
+     * @example
+     * // Get one ContentReports
+     * const contentReports = await prisma.contentReports.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContentReportsFindUniqueArgs>(args: SelectSubset<T, ContentReportsFindUniqueArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContentReports that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContentReportsFindUniqueOrThrowArgs} args - Arguments to find a ContentReports
+     * @example
+     * // Get one ContentReports
+     * const contentReports = await prisma.contentReports.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContentReportsFindUniqueOrThrowArgs>(args: SelectSubset<T, ContentReportsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContentReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsFindFirstArgs} args - Arguments to find a ContentReports
+     * @example
+     * // Get one ContentReports
+     * const contentReports = await prisma.contentReports.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContentReportsFindFirstArgs>(args?: SelectSubset<T, ContentReportsFindFirstArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContentReports that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsFindFirstOrThrowArgs} args - Arguments to find a ContentReports
+     * @example
+     * // Get one ContentReports
+     * const contentReports = await prisma.contentReports.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContentReportsFindFirstOrThrowArgs>(args?: SelectSubset<T, ContentReportsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContentReports that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContentReports
+     * const contentReports = await prisma.contentReports.findMany()
+     * 
+     * // Get first 10 ContentReports
+     * const contentReports = await prisma.contentReports.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contentReportsWithIdOnly = await prisma.contentReports.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContentReportsFindManyArgs>(args?: SelectSubset<T, ContentReportsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContentReports.
+     * @param {ContentReportsCreateArgs} args - Arguments to create a ContentReports.
+     * @example
+     * // Create one ContentReports
+     * const ContentReports = await prisma.contentReports.create({
+     *   data: {
+     *     // ... data to create a ContentReports
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContentReportsCreateArgs>(args: SelectSubset<T, ContentReportsCreateArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContentReports.
+     * @param {ContentReportsCreateManyArgs} args - Arguments to create many ContentReports.
+     * @example
+     * // Create many ContentReports
+     * const contentReports = await prisma.contentReports.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContentReportsCreateManyArgs>(args?: SelectSubset<T, ContentReportsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContentReports and returns the data saved in the database.
+     * @param {ContentReportsCreateManyAndReturnArgs} args - Arguments to create many ContentReports.
+     * @example
+     * // Create many ContentReports
+     * const contentReports = await prisma.contentReports.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContentReports and only return the `id`
+     * const contentReportsWithIdOnly = await prisma.contentReports.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContentReportsCreateManyAndReturnArgs>(args?: SelectSubset<T, ContentReportsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContentReports.
+     * @param {ContentReportsDeleteArgs} args - Arguments to delete one ContentReports.
+     * @example
+     * // Delete one ContentReports
+     * const ContentReports = await prisma.contentReports.delete({
+     *   where: {
+     *     // ... filter to delete one ContentReports
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContentReportsDeleteArgs>(args: SelectSubset<T, ContentReportsDeleteArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContentReports.
+     * @param {ContentReportsUpdateArgs} args - Arguments to update one ContentReports.
+     * @example
+     * // Update one ContentReports
+     * const contentReports = await prisma.contentReports.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContentReportsUpdateArgs>(args: SelectSubset<T, ContentReportsUpdateArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContentReports.
+     * @param {ContentReportsDeleteManyArgs} args - Arguments to filter ContentReports to delete.
+     * @example
+     * // Delete a few ContentReports
+     * const { count } = await prisma.contentReports.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContentReportsDeleteManyArgs>(args?: SelectSubset<T, ContentReportsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContentReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContentReports
+     * const contentReports = await prisma.contentReports.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContentReportsUpdateManyArgs>(args: SelectSubset<T, ContentReportsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContentReports and returns the data updated in the database.
+     * @param {ContentReportsUpdateManyAndReturnArgs} args - Arguments to update many ContentReports.
+     * @example
+     * // Update many ContentReports
+     * const contentReports = await prisma.contentReports.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContentReports and only return the `id`
+     * const contentReportsWithIdOnly = await prisma.contentReports.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContentReportsUpdateManyAndReturnArgs>(args: SelectSubset<T, ContentReportsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContentReports.
+     * @param {ContentReportsUpsertArgs} args - Arguments to update or create a ContentReports.
+     * @example
+     * // Update or create a ContentReports
+     * const contentReports = await prisma.contentReports.upsert({
+     *   create: {
+     *     // ... data to create a ContentReports
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContentReports we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContentReportsUpsertArgs>(args: SelectSubset<T, ContentReportsUpsertArgs<ExtArgs>>): Prisma__ContentReportsClient<$Result.GetResult<Prisma.$ContentReportsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContentReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsCountArgs} args - Arguments to filter ContentReports to count.
+     * @example
+     * // Count the number of ContentReports
+     * const count = await prisma.contentReports.count({
+     *   where: {
+     *     // ... the filter for the ContentReports we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContentReportsCountArgs>(
+      args?: Subset<T, ContentReportsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContentReportsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContentReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContentReportsAggregateArgs>(args: Subset<T, ContentReportsAggregateArgs>): Prisma.PrismaPromise<GetContentReportsAggregateType<T>>
+
+    /**
+     * Group by ContentReports.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContentReportsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContentReportsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContentReportsGroupByArgs['orderBy'] }
+        : { orderBy?: ContentReportsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContentReportsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContentReportsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContentReports model
+   */
+  readonly fields: ContentReportsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContentReports.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContentReportsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    comment<T extends ContentReports$commentArgs<ExtArgs> = {}>(args?: Subset<T, ContentReports$commentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    report<T extends ContentReports$reportArgs<ExtArgs> = {}>(args?: Subset<T, ContentReports$reportArgs<ExtArgs>>): Prisma__ReportUserClient<$Result.GetResult<Prisma.$ReportUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContentReports model
+   */
+  interface ContentReportsFieldRefs {
+    readonly id: FieldRef<"ContentReports", 'String'>
+    readonly userId: FieldRef<"ContentReports", 'String'>
+    readonly commentId: FieldRef<"ContentReports", 'String'>
+    readonly reportId: FieldRef<"ContentReports", 'String'>
+    readonly userComment: FieldRef<"ContentReports", 'String'>
+    readonly type: FieldRef<"ContentReports", 'ContentReportType'>
+    readonly isResolved: FieldRef<"ContentReports", 'Boolean'>
+    readonly createdAt: FieldRef<"ContentReports", 'DateTime'>
+    readonly updatedAt: FieldRef<"ContentReports", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContentReports findUnique
+   */
+  export type ContentReportsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter, which ContentReports to fetch.
+     */
+    where: ContentReportsWhereUniqueInput
+  }
+
+  /**
+   * ContentReports findUniqueOrThrow
+   */
+  export type ContentReportsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter, which ContentReports to fetch.
+     */
+    where: ContentReportsWhereUniqueInput
+  }
+
+  /**
+   * ContentReports findFirst
+   */
+  export type ContentReportsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter, which ContentReports to fetch.
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContentReports to fetch.
+     */
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContentReports.
+     */
+    cursor?: ContentReportsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContentReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContentReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContentReports.
+     */
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
+  }
+
+  /**
+   * ContentReports findFirstOrThrow
+   */
+  export type ContentReportsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter, which ContentReports to fetch.
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContentReports to fetch.
+     */
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContentReports.
+     */
+    cursor?: ContentReportsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContentReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContentReports.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContentReports.
+     */
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
+  }
+
+  /**
+   * ContentReports findMany
+   */
+  export type ContentReportsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter, which ContentReports to fetch.
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContentReports to fetch.
+     */
+    orderBy?: ContentReportsOrderByWithRelationInput | ContentReportsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContentReports.
+     */
+    cursor?: ContentReportsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContentReports from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContentReports.
+     */
+    skip?: number
+    distinct?: ContentReportsScalarFieldEnum | ContentReportsScalarFieldEnum[]
+  }
+
+  /**
+   * ContentReports create
+   */
+  export type ContentReportsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContentReports.
+     */
+    data: XOR<ContentReportsCreateInput, ContentReportsUncheckedCreateInput>
+  }
+
+  /**
+   * ContentReports createMany
+   */
+  export type ContentReportsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContentReports.
+     */
+    data: ContentReportsCreateManyInput | ContentReportsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContentReports createManyAndReturn
+   */
+  export type ContentReportsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContentReports.
+     */
+    data: ContentReportsCreateManyInput | ContentReportsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContentReports update
+   */
+  export type ContentReportsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContentReports.
+     */
+    data: XOR<ContentReportsUpdateInput, ContentReportsUncheckedUpdateInput>
+    /**
+     * Choose, which ContentReports to update.
+     */
+    where: ContentReportsWhereUniqueInput
+  }
+
+  /**
+   * ContentReports updateMany
+   */
+  export type ContentReportsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContentReports.
+     */
+    data: XOR<ContentReportsUpdateManyMutationInput, ContentReportsUncheckedUpdateManyInput>
+    /**
+     * Filter which ContentReports to update
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * Limit how many ContentReports to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContentReports updateManyAndReturn
+   */
+  export type ContentReportsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * The data used to update ContentReports.
+     */
+    data: XOR<ContentReportsUpdateManyMutationInput, ContentReportsUncheckedUpdateManyInput>
+    /**
+     * Filter which ContentReports to update
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * Limit how many ContentReports to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContentReports upsert
+   */
+  export type ContentReportsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContentReports to update in case it exists.
+     */
+    where: ContentReportsWhereUniqueInput
+    /**
+     * In case the ContentReports found by the `where` argument doesn't exist, create a new ContentReports with this data.
+     */
+    create: XOR<ContentReportsCreateInput, ContentReportsUncheckedCreateInput>
+    /**
+     * In case the ContentReports was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContentReportsUpdateInput, ContentReportsUncheckedUpdateInput>
+  }
+
+  /**
+   * ContentReports delete
+   */
+  export type ContentReportsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+    /**
+     * Filter which ContentReports to delete.
+     */
+    where: ContentReportsWhereUniqueInput
+  }
+
+  /**
+   * ContentReports deleteMany
+   */
+  export type ContentReportsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContentReports to delete
+     */
+    where?: ContentReportsWhereInput
+    /**
+     * Limit how many ContentReports to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContentReports.comment
+   */
+  export type ContentReports$commentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+  }
+
+  /**
+   * ContentReports.report
+   */
+  export type ContentReports$reportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ReportUser
+     */
+    select?: ReportUserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ReportUser
+     */
+    omit?: ReportUserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReportUserInclude<ExtArgs> | null
+    where?: ReportUserWhereInput
+  }
+
+  /**
+   * ContentReports without action
+   */
+  export type ContentReportsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContentReports
+     */
+    select?: ContentReportsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContentReports
+     */
+    omit?: ContentReportsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContentReportsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -27606,6 +28984,21 @@ export namespace Prisma {
   export type HitScalarFieldEnum = (typeof HitScalarFieldEnum)[keyof typeof HitScalarFieldEnum]
 
 
+  export const ContentReportsScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    commentId: 'commentId',
+    reportId: 'reportId',
+    userComment: 'userComment',
+    type: 'type',
+    isResolved: 'isResolved',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ContentReportsScalarFieldEnum = (typeof ContentReportsScalarFieldEnum)[keyof typeof ContentReportsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -27807,6 +29200,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ContentReportType'
+   */
+  export type EnumContentReportTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentReportType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContentReportType[]'
+   */
+  export type ListEnumContentReportTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContentReportType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -27847,6 +29254,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenListRelationFilter
     reportUsers?: ReportUserListRelationFilter
     verdicts?: VerdictListRelationFilter
+    contentReports?: ContentReportsListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -27870,6 +29278,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenOrderByRelationAggregateInput
     reportUsers?: ReportUserOrderByRelationAggregateInput
     verdicts?: VerdictOrderByRelationAggregateInput
+    contentReports?: ContentReportsOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -27896,6 +29305,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenListRelationFilter
     reportUsers?: ReportUserListRelationFilter
     verdicts?: VerdictListRelationFilter
+    contentReports?: ContentReportsListRelationFilter
   }, "id" | "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -29066,6 +30476,7 @@ export namespace Prisma {
     images?: ImagesListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+    commentReport?: ContentReportsListRelationFilter
   }
 
   export type CommentOrderByWithRelationInput = {
@@ -29078,6 +30489,7 @@ export namespace Prisma {
     images?: ImagesOrderByRelationAggregateInput
     author?: UserOrderByWithRelationInput
     recipient?: SteamUserOrderByWithRelationInput
+    commentReport?: ContentReportsOrderByRelationAggregateInput
   }
 
   export type CommentWhereUniqueInput = Prisma.AtLeast<{
@@ -29093,6 +30505,7 @@ export namespace Prisma {
     images?: ImagesListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+    commentReport?: ContentReportsListRelationFilter
   }, "id" | "id">
 
   export type CommentOrderByWithAggregationInput = {
@@ -29243,6 +30656,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ReportUser"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+    contentReportId?: ContentReportsListRelationFilter
     verdicts?: VerdictListRelationFilter
   }
 
@@ -29257,13 +30671,13 @@ export namespace Prisma {
     updatedAt?: SortOrder
     author?: UserOrderByWithRelationInput
     recipient?: SteamUserOrderByWithRelationInput
+    contentReportId?: ContentReportsOrderByRelationAggregateInput
     verdicts?: VerdictOrderByRelationAggregateInput
   }
 
   export type ReportUserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     youtubeLink?: string
-    authorId_recipientId?: ReportUserAuthorIdRecipientIdCompoundUniqueInput
     AND?: ReportUserWhereInput | ReportUserWhereInput[]
     OR?: ReportUserWhereInput[]
     NOT?: ReportUserWhereInput | ReportUserWhereInput[]
@@ -29275,8 +30689,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ReportUser"> | Date | string
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     recipient?: XOR<SteamUserScalarRelationFilter, SteamUserWhereInput>
+    contentReportId?: ContentReportsListRelationFilter
     verdicts?: VerdictListRelationFilter
-  }, "id" | "id" | "youtubeLink" | "authorId_recipientId">
+  }, "id" | "id" | "youtubeLink">
 
   export type ReportUserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -29491,6 +30906,89 @@ export namespace Prisma {
     kills?: IntWithAggregatesFilter<"Hit"> | number
   }
 
+  export type ContentReportsWhereInput = {
+    AND?: ContentReportsWhereInput | ContentReportsWhereInput[]
+    OR?: ContentReportsWhereInput[]
+    NOT?: ContentReportsWhereInput | ContentReportsWhereInput[]
+    id?: StringFilter<"ContentReports"> | string
+    userId?: StringFilter<"ContentReports"> | string
+    commentId?: StringNullableFilter<"ContentReports"> | string | null
+    reportId?: StringNullableFilter<"ContentReports"> | string | null
+    userComment?: StringFilter<"ContentReports"> | string
+    type?: EnumContentReportTypeFilter<"ContentReports"> | $Enums.ContentReportType
+    isResolved?: BoolFilter<"ContentReports"> | boolean
+    createdAt?: DateTimeFilter<"ContentReports"> | Date | string
+    updatedAt?: DateTimeFilter<"ContentReports"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    report?: XOR<ReportUserNullableScalarRelationFilter, ReportUserWhereInput> | null
+  }
+
+  export type ContentReportsOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    reportId?: SortOrderInput | SortOrder
+    userComment?: SortOrder
+    type?: SortOrder
+    isResolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    comment?: CommentOrderByWithRelationInput
+    report?: ReportUserOrderByWithRelationInput
+  }
+
+  export type ContentReportsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_reportId?: ContentReportsUserIdReportIdCompoundUniqueInput
+    userId_commentId?: ContentReportsUserIdCommentIdCompoundUniqueInput
+    AND?: ContentReportsWhereInput | ContentReportsWhereInput[]
+    OR?: ContentReportsWhereInput[]
+    NOT?: ContentReportsWhereInput | ContentReportsWhereInput[]
+    userId?: StringFilter<"ContentReports"> | string
+    commentId?: StringNullableFilter<"ContentReports"> | string | null
+    reportId?: StringNullableFilter<"ContentReports"> | string | null
+    userComment?: StringFilter<"ContentReports"> | string
+    type?: EnumContentReportTypeFilter<"ContentReports"> | $Enums.ContentReportType
+    isResolved?: BoolFilter<"ContentReports"> | boolean
+    createdAt?: DateTimeFilter<"ContentReports"> | Date | string
+    updatedAt?: DateTimeFilter<"ContentReports"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    report?: XOR<ReportUserNullableScalarRelationFilter, ReportUserWhereInput> | null
+  }, "id" | "id" | "userId_reportId" | "userId_commentId">
+
+  export type ContentReportsOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    reportId?: SortOrderInput | SortOrder
+    userComment?: SortOrder
+    type?: SortOrder
+    isResolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ContentReportsCountOrderByAggregateInput
+    _max?: ContentReportsMaxOrderByAggregateInput
+    _min?: ContentReportsMinOrderByAggregateInput
+  }
+
+  export type ContentReportsScalarWhereWithAggregatesInput = {
+    AND?: ContentReportsScalarWhereWithAggregatesInput | ContentReportsScalarWhereWithAggregatesInput[]
+    OR?: ContentReportsScalarWhereWithAggregatesInput[]
+    NOT?: ContentReportsScalarWhereWithAggregatesInput | ContentReportsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ContentReports"> | string
+    userId?: StringWithAggregatesFilter<"ContentReports"> | string
+    commentId?: StringNullableWithAggregatesFilter<"ContentReports"> | string | null
+    reportId?: StringNullableWithAggregatesFilter<"ContentReports"> | string | null
+    userComment?: StringWithAggregatesFilter<"ContentReports"> | string
+    type?: EnumContentReportTypeWithAggregatesFilter<"ContentReports"> | $Enums.ContentReportType
+    isResolved?: BoolWithAggregatesFilter<"ContentReports"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ContentReports"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ContentReports"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -29512,6 +31010,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -29535,6 +31034,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -29558,6 +31058,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -29581,6 +31082,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -30913,6 +32415,7 @@ export namespace Prisma {
     images?: ImagesCreateNestedManyWithoutCommentInput
     author: UserCreateNestedOneWithoutCommentsAsAuthorInput
     recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+    commentReport?: ContentReportsCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUncheckedCreateInput = {
@@ -30923,6 +32426,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
+    commentReport?: ContentReportsUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUpdateInput = {
@@ -30933,6 +32437,7 @@ export namespace Prisma {
     images?: ImagesUpdateManyWithoutCommentNestedInput
     author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+    commentReport?: ContentReportsUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateInput = {
@@ -30943,6 +32448,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
+    commentReport?: ContentReportsUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentCreateManyInput = {
@@ -31089,6 +32595,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutReportUsersInput
     recipient: SteamUserCreateNestedOneWithoutReportsAsRecipientInput
+    contentReportId?: ContentReportsCreateNestedManyWithoutReportInput
     verdicts?: VerdictCreateNestedManyWithoutReportInput
   }
 
@@ -31101,6 +32608,7 @@ export namespace Prisma {
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    contentReportId?: ContentReportsUncheckedCreateNestedManyWithoutReportInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutReportInput
   }
 
@@ -31113,6 +32621,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutReportUsersNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutReportsAsRecipientNestedInput
+    contentReportId?: ContentReportsUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUpdateManyWithoutReportNestedInput
   }
 
@@ -31125,6 +32634,7 @@ export namespace Prisma {
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contentReportId?: ContentReportsUncheckedUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutReportNestedInput
   }
 
@@ -31341,6 +32851,87 @@ export namespace Prisma {
     kills?: IntFieldUpdateOperationsInput | number
   }
 
+  export type ContentReportsCreateInput = {
+    id?: string
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutContentReportsInput
+    comment?: CommentCreateNestedOneWithoutCommentReportInput
+    report?: ReportUserCreateNestedOneWithoutContentReportIdInput
+  }
+
+  export type ContentReportsUncheckedCreateInput = {
+    id?: string
+    userId: string
+    commentId?: string | null
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutContentReportsNestedInput
+    comment?: CommentUpdateOneWithoutCommentReportNestedInput
+    report?: ReportUserUpdateOneWithoutContentReportIdNestedInput
+  }
+
+  export type ContentReportsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsCreateManyInput = {
+    id?: string
+    userId: string
+    commentId?: string | null
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -31453,6 +33044,12 @@ export namespace Prisma {
     none?: VerdictWhereInput
   }
 
+  export type ContentReportsListRelationFilter = {
+    every?: ContentReportsWhereInput
+    some?: ContentReportsWhereInput
+    none?: ContentReportsWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -31483,6 +33080,10 @@ export namespace Prisma {
   }
 
   export type VerdictOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContentReportsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32694,11 +34295,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ReportUserAuthorIdRecipientIdCompoundUniqueInput = {
-    authorId: string
-    recipientId: string
-  }
-
   export type ReportUserCountOrderByAggregateInput = {
     id?: SortOrder
     youtubeLink?: SortOrder
@@ -32856,6 +34452,79 @@ export namespace Prisma {
     kills?: SortOrder
   }
 
+  export type EnumContentReportTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentReportType | EnumContentReportTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContentReportTypeFilter<$PrismaModel> | $Enums.ContentReportType
+  }
+
+  export type CommentNullableScalarRelationFilter = {
+    is?: CommentWhereInput | null
+    isNot?: CommentWhereInput | null
+  }
+
+  export type ReportUserNullableScalarRelationFilter = {
+    is?: ReportUserWhereInput | null
+    isNot?: ReportUserWhereInput | null
+  }
+
+  export type ContentReportsUserIdReportIdCompoundUniqueInput = {
+    userId: string
+    reportId: string
+  }
+
+  export type ContentReportsUserIdCommentIdCompoundUniqueInput = {
+    userId: string
+    commentId: string
+  }
+
+  export type ContentReportsCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    commentId?: SortOrder
+    reportId?: SortOrder
+    userComment?: SortOrder
+    type?: SortOrder
+    isResolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContentReportsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    commentId?: SortOrder
+    reportId?: SortOrder
+    userComment?: SortOrder
+    type?: SortOrder
+    isResolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContentReportsMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    commentId?: SortOrder
+    reportId?: SortOrder
+    userComment?: SortOrder
+    type?: SortOrder
+    isResolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumContentReportTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentReportType | EnumContentReportTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContentReportTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContentReportType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContentReportTypeFilter<$PrismaModel>
+    _max?: NestedEnumContentReportTypeFilter<$PrismaModel>
+  }
+
   export type TokenCreateNestedManyWithoutUserInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -32917,6 +34586,13 @@ export namespace Prisma {
     connect?: VerdictWhereUniqueInput | VerdictWhereUniqueInput[]
   }
 
+  export type ContentReportsCreateNestedManyWithoutUserInput = {
+    create?: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput> | ContentReportsCreateWithoutUserInput[] | ContentReportsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutUserInput | ContentReportsCreateOrConnectWithoutUserInput[]
+    createMany?: ContentReportsCreateManyUserInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+  }
+
   export type TokenUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -32976,6 +34652,13 @@ export namespace Prisma {
     connectOrCreate?: VerdictCreateOrConnectWithoutUserInput | VerdictCreateOrConnectWithoutUserInput[]
     createMany?: VerdictCreateManyUserInputEnvelope
     connect?: VerdictWhereUniqueInput | VerdictWhereUniqueInput[]
+  }
+
+  export type ContentReportsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput> | ContentReportsCreateWithoutUserInput[] | ContentReportsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutUserInput | ContentReportsCreateOrConnectWithoutUserInput[]
+    createMany?: ContentReportsCreateManyUserInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -33120,6 +34803,20 @@ export namespace Prisma {
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
   }
 
+  export type ContentReportsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput> | ContentReportsCreateWithoutUserInput[] | ContentReportsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutUserInput | ContentReportsCreateOrConnectWithoutUserInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutUserInput | ContentReportsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ContentReportsCreateManyUserInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutUserInput | ContentReportsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutUserInput | ContentReportsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
+  }
+
   export type TokenUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TokenCreateWithoutUserInput, TokenUncheckedCreateWithoutUserInput> | TokenCreateWithoutUserInput[] | TokenUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TokenCreateOrConnectWithoutUserInput | TokenCreateOrConnectWithoutUserInput[]
@@ -33236,6 +34933,20 @@ export namespace Prisma {
     update?: VerdictUpdateWithWhereUniqueWithoutUserInput | VerdictUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: VerdictUpdateManyWithWhereWithoutUserInput | VerdictUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput> | ContentReportsCreateWithoutUserInput[] | ContentReportsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutUserInput | ContentReportsCreateOrConnectWithoutUserInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutUserInput | ContentReportsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ContentReportsCreateManyUserInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutUserInput | ContentReportsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutUserInput | ContentReportsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutTrackingUsersInput = {
@@ -33775,11 +35486,25 @@ export namespace Prisma {
     connect?: SteamUserWhereUniqueInput
   }
 
+  export type ContentReportsCreateNestedManyWithoutCommentInput = {
+    create?: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput> | ContentReportsCreateWithoutCommentInput[] | ContentReportsUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutCommentInput | ContentReportsCreateOrConnectWithoutCommentInput[]
+    createMany?: ContentReportsCreateManyCommentInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+  }
+
   export type ImagesUncheckedCreateNestedManyWithoutCommentInput = {
     create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
     connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
     createMany?: ImagesCreateManyCommentInputEnvelope
     connect?: ImagesWhereUniqueInput | ImagesWhereUniqueInput[]
+  }
+
+  export type ContentReportsUncheckedCreateNestedManyWithoutCommentInput = {
+    create?: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput> | ContentReportsCreateWithoutCommentInput[] | ContentReportsUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutCommentInput | ContentReportsCreateOrConnectWithoutCommentInput[]
+    createMany?: ContentReportsCreateManyCommentInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
   }
 
   export type ImagesUpdateManyWithoutCommentNestedInput = {
@@ -33812,6 +35537,20 @@ export namespace Prisma {
     update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutCommentsAsRecipientInput, SteamUserUpdateWithoutCommentsAsRecipientInput>, SteamUserUncheckedUpdateWithoutCommentsAsRecipientInput>
   }
 
+  export type ContentReportsUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput> | ContentReportsCreateWithoutCommentInput[] | ContentReportsUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutCommentInput | ContentReportsCreateOrConnectWithoutCommentInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutCommentInput | ContentReportsUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: ContentReportsCreateManyCommentInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutCommentInput | ContentReportsUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutCommentInput | ContentReportsUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
+  }
+
   export type ImagesUncheckedUpdateManyWithoutCommentNestedInput = {
     create?: XOR<ImagesCreateWithoutCommentInput, ImagesUncheckedCreateWithoutCommentInput> | ImagesCreateWithoutCommentInput[] | ImagesUncheckedCreateWithoutCommentInput[]
     connectOrCreate?: ImagesCreateOrConnectWithoutCommentInput | ImagesCreateOrConnectWithoutCommentInput[]
@@ -33824,6 +35563,20 @@ export namespace Prisma {
     update?: ImagesUpdateWithWhereUniqueWithoutCommentInput | ImagesUpdateWithWhereUniqueWithoutCommentInput[]
     updateMany?: ImagesUpdateManyWithWhereWithoutCommentInput | ImagesUpdateManyWithWhereWithoutCommentInput[]
     deleteMany?: ImagesScalarWhereInput | ImagesScalarWhereInput[]
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput> | ContentReportsCreateWithoutCommentInput[] | ContentReportsUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutCommentInput | ContentReportsCreateOrConnectWithoutCommentInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutCommentInput | ContentReportsUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: ContentReportsCreateManyCommentInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutCommentInput | ContentReportsUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutCommentInput | ContentReportsUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
   }
 
   export type CommentCreateNestedOneWithoutImagesInput = {
@@ -33866,11 +35619,25 @@ export namespace Prisma {
     connect?: SteamUserWhereUniqueInput
   }
 
+  export type ContentReportsCreateNestedManyWithoutReportInput = {
+    create?: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput> | ContentReportsCreateWithoutReportInput[] | ContentReportsUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutReportInput | ContentReportsCreateOrConnectWithoutReportInput[]
+    createMany?: ContentReportsCreateManyReportInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+  }
+
   export type VerdictCreateNestedManyWithoutReportInput = {
     create?: XOR<VerdictCreateWithoutReportInput, VerdictUncheckedCreateWithoutReportInput> | VerdictCreateWithoutReportInput[] | VerdictUncheckedCreateWithoutReportInput[]
     connectOrCreate?: VerdictCreateOrConnectWithoutReportInput | VerdictCreateOrConnectWithoutReportInput[]
     createMany?: VerdictCreateManyReportInputEnvelope
     connect?: VerdictWhereUniqueInput | VerdictWhereUniqueInput[]
+  }
+
+  export type ContentReportsUncheckedCreateNestedManyWithoutReportInput = {
+    create?: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput> | ContentReportsCreateWithoutReportInput[] | ContentReportsUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutReportInput | ContentReportsCreateOrConnectWithoutReportInput[]
+    createMany?: ContentReportsCreateManyReportInputEnvelope
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
   }
 
   export type VerdictUncheckedCreateNestedManyWithoutReportInput = {
@@ -33896,6 +35663,20 @@ export namespace Prisma {
     update?: XOR<XOR<SteamUserUpdateToOneWithWhereWithoutReportsAsRecipientInput, SteamUserUpdateWithoutReportsAsRecipientInput>, SteamUserUncheckedUpdateWithoutReportsAsRecipientInput>
   }
 
+  export type ContentReportsUpdateManyWithoutReportNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput> | ContentReportsCreateWithoutReportInput[] | ContentReportsUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutReportInput | ContentReportsCreateOrConnectWithoutReportInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutReportInput | ContentReportsUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: ContentReportsCreateManyReportInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutReportInput | ContentReportsUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutReportInput | ContentReportsUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
+  }
+
   export type VerdictUpdateManyWithoutReportNestedInput = {
     create?: XOR<VerdictCreateWithoutReportInput, VerdictUncheckedCreateWithoutReportInput> | VerdictCreateWithoutReportInput[] | VerdictUncheckedCreateWithoutReportInput[]
     connectOrCreate?: VerdictCreateOrConnectWithoutReportInput | VerdictCreateOrConnectWithoutReportInput[]
@@ -33908,6 +35689,20 @@ export namespace Prisma {
     update?: VerdictUpdateWithWhereUniqueWithoutReportInput | VerdictUpdateWithWhereUniqueWithoutReportInput[]
     updateMany?: VerdictUpdateManyWithWhereWithoutReportInput | VerdictUpdateManyWithWhereWithoutReportInput[]
     deleteMany?: VerdictScalarWhereInput | VerdictScalarWhereInput[]
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutReportNestedInput = {
+    create?: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput> | ContentReportsCreateWithoutReportInput[] | ContentReportsUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: ContentReportsCreateOrConnectWithoutReportInput | ContentReportsCreateOrConnectWithoutReportInput[]
+    upsert?: ContentReportsUpsertWithWhereUniqueWithoutReportInput | ContentReportsUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: ContentReportsCreateManyReportInputEnvelope
+    set?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    disconnect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    delete?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    connect?: ContentReportsWhereUniqueInput | ContentReportsWhereUniqueInput[]
+    update?: ContentReportsUpdateWithWhereUniqueWithoutReportInput | ContentReportsUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: ContentReportsUpdateManyWithWhereWithoutReportInput | ContentReportsUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
   }
 
   export type VerdictUncheckedUpdateManyWithoutReportNestedInput = {
@@ -34029,6 +35824,56 @@ export namespace Prisma {
     upsert?: WeaponStatsUpsertWithoutHitsInput
     connect?: WeaponStatsWhereUniqueInput
     update?: XOR<XOR<WeaponStatsUpdateToOneWithWhereWithoutHitsInput, WeaponStatsUpdateWithoutHitsInput>, WeaponStatsUncheckedUpdateWithoutHitsInput>
+  }
+
+  export type UserCreateNestedOneWithoutContentReportsInput = {
+    create?: XOR<UserCreateWithoutContentReportsInput, UserUncheckedCreateWithoutContentReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutContentReportsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommentCreateNestedOneWithoutCommentReportInput = {
+    create?: XOR<CommentCreateWithoutCommentReportInput, CommentUncheckedCreateWithoutCommentReportInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentReportInput
+    connect?: CommentWhereUniqueInput
+  }
+
+  export type ReportUserCreateNestedOneWithoutContentReportIdInput = {
+    create?: XOR<ReportUserCreateWithoutContentReportIdInput, ReportUserUncheckedCreateWithoutContentReportIdInput>
+    connectOrCreate?: ReportUserCreateOrConnectWithoutContentReportIdInput
+    connect?: ReportUserWhereUniqueInput
+  }
+
+  export type EnumContentReportTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ContentReportType
+  }
+
+  export type UserUpdateOneRequiredWithoutContentReportsNestedInput = {
+    create?: XOR<UserCreateWithoutContentReportsInput, UserUncheckedCreateWithoutContentReportsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutContentReportsInput
+    upsert?: UserUpsertWithoutContentReportsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContentReportsInput, UserUpdateWithoutContentReportsInput>, UserUncheckedUpdateWithoutContentReportsInput>
+  }
+
+  export type CommentUpdateOneWithoutCommentReportNestedInput = {
+    create?: XOR<CommentCreateWithoutCommentReportInput, CommentUncheckedCreateWithoutCommentReportInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentReportInput
+    upsert?: CommentUpsertWithoutCommentReportInput
+    disconnect?: CommentWhereInput | boolean
+    delete?: CommentWhereInput | boolean
+    connect?: CommentWhereUniqueInput
+    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutCommentReportInput, CommentUpdateWithoutCommentReportInput>, CommentUncheckedUpdateWithoutCommentReportInput>
+  }
+
+  export type ReportUserUpdateOneWithoutContentReportIdNestedInput = {
+    create?: XOR<ReportUserCreateWithoutContentReportIdInput, ReportUserUncheckedCreateWithoutContentReportIdInput>
+    connectOrCreate?: ReportUserCreateOrConnectWithoutContentReportIdInput
+    upsert?: ReportUserUpsertWithoutContentReportIdInput
+    disconnect?: ReportUserWhereInput | boolean
+    delete?: ReportUserWhereInput | boolean
+    connect?: ReportUserWhereUniqueInput
+    update?: XOR<XOR<ReportUserUpdateToOneWithWhereWithoutContentReportIdInput, ReportUserUpdateWithoutContentReportIdInput>, ReportUserUncheckedUpdateWithoutContentReportIdInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -34393,6 +36238,23 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumContentReportTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentReportType | EnumContentReportTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContentReportTypeFilter<$PrismaModel> | $Enums.ContentReportType
+  }
+
+  export type NestedEnumContentReportTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContentReportType | EnumContentReportTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContentReportType[] | ListEnumContentReportTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContentReportTypeWithAggregatesFilter<$PrismaModel> | $Enums.ContentReportType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContentReportTypeFilter<$PrismaModel>
+    _max?: NestedEnumContentReportTypeFilter<$PrismaModel>
+  }
+
   export type TokenCreateWithoutUserInput = {
     id?: string
     token: string
@@ -34572,6 +36434,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: ImagesCreateNestedManyWithoutCommentInput
     recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+    commentReport?: ContentReportsCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUncheckedCreateWithoutAuthorInput = {
@@ -34581,6 +36444,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
+    commentReport?: ContentReportsUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentCreateOrConnectWithoutAuthorInput = {
@@ -34625,6 +36489,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     recipient: SteamUserCreateNestedOneWithoutReportsAsRecipientInput
+    contentReportId?: ContentReportsCreateNestedManyWithoutReportInput
     verdicts?: VerdictCreateNestedManyWithoutReportInput
   }
 
@@ -34636,6 +36501,7 @@ export namespace Prisma {
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    contentReportId?: ContentReportsUncheckedCreateNestedManyWithoutReportInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutReportInput
   }
 
@@ -34674,6 +36540,38 @@ export namespace Prisma {
 
   export type VerdictCreateManyUserInputEnvelope = {
     data: VerdictCreateManyUserInput | VerdictCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContentReportsCreateWithoutUserInput = {
+    id?: string
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comment?: CommentCreateNestedOneWithoutCommentReportInput
+    report?: ReportUserCreateNestedOneWithoutContentReportIdInput
+  }
+
+  export type ContentReportsUncheckedCreateWithoutUserInput = {
+    id?: string
+    commentId?: string | null
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsCreateOrConnectWithoutUserInput = {
+    where: ContentReportsWhereUniqueInput
+    create: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput>
+  }
+
+  export type ContentReportsCreateManyUserInputEnvelope = {
+    data: ContentReportsCreateManyUserInput | ContentReportsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -34976,6 +36874,37 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Verdict"> | Date | string
   }
 
+  export type ContentReportsUpsertWithWhereUniqueWithoutUserInput = {
+    where: ContentReportsWhereUniqueInput
+    update: XOR<ContentReportsUpdateWithoutUserInput, ContentReportsUncheckedUpdateWithoutUserInput>
+    create: XOR<ContentReportsCreateWithoutUserInput, ContentReportsUncheckedCreateWithoutUserInput>
+  }
+
+  export type ContentReportsUpdateWithWhereUniqueWithoutUserInput = {
+    where: ContentReportsWhereUniqueInput
+    data: XOR<ContentReportsUpdateWithoutUserInput, ContentReportsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ContentReportsUpdateManyWithWhereWithoutUserInput = {
+    where: ContentReportsScalarWhereInput
+    data: XOR<ContentReportsUpdateManyMutationInput, ContentReportsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ContentReportsScalarWhereInput = {
+    AND?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
+    OR?: ContentReportsScalarWhereInput[]
+    NOT?: ContentReportsScalarWhereInput | ContentReportsScalarWhereInput[]
+    id?: StringFilter<"ContentReports"> | string
+    userId?: StringFilter<"ContentReports"> | string
+    commentId?: StringNullableFilter<"ContentReports"> | string | null
+    reportId?: StringNullableFilter<"ContentReports"> | string | null
+    userComment?: StringFilter<"ContentReports"> | string
+    type?: EnumContentReportTypeFilter<"ContentReports"> | $Enums.ContentReportType
+    isResolved?: BoolFilter<"ContentReports"> | boolean
+    createdAt?: DateTimeFilter<"ContentReports"> | Date | string
+    updatedAt?: DateTimeFilter<"ContentReports"> | Date | string
+  }
+
   export type UserCreateWithoutTrackingUsersInput = {
     id?: string
     email: string
@@ -34996,6 +36925,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTrackingUsersInput = {
@@ -35018,6 +36948,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTrackingUsersInput = {
@@ -35056,6 +36987,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTrackingUsersInput = {
@@ -35078,6 +37010,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -35100,6 +37033,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -35122,6 +37056,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -35160,6 +37095,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -35182,6 +37118,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTokensInput = {
@@ -35204,6 +37141,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTokensInput = {
@@ -35226,6 +37164,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTokensInput = {
@@ -35264,6 +37203,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTokensInput = {
@@ -35286,6 +37226,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSteamUserInput = {
@@ -35308,6 +37249,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSteamUserInput = {
@@ -35330,6 +37272,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSteamUserInput = {
@@ -35375,6 +37318,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     images?: ImagesCreateNestedManyWithoutCommentInput
     author: UserCreateNestedOneWithoutCommentsAsAuthorInput
+    commentReport?: ContentReportsCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUncheckedCreateWithoutRecipientInput = {
@@ -35384,6 +37328,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
+    commentReport?: ContentReportsUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentCreateOrConnectWithoutRecipientInput = {
@@ -35404,6 +37349,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutReportUsersInput
+    contentReportId?: ContentReportsCreateNestedManyWithoutReportInput
     verdicts?: VerdictCreateNestedManyWithoutReportInput
   }
 
@@ -35415,6 +37361,7 @@ export namespace Prisma {
     authorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    contentReportId?: ContentReportsUncheckedCreateNestedManyWithoutReportInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutReportInput
   }
 
@@ -35541,6 +37488,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSteamUserInput = {
@@ -35563,6 +37511,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SteamUserBansUpsertWithoutSteamInput = {
@@ -36494,6 +38443,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLinksInput = {
@@ -36516,6 +38466,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLinksInput = {
@@ -36554,6 +38505,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLinksInput = {
@@ -36576,6 +38528,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ImagesCreateWithoutCommentInput = {
@@ -36622,6 +38575,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsAsAuthorInput = {
@@ -36644,6 +38598,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsAsAuthorInput = {
@@ -36710,6 +38665,38 @@ export namespace Prisma {
     create: XOR<SteamUserCreateWithoutCommentsAsRecipientInput, SteamUserUncheckedCreateWithoutCommentsAsRecipientInput>
   }
 
+  export type ContentReportsCreateWithoutCommentInput = {
+    id?: string
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutContentReportsInput
+    report?: ReportUserCreateNestedOneWithoutContentReportIdInput
+  }
+
+  export type ContentReportsUncheckedCreateWithoutCommentInput = {
+    id?: string
+    userId: string
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsCreateOrConnectWithoutCommentInput = {
+    where: ContentReportsWhereUniqueInput
+    create: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput>
+  }
+
+  export type ContentReportsCreateManyCommentInputEnvelope = {
+    data: ContentReportsCreateManyCommentInput | ContentReportsCreateManyCommentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ImagesUpsertWithWhereUniqueWithoutCommentInput = {
     where: ImagesWhereUniqueInput
     update: XOR<ImagesUpdateWithoutCommentInput, ImagesUncheckedUpdateWithoutCommentInput>
@@ -36768,6 +38755,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsAsAuthorInput = {
@@ -36790,6 +38778,7 @@ export namespace Prisma {
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SteamUserUpsertWithoutCommentsAsRecipientInput = {
@@ -36857,6 +38846,22 @@ export namespace Prisma {
     generalPlayerStatistics?: GeneralPlayerStatisticsUncheckedUpdateOneWithoutSteamNestedInput
   }
 
+  export type ContentReportsUpsertWithWhereUniqueWithoutCommentInput = {
+    where: ContentReportsWhereUniqueInput
+    update: XOR<ContentReportsUpdateWithoutCommentInput, ContentReportsUncheckedUpdateWithoutCommentInput>
+    create: XOR<ContentReportsCreateWithoutCommentInput, ContentReportsUncheckedCreateWithoutCommentInput>
+  }
+
+  export type ContentReportsUpdateWithWhereUniqueWithoutCommentInput = {
+    where: ContentReportsWhereUniqueInput
+    data: XOR<ContentReportsUpdateWithoutCommentInput, ContentReportsUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type ContentReportsUpdateManyWithWhereWithoutCommentInput = {
+    where: ContentReportsScalarWhereInput
+    data: XOR<ContentReportsUpdateManyMutationInput, ContentReportsUncheckedUpdateManyWithoutCommentInput>
+  }
+
   export type CommentCreateWithoutImagesInput = {
     id?: string
     content: string
@@ -36864,6 +38869,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutCommentsAsAuthorInput
     recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+    commentReport?: ContentReportsCreateNestedManyWithoutCommentInput
   }
 
   export type CommentUncheckedCreateWithoutImagesInput = {
@@ -36873,6 +38879,7 @@ export namespace Prisma {
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    commentReport?: ContentReportsUncheckedCreateNestedManyWithoutCommentInput
   }
 
   export type CommentCreateOrConnectWithoutImagesInput = {
@@ -36898,6 +38905,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+    commentReport?: ContentReportsUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutImagesInput = {
@@ -36907,6 +38915,7 @@ export namespace Prisma {
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    commentReport?: ContentReportsUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type UserCreateWithoutJwtTokensInput = {
@@ -36929,6 +38938,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutJwtTokensInput = {
@@ -36951,6 +38961,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutJwtTokensInput = {
@@ -36989,6 +39000,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutJwtTokensInput = {
@@ -37011,6 +39023,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReportUsersInput = {
@@ -37033,6 +39046,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     verdicts?: VerdictCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportUsersInput = {
@@ -37055,6 +39069,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportUsersInput = {
@@ -37121,6 +39136,38 @@ export namespace Prisma {
     create: XOR<SteamUserCreateWithoutReportsAsRecipientInput, SteamUserUncheckedCreateWithoutReportsAsRecipientInput>
   }
 
+  export type ContentReportsCreateWithoutReportInput = {
+    id?: string
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutContentReportsInput
+    comment?: CommentCreateNestedOneWithoutCommentReportInput
+  }
+
+  export type ContentReportsUncheckedCreateWithoutReportInput = {
+    id?: string
+    userId: string
+    commentId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsCreateOrConnectWithoutReportInput = {
+    where: ContentReportsWhereUniqueInput
+    create: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput>
+  }
+
+  export type ContentReportsCreateManyReportInputEnvelope = {
+    data: ContentReportsCreateManyReportInput | ContentReportsCreateManyReportInput[]
+    skipDuplicates?: boolean
+  }
+
   export type VerdictCreateWithoutReportInput = {
     id?: string
     verdicts?: VerdictCreateverdictsInput | string[]
@@ -37180,6 +39227,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     verdicts?: VerdictUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportUsersInput = {
@@ -37202,6 +39250,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SteamUserUpsertWithoutReportsAsRecipientInput = {
@@ -37269,6 +39318,22 @@ export namespace Prisma {
     generalPlayerStatistics?: GeneralPlayerStatisticsUncheckedUpdateOneWithoutSteamNestedInput
   }
 
+  export type ContentReportsUpsertWithWhereUniqueWithoutReportInput = {
+    where: ContentReportsWhereUniqueInput
+    update: XOR<ContentReportsUpdateWithoutReportInput, ContentReportsUncheckedUpdateWithoutReportInput>
+    create: XOR<ContentReportsCreateWithoutReportInput, ContentReportsUncheckedCreateWithoutReportInput>
+  }
+
+  export type ContentReportsUpdateWithWhereUniqueWithoutReportInput = {
+    where: ContentReportsWhereUniqueInput
+    data: XOR<ContentReportsUpdateWithoutReportInput, ContentReportsUncheckedUpdateWithoutReportInput>
+  }
+
+  export type ContentReportsUpdateManyWithWhereWithoutReportInput = {
+    where: ContentReportsScalarWhereInput
+    data: XOR<ContentReportsUpdateManyMutationInput, ContentReportsUncheckedUpdateManyWithoutReportInput>
+  }
+
   export type VerdictUpsertWithWhereUniqueWithoutReportInput = {
     where: VerdictWhereUniqueInput
     update: XOR<VerdictUpdateWithoutReportInput, VerdictUncheckedUpdateWithoutReportInput>
@@ -37305,6 +39370,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
+    contentReports?: ContentReportsCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVerdictsInput = {
@@ -37327,6 +39393,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
     reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
+    contentReports?: ContentReportsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVerdictsInput = {
@@ -37343,6 +39410,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     author: UserCreateNestedOneWithoutReportUsersInput
     recipient: SteamUserCreateNestedOneWithoutReportsAsRecipientInput
+    contentReportId?: ContentReportsCreateNestedManyWithoutReportInput
   }
 
   export type ReportUserUncheckedCreateWithoutVerdictsInput = {
@@ -37354,6 +39422,7 @@ export namespace Prisma {
     recipientId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    contentReportId?: ContentReportsUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type ReportUserCreateOrConnectWithoutVerdictsInput = {
@@ -37392,6 +39461,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
+    contentReports?: ContentReportsUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVerdictsInput = {
@@ -37414,6 +39484,7 @@ export namespace Prisma {
     commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
     reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
+    contentReports?: ContentReportsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReportUserUpsertWithoutVerdictsInput = {
@@ -37436,6 +39507,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutReportUsersNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutReportsAsRecipientNestedInput
+    contentReportId?: ContentReportsUpdateManyWithoutReportNestedInput
   }
 
   export type ReportUserUncheckedUpdateWithoutVerdictsInput = {
@@ -37447,6 +39519,7 @@ export namespace Prisma {
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contentReportId?: ContentReportsUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type GeneralPlayerStatisticsCreateWithoutWeaponStatsInput = {
@@ -37631,6 +39704,234 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type UserCreateWithoutContentReportsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserCreateNestedManyWithoutUserInput
+    links?: LinksInProfileCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutContentReportsInput = {
+    id?: string
+    email: string
+    username: string
+    password: string
+    avatar?: string | null
+    role?: $Enums.UserRole
+    additionalRole?: $Enums.AdditionalRole
+    isEmailVerified?: boolean
+    isBanned?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    trackingUsers?: TrackingUserUncheckedCreateNestedManyWithoutUserInput
+    links?: LinksInProfileUncheckedCreateNestedOneWithoutUserInput
+    steamUser?: SteamUserUncheckedCreateNestedOneWithoutUserInput
+    commentsAsAuthor?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    jwtTokens?: JwtTokenUncheckedCreateNestedManyWithoutUserInput
+    reportUsers?: ReportUserUncheckedCreateNestedManyWithoutAuthorInput
+    verdicts?: VerdictUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutContentReportsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutContentReportsInput, UserUncheckedCreateWithoutContentReportsInput>
+  }
+
+  export type CommentCreateWithoutCommentReportInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: ImagesCreateNestedManyWithoutCommentInput
+    author: UserCreateNestedOneWithoutCommentsAsAuthorInput
+    recipient: SteamUserCreateNestedOneWithoutCommentsAsRecipientInput
+  }
+
+  export type CommentUncheckedCreateWithoutCommentReportInput = {
+    id?: string
+    content: string
+    authorId: string
+    recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    images?: ImagesUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutCommentReportInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutCommentReportInput, CommentUncheckedCreateWithoutCommentReportInput>
+  }
+
+  export type ReportUserCreateWithoutContentReportIdInput = {
+    id?: string
+    youtubeLink: string
+    demoLink?: string | null
+    comment?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    author: UserCreateNestedOneWithoutReportUsersInput
+    recipient: SteamUserCreateNestedOneWithoutReportsAsRecipientInput
+    verdicts?: VerdictCreateNestedManyWithoutReportInput
+  }
+
+  export type ReportUserUncheckedCreateWithoutContentReportIdInput = {
+    id?: string
+    youtubeLink: string
+    demoLink?: string | null
+    comment?: string | null
+    authorId: string
+    recipientId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    verdicts?: VerdictUncheckedCreateNestedManyWithoutReportInput
+  }
+
+  export type ReportUserCreateOrConnectWithoutContentReportIdInput = {
+    where: ReportUserWhereUniqueInput
+    create: XOR<ReportUserCreateWithoutContentReportIdInput, ReportUserUncheckedCreateWithoutContentReportIdInput>
+  }
+
+  export type UserUpsertWithoutContentReportsInput = {
+    update: XOR<UserUpdateWithoutContentReportsInput, UserUncheckedUpdateWithoutContentReportsInput>
+    create: XOR<UserCreateWithoutContentReportsInput, UserUncheckedCreateWithoutContentReportsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutContentReportsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutContentReportsInput, UserUncheckedUpdateWithoutContentReportsInput>
+  }
+
+  export type UserUpdateWithoutContentReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutContentReportsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    additionalRole?: EnumAdditionalRoleFieldUpdateOperationsInput | $Enums.AdditionalRole
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    isBanned?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    trackingUsers?: TrackingUserUncheckedUpdateManyWithoutUserNestedInput
+    links?: LinksInProfileUncheckedUpdateOneWithoutUserNestedInput
+    steamUser?: SteamUserUncheckedUpdateOneWithoutUserNestedInput
+    commentsAsAuthor?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    jwtTokens?: JwtTokenUncheckedUpdateManyWithoutUserNestedInput
+    reportUsers?: ReportUserUncheckedUpdateManyWithoutAuthorNestedInput
+    verdicts?: VerdictUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CommentUpsertWithoutCommentReportInput = {
+    update: XOR<CommentUpdateWithoutCommentReportInput, CommentUncheckedUpdateWithoutCommentReportInput>
+    create: XOR<CommentCreateWithoutCommentReportInput, CommentUncheckedCreateWithoutCommentReportInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutCommentReportInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutCommentReportInput, CommentUncheckedUpdateWithoutCommentReportInput>
+  }
+
+  export type CommentUpdateWithoutCommentReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUpdateManyWithoutCommentNestedInput
+    author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
+    recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutCommentReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type ReportUserUpsertWithoutContentReportIdInput = {
+    update: XOR<ReportUserUpdateWithoutContentReportIdInput, ReportUserUncheckedUpdateWithoutContentReportIdInput>
+    create: XOR<ReportUserCreateWithoutContentReportIdInput, ReportUserUncheckedCreateWithoutContentReportIdInput>
+    where?: ReportUserWhereInput
+  }
+
+  export type ReportUserUpdateToOneWithWhereWithoutContentReportIdInput = {
+    where?: ReportUserWhereInput
+    data: XOR<ReportUserUpdateWithoutContentReportIdInput, ReportUserUncheckedUpdateWithoutContentReportIdInput>
+  }
+
+  export type ReportUserUpdateWithoutContentReportIdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: StringFieldUpdateOperationsInput | string
+    demoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    author?: UserUpdateOneRequiredWithoutReportUsersNestedInput
+    recipient?: SteamUserUpdateOneRequiredWithoutReportsAsRecipientNestedInput
+    verdicts?: VerdictUpdateManyWithoutReportNestedInput
+  }
+
+  export type ReportUserUncheckedUpdateWithoutContentReportIdInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    youtubeLink?: StringFieldUpdateOperationsInput | string
+    demoLink?: NullableStringFieldUpdateOperationsInput | string | null
+    comment?: NullableStringFieldUpdateOperationsInput | string | null
+    authorId?: StringFieldUpdateOperationsInput | string
+    recipientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verdicts?: VerdictUncheckedUpdateManyWithoutReportNestedInput
+  }
+
   export type TokenCreateManyUserInput = {
     id?: string
     token: string
@@ -37690,6 +39991,17 @@ export namespace Prisma {
     reportId: string
     verdicts?: VerdictCreateverdictsInput | string[]
     comment?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContentReportsCreateManyUserInput = {
+    id?: string
+    commentId?: string | null
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -37788,6 +40100,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: ImagesUpdateManyWithoutCommentNestedInput
     recipient?: SteamUserUpdateOneRequiredWithoutCommentsAsRecipientNestedInput
+    commentReport?: ContentReportsUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutAuthorInput = {
@@ -37797,6 +40110,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
+    commentReport?: ContentReportsUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateManyWithoutAuthorInput = {
@@ -37836,6 +40150,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recipient?: SteamUserUpdateOneRequiredWithoutReportsAsRecipientNestedInput
+    contentReportId?: ContentReportsUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUpdateManyWithoutReportNestedInput
   }
 
@@ -37847,6 +40162,7 @@ export namespace Prisma {
     recipientId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contentReportId?: ContentReportsUncheckedUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutReportNestedInput
   }
 
@@ -37887,6 +40203,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ContentReportsUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comment?: CommentUpdateOneWithoutCommentReportNestedInput
+    report?: ReportUserUpdateOneWithoutContentReportIdNestedInput
+  }
+
+  export type ContentReportsUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommentCreateManyRecipientInput = {
     id?: string
     content: string
@@ -37912,6 +40261,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: ImagesUpdateManyWithoutCommentNestedInput
     author?: UserUpdateOneRequiredWithoutCommentsAsAuthorNestedInput
+    commentReport?: ContentReportsUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutRecipientInput = {
@@ -37921,6 +40271,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     images?: ImagesUncheckedUpdateManyWithoutCommentNestedInput
+    commentReport?: ContentReportsUncheckedUpdateManyWithoutCommentNestedInput
   }
 
   export type CommentUncheckedUpdateManyWithoutRecipientInput = {
@@ -37939,6 +40290,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     author?: UserUpdateOneRequiredWithoutReportUsersNestedInput
+    contentReportId?: ContentReportsUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUpdateManyWithoutReportNestedInput
   }
 
@@ -37950,6 +40302,7 @@ export namespace Prisma {
     authorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contentReportId?: ContentReportsUncheckedUpdateManyWithoutReportNestedInput
     verdicts?: VerdictUncheckedUpdateManyWithoutReportNestedInput
   }
 
@@ -38293,6 +40646,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ContentReportsCreateManyCommentInput = {
+    id?: string
+    userId: string
+    reportId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ImagesUpdateWithoutCommentInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
@@ -38314,6 +40678,50 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ContentReportsUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutContentReportsNestedInput
+    report?: ReportUserUpdateOneWithoutContentReportIdNestedInput
+  }
+
+  export type ContentReportsUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reportId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsCreateManyReportInput = {
+    id?: string
+    userId: string
+    commentId?: string | null
+    userComment: string
+    type: $Enums.ContentReportType
+    isResolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type VerdictCreateManyReportInput = {
     id?: string
     userId: string
@@ -38321,6 +40729,39 @@ export namespace Prisma {
     comment?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ContentReportsUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutContentReportsNestedInput
+    comment?: CommentUpdateOneWithoutCommentReportNestedInput
+  }
+
+  export type ContentReportsUncheckedUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContentReportsUncheckedUpdateManyWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userComment?: StringFieldUpdateOperationsInput | string
+    type?: EnumContentReportTypeFieldUpdateOperationsInput | $Enums.ContentReportType
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VerdictUpdateWithoutReportInput = {

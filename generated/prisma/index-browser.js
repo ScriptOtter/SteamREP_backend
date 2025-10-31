@@ -375,6 +375,18 @@ exports.Prisma.HitScalarFieldEnum = {
   kills: 'kills'
 };
 
+exports.Prisma.ContentReportsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  commentId: 'commentId',
+  reportId: 'reportId',
+  userComment: 'userComment',
+  type: 'type',
+  isResolved: 'isResolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -447,6 +459,11 @@ exports.MatchResult = exports.$Enums.MatchResult = {
   DRAW: 'DRAW'
 };
 
+exports.ContentReportType = exports.$Enums.ContentReportType = {
+  COMMENT: 'COMMENT',
+  REPORT: 'REPORT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   TrackingUser: 'TrackingUser',
@@ -468,7 +485,8 @@ exports.Prisma.ModelName = {
   ReportUser: 'ReportUser',
   Verdict: 'Verdict',
   WeaponStats: 'WeaponStats',
-  Hit: 'Hit'
+  Hit: 'Hit',
+  ContentReports: 'ContentReports'
 };
 
 /**

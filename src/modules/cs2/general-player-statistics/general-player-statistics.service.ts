@@ -143,14 +143,8 @@ export class GeneralPlayerStatisticsService {
           where: { userId: steamid },
           include: { MapRanks: true },
         });
-      if (
-        !genStat?.faceit ||
-        !genStat.premier ||
-        !genStat.faceit_elo ||
-        !genStat.inGameSinse ||
-        !genStat.wingman ||
-        genStat.MapRanks.toString() === ''
-      )
+
+      if (!genStat || genStat.MapRanks.toString() === '')
         await this.getInitialRanks(steamid);
       if (
         genStat &&

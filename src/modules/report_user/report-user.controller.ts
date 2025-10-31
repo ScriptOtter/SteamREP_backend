@@ -7,13 +7,12 @@ import {
   Param,
   Post,
   Req,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ReportUserService } from './report-user.service';
 import { JwtAccessGuard } from 'src/guards/jwt_access.guard';
 import { CreateReportDto } from './dto/createReport.dto';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { sendVerdictDto } from './dto/sendVerdict.dto';
 import { SteamVerificationGuard } from 'src/shared/Guards/steamVerification.guard';
 

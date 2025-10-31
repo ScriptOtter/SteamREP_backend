@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateReportDto } from './dto/createReport.dto';
@@ -6,6 +11,7 @@ import { PrismaClientKnownRequestError } from 'generated/prisma/runtime/library'
 import { sendVerdictDto } from './dto/sendVerdict.dto';
 import { TokenService } from '../auth/tokens/tokens.service';
 import { SteamService } from '../steam/steam.service';
+import { GCService } from '../cs2/steam-information/gc.service';
 
 @Injectable()
 export class ReportUserService {
@@ -13,13 +19,58 @@ export class ReportUserService {
     private readonly prisma: PrismaService,
     private readonly tokenService: TokenService,
     private readonly steamService: SteamService,
+    private readonly gc: GCService,
   ) {}
 
   async createReport(dto: CreateReportDto, req: Request): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
     const recipientId = await this.steamService.getSteam64Id(dto.recipientId);
-    if (dto.demoLink?.trim() === '' || dto.youtubeLink?.trim() === '')
+    if (dto.demoLink?.trim() === '' && dto.youtubeLink?.trim() === '')
       throw new BadRequestException('Please provide a link to YouTube or demo');
+    const user = await this.prisma.steamUser.findUnique({
+      where: { userId },
+    });
+    if (!user)
+      throw new BadRequestException(
+        'Steam account is not connected to the site',
+      );
+    const isActiveGC = await this.gc.getAccountInformation(user.id);
+    if (isActiveGC) {
+      throw new BadGatewayException(
+        'Unable to retrieve match details. Please contact support',
+      );
+    }
+    if (
+      dto.demoLink &&
+      !dto.demoLink?.startsWith('steam://rungame/730/') &&
+      (await this.gc.getMatchInfoFromSharedCode(dto.demoLink.split('%20')[1]))
+    ) {
+      throw new BadRequestException('Demo link not valid!');
+    }
+
+    if (
+      !dto.youtubeLink.startsWith('https://www.youtube.com/watch?v=') &&
+      !dto.youtubeLink.startsWith('https://youtu.be/')
+    )
+      throw new BadRequestException('Youtube link not valid!');
+    const steam = await this.prisma.steamUser.findFirst({ where: { userId } });
+    if (!steam) throw new UnauthorizedException('Please log in');
+    if (steam.id === recipientId)
+      throw new BadRequestException(
+        'It is not possible to send a report on yourself',
+      );
+
+    const match = await this.prisma.reportUser.findFirst({
+      where: {
+        authorId: userId,
+        recipientId,
+        demoLink: dto.demoLink,
+        youtubeLink: dto.youtubeLink,
+      },
+    });
+    if (match) {
+      throw new BadRequestException('You have already sent a report earlier');
+    }
     try {
       const report = await this.prisma.reportUser.create({
         data: {
@@ -55,7 +106,7 @@ export class ReportUserService {
         await this.prisma.verdict.delete({ where: { id: verdict.id } });
         throw new BadRequestException('Try again later!');
       }
-      console.log(report);
+
       return updatedReport;
     } catch (e) {
       console.log(e);
@@ -78,13 +129,12 @@ export class ReportUserService {
   async getDemosWithoutVerdicts(req: Request): Promise<any> {
     let userId;
 
-    if (req.cookies.refreshToken) {
+    if (req.cookies.SteamREP_refreshToken) {
       userId = await this.tokenService.getIdFromToken(req);
     } else userId = '';
 
-    console.log('asdfdasd23232', userId);
     const reports = await this.prisma.reportUser.findMany({
-      where: { verdicts: { every: { NOT: { userId: userId } } } },
+      where: { verdicts: { none: { userId } } },
       include: {
         verdicts: { select: { verdicts: true } },
         author: {
@@ -121,7 +171,10 @@ export class ReportUserService {
     const userId = await this.tokenService.getIdFromToken(req);
 
     const reports = await this.prisma.reportUser.findMany({
-      where: { verdicts: { some: { userId: userId } } },
+      where: {
+        verdicts: { some: { userId: userId } },
+        author: { NOT: { id: userId } },
+      },
       include: {
         verdicts: {
           where: { userId: userId },
@@ -217,25 +270,32 @@ export class ReportUserService {
     dto: sendVerdictDto,
   ): Promise<any> {
     const userId = await this.tokenService.getIdFromToken(req);
-    console.log(dto);
+
     if (!param) {
       throw new BadRequestException('Wrong URL!');
     }
-    console.log(dto.verdict);
+
     if (dto.verdict.toString() === '') {
       throw new BadRequestException('Verdicts is null!');
     }
-    const verdictUser = await this.prisma.verdict.create({
-      data: {
-        userId: userId,
-        reportId: param,
-        verdicts: dto.verdict,
-        comment: dto.comment,
-      },
+    const verdict = await this.prisma.verdict.findFirst({
+      where: { userId, id: param },
     });
-    if (!verdictUser) {
-      throw new BadRequestException('Try again!');
+
+    if (!verdict) {
+      const verdictUser = await this.prisma.verdict.create({
+        data: {
+          userId: userId,
+          reportId: param,
+          verdicts: dto.verdict,
+          comment: dto.comment,
+        },
+      });
+      if (!verdictUser) {
+        throw new BadRequestException('Try again!');
+      }
+
+      return verdictUser;
     }
-    return verdictUser;
   }
 }

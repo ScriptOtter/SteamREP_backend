@@ -24,6 +24,7 @@ import { GeneralPlayerStatisticsModule } from 'src/modules/cs2/general-player-st
 import { MatchModule } from 'src/modules/cs2/match/match.module';
 import { Cs2Module } from 'src/modules/cs2/cs2.module';
 import { SocketModule } from 'src/socket/socket.module';
+import { ContentReportsModule } from 'src/modules/content_reports/content-reports.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { SocketModule } from 'src/socket/socket.module';
     MatchModule,
     Cs2Module,
     SocketModule,
+    ContentReportsModule,
   ],
   controllers: [UserController, ProtectedController],
   providers: [UserService, SocialLinksService],

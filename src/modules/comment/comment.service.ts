@@ -70,9 +70,10 @@ export class CommentService {
       const findComment = await this.prisma.comment.findMany({
         where: { authorId: userId, recipientId: await steamid(id) },
       });
+
       if (
         findComment &&
-        findComment.length > COMMENTS_RULES[userRole.additionalRole]
+        findComment.length >= COMMENTS_RULES[userRole.additionalRole]
       )
         throw new ForbiddenException(
           `Your role can only leave ${COMMENTS_RULES[userRole.additionalRole]} comment per user`,
@@ -81,7 +82,7 @@ export class CommentService {
 
       if (fileCount > IMAGES_RULES[userRole.additionalRole]) {
         throw new ForbiddenException(
-          `You can upload more than ${IMAGES_RULES[userRole.additionalRole]} images`,
+          `You can't upload more than ${IMAGES_RULES[userRole.additionalRole]} images`,
         );
       }
       const uploadedFiles = await this.S3.uploadFiles(files);
