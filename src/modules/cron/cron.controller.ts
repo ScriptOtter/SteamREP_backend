@@ -20,6 +20,7 @@ export class CronController {
     this.logger.log('Updating steam profiles');
     return this.cronService.updateSteamProfile();
   }
+
   @Cron('0 0 * * *')
   public async vacChecker() {
     this.logger.log('VAC Checker');

@@ -472,7 +472,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\gamec\\SteamREP_backend\\generated\\prisma",
+      "value": "C:\\Users\\sex\\Desktop\\SteamREP_backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -486,7 +486,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\gamec\\SteamREP_backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\sex\\Desktop\\SteamREP_backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -500,6 +500,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

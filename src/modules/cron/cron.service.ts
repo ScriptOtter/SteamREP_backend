@@ -94,33 +94,67 @@ export class CronService {
     interface IResponse {
       players: IUser[];
     }
-    const users = await this.prismaService.steamUserBans.findMany({
+    const userData = await this.prismaService.steamUser.findMany();
+    for (const i of userData) {
+      const data = await this.prismaService.steamUserBans.findUnique({
+        where: { id: i.id },
+      });
+      if (!data) {
+        await this.prismaService.steamUserBans.create({ data: { id: i.id } });
+      }
+    }
+    const users = await this.prismaService.steamUser.findMany({
       where: {
-        OR: [{ vacBanned: false }],
+        OR: [{ steamUserBans: { vacBanned: false } }],
       },
     });
     let players: string[] = [];
+    let VACBansToday: number = 0;
+    let count = 0;
     for (let index = 0; index < users.length; index++) {
       players.push(users[index].id);
-    }
-    const res: AxiosResponse<IResponse> =
-      await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=B0C642A55BA751013BA4CE32AAF8D905&steamids=${players}
+      count += 1;
+
+      if (count % 25 === 0) {
+        const res: AxiosResponse<IResponse> =
+          await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=B0C642A55BA751013BA4CE32AAF8D905&steamids=${players}
 `);
-    let VACBansToday: number = 0;
-    for (const user of res.data.players) {
-      if (user.VACBanned) VACBansToday = +1;
-      await this.prismaService.steamUserBans.update({
-        where: { id: user.SteamId },
-        data: {
-          communityBanned: user.CommunityBanned,
-          economyBan: user.EconomyBan,
-          daysSinceLastBan: user.DaysSinceLastBan,
-          gameBans: user.NumberOfGameBans,
-          vacBans: user.NumberOfVACBans,
-          vacBanned: user.VACBanned,
-        },
-      });
+
+        for (const user of res.data.players) {
+          if (user.VACBanned) VACBansToday = +1;
+          const userBans = await this.prismaService.steamUserBans.findUnique({
+            where: { id: user.SteamId },
+          });
+
+          if (!userBans) {
+            await this.prismaService.steamUserBans.create({
+              data: {
+                communityBanned: user.CommunityBanned,
+                economyBan: user.EconomyBan,
+                daysSinceLastBan: user.DaysSinceLastBan,
+                gameBans: user.NumberOfGameBans,
+                id: user.SteamId,
+                vacBanned: user.VACBanned,
+                vacBans: user.NumberOfVACBans,
+              },
+            });
+          } else
+            await this.prismaService.steamUserBans.update({
+              where: { id: user.SteamId },
+              data: {
+                communityBanned: user.CommunityBanned,
+                economyBan: user.EconomyBan,
+                daysSinceLastBan: user.DaysSinceLastBan,
+                gameBans: user.NumberOfGameBans,
+                vacBans: user.NumberOfVACBans,
+                vacBanned: user.VACBanned,
+              },
+            });
+          players = [];
+        }
+      }
     }
+    count = 0;
     console.log('VACBansToday:', VACBansToday);
     await this.prismaService.vac.create({ data: { number: VACBansToday } });
   }

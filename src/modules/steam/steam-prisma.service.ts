@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { tradeItApi } from '../api/tradeit';
 import { NotificationsService } from '../notifications/notifications.service';
 import { systemTemplates } from '../notifications/templates/system';
+import axios, { AxiosResponse } from 'axios';
 
 @Injectable()
 export class SteamPrismaService {
@@ -122,6 +123,49 @@ export class SteamPrismaService {
           lastUpdateSteamInformation: new Date(new Date().getDate() - 1),
         },
       });
+      interface IUser {
+        SteamId: string;
+        CommunityBanned: boolean;
+        VACBanned: boolean;
+        NumberOfVACBans: number;
+        DaysSinceLastBan: number;
+        NumberOfGameBans: number;
+        EconomyBan: string;
+      }
+      interface IResponse {
+        players: IUser[];
+      }
+      const bans: AxiosResponse<IResponse> =
+        await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=B0C642A55BA751013BA4CE32AAF8D905&steamids=${id}
+`);
+      const userBans = await this.prisma.steamUserBans.findUnique({
+        where: { id: bans.data.players[0].SteamId },
+      });
+
+      if (!userBans) {
+        await this.prisma.steamUserBans.create({
+          data: {
+            communityBanned: bans.data.players[0].CommunityBanned,
+            economyBan: bans.data.players[0].EconomyBan,
+            daysSinceLastBan: bans.data.players[0].DaysSinceLastBan,
+            gameBans: bans.data.players[0].NumberOfGameBans,
+            id: bans.data.players[0].SteamId,
+            vacBanned: bans.data.players[0].VACBanned,
+            vacBans: bans.data.players[0].NumberOfVACBans,
+          },
+        });
+      } else
+        await this.prisma.steamUserBans.update({
+          where: { id: bans.data.players[0].SteamId },
+          data: {
+            communityBanned: bans.data.players[0].CommunityBanned,
+            economyBan: bans.data.players[0].EconomyBan,
+            daysSinceLastBan: bans.data.players[0].DaysSinceLastBan,
+            gameBans: bans.data.players[0].NumberOfGameBans,
+            vacBanned: bans.data.players[0].VACBanned,
+            vacBans: bans.data.players[0].NumberOfVACBans,
+          },
+        });
 
       console.timeEnd(`${id}${random}`);
     } catch (e) {}
