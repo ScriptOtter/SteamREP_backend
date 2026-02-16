@@ -23,8 +23,6 @@
 
 ## Description
 
-## SteamREP Backend Server
-
 The server-side part of the SteamREP project is a high-load platform for collecting, processing, and analyzing Counter-Strike 2 game statistics, as well as Steam user data. The backend provides complete infrastructure for interacting with the Steam API, database, and the website's client-side.
 
 ### Key Server Functions
@@ -91,4 +89,5 @@ S3_DEMOS_BUCKET_NAME=
 S3_ACCESS_KEY=
 S3_SECRET_KEY=
 ```
+
 
