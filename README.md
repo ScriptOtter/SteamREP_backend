@@ -63,7 +63,7 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-Enviroments
+## Enviroments
 ```
 NODE_ENV='development'
 
@@ -91,3 +91,4 @@ S3_DEMOS_BUCKET_NAME=
 S3_ACCESS_KEY=
 S3_SECRET_KEY=
 ```
+
