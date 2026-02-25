@@ -62,7 +62,7 @@ $ yarn run start:prod
 ```
 
 ## Enviroments
-```
+```env
 NODE_ENV='development'
 
 SERVER_URL=
@@ -89,5 +89,6 @@ S3_DEMOS_BUCKET_NAME=
 S3_ACCESS_KEY=
 S3_SECRET_KEY=
 ```
+
 
 
